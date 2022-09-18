@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="make more time">
+    <meta name="author" content="notfornothing">
+    
+    <title>
+        
+            MySQL 总结（二） |
+        
+        Sparrow
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Sparrow
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MySQL 总结（二）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">notfornothing</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-11-25 18:14:11
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>7 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
+<p>写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章</p>
+</blockquote>
+<hr>
+<h2 id="为什么-where-不能用字段别名。因为-mysql-执行顺序："><a href="#为什么-where-不能用字段别名。因为-mysql-执行顺序：" class="headerlink" title="为什么 where 不能用字段别名。因为 mysql 执行顺序："></a>为什么 where 不能用<code>字段</code>别名。因为 mysql <strong>执行顺序</strong>：</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 错误：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name        <span class="comment">-- 最后再 select 生成字段</span></span><br><span class="line"><span class="keyword">from</span> employees                  <span class="comment">-- 先执行 from 哪个表</span></span><br><span class="line"><span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;  <span class="comment">-- 再执行 where 条件</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="limit-使用方法"><a href="#limit-使用方法" class="headerlink" title="limit 使用方法"></a>limit 使用方法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 这条语句意思是 从第 51 条数据（包括 51) 开始数，数 10 条数据出来</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">50</span>,<span class="number">10</span>;</span><br><span class="line"><span class="comment">-- 前端传第几页可以这样给：</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit (currentPage<span class="number">-1</span>)<span class="operator">*</span>pageSize,pageSize;</span><br><span class="line"><span class="comment">---------------------------------</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">0</span>,<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。"><a href="#从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。" class="headerlink" title="从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。"></a>从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</h2><blockquote>
+<p>E-R 图<br><img src="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/Snipaste_2022-03-17_17-35-04.jpg" alt="PANGU_DISABLE"></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- 正确：</span><br><span class="line">select employees.department_id, departments.department_id, employees.employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br><span class="line"></span><br><span class="line">-- 正确（但是不高效）：</span><br><span class="line">select employees.department_id, departments.department_id, employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名"><a href="#如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名" class="headerlink" title="如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名"></a>如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- 正确</span><br><span class="line">select employee_id, dept.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where emp.department_id = dept.department_id;</span><br><span class="line"></span><br><span class="line">-- 错误</span><br><span class="line">select employee_id, departments.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。"><a href="#UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。" class="headerlink" title="UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。"></a>UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</h2><hr>
+<h2 id="COUNT-是计算不包括-null-的个数"><a href="#COUNT-是计算不包括-null-的个数" class="headerlink" title="COUNT() 是计算不包括 null 的个数"></a>COUNT() 是计算不包括 null 的个数</h2><hr>
+<h2 id="酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？"><a href="#酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？" class="headerlink" title="酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？"></a>酷<code>COUNT(*)</code>,<code>COUNT(1)</code>,<code>COUNT（字段）</code>哪个效率更高？</h2><p>如果是 MyISAM 存储引擎，三者效率都一样，因为这个引擎有一个字段专门存多少行的。<br>如果是 InnoDB 存储引擎，则效率：<code>COUNT(1)</code>=<code>COUNT(*)</code>&gt;<code>COUNT（字段）</code>, 因为这个引擎会自动找 len 最短的去 count, 指定了字段没法优化。</p>
+<hr>
+<h2 id="这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。"><a href="#这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。" class="headerlink" title="这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。"></a>这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">正确</span><br><span class="line"><span class="keyword">select</span> job_id j,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> j;</span><br><span class="line"></span><br><span class="line">也正确</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br><span class="line"></span><br><span class="line">错误：</span><br><span class="line"><span class="keyword">select</span> employee_id,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY"><a href="#HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY" class="headerlink" title="HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY"></a>HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</h2><hr>
+<h2 id="where-和-having-效率区别，以及使用区别"><a href="#where-和-having-效率区别，以及使用区别" class="headerlink" title="where 和 having 效率区别，以及使用区别"></a>where 和 having 效率区别，以及使用区别</h2><p>没有聚合函数的情况下最好用 where 先判断条件。然后再分组再用 having 去操作条件，不然会 把没用的数据也给分组，浪费性能。<br>where 后面不能跟聚合函数，因为你就一组你没分组聚合按照条件没有意义啊。但是 HAVING 可以因为你分了很多个组所以就可以筛选。</p>
+<hr>
+<h2 id="mysql-执行顺序"><a href="#mysql-执行顺序" class="headerlink" title="mysql 执行顺序"></a>mysql 执行顺序</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 这里后执行</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line"><span class="keyword">JOIN</span>        这里先执行，且按顺序执行</span><br><span class="line"><span class="keyword">ON</span></span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>    很奇怪的是这里可以用 <span class="keyword">SELECT</span> 字段的别名</span><br><span class="line"><span class="keyword">HAVING</span>      <span class="keyword">HAVING</span> 也能用，按道理执行顺序是不可以的</span><br><span class="line">            这是 MYSQL 可以的，特例这是。</span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>    这里最后执行</span><br><span class="line">LIMIT</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。"><a href="#GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。" class="headerlink" title="GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。"></a>GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</h2><hr>
+<h2 id="MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以"><a href="#MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以" class="headerlink" title="MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以"></a>MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</h2><hr>
+<h2 id="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化"><a href="#子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化" class="headerlink" title="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化"></a>子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</h2><hr>
+<h2 id="mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写"><a href="#mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写" class="headerlink" title="mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)"></a>mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</h2><hr>
+<h2 id="mysql-创建表有两种方式"><a href="#mysql-创建表有两种方式" class="headerlink" title="mysql 创建表有两种方式"></a>mysql 创建表有两种方式</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 一个一个创建</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1</span><br><span class="line">(</span><br><span class="line">    id   <span class="type">int</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> t1</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>),</span><br><span class="line">       (<span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> t1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="DDL-DML-DCL-TCL"><a href="#DDL-DML-DCL-TCL" class="headerlink" title="DDL,DML,DCL,TCL"></a>DDL,DML,DCL,TCL</h2><ul>
+<li><p>DDL:Data Definition Language (DDL)数据库定义语句</p>
+<blockquote>
+<p>用来创建数据库中的表、索引、视图、存储过程、触发器等<br>CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME</p>
+</blockquote>
+</li>
+<li><p>DML:Data Manipulation Language (DML)数据操纵语句</p>
+<blockquote>
+<p>用来查询、添加、更新、删除等<br>SELECT,INSERT,UPDATE,DELETE,MERGE,CALL,EXPLAIN PLAN,LOCK TABLE</p>
+</blockquote>
+</li>
+<li><p>DCL:Data Control Language (DCL)数据控制语句</p>
+<blockquote>
+<p>用于授权/撤销数据库及其字段的权限<br>GRANT,REVOKE。</p>
+</blockquote>
+</li>
+<li><p>TCL:Transaction Control Language (TCL)事务控制语句</p>
+<blockquote>
+<p>用于控制事务<br>COMMIT,ROLLBACK,SAVEPOINT,SET TRANSACTION</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="DROP-表结构和表数据都会删除，释放表空间"><a href="#DROP-表结构和表数据都会删除，释放表空间" class="headerlink" title="DROP 表结构和表数据都会删除，释放表空间"></a>DROP 表结构和表数据都会删除，释放表空间</h2><hr>
+<h2 id="TRUNCATE-只会清空表数据，但是保留表结构"><a href="#TRUNCATE-只会清空表数据，但是保留表结构" class="headerlink" title="TRUNCATE 只会清空表数据，但是保留表结构"></a>TRUNCATE 只会清空表数据，但是保留表结构</h2><hr>
+<h2 id="TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，"><a href="#TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，" class="headerlink" title="TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，"></a>TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</h2><hr>
+<h2 id="ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"><a href="#ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。" class="headerlink" title="ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"></a>ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</h2><hr>
+<h2 id="TRUNCATE-和-DELETE-FROM-异同点"><a href="#TRUNCATE-和-DELETE-FROM-异同点" class="headerlink" title="TRUNCATE 和 DELETE FROM 异同点"></a>TRUNCATE 和 DELETE FROM 异同点</h2><ul>
+<li>相同：<ul>
+<li>都可以实现对数据的删除，同时保留表结构</li>
+</ul>
+</li>
+<li>不同:<ul>
+<li>DELETE FROM 是DML，TRUNCATE是DDL</li>
+<li>TRUNCATE TABLE 不能回滚！！！</li>
+<li>注意：COMMIT 在DML中是默认开启的，即set autocommit=true，这是默认开启的，所以delete默认也不能回滚，只能设置为false才能回滚。</li>
+<li>但是TRUNCATE不会触发TRIGGER（日志记录）所以是个危险操作尽量不用，虽然效率高。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="MySQL-8-0-有DDL的原子性，但是5-7没有。即："><a href="#MySQL-8-0-有DDL的原子性，但是5-7没有。即：" class="headerlink" title="MySQL 8.0 有DDL的原子性，但是5.7没有。即："></a>MySQL 8.0 有DDL的原子性，但是5.7没有。即：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- mysql8.0</span><br><span class="line">CREATE TABLE table1();</span><br><span class="line">DROP table1,table2;</span><br><span class="line">-- 因为table2不存在，所以不会成功。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="MyBatis-用-的情况，用到表名做参数的时候就用这个。"><a href="#MyBatis-用-的情况，用到表名做参数的时候就用这个。" class="headerlink" title="MyBatis 用${}的情况，用到表名做参数的时候就用这个。"></a>MyBatis 用${}的情况，用到表名做参数的时候就用这个。</h2><hr>
+<h2 id="INSERT-添加可以添加查询结果："><a href="#INSERT-添加可以添加查询结果：" class="headerlink" title="INSERT 添加可以添加查询结果："></a>INSERT 添加可以添加查询结果：</h2><ul>
+<li>但是要注意添加的字段要和查询的字段对应。</li>
+<li>字段的范围也要对应,对应或者大于。如果里面的数据没有那么长，那可以。但是最好还是大于等于。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT into emp(id,name)</span><br><span class="line">select id,name </span><br><span class="line">from emp2;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。"><a href="#UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。" class="headerlink" title="UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。"></a>UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</h2><hr>
+<h2 id="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"><a href="#小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED" class="headerlink" title="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"></a>小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</h2><hr>
+<h2 id="CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来"><a href="#CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来" class="headerlink" title="CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来"></a>CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</h2><hr>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
+<li>not null</li>
+<li>unique</li>
+<li>check 5.7没有,8.0有，<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table test01(</span><br><span class="line">id int,</span><br><span class="line">last_name varchar(15)，</span><br><span class="line">salary decimal(10,2) check(salary&gt;2000))</span><br></pre></td></tr></table></figure></li>
+<li>DEFAULT</li>
+</ul>
+<hr>
+<h2 id="行级约束，表级约束"><a href="#行级约束，表级约束" class="headerlink" title="行级约束，表级约束"></a>行级约束，表级约束</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table test1(</span><br><span class="line">id INT UNIQUE, -- 行级约束</span><br><span class="line">last_name VARCHAR(15),</span><br><span class="line">email VARCHAR(15),</span><br><span class="line">CONSTRAINT uk_test1_email UNIQUE(emial) -- 表级约束</span><br><span class="line">-- NOT NULL 没有表级约束</span><br><span class="line">)</span><br><span class="line">-- 这里给约束命名了，默认不给的话是和列名相同的</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNIQUE-可以有null，但是可以有多个null，"><a href="#UNIQUE-可以有null，但是可以有多个null，" class="headerlink" title="UNIQUE 可以有null，但是可以有多个null，"></a>UNIQUE 可以有null，但是可以有多个null，</h2><hr>
+<h2 id="mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"><a href="#mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决" class="headerlink" title="mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin=XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"></a>mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin=XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</h2><hr>
+<h2 id="UTF8mb4和UTF8mb3"><a href="#UTF8mb4和UTF8mb3" class="headerlink" title="UTF8mb4和UTF8mb3"></a>UTF8mb4和UTF8mb3</h2><ul>
+<li>utf8mb3:1~3个字节表示字符</li>
+<li>utf8mb4:1~4个字节表示字符<br>mysql utf8 默认是utf8mb3。utf8mb4用于emoji表情一般；</li>
+</ul>
+<hr>
+<h2 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h2><ul>
+<li>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器-&gt;找存储引擎API看用的哪个engine</li>
+</ul>
+<hr>
+<h2 id="InnoDB-的好处"><a href="#InnoDB-的好处" class="headerlink" title="InnoDB 的好处"></a>InnoDB 的好处</h2><ul>
+<li>你可以<code>show engines</code>看到，支持事物和分布式</li>
+</ul>
+<hr>
+<h2 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h2><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外键</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>事物</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>行表锁</td>
+<td>表锁，即使操作一条记录会锁住整个表，不适合高并发</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>只缓存索引，不缓存真实数据,增加查询很多优选选</td>
+<td>缓存和数据都是真实数据，都是 .idb 结尾的文件,使用的时候会更占据内存 ,</td>
+</tr>
+<tr>
+<td>关注点</td>
+<td>性能：节省资源，消耗少，简单业务</td>
+<td>事物：并发写，事物，更大资源</td>
+</tr>
+<tr>
+<td>默认安装</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>默认使用</td>
+<td>No(MySQL 5.5 之前 Yes)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>增加查询多用MyISAM</td>
+<td>更新删除多优选选InnoDB</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Map 中引用遇到的问题</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java实现天气预报</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
+                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: 'welcome 评论~~~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'notfornothing';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>1999</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E6%B3%A8%E6%84%8F%E7%9A%84%E7%82%B9%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">MySQL 注意的点：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-where-%E4%B8%8D%E8%83%BD%E7%94%A8%E5%AD%97%E6%AE%B5%E5%88%AB%E5%90%8D%E3%80%82%E5%9B%A0%E4%B8%BA-mysql-%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">为什么 where 不能用字段别名。因为 mysql 执行顺序：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#limit-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">limit 使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E-sql-%E4%BC%98%E5%8C%96%E6%9D%A5%E8%AF%B4%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%AD%97%E6%AE%B5%E6%9C%80%E5%A5%BD%E9%83%BD%E6%8C%87%E6%98%8E%E8%A1%A8%E5%90%8D%E3%80%82%E5%87%8F%E5%B0%91-sql-%E6%89%BE%E5%AD%97%E6%AE%B5%E7%9A%84%E6%97%B6%E9%97%B4%E3%80%82%E5%BD%93%E7%84%B6%E5%A6%82%E6%9E%9C%E6%9C%89%E5%90%8C%E6%A0%B7%E7%9A%84%E5%AD%97%E6%AE%B5%E9%82%A3%E8%82%AF%E5%AE%9A%E5%BE%97%E6%8C%87%E5%AE%9A%E7%9A%84%E3%80%82"><span class="nav-number">1.3.</span> <span class="nav-text">从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E7%BB%99%E8%A1%A8%E8%B5%B7%E4%BA%86%E5%88%AB%E5%90%8D%EF%BC%8C%E5%9C%A8-select-%E6%88%96%E8%80%85-where-%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%A1%A8%E5%90%8D%E7%9A%84%E8%AF%9D%EF%BC%8C%E5%BF%85%E9%A1%BB%E7%94%A8%E5%88%AB%E5%90%8D%EF%BC%8C%E5%90%A6%E5%88%99%E6%8A%A5%E9%94%99%E3%80%82%E5%9B%A0%E4%B8%BA-mysql-%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%EF%BC%8C%E8%A1%A8%E7%9A%84%E5%88%AB%E5%90%8D%E4%BC%9A%E8%A6%86%E7%9B%96%E8%A1%A8%E5%90%8D"><span class="nav-number">1.4.</span> <span class="nav-text">如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNION-%E6%93%8D%E4%BD%9C%E4%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%A4%E4%B8%AA%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E7%9A%84%E5%B9%B6%E9%9B%86%EF%BC%8C%E4%BC%9A%E5%8E%BB%E9%99%A4%E7%9B%B8%E5%90%8C%E7%9A%84%E8%AE%B0%E5%BD%95%EF%BC%8C%E8%80%8C-UNION-ALL-%E4%B8%8D%E4%BC%9A%E5%8E%BB%E9%87%8D%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%B8%8D%E5%8E%BB%E9%87%8D%E5%B0%B1%E4%B8%8D%E5%8E%BB%E9%87%8D%E7%9A%84%E5%86%99%E6%B3%95%EF%BC%8C%E5%8E%BB%E9%87%8D%E6%98%AF-mysql-%E5%8E%BB%E9%87%8D%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5-UNION-ALL-%E6%95%88%E7%8E%87%E9%AB%98%E3%80%82"><span class="nav-number">1.5.</span> <span class="nav-text">UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COUNT-%E6%98%AF%E8%AE%A1%E7%AE%97%E4%B8%8D%E5%8C%85%E6%8B%AC-null-%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">COUNT() 是计算不包括 null 的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%B7COUNT-COUNT-1-COUNT%EF%BC%88%E5%AD%97%E6%AE%B5%EF%BC%89%E5%93%AA%E4%B8%AA%E6%95%88%E7%8E%87%E6%9B%B4%E9%AB%98%EF%BC%9F"><span class="nav-number">1.7.</span> <span class="nav-text">酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%98%AF%E7%BB%93%E8%AE%BA%EF%BC%9AGROUP-BY-%E8%AF%AD%E5%8F%A5%E4%B8%AD%EF%BC%8Cselect-%E5%AD%97%E6%AE%B5%E4%B8%AD%E5%8F%AA%E8%83%BD%E5%AD%98%E5%9C%A8%E9%99%A4%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84-GROUP-BY-%E5%AD%97%E6%AE%B5%E3%80%82%E5%90%A6%E5%88%99%E6%9F%A5%E5%87%BA%E6%9D%A5%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B2%A1%E6%9C%89%E6%84%8F%E4%B9%89%E3%80%82"><span class="nav-number">1.8.</span> <span class="nav-text">这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HAVING-%E5%BF%85%E9%A1%BB%E5%9C%A8-GROUP-BY-%E7%9A%84%E5%90%8E%E9%9D%A2%EF%BC%8C%E4%BD%BF%E7%94%A8-HAVING-%E7%9A%84%E5%89%8D%E6%8F%90%E6%98%AF%E6%9C%89-GROUP-BY"><span class="nav-number">1.9.</span> <span class="nav-text">HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where-%E5%92%8C-having-%E6%95%88%E7%8E%87%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%8C%BA%E5%88%AB"><span class="nav-number">1.10.</span> <span class="nav-text">where 和 having 效率区别，以及使用区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.11.</span> <span class="nav-text">mysql 执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GROUP-BY-%E5%92%8C-HAVING-%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-select-%E5%AD%97%E6%AE%B5%E7%9A%84%E5%88%AB%E5%90%8D%EF%BC%8C%E8%BF%99%E6%98%AF-MySQL-%E7%89%B9%E6%AE%8A%E7%9A%84%EF%BC%8C%E6%8C%89%E9%81%93%E7%90%86%E6%9D%A5%E8%AF%B4%E4%B9%9F%E5%B0%B1%E6%98%AF%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E6%9D%A5%E8%AF%B4%E6%98%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%88%AB%E5%90%8D%E7%9A%84%E3%80%82%E8%BF%99%E6%98%AF-MySQL-%E4%B8%BA%E4%BA%86%E5%81%B7%E6%87%92%EF%BC%8C%E6%88%91%E8%AE%A4%E4%B8%BA%E3%80%82"><span class="nav-number">1.12.</span> <span class="nav-text">GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MYSQL-%E4%B8%AD%E4%B8%8D%E8%83%BD%E8%81%9A%E5%90%88%E5%A5%97%E8%81%9A%E5%90%88%EF%BC%8C%E8%BF%99%E6%98%AF%E4%BB%96%E7%9A%84%E7%BC%BA%E9%99%B7%EF%BC%8C%E4%BD%86%E6%98%AF-ORACLE-%E5%8F%AF%E4%BB%A5"><span class="nav-number">1.13.</span> <span class="nav-text">MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2%E5%92%8C%E8%87%AA%E8%BF%9E%E6%8E%A5%E7%9B%B8%E5%AF%B9%E6%9D%A5%E8%AF%B4%EF%BC%8C%E8%87%AA%E8%BF%9E%E6%8E%A5%E5%A5%BD%E4%B8%80%E4%BA%9B%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%AD%90%E6%9F%A5%E8%AF%A2%E6%98%AF%E9%80%9A%E8%BF%87%E6%9C%AA%E7%9F%A5%E8%A1%A8%E8%BF%9B%E8%A1%8C%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%EF%BC%8C%E8%80%8C%E8%87%AA%E8%BF%9E%E6%8E%A5%E6%98%AF%E9%80%9A%E8%BF%87%E5%B7%B2%E7%9F%A5%E7%9A%84%E8%87%AA%E8%BA%AB%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E3%80%82%E5%9B%A0%E6%AD%A4%E5%A4%A7%E9%83%A8%E5%88%86-DBMS-%E5%9C%A8%E8%87%AA%E8%BF%9E%E6%8E%A5%E5%A4%84%E7%90%86%E4%BA%86%E4%BC%98%E5%8C%96"><span class="nav-number">1.14.</span> <span class="nav-text">子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%B2%A1%E6%8C%87%E6%98%8E-charset-%E5%B0%B1%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84charset%E3%80%82%E6%95%B0%E6%8D%AE%E5%BA%93%E6%98%AF%E5%8F%AF%E4%BB%A5charset%E7%9A%84%E5%93%A6-charset-%E6%98%AF-character-set-%E7%9A%84%E7%AE%80%E5%86%99"><span class="nav-number">1.15.</span> <span class="nav-text">mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.16.</span> <span class="nav-text">mysql 创建表有两种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDL-DML-DCL-TCL"><span class="nav-number">1.17.</span> <span class="nav-text">DDL,DML,DCL,TCL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DROP-%E8%A1%A8%E7%BB%93%E6%9E%84%E5%92%8C%E8%A1%A8%E6%95%B0%E6%8D%AE%E9%83%BD%E4%BC%9A%E5%88%A0%E9%99%A4%EF%BC%8C%E9%87%8A%E6%94%BE%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.18.</span> <span class="nav-text">DROP 表结构和表数据都会删除，释放表空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRUNCATE-%E5%8F%AA%E4%BC%9A%E6%B8%85%E7%A9%BA%E8%A1%A8%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%BD%86%E6%98%AF%E4%BF%9D%E7%95%99%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.19.</span> <span class="nav-text">TRUNCATE 只会清空表数据，但是保留表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRANCATE-%E6%98%AFDDL%E8%AF%AD%E5%8F%A5-DDL%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%B2%A1%E6%9C%89ROLLBACK%E6%8C%87%E4%BB%A4%E7%9A%84%EF%BC%8C"><span class="nav-number">1.20.</span> <span class="nav-text">TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROLLBACK-%E5%8F%AA%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%BB%9A%E5%88%B0%E4%B8%8A%E4%B8%80%E6%AC%A1%E7%9A%84%E6%8F%90%E4%BA%A4%E3%80%82%E4%BB%85%E4%BB%85%E6%98%AF%E4%B8%8A%E4%B8%80%E6%AC%A1%E6%AC%A1%E3%80%82DDL-%E6%B2%A1%E6%9C%89ROLLBACK%E6%8C%87%E4%BB%A4%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E7%90%86%E8%A7%A3%E4%B8%BADDL%E4%BC%9A%E8%87%AA%E5%B8%A6%E4%B8%80%E4%B8%AAcommit%EF%BC%8C%E4%BB%96%E6%89%A7%E8%A1%8C%E5%AE%8C%E5%90%8E%E4%BC%9A%E7%AB%8B%E5%88%BB%E9%A9%AC%E4%B8%8A%E4%BC%9A%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%EF%BC%8C%E6%89%80%E4%BB%A5%E4%BD%A0%E4%B8%8B%E9%9D%A2%E7%9A%84ROLLBACK%E5%B0%B1%E5%88%B0%E4%BB%96%E4%B8%8B%E9%9D%A2%E7%9A%84commit%E5%B0%B1%E6%89%93%E6%AD%A2%E4%BA%86%E3%80%82"><span class="nav-number">1.21.</span> <span class="nav-text">ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TRUNCATE-%E5%92%8C-DELETE-FROM-%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">1.22.</span> <span class="nav-text">TRUNCATE 和 DELETE FROM 异同点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-8-0-%E6%9C%89DDL%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7%EF%BC%8C%E4%BD%86%E6%98%AF5-7%E6%B2%A1%E6%9C%89%E3%80%82%E5%8D%B3%EF%BC%9A"><span class="nav-number">1.23.</span> <span class="nav-text">MySQL 8.0 有DDL的原子性，但是5.7没有。即：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis-%E7%94%A8-%E7%9A%84%E6%83%85%E5%86%B5%EF%BC%8C%E7%94%A8%E5%88%B0%E8%A1%A8%E5%90%8D%E5%81%9A%E5%8F%82%E6%95%B0%E7%9A%84%E6%97%B6%E5%80%99%E5%B0%B1%E7%94%A8%E8%BF%99%E4%B8%AA%E3%80%82"><span class="nav-number">1.24.</span> <span class="nav-text">MyBatis 用${}的情况，用到表名做参数的时候就用这个。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INSERT-%E6%B7%BB%E5%8A%A0%E5%8F%AF%E4%BB%A5%E6%B7%BB%E5%8A%A0%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="nav-number">1.25.</span> <span class="nav-text">INSERT 添加可以添加查询结果：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE-%E8%A6%81%E6%8E%A5%E6%9D%A1%E4%BB%B6%EF%BC%8C%E4%B8%8D%E7%84%B6%E4%BC%9A%E6%9B%B4%E6%96%B0%E6%95%B4%E4%B8%AA%E8%A1%A8%EF%BC%8CDELETE-FROM-TABLE-%E4%B9%9F%E6%98%AF%EF%BC%8C%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%86%E3%80%82"><span class="nav-number">1.26.</span> <span class="nav-text">UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%BB%BA%E8%AE%AE%E4%B8%BADECIMAL%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%AD%97%E6%AE%B5%E4%B8%BA%E9%9D%9E%E8%B4%9F%E6%95%B0%EF%BC%8C%E5%BB%BA%E8%AE%AE%E4%B8%BAUNSIGNED"><span class="nav-number">1.27.</span> <span class="nav-text">小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CHAR-%E6%98%AF%E5%9B%BA%E5%AE%9A%E9%95%BF%E5%BA%A6%E7%9A%84-VARCHAR-%E6%98%AF%E5%8F%AF%E5%8F%98%E9%95%BF%E5%BA%A6%E7%9A%84%E3%80%82%E8%B6%85%E8%BF%87varchar%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%8C%E7%94%A8TEXT%EF%BC%8C%E4%BD%86%E6%98%AFTEXT-%E5%BE%88%E5%A4%A7%EF%BC%8C%E6%89%80%E4%BB%A5%E5%BB%BA%E8%AE%AE%E7%8B%AC%E7%AB%8B%E4%B8%80%E5%BC%A0%E8%A1%A8%E5%87%BA%E6%9D%A5"><span class="nav-number">1.28.</span> <span class="nav-text">CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.29.</span> <span class="nav-text">约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E7%BA%A7%E7%BA%A6%E6%9D%9F%EF%BC%8C%E8%A1%A8%E7%BA%A7%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.30.</span> <span class="nav-text">行级约束，表级约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UNIQUE-%E5%8F%AF%E4%BB%A5%E6%9C%89null%EF%BC%8C%E4%BD%86%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%9C%89%E5%A4%9A%E4%B8%AAnull%EF%BC%8C"><span class="nav-number">1.31.</span> <span class="nav-text">UNIQUE 可以有null，但是可以有多个null，</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-%E5%8F%AF%E4%BB%A5%E5%AF%B9%E8%A1%A8%E6%8C%87%E5%AE%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%9C%A8show-create-table-XXX-%E7%9C%8B%E5%88%B0%E5%90%8E%E9%9D%A2%EF%BC%8Cengin-XXX%EF%BC%9B%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E4%B8%8D%E8%83%BD%E8%B7%A8%E5%BC%95%E6%93%8E%EF%BC%8Cbtw%EF%BC%8C%E5%9F%BA%E6%9C%AC%E4%B8%8D%E7%94%A8%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E3%80%82%E5%9C%A8%E4%BB%A3%E7%A0%81%E5%BA%94%E7%94%A8%E5%B1%82%E8%A7%A3%E5%86%B3"><span class="nav-number">1.32.</span> <span class="nav-text">mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF8mb4%E5%92%8CUTF8mb3"><span class="nav-number">1.33.</span> <span class="nav-text">UTF8mb4和UTF8mb3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.34.</span> <span class="nav-text">SQL执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB-%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">1.35.</span> <span class="nav-text">InnoDB 的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM-%E5%92%8C-InnoDB"><span class="nav-number">1.36.</span> <span class="nav-text">MyISAM 和 InnoDB</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

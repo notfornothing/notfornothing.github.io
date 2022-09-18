@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="make more time">
+    <meta name="author" content="notfornothing">
+    
+    <title>
+        
+            JavaSE 总结 |
+        
+        Sparrow
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Sparrow
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">JavaSE 总结</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">notfornothing</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-06-20 15:20:16
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>13 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="面试总结："><a href="#面试总结：" class="headerlink" title="面试总结："></a>面试总结：</h1><h2 id="Java-内存分区"><a href="#Java-内存分区" class="headerlink" title="Java 内存分区"></a>Java 内存分区</h2><details><summary>图解（点击展开）</summary>
+
+<p><img src="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/Snipaste_2022-03-20_19-44-14.jpg" alt="PANGU_DISABLE"></p>
+</details>
+
+<ul>
+<li><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12t411u726">java jvm 内存模型<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<h2 id="JVM-分区？"><a href="#JVM-分区？" class="headerlink" title="JVM 分区？"></a>JVM 分区？</h2><h3 id="根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要-JVM-的垃圾收集器清理。"><a href="#根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要-JVM-的垃圾收集器清理。" class="headerlink" title="根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。"></a>根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。</h3><ul>
+<li>GCRoot– 栈 / 本地方法栈 / 方法区域<ul>
+<li>被 GCRoot 直接或者间接引用的对象是不能被删除的</li>
+</ul>
+</li>
+<li>孤立存在的对象，没有和 GCRoot 有直接的关系。这些对象可以被删除</li>
+</ul>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><ul>
+<li>标记清理 – 标记存活的对象，清理未被标记的对象<ul>
+<li>缺点：会产生内存碎片，如果你删除了两个连续的 1KB 的对象。来一个 2KB 的对象放不下那个地方，所以会有内存碎片。</li>
+</ul>
+</li>
+<li>标记整理 – 在上面基础上把清理之后。后面的对象补上来，紧凑。<ul>
+<li>缺点：代价大，所有对象会前移，补空缺的内存碎片。</li>
+</ul>
+</li>
+<li>复制算法 – 将整个内存一分为二，不需要删除的复制到另一边。<ul>
+<li>缺点：需要内存空间大。</li>
+</ul>
+</li>
+</ul>
+<h3 id="JVM-分区"><a href="#JVM-分区" class="headerlink" title="JVM 分区"></a>JVM 分区</h3><h4 id="young-区-–-也叫新生代"><a href="#young-区-–-也叫新生代" class="headerlink" title="young 区 – 也叫新生代"></a>young 区 – 也叫新生代</h4><ul>
+<li>内部又分为 Eden 区域，作为对象初始分配的区域还有两个 Survivor（也叫幸存区），有时候也叫 from、to 区域，被用来放置从 young GC（也叫 Minor GC ,Eden 区满了就会触发） 中保留下来的对象。young GC 采用的是复制算法。</li>
+</ul>
+<p><strong>每一次 young GC 后，对象的年龄就会加一，然后超过 6 次。就会到 old 区 , 然后大的对象 (Integer.maxValue) 也会直接存到 old 区，因为前面不容易啊！</strong></p>
+<h4 id="old-区-–-也叫老年代"><a href="#old-区-–-也叫老年代" class="headerlink" title="old 区 – 也叫老年代"></a>old 区 – 也叫老年代</h4><ul>
+<li>标记清理和标记整理主要用于 old GC .</li>
+<li>old GC 一般会同时伴随 young GC. 称为 Full GC.</li>
+<li>Full GC 会引起 Java 程序暂停，应该尽量减少次数。</li>
+</ul>
+<h4 id="Permanent-区-–-永久代？"><a href="#Permanent-区-–-永久代？" class="headerlink" title="Permanent 区 – 永久代？"></a><del>Permanent 区 – 永久代？</del></h4><ul>
+<li>永久代在 JDK 7 中逐渐变化，到 JDK 8 之后完全消失，合并到了 Native 堆中</li>
+</ul>
+<details><summary>图解（点击展开）</summary>
+
+<p><img src="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/Snipaste_2022-03-20_19-43-36.jpg" alt="PANGU_DISABLE"></p>
+</details>
+
+
+<p><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dt411u7wi/">GC 过程<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="Java-中的-equals-与-hashCode-的区别与联系"><a href="#Java-中的-equals-与-hashCode-的区别与联系" class="headerlink" title="Java 中的 ==, equals 与 hashCode 的区别与联系"></a><a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/justloveyou_/article/details/52464440">Java 中的 ==, equals 与 hashCode 的区别与联系<i class="fas fa-external-link-alt"></i></a></h2><hr>
+<h3 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h3><p>一般把常量写 前面 即 “常量”.equals() 防止空指针异常</p>
+<ul>
+<li>初衷：就是判断两个对象的 content 是否相同。</li>
+</ul>
+<hr>
+<p>Objects 类：</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>Objects 的意思是判断两个对象是否相同</p>
+<p>很显然，在 Object 类中，equals 方法是用来比较两个对象的引用是否相等，即是否指向同一个对象。</p>
+</blockquote>
+<blockquote>
+<p>但是我们知道：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">&quot;hello&quot;</span>);<span class="comment">// 这里指向不同的 hello</span></span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">&quot;hello&quot;</span>);<span class="comment">// 这里指向不同的 hello 却是 true</span></span><br><span class="line">System.out.println(str1.equals(str2));<span class="comment">//ture</span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为 String 重写了 equals() 方法：</p>
+</blockquote>
+<p>String 类：（重写了 equals 方法） 不需要看懂</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 源码：</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;<span class="comment">// 先比较引用类型是否相同（即是佛为同一对象）</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;<span class="comment">// 在判断类型是否一致</span></span><br><span class="line">            String anotherString = (String)anObject;</span><br><span class="line">            <span class="keyword">int</span> n = value.length;</span><br><span class="line">            <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">                <span class="keyword">char</span> v1[] = value;</span><br><span class="line">                <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">                <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (v1[i] != v2[i])<span class="comment">// 最后比较内容是否一致</span></span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java 中所有内置的类的 equals 方法的实现步骤均是如此，特别是诸如 Integer，Double 等包装器类。</strong></p>
+<ul>
+<li>一般分为三个步骤：<ul>
+<li>先比较引用类型是否相同（即是佛为同一对象）</li>
+<li>在判断类型是否一致</li>
+<li>最后比较内容是否一致</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+</blockquote>
+<h3 id="判断数组是不是对象"><a href="#判断数组是不是对象" class="headerlink" title="判断数组是不是对象"></a>判断数组是不是对象</h3><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;判断数组是否是对象？&quot;</span>);</span><br><span class="line">    <span class="keyword">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;g&#x27;</span>&#125;;</span><br><span class="line">    System.out.println(chars);<span class="comment">// 这是字符数组的特性</span></span><br><span class="line">    <span class="comment">// 可以理解为指向的第一个数组的地址</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] ints = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line">    System.out.println(ints);<span class="comment">// 这样就不行了，没有重写 toString 方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (chars <span class="keyword">instanceof</span> Object) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;数组是对象&quot;</span>);<span class="comment">// 输出为这个</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;数组不是对象&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关于-toString-方法"><a href="#关于-toString-方法" class="headerlink" title="关于 toString() 方法"></a>关于 toString() 方法</h3><hr>
+<p>Object 类：</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样比较 hashCode() 没有意义。因为我们要的是比较里面的 String 或者说是实质性的东西</p>
+</blockquote>
+<p>String 类：</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>String 类重写了 toString 方法</p>
+</blockquote>
+<p>数组类：</p>
+<p>int[] ints =new int[10]</p>
+<p>char[] chars=new char[10]</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;g&#x27;</span>&#125;;</span><br><span class="line">System.out.println(chars);<span class="comment">//abcdefg</span></span><br><span class="line"><span class="comment">// 这是字符数组的特性</span></span><br><span class="line"><span class="comment">// 可以理解为指向的第一个数组的地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[] ints = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line">System.out.println(ints);<span class="comment">// 这样就不行了，没有重写 toString 方法</span></span><br></pre></td></tr></table></figure>
+
+<p>数组类没有重写 toString( )  chars 数组可以打印是因为 chars 指向第一个数组的地址</p>
+</blockquote>
+<h3 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h3><hr>
+<p><strong>Integer</strong> 的两种构造方法：</p>
+<ul>
+<li><ul>
+<li><table>
+<thead>
+<tr>
+<th>Constructor and Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Integer(int value)</code>  构造一个新分配的 <code>Integer</code>对象，该对象表示指定的 <code>int</code>值。</td>
+</tr>
+<tr>
+<td><code>Integer(String s)</code>  构造一个新分配 <code>Integer</code>对象，表示 <code>int</code>由指示值  <code>String</code>参数。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Integer 在给 -128 到 127 用高效的效果 相同的数据存一次</p>
+<p>但是在其他范围内存的是两个对象 (<strong>只要 Integer 有这个高效</strong>)</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer i=<span class="number">1</span>;</span><br><span class="line">等价于</span><br><span class="line">Integer i=Integer.valueOf(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p><a class="link" target="_blank" rel="noopener" href="https://github.com/notfornothing/JavaSE/blob/main/JavaSE_Basic_Basic/src/cn/leijiba/day11/Test6_Integer.java">关于 Integer 的高效：了解即可 ==&gt;由此去源代码<i class="fas fa-external-link-alt"></i></a></p>
+<ul>
+<li><p>```java</p>
+<pre><code>private static void integerTest2() &#123;
+    Integer i1 = Integer.valueOf((int)666);
+    Integer i2 = Integer.valueOf((int)666);
+    Integer i3 = new Integer((int) 666);
+    Integer i4 = new Integer((int) 666);
+    System.out.println(i1==i2);//false
+    System.out.println(i3==i4);//false
+&#125;
+
+private static void integerTestEqual() &#123;
+    Integer i1 = Integer.valueOf((int)6);
+    Integer i2 = Integer.valueOf((int)6);
+    Integer i3 = new Integer((int) 6);
+    Integer i4 = new Integer((int) 6);
+    System.out.println(i1==i2);//true
+    System.out.println(i3==i4);//false
+&#125;
+
+public static void integerTest() &#123;
+    Integer i1=  6;
+    Integer i2 = 6;
+    Integer i3 = new Integer(6);
+    Integer i4 = new Integer(6);
+    System.out.println(i1 == i2);//true
+    System.out.println(i3 == i4);//false
+&#125;
+</code></pre>
+<p>   public static void main(String[] args) {</p>
+<pre><code>    integerTest();
+    integerTest2();
+    System.out.println(&quot;=========|&quot;);
+    // 为什么会输出 true  false
+    // 下面的是反编译，这是
+    integerTestEqual();
+    // 可以看到 i1 i2 以自动装箱的方式创建
+    //i3  i4 以构造方法的方式创建
+
+    // 那为啥会有 true 返回呢？
+    // 因为 Integer 在 valueOf() 第一次 调用时。会创建 -128~127 直接的实例
+    // 加到缓存，后续调用 valueOf 方法时，会返回缓存中的实例。
+    // 所以指向同一内存地址 为 true.
+    // 所以 integerTest2 超过了 127 的最大值。你自己可以进 valueOf 方法里看。
+&#125;
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### String</span><br><span class="line"></span><br><span class="line">重写了 equals 方法和 toString 方法</span><br><span class="line"></span><br><span class="line">sout 默认打印的是他的 toString 方法</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">String =&quot; &quot;  和 String str=new String(&quot; &quot;) 的区别 ==&gt;[StringTest.java](https://github.com/notfornothing/JavaSE/blob/main/JavaSE_Basic_Basic/src/cn/leijiba/day11/StringTest.java)</span><br><span class="line"></span><br><span class="line">&gt; [基于 == 判断的，因为 == 是比较的地址值.](https://blog.csdn.net/justloveyou_/article/details/52464440)</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    /** String=&quot;&quot;  和 String s=new String(&quot;string&quot;) 的区别*/</span><br><span class="line"></span><br><span class="line">    String str1 = &quot;abcd&quot;;</span><br><span class="line">    String str2 = &quot;abcd&quot;;</span><br><span class="line">    System.out.println(str1==str2);//true</span><br><span class="line">    // 因为 String str1 = &quot;abcd&quot;的实现过程：</span><br><span class="line">    // 首先栈区创建 str 引用，然后在 String 池（独立于栈和堆而存在，存储不可变量）</span><br><span class="line">    // 中寻找其指向的内容为&quot;abcd&quot;的对象，如果 String 池中没有，则创建一个，</span><br><span class="line">    // 然后 str 指向 String 池中的对象，如果有，则直接将 str1 指向&quot;abcd&quot;&quot;；</span><br><span class="line">   // 如果后来又定义了字符串变量 str2 = &quot;abcd&quot;,</span><br><span class="line">    // 则直接将 str2 引用指向 String 池中已经存在的“abcd”，不再重新创建对象；</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = &quot;abc&quot;;</span><br><span class="line">    String str3 = &quot;abc&quot;;</span><br><span class="line">    System.out.println(str1 == str3);//true</span><br><span class="line">    // 当 str1 进行了赋值（str1=“abc”），则 str1 将不再指向&quot;abcd&quot;，</span><br><span class="line">    // 而是重新指 String 池中的&quot;abc&quot;，此时如果定义 String str3 = &quot;abc&quot;,</span><br><span class="line">    // 进行 str1 == str3 操作，返回值为 true，因为他们的值一样，地址一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = str3 + &quot;d&quot;;</span><br><span class="line">    System.out.println(str2 == str1);//false</span><br><span class="line">    System.out.println(str2.equals(str1));//true</span><br><span class="line">    // 内容为&quot;abc&quot;的 str1 进行了字符串的 + 连接 str1 = str1+&quot;d&quot;；</span><br><span class="line">    // 此时 str1 指向的是在堆中新建的内容为&quot;abcd&quot;的对象，*************这是重点</span><br><span class="line">    // 即此时进行 str1==str2，返回值 false，因为地址不一样。但是值一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;=================&quot;);</span><br><span class="line">    System.out.println(&quot;以下是区别&quot;);</span><br><span class="line"></span><br><span class="line">    String str4 = new String(&quot;abcd&quot;);</span><br><span class="line">    String str5 = new String(&quot;abcd&quot;);</span><br><span class="line">    System.out.println(str4 == str5);//false</span><br><span class="line">    System.out.println(str4.equals(str5));//true</span><br><span class="line">    //String str4 = new String(&quot;abcd&quot;) 的实现过程：</span><br><span class="line">    // 直接在堆中创建对象。如果后来又有 String str5 = new String(&quot;abcd&quot;)，</span><br><span class="line">    // str5 不会指向之前的对象，而是重新创建一个对象并指向它，</span><br><span class="line">    // 所以如果此时进行 str3==str4 返回值是 false，因为两个对象的地址不一样，</span><br><span class="line">    // 如果是 str3.equals(str4)，返回 true, 因为内容相同。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="String-常用-API"><a href="#String-常用-API" class="headerlink" title="String 常用 API"></a><strong>String 常用 API</strong></h3><p>—————– 不用记下来，有印象就行</p>
+<hr>
+<ul>
+<li>charAt</li>
+<li><strong>concat</strong> – 拼接，但不改变原字符串</li>
+<li>endsWith</li>
+<li>startsWith</li>
+<li>equals</li>
+<li><strong>indexOf</strong></li>
+<li>lastIndexOf</li>
+<li>length</li>
+<li>toUpperCase</li>
+<li>toLowerCase</li>
+<li><strong>split</strong> – 切割</li>
+<li><strong>valueOf</strong> – int 转 String</li>
+<li>trim – 去掉头尾空格</li>
+<li>getBytes – 转成 byte[]</li>
+<li><strong>subString</strong> – 截取子串 左闭右开 [)</li>
+</ul>
+<p>对于 String 的这些方法：</p>
+<p>可以用字符串常量来解释：所以他返回的值是变的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;abcdefg&quot;</span>.substring(<span class="number">2</span>, <span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="String-和-StringBuffer-和-String"><a href="#String-和-StringBuffer-和-String" class="headerlink" title="String 和 StringBuffer 和 String"></a>String 和 StringBuffer 和 String</h3><hr>
+<p>目前只知道 String 拼接字符串 比其他两个很耗时间和内存</p>
+<p>用 System.currentTimeMillis() 两个相减得到的</p>
+<h3 id="思考-成员变量为自定义的类型，那么-equals-是否调用该成员变量的-equals-方法呢？toString-呢？"><a href="#思考-成员变量为自定义的类型，那么-equals-是否调用该成员变量的-equals-方法呢？toString-呢？" class="headerlink" title="思考 成员变量为自定义的类型，那么 equals 是否调用该成员变量的 equals 方法呢？toString 呢？"></a>思考 成员变量为自定义的类型，那么 equals 是否调用该成员变量的 equals 方法呢？toString 呢？</h3><hr>
+<p>是的，所以应该重写 equals 和 toString</p>
+<ul>
+<li><p>其中 toString 调用的是 hashCode 的默认。所以应该重写才好</p>
+</li>
+<li><p>重写的 equals 调用的是基本数据类型的是用 ==. 引用数据类型调用的是 Objects.equals(a,b)</p>
+<blockquote>
+<p>我看了一下他的实现，就是去调用 a 的 equals 方法。所以说要重写才好。免得到时候 equals 判断半天还不等于。免得踩坑</p>
+</blockquote>
+</li>
+</ul>
+<p>下面有关于 Objects 的 quals 方法</p>
+<h3 id="Stringbuffer-是线程安全的："><a href="#Stringbuffer-是线程安全的：" class="headerlink" title="Stringbuffer 是线程安全的："></a>Stringbuffer 是线程安全的：</h3><blockquote>
+<p><strong>他是从 JDK1.0 版本就有的，他是线程安全</strong><br><strong>StringBuffer 源码有</strong>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">capacity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value.length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> minimumCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (minimumCapacity &gt; value.length) &#123;</span><br><span class="line">        expandCapacity(minimumCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<h3 id="Stringbuilder-不是线程安全的"><a href="#Stringbuilder-不是线程安全的" class="headerlink" title="Stringbuilder 不是线程安全的"></a>Stringbuilder 不是线程安全的</h3><blockquote>
+<ul>
+<li><strong>从版本 JDK 5 开始，这个类别已经被一个等级类补充了，这个类被设计为使用一个线程 Stringbuilder 类，Stringbuilder 应该使用 Stringbuilder 类，因为它支持所有相同的操作，但它更快，因为它不执行同步。</strong></li>
+</ul>
+<p><strong>Stringbuilder 没有 synchronized 锁</strong> ,<strong>所以他不是线程安全的.</strong></p>
+</blockquote>
+<h3 id="好像还有一个-Objects-类"><a href="#好像还有一个-Objects-类" class="headerlink" title="好像还有一个 Objects 类"></a>好像还有一个 Objects 类</h3><hr>
+<p>主要用到的是 Objects 类的 Objects.equals</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="Spring-AOP-几种通知？"><a href="#Spring-AOP-几种通知？" class="headerlink" title="Spring AOP 几种通知？"></a>Spring AOP 几种通知？</h2><h2 id="MySQL-四种特性？"><a href="#MySQL-四种特性？" class="headerlink" title="MySQL 四种特性？"></a>MySQL 四种特性？</h2><h2 id="MySQL-赃读，幻读那些"><a href="#MySQL-赃读，幻读那些" class="headerlink" title="MySQL 赃读，幻读那些"></a>MySQL 赃读，幻读那些</h2><h2 id="Spring-的注解有哪些（注意不是-SpringBoot-的）"><a href="#Spring-的注解有哪些（注意不是-SpringBoot-的）" class="headerlink" title="Spring 的注解有哪些（注意不是 SpringBoot 的）"></a>Spring 的注解有哪些（注意不是 SpringBoot 的）</h2><h2 id="业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？"><a href="#业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？" class="headerlink" title="业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？"></a>业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？</h2><h2 id="String-StringBuffer-StringBuilder-区别"><a href="#String-StringBuffer-StringBuilder-区别" class="headerlink" title="String , StringBuffer , StringBuilder 区别"></a>String , StringBuffer , StringBuilder 区别</h2><h2 id="SpringMVC-流程"><a href="#SpringMVC-流程" class="headerlink" title="SpringMVC 流程"></a>SpringMVC 流程</h2><h2 id="多线程状态"><a href="#多线程状态" class="headerlink" title="多线程状态"></a>多线程状态</h2><details><summary>图解（点击展开）</summary>
+
+<p><img src="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/Snipaste_2022-03-20_19-42-06.jpg"></p>
+</details>
+
+<h2 id="hashMap-底层原理"><a href="#hashMap-底层原理" class="headerlink" title="hashMap 底层原理"></a>hashMap 底层原理</h2><details><summary>DEBUG 代码探究其原理（点击展开） </summary>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DEBUG 代码探究其原理：</span></span><br><span class="line"><span class="keyword">package</span> cn.leijiba.hashTest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Map&lt;SimpleBO, String&gt; stringMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; <span class="number">7</span>) &#123;</span><br><span class="line">                stringMap.put(<span class="keyword">new</span> SimpleBO(<span class="string">&quot;test&quot;</span> + i), <span class="string">&quot;test&quot;</span> + i);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i &lt;= <span class="number">45</span>) &#123;</span><br><span class="line">                stringMap.put(<span class="keyword">new</span> SimpleBO(<span class="string">&quot;test&quot;</span> + i), <span class="string">&quot;test&quot;</span> + i);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stringMap.put(<span class="keyword">new</span> SimpleBO(<span class="string">&quot;test&quot;</span> + i), <span class="string">&quot;test&quot;</span> + i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleBO</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SimpleBO</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String replace = UUID.randomUUID().toString().replace(<span class="string">&quot;-&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="keyword">char</span>[] chars = replace.toCharArray();</span><br><span class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> aChar : chars) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aChar &gt; <span class="string">&#x27;0&#x27;</span> &amp;&amp; aChar &lt; <span class="string">&#x27;9&#x27;</span>) &#123;</span><br><span class="line">                stringBuilder.append(aChar);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String s = stringBuilder.toString();</span><br><span class="line">        <span class="keyword">if</span> (s.length() &gt; <span class="number">6</span>) &#123;</span><br><span class="line">            s = s.substring(<span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        <span class="keyword">return</span> Integer.parseInt(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<hr>
+<ul>
+<li><p>hashMap 树化得同时满足：</p>
+<ul>
+<li>链接长度 &gt; 8</li>
+<li>数组长度为 64</li>
+</ul>
+</li>
+<li><p>hashMap  当总元素个数 &gt; 数组长度*0.75 会扩容 rehash(), 但是下面还有一种情况。</p>
+</li>
+<li><p>hashMap 当总元素没有达到 <code>当前数组长度*0.75</code> 且 <code>数组长度 &lt; 64</code> 时 ，有一个数组地址哈希冲突了，形成<strong>链表</strong>。在这前提下如果哈希冲突的元素达到 8，在插入第 9 个哈希冲突的元素时。数组会扩容到两倍（即长度向左移一位），而且不会形成红黑树，而是扩容 rehash(). 当第一种情况满足才会红黑树。</p>
+</li>
+<li><p><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YA411T76k?p=40&t=514">hashMap 扩容源码讲解<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a class="link" target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YA411T76k?p=23">hashMap 变红黑树必须同时满足链表》8 和数组 ==64 才会变红黑树<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/06/22/toDoList/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">toDoList</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/05/06/querySelector%E5%92%8CgetElementById%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">querySelector 和 getElementById  的区别</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
+                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: 'welcome 评论~~~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'notfornothing';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>1999</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">面试总结：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">Java 内存分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-%E5%88%86%E5%8C%BA%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">JVM 分区？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E4%B8%8A%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%E5%BE%97%EF%BC%8C%E5%A0%86%E5%8C%BA%E6%98%AF%E7%94%A8%E6%9D%A5%E5%AD%98%E6%94%BE%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E5%A0%86%E5%8C%BA%E7%9A%84%E6%B8%85%E7%90%86%E9%9C%80%E8%A6%81-JVM-%E7%9A%84%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E6%B8%85%E7%90%86%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">垃圾回收算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-%E5%88%86%E5%8C%BA"><span class="nav-number">1.2.3.</span> <span class="nav-text">JVM 分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#young-%E5%8C%BA-%E2%80%93-%E4%B9%9F%E5%8F%AB%E6%96%B0%E7%94%9F%E4%BB%A3"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">young 区 – 也叫新生代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#old-%E5%8C%BA-%E2%80%93-%E4%B9%9F%E5%8F%AB%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">old 区 – 也叫老年代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Permanent-%E5%8C%BA-%E2%80%93-%E6%B0%B8%E4%B9%85%E4%BB%A3%EF%BC%9F"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">Permanent 区 – 永久代？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E4%B8%AD%E7%9A%84-equals-%E4%B8%8E-hashCode-%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">Java 中的 &#x3D;&#x3D;, equals 与 hashCode 的区别与联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#equals"><span class="nav-number">1.3.1.</span> <span class="nav-text">equals()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E6%98%AF%E4%B8%8D%E6%98%AF%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.2.</span> <span class="nav-text">判断数组是不是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-toString-%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">关于 toString() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.3.4.</span> <span class="nav-text">包装类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-%E5%B8%B8%E7%94%A8-API"><span class="nav-number">1.3.5.</span> <span class="nav-text">String 常用 API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-%E5%92%8C-StringBuffer-%E5%92%8C-String"><span class="nav-number">1.3.6.</span> <span class="nav-text">String 和 StringBuffer 和 String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83-%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E4%B8%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%8C%E9%82%A3%E4%B9%88-equals-%E6%98%AF%E5%90%A6%E8%B0%83%E7%94%A8%E8%AF%A5%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84-equals-%E6%96%B9%E6%B3%95%E5%91%A2%EF%BC%9FtoString-%E5%91%A2%EF%BC%9F"><span class="nav-number">1.3.7.</span> <span class="nav-text">思考 成员变量为自定义的类型，那么 equals 是否调用该成员变量的 equals 方法呢？toString 呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stringbuffer-%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9A"><span class="nav-number">1.3.8.</span> <span class="nav-text">Stringbuffer 是线程安全的：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stringbuilder-%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">1.3.9.</span> <span class="nav-text">Stringbuilder 不是线程安全的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E8%BF%98%E6%9C%89%E4%B8%80%E4%B8%AA-Objects-%E7%B1%BB"><span class="nav-number">1.3.10.</span> <span class="nav-text">好像还有一个 Objects 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-AOP-%E5%87%A0%E7%A7%8D%E9%80%9A%E7%9F%A5%EF%BC%9F"><span class="nav-number">1.4.</span> <span class="nav-text">Spring AOP 几种通知？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E5%9B%9B%E7%A7%8D%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">MySQL 四种特性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E8%B5%83%E8%AF%BB%EF%BC%8C%E5%B9%BB%E8%AF%BB%E9%82%A3%E4%BA%9B"><span class="nav-number">1.6.</span> <span class="nav-text">MySQL 赃读，幻读那些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-%E7%9A%84%E6%B3%A8%E8%A7%A3%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%88%E6%B3%A8%E6%84%8F%E4%B8%8D%E6%98%AF-SpringBoot-%E7%9A%84%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">Spring 的注解有哪些（注意不是 SpringBoot 的）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%EF%BC%9ASpringBoot-%E4%B8%AD%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-JSON-%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">1.8.</span> <span class="nav-text">业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-StringBuffer-StringBuilder-%E5%8C%BA%E5%88%AB"><span class="nav-number">1.9.</span> <span class="nav-text">String , StringBuffer , StringBuilder 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringMVC-%E6%B5%81%E7%A8%8B"><span class="nav-number">1.10.</span> <span class="nav-text">SpringMVC 流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">1.11.</span> <span class="nav-text">多线程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashMap-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">1.12.</span> <span class="nav-text">hashMap 底层原理</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

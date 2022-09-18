@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="make more time">
+    <meta name="author" content="notfornothing">
+    
+    <title>
+        
+            Oracle 中 substr 和 instr 函数简单用法 |
+        
+        Sparrow
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Sparrow
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Oracle 中 substr 和 instr 函数简单用法</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">notfornothing</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-08-07 21:39:45
+    </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>856 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <!-- vim-markdown-toc Marked -->
+
+<ul>
+<li><a href="#oracle-%E7%9A%84-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">Oracle 的 substr 和 instr 函数简单用法</a><ul>
+<li><a href="#substr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">substr 函数简单用法</a><ul>
+<li><a href="#substr-%E4%BB%8B%E7%BB%8D">substr 介绍</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
+</ul>
+</li>
+<li><a href="#instr-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">instr 函数的简单用法</a><ul>
+<li><a href="#instr-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D%EF%BC%9A">instr 函数介绍：</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a><ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%9B%BE%E7%89%87">实例图片</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+
+<h1 id="Oracle-的-substr-和-instr-函数简单用法"><a href="#Oracle-的-substr-和-instr-函数简单用法" class="headerlink" title="Oracle 的 substr 和 instr 函数简单用法"></a>Oracle 的 substr 和 instr 函数简单用法</h1><h2 id="substr-函数简单用法"><a href="#substr-函数简单用法" class="headerlink" title="substr 函数简单用法"></a>substr 函数简单用法</h2><h3 id="substr-介绍"><a href="#substr-介绍" class="headerlink" title="substr 介绍"></a>substr 介绍</h3><blockquote>
+<p>/*</p>
+<p>* 截取字符串（字符串位置从 1 开始，而不是从 0 开始）</p>
+<p>* @param string 源字符串</p>
+<p>* @param position 检索位置，参数为正时，从左向右检索，参数为负时，从右向左检索</p>
+<p>* @param substring_length 要截取的长度，可省略（默认从 position 位开始截取全部）, 值小于 1 时返回空字符串</p>
+<p>* @return 返回截取的字符串</p>
+<p>*/</p>
+</blockquote>
+<p><strong><code>substr(string, position, substring_length);</code></strong></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">0</span>, <span class="number">1</span>)  c1<span class="comment">-- 返回结果为 &#x27;H&#x27;  * 从字符串第一个字符开始截取长度为 1 的字符串</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">1</span>, <span class="number">1</span>)  c2<span class="comment">-- 返回结果为 &#x27;H&#x27;  *0 和 1 都是表示截取的开始位置为第一个字符</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">2</span>, <span class="number">4</span>)  c3<span class="comment">-- 返回结果为 &#x27;ello&#x27;</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) c4<span class="comment">-- 返回结果为 &#x27;rld&#x27; * 负数 (-i) 表示截取的开始位置为字符串右端向左数第 i 个</span></span><br><span class="line"><span class="keyword">from</span> PRPDKIND;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h3><p><img src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_15-28-28.jpg" alt="PANGU_DISABLE"></p>
+<hr>
+<h2 id="instr-函数的简单用法"><a href="#instr-函数的简单用法" class="headerlink" title="instr 函数的简单用法"></a>instr 函数的简单用法</h2><h3 id="instr-函数介绍："><a href="#instr-函数介绍：" class="headerlink" title="instr 函数介绍："></a>instr 函数介绍：</h3><blockquote>
+<p>/*</p>
+<p>* 返回子字符串在源字符串中的位置（字符串位置从 1 开始，而不是从 0 开始）</p>
+<p>* @param string 源字符串</p>
+<p>* @param substring 子字符串</p>
+<p>* @param position 检索位置，可省略（默认为 1), 参数为正时，从左向右检索，参数为负时，从右向左检索</p>
+<p>* @param occurrence 检索子字符串出现的次数，可省略（默认为 1), 值只能为正整数，否则会报错</p>
+<p>* @return 返回子字符串在源字符串中出现的位置（没找到返回 0）</p>
+<p>*/</p>
+</blockquote>
+<p><strong><code>instr(string, substring, position, occurrence)</code></strong></p>
+<h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>) <span class="keyword">FROM</span> DUAL;           <span class="comment">-- 结果：3</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">5</span>) <span class="keyword">FROM</span> DUAL;        <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;       <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">2</span>, <span class="number">2</span>) <span class="keyword">FROM</span> DUAL;     <span class="comment">-- 结果：4</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) <span class="keyword">FROM</span> DUAL;    <span class="comment">-- 结果：0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试图片-1"><a href="#测试图片-1" class="headerlink" title="测试图片"></a>测试图片</h3><p><img src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-16-28.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>可以将 SUBSTR 和 INSTR 结合使用来实现截取字符串中特定字符前后的字符串<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之前的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：hello</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之后的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="operator">+</span><span class="number">1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>,<span class="number">1</span>)<span class="operator">+</span><span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C1,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C2,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">+</span> <span class="number">1</span>)    C3,<span class="comment">-- 结果：world</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">1</span>) <span class="operator">+</span> <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>) <span class="operator">-</span> <span class="number">1</span>) C4</span><br><span class="line">       <span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串 -- 结果：world</span></span><br><span class="line"><span class="keyword">FROM</span> DUAL;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="实例图片"><a href="#实例图片" class="headerlink" title="实例图片"></a>实例图片</h3><p><img src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-30-19.jpg"></p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/09/01/%E4%BA%94%E7%AC%94%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">五笔学习之路</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/06/22/toDoList/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">toDoList</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
+                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: 'welcome 评论~~~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'notfornothing';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>1999</span>&nbsp;-&nbsp;
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Oracle-%E7%9A%84-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">Oracle 的 substr 和 instr 函数简单用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#substr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">substr 函数简单用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#substr-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">substr 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87"><span class="nav-number">1.1.3.</span> <span class="nav-text">测试图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instr-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">instr 函数的简单用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#instr-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="nav-number">1.2.1.</span> <span class="nav-text">instr 函数介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">测试图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%9B%BE%E7%89%87"><span class="nav-number">1.3.1.</span> <span class="nav-text">实例图片</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
