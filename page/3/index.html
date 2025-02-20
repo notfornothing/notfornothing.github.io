@@ -9,8 +9,6 @@
     
     <title>
         
-            引用赋值/修改的坑 用 Collections.unmodifiableList |
-        
         Sparrow
     </title>
     
@@ -61,7 +59,7 @@
                 <ul class="menu-list">
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/"
                             >
                                 首页
@@ -98,7 +96,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">首页</a>
                 </li>
             
@@ -122,173 +120,52 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            <span class="title-hover-animation">引用赋值/修改的坑 用 Collections.unmodifiableList</span>
-        </div>
-
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
         
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.png">
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/02/18/%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86%E9%A2%98%E5%BA%93/">
+                        框架知识题库题
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        %s/[1].\d/### &amp;
+ 框架知识题库
+1    何为 Spring Bean 容器？Spring Bean 容器与 Spring IOC 容器有什么不同吗？答：用于创建 bean 对象，管理 bean 对象的那个容器Spring I...
+                    
                 </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">notfornothing</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2022-08-16 17:31:55
-    </span>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Feb 18 2021 15:20:16 GMT+0800">2021-02-18</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/02/18/%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86%E9%A2%98%E5%BA%93/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
     
+        <a class="prev btn"
+           href="/page/2/"
+        >上一页</a>
     
 
-    
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
     
 </div>
 
-                    </div>
-                </div>
-            </div>
-        
-
-        <div class="article-content markdown-body">
-            
-        </div>
-
-        
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/08/18/Java8-%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E8%B5%8B%E5%80%BC-%E4%BF%AE%E6%94%B9%E7%9A%84%E5%A4%84%E7%90%86/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Java8 集合引用赋值/修改的处理</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Java 泛型擦除</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex-center">
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fas fa-comments">&nbsp;评论</i>
-    </div>
-    
-
-        
-            
-    <div class="valine-container">
-        <script 
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-        <div id="vcomments"></div>
-        <script >
-            function loadValine() {
-                new Valine({
-                    el: '#vcomments',
-                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
-                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
-                    meta: ['nick', 'mail', 'link'],
-                    avatar: 'wavatar',
-                    enableQQ: true,
-                    placeholder: 'welcome 评论~~~',
-                    lang: 'zh-CN'.toLowerCase()
-                });
-
-                function getAuthor(language) {
-                    switch (language) {
-                        case 'en':
-                            return 'Author';
-                        case 'zh-CN':
-                            return '博主';
-                        default:
-                            return 'Master';
-                    }
-                }
-
-                // Add "Author" identify
-                const getValineDomTimer = setInterval(() => {
-                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
-                    if (vcards.length > 0) {
-                        let author = 'notfornothing';
-
-                        if (author) {
-                            for (let vcard of vcards) {
-                                const vnick_dom = vcard.querySelector('.vhead .vnick');
-                                const vnick = vnick_dom.innerHTML;
-                                if (vnick === author) {
-                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
-                                }
-                            }
-                        }
-                        clearInterval(getValineDomTimer);
-                    } else {
-                        clearInterval(getValineDomTimer);
-                    }
-                }, 2000);
-            }
-
-            if ('false') {
-                const loadValineTimeout = setTimeout(() => {
-                    loadValine();
-                    clearTimeout(loadValineTimeout);
-                }, 1000);
-            } else {
-                window.addEventListener('DOMContentLoaded', loadValine);
-            }
-        </script>
-    </div>
-
-
-
-        
-    
-</div>
-
-            </div>
-        
     </div>
 </div>
 
@@ -336,27 +213,6 @@
     </div>
 
     
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
-        
-    </ul>
-</div>
-
-        </div>
-    
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
@@ -403,14 +259,6 @@
     </div>
 
     
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        
-    </div>
-</div>
-        </aside>
-    
 
     <div class="image-viewer-container">
     <img src="">
@@ -453,6 +301,7 @@
 
 
 
+
 <script src="/js/utils.js"></script>
 
 <script src="/js/main.js"></script>
@@ -479,14 +328,6 @@
 
 
 <div class="post-scripts">
-    
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
     
 </div>
 

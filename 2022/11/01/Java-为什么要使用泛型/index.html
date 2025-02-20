@@ -9,7 +9,7 @@
     
     <title>
         
-            懒汉式获取静态成员变量Niubility |
+            Java 为什么要使用泛型 |
         
         Sparrow
     </title>
@@ -126,7 +126,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">懒汉式获取静态成员变量Niubility</span>
+            <span class="title-hover-animation">Java 为什么要使用泛型</span>
         </div>
 
         
@@ -142,7 +142,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2022-08-16 09:56:46
+        <i class="fas fa-edit"></i>&nbsp;2022-11-01 10:16:53
     </span>
     
     
@@ -150,12 +150,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>671 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>320 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -171,35 +171,31 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="懒汉式获取静态成员变量Niubility"><a href="#懒汉式获取静态成员变量Niubility" class="headerlink" title="懒汉式获取静态成员变量Niubility"></a>懒汉式获取静态成员变量Niubility</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p><strong>起因</strong>: 工作遇到个需求大概是：</p>
-<ul>
-<li>写一个接口，供 MQ 调用，大概会有几十万的请求总量丢 MQ 里.（也应用了一下 MQ 场景，用来堆任务缓解服务器内存压力，削峰，异步切入日志）.</li>
-<li>需要对每次请求带过来的数据做一次校验，其中有的校验数据是查数据库写死的类似于字典基本不会改变，但要拿出来做校验</li>
-</ul>
-<p><strong>过程</strong> :</p>
-<ul>
-<li>顺手一想，弄个静态变量查出来就好了嘛，少一次查库，提升效率。</li>
-<li>反手一想，为啥不用单例模式？而且用静态变量显得我好捞哦，<code>类名.静态变量</code>我理解是用来表示常量的.而且不直观。我是一个查库的过程调用，应该用方法。<blockquote>
-<p>于是有了这篇文章</p>
-</blockquote>
+            <h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
+<h1 id="为什么要使用泛型"><a href="#为什么要使用泛型" class="headerlink" title="为什么要使用泛型"></a>为什么要使用泛型</h1><h2 id="提高代码复用性"><a href="#提高代码复用性" class="headerlink" title="提高代码复用性"></a>提高代码复用性</h2><ul>
+<li><p>需求：遍历集合</p>
+<p>Java1.5 之前的代码：</p>
 </li>
 </ul>
-<h2 id="搞起"><a href="#搞起" class="headerlink" title="搞起"></a>搞起</h2><p>我在 Single 类里，加上<strong>全局共享的变量</strong>MAP,所以对懒汉式有了如下变种：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Single</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Single INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Single <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (INSTANCE == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Single.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (INSTANCE == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    INSTANCE = <span class="keyword">new</span> Single();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Map&lt;Integer, String&gt; MAP;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;Integer, String&gt; <span class="title">getMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (MAP == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Single.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (MAP == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    MAP = mapInit();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> MAP;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Map&lt;Integer, String&gt; <span class="title">mapInit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        HashMap&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="number">1</span>, <span class="string">&quot;one&quot;</span>);</span><br><span class="line">        map.put(<span class="number">2</span>, <span class="string">&quot;two&quot;</span>);</span><br><span class="line">        map.put(<span class="number">3</span>, <span class="string">&quot;three&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Single instance = Single.getInstance();</span><br><span class="line">        Map&lt;Integer, String&gt; map = instance.getMap();</span><br><span class="line">        System.out.println(map);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">list.add(<span class="number">23</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    Object obj = list.get(i);</span><br><span class="line">    <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">    System.out.println(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">    String obj = (String) list.get(i);</span><br><span class="line">    System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="题内话"><a href="#题内话" class="headerlink" title="题内话"></a>题内话</h1><p>最开始，我其实是用静态变量的,想法是这个值不会被修改，所以用的 static final 修饰变量.</p>
-<blockquote>
-<p>其实被final修饰还是会被引用赋值改变的其内部数据的</p>
-</blockquote>
-<p>发现 final 修饰的静态变量不能用于懒汉式,因为他只能被初始化一次.于是改用饿汉式.</p>
+<p>  输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><p><strong>大吃一惊的是</strong> 在声明静态final变量后,除了可以在声明的时候初始化,还可以在静态代码块初始化,所以就可以加一些逻辑在里面.但是记住只能初始化一次.</p>
+<li><p>问题</p>
+<p>如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
+<p>如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
 </li>
-<li><p><strong>奇怪的是</strong> :不能在静态方法初始化<code>StaticSingle.getInstance()</code>这是和静态变量和静态方法的加载顺序有关.</p>
+<li><p>解决办法 1：</p>
+<p>在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转；现任这样不合理，类很多。</p>
+</li>
+<li><p>解决办法 2:</p>
+<p>限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticSingle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Integer, String&gt; INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        HashMap&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="number">1</span>, <span class="string">&quot;one&quot;</span>);</span><br><span class="line">        map.put(<span class="number">2</span>, <span class="string">&quot;two&quot;</span>);</span><br><span class="line">        map.put(<span class="number">3</span>, <span class="string">&quot;three&quot;</span>);</span><br><span class="line">        INSTANCE = map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Integer, String&gt; <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//不能在这里初始化INSTANCE</span></span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">StaticSingle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>PANGU_DISABLE</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -208,29 +204,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/08/16/%E6%87%92%E6%B1%89%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0-volatile-%E5%85%B3%E9%94%AE%E5%AD%97/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">懒汉式为什么要加 volatile 关键字</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/"
+                           href="/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">lombok 注解，绝中绝，顶上顶！</span>
+                                <span class="post-nav-title-item">Java 泛型详解汇总</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -439,7 +420,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E5%BC%8F%E8%8E%B7%E5%8F%96%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8FNiubility"><span class="nav-number">1.</span> <span class="nav-text">懒汉式获取静态成员变量Niubility</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-number">1.1.</span> <span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9E%E8%B5%B7"><span class="nav-number">1.2.</span> <span class="nav-text">搞起</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E5%86%85%E8%AF%9D"><span class="nav-number">2.</span> <span class="nav-text">题内话</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%8E%86%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">Java 历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">为什么要使用泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">提高代码复用性</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
