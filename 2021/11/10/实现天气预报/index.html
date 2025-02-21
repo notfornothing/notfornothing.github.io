@@ -1,89 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Hexo Theme Keep">
-    <meta name="description" content="make more time">
-    <meta name="author" content="notfornothing">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="磊磊">
     
     <title>
         
             Java实现天气预报 |
         
-        Sparrow
+        磊磊的博客
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
 
-    <link rel="shortcut icon" href="/images/logo.png">
     
-<link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="/images/logo.png">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
 
-    <script id="hexo-configurations">
-    let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
-    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#FF0033","title":"磊磊的博客","author":"磊磊","avatar":"/images/avatar.png","logo":"/images/logo.png","favicon":"/images/logo.png"},"menu":{"主页":"/","历史时间线":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/notfornothing","weixin":798953052,"qq":798953052,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created"},"post":{"author_badge":{"enable":false,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"left"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":"uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz","appkey":"UgHn5ltJEnt4uqclo2p9OkUM","server_urls":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null},{"code":"湘 ICP 备 2022016732 号 - 1","link":"https://beian.miit.gov.cn"}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
   </script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
 <div class="progress-bar-container">
     
-        <span class="scroll-progress-bar"></span>
-    
 
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
     
 </div>
 
 
-<main class="page-container">
 
+<main class="page-container border-box">
+    <!-- home first screen  -->
     
 
-    <div class="page-main-content">
-
+    <!-- page content -->
+    <div class="page-main-content border-box">
         <div class="page-main-content-top">
-            <header class="header-wrapper">
-
-    <div class="header-content">
-        <div class="left">
             
-            <a class="logo-title" href="/">
-                Sparrow
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               磊磊的博客
             </a>
         </div>
 
-        <div class="right">
-            <div class="pc">
-                <ul class="menu-list">
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/"
-                            >
-                                首页
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                主页
+                                
                             </a>
+                            
                         </li>
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/archives"
-                            >
-                                归档
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                历史时间线
+                                
                             </a>
+                            
                         </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
-                            <i class="fas fa-search"></i>
+                            <i class="menu-text-color fas search fa-search"></i>
                         </li>
                     
                 </ul>
             </div>
-            <div class="mobile">
+            <div class="mobile border-box flex-start">
                 
                     <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
@@ -95,16 +120,30 @@
     </div>
 
     <div class="header-drawer">
-        <ul class="drawer-menu-list">
+        <ul class="drawer-menu-list border-box">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/">首页</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            主页
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">归档</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            历史时间线
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
         </ul>
@@ -117,196 +156,193 @@
 
         </div>
 
-        <div class="page-main-content-middle">
+        <div class="page-main-content-middle border-box">
 
-            <div class="main-content">
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Java实现天气预报
+                    </div>
+                
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="article-content-container">
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">磊磊</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
 
-        <div class="article-title">
-            <span class="title-hover-animation">Java实现天气预报</span>
-        </div>
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
 
         
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.png">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">notfornothing</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-11-10 18:22:54
-    </span>
-    
-    
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2021-11-10 18:22:54</span>
+            </span>
 
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>160 字</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
+            
+        
+
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>160 Words</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
     
 </div>
 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        
+                
 
-        <div class="article-content markdown-body">
-            <h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
 <li>因每次去上班都不知道今天下不下雨。要是下雨鞋子就会湿的。</li>
 <li>然后逛 github 发现有一个 QQ 机器人。可以用 Java 调用。遂想到实时预报下雨的天气。</li>
 <li>所以设置每天早上 6 点发消息提醒今天的降水概率。</li>
 </ul>
 <h2 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h2><ol>
-<li>使用 <a class="link" target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot">simbot QQ 机器人<i class="fas fa-external-link-alt"></i></a>  (github 开源的）</li>
+<li>使用 <a class="link"   target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot" >simbot QQ 机器人<i class="fas fa-external-link-alt"></i></a>  (github 开源的）</li>
 <li>使用和风天气和阿里云的易源数据作为天气 API</li>
 </ol>
 <h2 id="核心代码图片："><a href="#核心代码图片：" class="headerlink" title="核心代码图片："></a>核心代码图片：</h2><ul>
-<li><p>RestFul 风格调用，接口见名知意<br><img src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-29-11.jpg"></p>
+<li><p>RestFul 风格调用，接口见名知意<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-29-11.jpg"
+                       
+                 ></p>
 </li>
-<li><p>OKHttps 访问 API 获取实时数据<br><img src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-32-31.jpg"></p>
+<li><p>OKHttps 访问 API 获取实时数据<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-32-31.jpg"
+                       
+                 ></p>
 </li>
-<li><p>QQ 机器人代码参考<br><a class="link" target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot">github<i class="fas fa-external-link-alt"></i></a></p>
-<h2 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h2></li>
+<li><p>QQ 机器人代码参考<br><a class="link"   target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot" >github<i class="fas fa-external-link-alt"></i></a></p>
+</li>
 </ul>
-<p><img src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg" alt="PANGU_DISABLE"></p>
+<h2 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h2><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
 
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/"
+                                   title="MySQL 总结（二）"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">MySQL 总结（二）</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/"
+                                   title="摸鱼神器 scrcpy"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">摸鱼神器 scrcpy</span>
+                                        <span class="post-nav-item">Next posts</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
         </div>
 
         
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">MySQL 总结（二）</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">摸鱼神器 scrcpy</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex-center">
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fas fa-comments">&nbsp;评论</i>
+            <div class="pc-post-toc left-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-Java-%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5"><span class="nav-text">用 Java 实现天气预报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step"><span class="nav-text">Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%9A"><span class="nav-text">核心代码图片：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE%EF%BC%9A"><span class="nav-text">效果图：</span></a></li></ol></li></ol>
     </div>
-    
-
-        
-            
-    <div class="valine-container">
-        <script 
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-        <div id="vcomments"></div>
-        <script >
-            function loadValine() {
-                new Valine({
-                    el: '#vcomments',
-                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
-                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
-                    meta: ['nick', 'mail', 'link'],
-                    avatar: 'wavatar',
-                    enableQQ: true,
-                    placeholder: 'welcome 评论~~~',
-                    lang: 'zh-CN'.toLowerCase()
-                });
-
-                function getAuthor(language) {
-                    switch (language) {
-                        case 'en':
-                            return 'Author';
-                        case 'zh-CN':
-                            return '博主';
-                        default:
-                            return 'Master';
-                    }
-                }
-
-                // Add "Author" identify
-                const getValineDomTimer = setInterval(() => {
-                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
-                    if (vcards.length > 0) {
-                        let author = 'notfornothing';
-
-                        if (author) {
-                            for (let vcard of vcards) {
-                                const vnick_dom = vcard.querySelector('.vhead .vnick');
-                                const vnick = vnick_dom.innerHTML;
-                                if (vnick === author) {
-                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
-                                }
-                            }
-                        }
-                        clearInterval(getValineDomTimer);
-                    } else {
-                        clearInterval(getValineDomTimer);
-                    }
-                }, 2000);
-            }
-
-            if ('false') {
-                const loadValineTimeout = setTimeout(() => {
-                    loadValine();
-                    clearTimeout(loadValineTimeout);
-                }, 1000);
-            } else {
-                window.addEventListener('DOMContentLoaded', loadValine);
-            }
-        </script>
-    </div>
-
-
-
-        
-    
 </div>
 
             </div>
@@ -317,72 +353,82 @@
 
                 
             </div>
-
         </div>
 
-        <div class="page-main-content-bottom">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info info-item">
-            &copy;
+        <div class="page-main-content-bottom border-box">
             
-              <span>1999</span>&nbsp;-&nbsp;
-            
-            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
-        </div>
-        
-            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
-                
-                    <span id="busuanzi_container_site_uv">
-                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
-                    </span>
-                
-                
-                    <span id="busuanzi_container_site_pv">
-                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-            </div>
-        
-        <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
-        </div>
-        
-            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">磊磊</a>
         
     </div>
+
+    <div class="theme-info info-item">
+        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
 </footer>
 
         </div>
     </div>
 
+    <!-- post tools -->
     
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
+        <div class="post-tools left-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
         
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
             </li>
         
 
-        <!-- go comment -->
+        <!-- PC go comment -->
         
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
-        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
     </ul>
 </div>
 
         </div>
     
 
-    <div class="right-bottom-side-tools">
-        <div class="side-tools-container">
-    <ul class="side-tools-list">
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
         </li>
@@ -391,54 +437,51 @@
             <i class="fas fa-search-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fas fa-arrows-alt-h"></i>
-        </li>
-
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fas fa-moon"></i>
-        </li>
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
 
         <!-- rss -->
         
 
-        
-
+        <!-- to bottom -->
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
     </ul>
 </div>
 
     </div>
 
-    
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-Java-%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5"><span class="nav-number">1.</span> <span class="nav-text">用 Java 实现天气预报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step"><span class="nav-number">1.2.</span> <span class="nav-text">Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">核心代码图片：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">效果图：</span></a></li></ol></li></ol>
-    </div>
-</div>
-        </aside>
-    
-
-    <div class="image-viewer-container">
-    <img src="">
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
 </div>
 
 
+    <!-- local search -->
     
         <div class="search-pop-overlay">
     <div class="popup search-popup">
@@ -450,13 +493,13 @@
                 <input autocomplete="off"
                        autocorrect="off"
                        autocapitalize="off"
-                       placeholder="搜索..."
+                       placeholder="Search..."
                        spellcheck="false"
                        type="search"
                        class="search-input"
                 >
             </div>
-            <span class="popup-btn-close">
+            <span class="close-popup-btn">
                 <i class="fas fa-times"></i>
             </span>
         </div>
@@ -470,49 +513,133 @@
 
     
 
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-Java-%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5"><span class="nav-text">用 Java 实现天气预报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step"><span class="nav-text">Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%9A"><span class="nav-text">核心代码图片：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE%EF%BC%9A"><span class="nav-text">效果图：</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
 </main>
 
 
 
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
 
 <script src="/js/header-shrink.js"></script>
 
 <script src="/js/back2top.js"></script>
 
-<script src="/js/dark-light-toggle.js"></script>
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
 
 
+<!-- local search -->
 
     
 <script src="/js/local-search.js"></script>
 
 
 
+<!-- lazyload -->
 
     
-<script src="/js/code-copy.js"></script>
+<script src="/js/lazyload.js"></script>
 
 
 
-
-
-<div class="post-scripts">
+<div class="pjax">
+    <!-- home page -->
     
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
         
-<script src="/js/left-side-toggle.js"></script>
+<script src="/js/post/post-helper.js"></script>
 
-<script src="/js/libs/anime.min.js"></script>
 
-<script src="/js/toc.js"></script>
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
 
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
     
 </div>
 
+<!-- mermaid -->
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
 </html>

@@ -1,87 +1,112 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Hexo Theme Keep">
-    <meta name="description" content="make more time">
-    <meta name="author" content="notfornothing">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="磊磊">
     
     <title>
         
-        Sparrow
+        磊磊的博客
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
 
-    <link rel="shortcut icon" href="/images/logo.png">
     
-<link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="/images/logo.png">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
 
-    <script id="hexo-configurations">
-    let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
-    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#FF0033","title":"磊磊的博客","author":"磊磊","avatar":"/images/avatar.png","logo":"/images/logo.png","favicon":"/images/logo.png"},"menu":{"主页":"/","历史时间线":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/notfornothing","weixin":798953052,"qq":798953052,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created"},"post":{"author_badge":{"enable":false,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"left"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":"uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz","appkey":"UgHn5ltJEnt4uqclo2p9OkUM","server_urls":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null},{"code":"湘 ICP 备 2022016732 号 - 1","link":"https://beian.miit.gov.cn"}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
   </script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
 <div class="progress-bar-container">
     
-        <span class="scroll-progress-bar"></span>
-    
 
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
     
 </div>
 
 
-<main class="page-container">
 
+<main class="page-container border-box">
+    <!-- home first screen  -->
     
 
-    <div class="page-main-content">
-
+    <!-- page content -->
+    <div class="page-main-content border-box is-home">
         <div class="page-main-content-top">
-            <header class="header-wrapper">
-
-    <div class="header-content">
-        <div class="left">
             
-            <a class="logo-title" href="/">
-                Sparrow
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               磊磊的博客
             </a>
         </div>
 
-        <div class="right">
-            <div class="pc">
-                <ul class="menu-list">
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
                     
-                        <li class="menu-item">
-                            <a class="active"
-                               href="/"
-                            >
-                                首页
+                        
+                        <li class="menu-item flex-start border-box active">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                主页
+                                
                             </a>
+                            
                         </li>
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/archives"
-                            >
-                                归档
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                历史时间线
+                                
                             </a>
+                            
                         </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
-                            <i class="fas fa-search"></i>
+                            <i class="menu-text-color fas search fa-search"></i>
                         </li>
                     
                 </ul>
             </div>
-            <div class="mobile">
+            <div class="mobile border-box flex-start">
                 
                     <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
@@ -93,16 +118,30 @@
     </div>
 
     <div class="header-drawer">
-        <ul class="drawer-menu-list">
+        <ul class="drawer-menu-list border-box">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="active"
-                       href="/">首页</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu active">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            主页
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">归档</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            历史时间线
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
         </ul>
@@ -115,213 +154,351 @@
 
         </div>
 
-        <div class="page-main-content-middle">
+        <div class="page-main-content-middle border-box">
 
-            <div class="main-content">
-
+            <div class="main-content border-box">
                 
+
                     <div class="home-content-container fade-in-down-animation">
-    <ul class="home-article-list">
+    
+    <ul class="home-post-list border-box">
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/">
-                        Java 为什么要使用泛型
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        Java 历史泛型是从 Java 1.5 出现的。
+                    <h3 class="home-post-title border-box">
+                        <a href="/2025/02/20/Centos-%E9%85%8D%E7%BD%AE/">
+                            Centos 8 服务器配置
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            Centos 8 安装一个neovim插件吧系统搞崩了记录一下安装基本插件的过程：yum 源更换1234cd /etc/yum.repos.d      //进入/etc/yum.repos.d目录wget -O /etc/yum.repos.d/C...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Feb 20 2025 23:01:17 GMT+0000"
+                >2025-02-20 23:01:17</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2025/02/20/Centos-%E9%85%8D%E7%BD%AE/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/04/08/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">
+                            代码片段
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            通过反射获取参数化类型https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302
+12345678910111213R&lt;?&gt; r...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Mon Apr 08 2024 10:28:07 GMT+0000"
+                >2024-04-08 10:28:07</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/04/08/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/">
+                            Java 为什么要使用泛型
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            Java 历史泛型是从 Java 1.5 出现的。
 为什么要使用泛型提高代码复用性
 需求：遍历集合
 Java1.5 之前的代码：
 
 
-123456789101112131415List list = new ArrayList();list.add(...
-                    
-                </div>
+12345678910111213141516171819public class TestCase &#123; ...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Nov 01 2022 10:16:53 GMT+0800">2022-11-01</span></span>
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Tue Nov 01 2022 10:16:53 GMT+0000"
+                >2022-11-01 10:16:53</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/">
-                        Java 泛型详解汇总
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        Java 泛型
-看了 Java 的 Collection 等源码，发现泛型用处很多，不知道为什么要这样设计（extends 和 super）于是有了这篇文章。
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/">
+                            Java 泛型详解汇总
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            Java 泛型
+看了 Java 的 Collection 等源码，发现泛型用处很多，不知道为什么要这样设计如（extends 和 super）于是有了这篇文章。
 
 阅读顺序
-Java 为什么要使用泛型（泛型的由来历史）
+Java 泛型擦除小实验
 
-使用泛型目的是要在编译阶段就找...
+Java 为什么要使用泛型（从Java的发展历史...
+                        
+                    </div>
+
                     
-                </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Nov 01 2022 09:52:38 GMT+0800">2022-11-01</span></span>
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Tue Nov 01 2022 09:52:38 GMT+0000"
+                >2022-11-01 09:52:38</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/">
-                        学习&amp;延伸 用 Collections.unmodifiableList
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        用 final 修饰的变量，对象属性可以修改的我在想有什么方法可以限制修改吗？
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/">
+                            学习&amp;延伸 用 Collections.unmodifiableList
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            用 final 修饰的变量，对象属性可以修改的我在想有什么方法可以限制修改吗？
 于是搜索后了解到有一个 Collections 里有一个内部类 UnmodifiableCollection ;
 
 UnmodifiableCollection 这个类重...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 16 2022 17:31:55 GMT+0800">2022-08-16</span></span>
-        
-        
-    </div>
-
-    <a href="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4/">
-                        Java 泛型擦除
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
                         
-                    
-                </div>
+                    </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 16 2022 16:04:06 GMT+0800">2022-08-16</span></span>
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Tue Aug 16 2022 17:31:55 GMT+0000"
+                >2022-08-16 17:31:55</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2022/08/16/%E6%87%92%E6%B1%89%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0-volatile-%E5%85%B3%E9%94%AE%E5%AD%97/">
-                        懒汉式为什么要加 volatile 关键字
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        正常的懒汉式：12345678910public class Singleton &#123;    private static Singleton instance;    private Singleton ()&#123;&#125;    ...
-                    
-                </div>
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/">
+                            Java 泛型擦除小实验
+                        </a>
+                    </h3>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 16 2022 16:00:32 GMT+0800">2022-08-16</span></span>
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            简介
+很多人看到泛型就害怕，其实你只要想象成人为的一个约束。
+泛型是编译期间的行为，下面会通过程序运行时的反射案例校验。
+泛型是防止错误输入的，本质上就是 Object,存在的意义是方便编码确认类型。只在编译阶段有效 – 绕过编译无效
+
+案例  Te...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Tue Aug 16 2022 16:04:06 GMT+0000"
+                >2022-08-16 16:04:06</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2022/08/16/%E6%87%92%E6%B1%89%E5%BC%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8A%A0-volatile-%E5%85%B3%E9%94%AE%E5%AD%97/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2022/08/16/%E6%87%92%E6%B1%89%E5%BC%8F%E8%8E%B7%E5%8F%96%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8FNiubility/">
-                        懒汉式获取静态成员变量Niubility
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        懒汉式获取静态成员变量Niubility缘故起因: 工作遇到个需求大概是：
-
-写一个接口，供 MQ 调用，大概会有几十万的请求总量丢 MQ 里.（也应用了一下 MQ 场景，用来堆任务缓解服务器内存压力，削峰，异步切入日志）.
-需要对每次请求带过来的数...
-                    
                 </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 16 2022 09:56:46 GMT+0800">2022-08-16</span></span>
-        
-        
-    </div>
-
-    <a href="/2022/08/16/%E6%87%92%E6%B1%89%E5%BC%8F%E8%8E%B7%E5%8F%96%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8FNiubility/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
-</div>
-
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/">
-                        lombok 注解，绝中绝，顶上顶！
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        lombok 注解，绝中绝，顶上顶！
+                    <h3 class="home-post-title border-box">
+                        <a href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/">
+                            lombok 注解，绝中绝，顶上顶！
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            lombok 注解，绝中绝，顶上顶！
 可以在编译后的 class 文件来看出不同。不过有时候修改注解后，项目并不会自动编译，此时在 maven 手动编译即可看出效果。
 
 
@@ -329,178 +506,294 @@ UnmodifiableCollection 这个类重...
 
 
 @Data@...
-                    
-                </div>
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Dec 20 2021 15:29:51 GMT+0800">2021-12-20</span></span>
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Mon Dec 20 2021 15:29:51 GMT+0000"
+                >2021-12-20 15:29:51</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
-                        Map 中引用遇到的问题
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        Map 中引用遇到的问题场景：1231、有 List&lt;String&gt; nameList 值为『张三，李四，王五』2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Obje...
-                    
-                </div>
+                    <h3 class="home-post-title border-box">
+                        <a href="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+                            Map 中引用遇到的问题
+                        </a>
+                    </h3>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Dec 08 2021 20:07:42 GMT+0800">2021-12-08</span></span>
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            Map 中引用遇到的问题场景：1231、有 List&lt;String&gt; nameList 值为『张三，李四，王五』2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Obje...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Wed Dec 08 2021 20:07:42 GMT+0000"
+                >2021-12-08 20:07:42</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/">
-                        MySQL 总结（二）
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        MySQL 注意的点：
+                    <h3 class="home-post-title border-box">
+                        <a href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/">
+                            MySQL 总结（二）
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            MySQL 注意的点：
 写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章
 
 
 为什么 where 不能用字段别名。因为 mysql 执行顺序：123456789-- 错误：select last_name as namefrom emp...
-                    
-                </div>
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Nov 25 2021 18:14:11 GMT+0800">2021-11-25</span></span>
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Nov 25 2021 18:14:11 GMT+0000"
+                >2021-11-25 18:14:11</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
-            <li class="home-article-item">
+            <li class="home-post-item">
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/">
-                        Java实现天气预报
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
+                <div class="home-post-item-bottom border-box">
                     
-                        用 Java 实现天气预报起因
+                    <h3 class="home-post-title border-box">
+                        <a href="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/">
+                            Java实现天气预报
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            用 Java 实现天气预报起因
 因每次去上班都不知道今天下不下雨。要是下雨鞋子就会湿的。
 然后逛 github 发现有一个 QQ 机器人。可以用 Java 调用。遂想到实时预报下雨的天气。
 所以设置每天早上 6 点发消息提醒今天的降水概率。
 
 Ste...
-                    
-                </div>
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Wed Nov 10 2021 18:22:54 GMT+0800">2021-11-10</span></span>
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Wed Nov 10 2021 18:22:54 GMT+0000"
+                >2021-11-10 18:22:54</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
         
         
     </div>
 
-    <a href="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    
+        <a class="home-read-more" href="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/">Read more&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
 </div>
 
+                </div>
             </li>
         
     </ul>
-
-    <div class="home-paginator">
-        <div class="paginator">
     
+    <div class="paginator border-box flex-center">
+        <div class="border-box first-page paginator-btn not-allow">
+            <a class="border-box"><i class="fa-solid fa-angle-double-left"></i></a>
+        </div>
 
-    
-        <a class="next btn"
-           href="/page/2/"
-        >下一页</a>
-    
-</div>
+        <div class="border-box paginator-btn">
+            <a class="border-box"
+               href="/"
+            ><i class="fa-solid fa-chevron-left"></i></a>
+        </div>
 
+
+        <div class="page-number-box border-box flex-center">
+            <input class="page-number-input border-box base-style"
+                   type="number"
+                   value="1"
+                   min="1"
+                   max="2"
+            /><span class="delimiter base-style">/</span><span class="base-style">2</span>
+        </div>
+
+
+        <div class="border-box paginator-btn allowed">
+            <a class="border-box"
+               href="/page/2/"
+            ><i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+
+        <div class="border-box last-page paginator-btn allowed">
+            <a class="border-box"><i class="fa-solid fa-angle-double-right"></i></a>
+        </div>
     </div>
+
+
+
+
 </div>
 
 
                 
             </div>
-
         </div>
 
-        <div class="page-main-content-bottom">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info info-item">
-            &copy;
+        <div class="page-main-content-bottom border-box">
             
-              <span>1999</span>&nbsp;-&nbsp;
-            
-            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
-        </div>
-        
-            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
-                
-                    <span id="busuanzi_container_site_uv">
-                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
-                    </span>
-                
-                
-                    <span id="busuanzi_container_site_pv">
-                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-            </div>
-        
-        <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
-        </div>
-        
-            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">磊磊</a>
         
     </div>
+
+    <div class="theme-info info-item">
+        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
 </footer>
 
         </div>
     </div>
 
+    <!-- post tools -->
     
 
-    <div class="right-bottom-side-tools">
-        <div class="side-tools-container">
-    <ul class="side-tools-list">
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box side-tools-show-handle">
+    <ul class="side-tools-list side-tools-show-handle border-box">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
         </li>
@@ -509,46 +802,47 @@ Ste...
             <i class="fas fa-search-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fas fa-arrows-alt-h"></i>
-        </li>
-
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fas fa-moon"></i>
-        </li>
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
 
         <!-- rss -->
         
 
-        
-
+        <!-- to bottom -->
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
+    <ul class="exposed-tools-list border-box">
+        
+
+        
+
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
     </ul>
 </div>
 
     </div>
 
-    
-
-    <div class="image-viewer-container">
-    <img src="">
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
 </div>
 
 
+    <!-- local search -->
     
         <div class="search-pop-overlay">
     <div class="popup search-popup">
@@ -560,13 +854,13 @@ Ste...
                 <input autocomplete="off"
                        autocorrect="off"
                        autocapitalize="off"
-                       placeholder="搜索..."
+                       placeholder="Search..."
                        spellcheck="false"
                        type="search"
                        class="search-input"
                 >
             </div>
-            <span class="popup-btn-close">
+            <span class="close-popup-btn">
                 <i class="fas fa-times"></i>
             </span>
         </div>
@@ -580,42 +874,109 @@ Ste...
 
     
 
+    <!-- tablet toc -->
+    
 </main>
 
 
 
 
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
 
 <script src="/js/header-shrink.js"></script>
 
 <script src="/js/back2top.js"></script>
 
-<script src="/js/dark-light-toggle.js"></script>
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
 
 
+<!-- local search -->
 
     
 <script src="/js/local-search.js"></script>
 
 
 
+<!-- lazyload -->
 
     
-<script src="/js/code-copy.js"></script>
+<script src="/js/lazyload.js"></script>
 
 
 
+<div class="pjax">
+    <!-- home page -->
+    
+        
+<script src="/js/page/home-page.js"></script>
 
+    
 
-<div class="post-scripts">
+    <!-- post page -->
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
     
 </div>
 
+<!-- mermaid -->
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
 </html>

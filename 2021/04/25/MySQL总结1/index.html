@@ -1,89 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Hexo Theme Keep">
-    <meta name="description" content="make more time">
-    <meta name="author" content="notfornothing">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="磊磊">
     
     <title>
         
             MySQL 总结 (一) |
         
-        Sparrow
+        磊磊的博客
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
 
-    <link rel="shortcut icon" href="/images/logo.png">
     
-<link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="shortcut icon" href="/images/logo.png">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
 
-    <script id="hexo-configurations">
-    let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#FF0033","avatar":"/images/avatar.png","favicon":"/images/logo.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"make more time."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
-    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#FF0033","title":"磊磊的博客","author":"磊磊","avatar":"/images/avatar.png","logo":"/images/logo.png","favicon":"/images/logo.png"},"menu":{"主页":"/","历史时间线":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/notfornothing","weixin":798953052,"qq":798953052,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created"},"post":{"author_badge":{"enable":false,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"left"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":"uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz","appkey":"UgHn5ltJEnt4uqclo2p9OkUM","server_urls":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null},{"code":"湘 ICP 备 2022016732 号 - 1","link":"https://beian.miit.gov.cn"}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original post title","author":"Original post author","link":"Original post link"}
   </script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
 <div class="progress-bar-container">
     
-        <span class="scroll-progress-bar"></span>
-    
 
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
     
 </div>
 
 
-<main class="page-container">
 
+<main class="page-container border-box">
+    <!-- home first screen  -->
     
 
-    <div class="page-main-content">
-
+    <!-- page content -->
+    <div class="page-main-content border-box">
         <div class="page-main-content-top">
-            <header class="header-wrapper">
-
-    <div class="header-content">
-        <div class="left">
             
-            <a class="logo-title" href="/">
-                Sparrow
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               磊磊的博客
             </a>
         </div>
 
-        <div class="right">
-            <div class="pc">
-                <ul class="menu-list">
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/"
-                            >
-                                首页
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                主页
+                                
                             </a>
+                            
                         </li>
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/archives"
-                            >
-                                归档
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                历史时间线
+                                
                             </a>
+                            
                         </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
-                            <i class="fas fa-search"></i>
+                            <i class="menu-text-color fas search fa-search"></i>
                         </li>
                     
                 </ul>
             </div>
-            <div class="mobile">
+            <div class="mobile border-box flex-start">
                 
                     <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
@@ -95,16 +120,30 @@
     </div>
 
     <div class="header-drawer">
-        <ul class="drawer-menu-list">
+        <ul class="drawer-menu-list border-box">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/">首页</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            主页
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/archives">归档</a>
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            历史时间线
+                        </a>
+                        
+                    </label>
+                    
                 </li>
             
         </ul>
@@ -117,61 +156,87 @@
 
         </div>
 
-        <div class="page-main-content-middle">
+        <div class="page-main-content-middle border-box">
 
-            <div class="main-content">
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        MySQL 总结 (一)
+                    </div>
+                
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="article-content-container">
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">磊磊</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
 
-        <div class="article-title">
-            <span class="title-hover-animation">MySQL 总结 (一)</span>
-        </div>
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
 
         
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.png">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">notfornothing</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2021-04-25 21:14:11
-    </span>
-    
-    
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2021-04-25 21:14:11</span>
+            </span>
 
-    
-    
-        <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>2.1k 字</span>
-        </span>
-    
-    
-        <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>8 分钟</span>
-        </span>
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
+            
+        
+
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.1k Words</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>8 Mins</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
     
 </div>
 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        
+                
 
-        <div class="article-content markdown-body">
-            <h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
 <p>descend– 下降</p>
 <hr>
 <blockquote>
@@ -181,14 +246,13 @@
 <p>desc 是 describe 的简写，例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
 
-
 </blockquote>
 <p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
 
 <h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
 <blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
 
 <p>如果不加 where 那么修改的是全局的</p>
 </blockquote>
@@ -207,20 +271,19 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null=0 最好，而且查出来。</p>
+<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
 <blockquote>
 <p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line">update emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<blockquote>
 <p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
 <blockquote>
 <p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
 <p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
 <h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
 <h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
 <p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
@@ -235,7 +298,7 @@
 <blockquote>
 <p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
 </blockquote>
-<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 / 不是 null 值的个数）</p>
+<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
 <ul>
 <li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
 </ul>
@@ -281,7 +344,7 @@
 <hr>
 <p>可以用 show create  table emp</p>
 <blockquote>
-<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment= 多少；</p>
+<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
 </blockquote>
 <p>注意：</p>
 <blockquote>
@@ -347,15 +410,13 @@
 <p>大于：&gt;</p>
 <blockquote>
 <p>可以用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
 <p>小于：&lt;</p>
 <blockquote>
 <p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
 <h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<!--[CDATA[hello]]-->
+<![CDATA[hello]]>
 
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
 
@@ -364,136 +425,74 @@
 <p>大于：&gt;</p>
 <blockquote>
 <p>可以用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
 <p>小于：&lt;</p>
 <blockquote>
 <p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
 <h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<!--[CDATA[hello]]-->
+<![CDATA[hello]]>
 
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
 
 
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/"
+                                   title="JavaSE 总结"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">JavaSE 总结</span>
+                                        <span class="post-nav-item">Prev posts</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
         </div>
 
         
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/04/29/JQuery%E5%8A%A8%E6%80%81%E8%8E%B7%E5%8F%96input%E5%80%BC/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">JQuery动态获取input值</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2021/02/18/%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86%E9%A2%98%E5%BA%93/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">框架知识题库题</span>
-                                <span class="post-nav-item">下一篇</span>
-                            </span>
-                            <span class="right arrow-icon flex-center">
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fas fa-comments">&nbsp;评论</i>
+            <div class="pc-post-toc left-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E7%9B%B8%E5%85%B3"><span class="nav-text">MySQL 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#desc-%E8%A1%A8%E5%90%8D"><span class="nav-text">desc 表名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-where"><span class="nav-text">关于 where</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select-%E4%B8%AD%E7%9A%84-distinct"><span class="nav-text">select 中的 distinct</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Null-%E5%92%8C%E4%BB%8D%E5%92%8C%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C%E9%83%BD%E6%98%AF-null-%E4%BB%A5%E5%8F%8A%E6%9C%89%E5%85%B3-null-%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-text">Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96%E5%88%AB%E5%90%8D%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">取别名的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2-LIKE"><span class="nav-text">模糊查询 LIKE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E5%87%BD%E6%95%B0%E6%9F%A5%E8%AF%A2"><span class="nav-text">多行函数查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-text">分组查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E5%BA%8F%E5%92%8C%E9%99%8D%E5%BA%8F"><span class="nav-text">升序和降序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">删除的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#varchar-%E5%92%8C-char"><span class="nav-text">varchar 和 char</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E"><span class="nav-text">自增</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="nav-text">主键约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E7%A9%BA%E7%BA%A6%E6%9D%9F"><span class="nav-text">非空约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F-%E2%80%93unique"><span class="nav-text">唯一约束 –unique</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-text">连接查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#where-%E6%AF%94-having-%E5%85%88%E6%89%A7%E8%A1%8C"><span class="nav-text">where 比 having 先执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%8D%95%E5%BC%95%E5%8F%B7%E6%8B%AC%E8%B5%B7%E6%9D%A5%E8%BF%99%E6%A0%B7%E4%B9%9F%E4%BC%9A%E8%AF%86%E5%88%AB%E6%88%90%E6%95%B0%E5%80%BC%EF%BC%8C%E4%B8%80%E8%88%AC%E6%9D%A5%E8%AF%B4%E3%80%82%E6%B2%A1%E4%BA%BA%E8%BF%99%E4%B9%88%E9%97%B2%E3%80%82%E4%B8%8D%E8%BF%87%E5%AF%BC%E5%87%BA%E7%9A%84-sql-%E4%B8%80%E8%88%AC%E4%BC%9A%E8%87%AA%E5%B8%A6-%E2%80%98"><span class="nav-text">插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis"><span class="nav-text">Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97"><span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-text">好像有一个万能的转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-1"><span class="nav-text">Mybatis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97-1"><span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-1"><span class="nav-text">好像有一个万能的转义字符</span></a></li></ol>
     </div>
-    
-
-        
-            
-    <div class="valine-container">
-        <script 
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-        <div id="vcomments"></div>
-        <script >
-            function loadValine() {
-                new Valine({
-                    el: '#vcomments',
-                    appId: 'uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz',
-                    appKey: 'UgHn5ltJEnt4uqclo2p9OkUM',
-                    meta: ['nick', 'mail', 'link'],
-                    avatar: 'wavatar',
-                    enableQQ: true,
-                    placeholder: 'welcome 评论~~~',
-                    lang: 'zh-CN'.toLowerCase()
-                });
-
-                function getAuthor(language) {
-                    switch (language) {
-                        case 'en':
-                            return 'Author';
-                        case 'zh-CN':
-                            return '博主';
-                        default:
-                            return 'Master';
-                    }
-                }
-
-                // Add "Author" identify
-                const getValineDomTimer = setInterval(() => {
-                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
-                    if (vcards.length > 0) {
-                        let author = 'notfornothing';
-
-                        if (author) {
-                            for (let vcard of vcards) {
-                                const vnick_dom = vcard.querySelector('.vhead .vnick');
-                                const vnick = vnick_dom.innerHTML;
-                                if (vnick === author) {
-                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
-                                }
-                            }
-                        }
-                        clearInterval(getValineDomTimer);
-                    } else {
-                        clearInterval(getValineDomTimer);
-                    }
-                }, 2000);
-            }
-
-            if ('false') {
-                const loadValineTimeout = setTimeout(() => {
-                    loadValine();
-                    clearTimeout(loadValineTimeout);
-                }, 1000);
-            } else {
-                window.addEventListener('DOMContentLoaded', loadValine);
-            }
-        </script>
-    </div>
-
-
-
-        
-    
 </div>
 
             </div>
@@ -504,72 +503,82 @@
 
                 
             </div>
-
         </div>
 
-        <div class="page-main-content-bottom">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info info-item">
-            &copy;
+        <div class="page-main-content-bottom border-box">
             
-              <span>1999</span>&nbsp;-&nbsp;
-            
-            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">notfornothing</a>
-        </div>
-        
-            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
-                
-                    <span id="busuanzi_container_site_uv">
-                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
-                    </span>
-                
-                
-                    <span id="busuanzi_container_site_pv">
-                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-            </div>
-        
-        <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
-        </div>
-        
-            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘 ICP 备 2022016732 号 - 1</a></div>
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">磊磊</a>
         
     </div>
+
+    <div class="theme-info info-item">
+        Powered by&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;&&nbsp;Theme&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">Unique Visitor</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">Page View</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
 </footer>
 
         </div>
     </div>
 
+    <!-- post tools -->
     
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
+        <div class="post-tools left-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
         
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
             </li>
         
 
-        <!-- go comment -->
+        <!-- PC go comment -->
         
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
-        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
     </ul>
 </div>
 
         </div>
     
 
-    <div class="right-bottom-side-tools">
-        <div class="side-tools-container">
-    <ul class="side-tools-list">
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
         <li class="tools-item tool-font-adjust-plus flex-center">
             <i class="fas fa-search-plus"></i>
         </li>
@@ -578,54 +587,51 @@
             <i class="fas fa-search-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fas fa-arrows-alt-h"></i>
-        </li>
-
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fas fa-moon"></i>
-        </li>
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
 
         <!-- rss -->
         
 
-        
-
+        <!-- to bottom -->
         <li class="tools-item tool-scroll-to-bottom flex-center">
             <i class="fas fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
         </li>
-        
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
     </ul>
 </div>
 
     </div>
 
-    
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">MySQL 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#desc-%E8%A1%A8%E5%90%8D"><span class="nav-number">1.1.</span> <span class="nav-text">desc 表名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-where"><span class="nav-number">2.</span> <span class="nav-text">关于 where</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select-%E4%B8%AD%E7%9A%84-distinct"><span class="nav-number">3.</span> <span class="nav-text">select 中的 distinct</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Null-%E5%92%8C%E4%BB%8D%E5%92%8C%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C%E9%83%BD%E6%98%AF-null-%E4%BB%A5%E5%8F%8A%E6%9C%89%E5%85%B3-null-%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96%E5%88%AB%E5%90%8D%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">取别名的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2-LIKE"><span class="nav-number">6.</span> <span class="nav-text">模糊查询 LIKE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E5%87%BD%E6%95%B0%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.</span> <span class="nav-text">多行函数查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">8.</span> <span class="nav-text">分组查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E5%BA%8F%E5%92%8C%E9%99%8D%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">升序和降序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">10.</span> <span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">11.</span> <span class="nav-text">删除的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#varchar-%E5%92%8C-char"><span class="nav-number">12.</span> <span class="nav-text">varchar 和 char</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E"><span class="nav-number">13.</span> <span class="nav-text">自增</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="nav-number">14.</span> <span class="nav-text">主键约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E7%A9%BA%E7%BA%A6%E6%9D%9F"><span class="nav-number">15.</span> <span class="nav-text">非空约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F-%E2%80%93unique"><span class="nav-number">16.</span> <span class="nav-text">唯一约束 –unique</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">17.</span> <span class="nav-text">连接查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#where-%E6%AF%94-having-%E5%85%88%E6%89%A7%E8%A1%8C"><span class="nav-number">18.</span> <span class="nav-text">where 比 having 先执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%8D%95%E5%BC%95%E5%8F%B7%E6%8B%AC%E8%B5%B7%E6%9D%A5%E8%BF%99%E6%A0%B7%E4%B9%9F%E4%BC%9A%E8%AF%86%E5%88%AB%E6%88%90%E6%95%B0%E5%80%BC%EF%BC%8C%E4%B8%80%E8%88%AC%E6%9D%A5%E8%AF%B4%E3%80%82%E6%B2%A1%E4%BA%BA%E8%BF%99%E4%B9%88%E9%97%B2%E3%80%82%E4%B8%8D%E8%BF%87%E5%AF%BC%E5%87%BA%E7%9A%84-sql-%E4%B8%80%E8%88%AC%E4%BC%9A%E8%87%AA%E5%B8%A6-%E2%80%98"><span class="nav-number">18.1.</span> <span class="nav-text">插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis"><span class="nav-number">19.</span> <span class="nav-text">Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97"><span class="nav-number">19.1.</span> <span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-number">20.</span> <span class="nav-text">好像有一个万能的转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-1"><span class="nav-number">21.</span> <span class="nav-text">Mybatis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97-1"><span class="nav-number">22.</span> <span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-1"><span class="nav-number">23.</span> <span class="nav-text">好像有一个万能的转义字符</span></a></li></ol>
-    </div>
-</div>
-        </aside>
-    
-
-    <div class="image-viewer-container">
-    <img src="">
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
 </div>
 
 
+    <!-- local search -->
     
         <div class="search-pop-overlay">
     <div class="popup search-popup">
@@ -637,13 +643,13 @@
                 <input autocomplete="off"
                        autocorrect="off"
                        autocapitalize="off"
-                       placeholder="搜索..."
+                       placeholder="Search..."
                        spellcheck="false"
                        type="search"
                        class="search-input"
                 >
             </div>
-            <span class="popup-btn-close">
+            <span class="close-popup-btn">
                 <i class="fas fa-times"></i>
             </span>
         </div>
@@ -657,49 +663,133 @@
 
     
 
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-%E7%9B%B8%E5%85%B3"><span class="nav-text">MySQL 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#desc-%E8%A1%A8%E5%90%8D"><span class="nav-text">desc 表名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-where"><span class="nav-text">关于 where</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select-%E4%B8%AD%E7%9A%84-distinct"><span class="nav-text">select 中的 distinct</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Null-%E5%92%8C%E4%BB%8D%E5%92%8C%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%93%E6%9E%9C%E9%83%BD%E6%98%AF-null-%E4%BB%A5%E5%8F%8A%E6%9C%89%E5%85%B3-null-%E7%9A%84%E8%BF%90%E7%AE%97"><span class="nav-text">Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%96%E5%88%AB%E5%90%8D%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">取别名的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2-LIKE"><span class="nav-text">模糊查询 LIKE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E5%87%BD%E6%95%B0%E6%9F%A5%E8%AF%A2"><span class="nav-text">多行函数查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-text">分组查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%87%E5%BA%8F%E5%92%8C%E9%99%8D%E5%BA%8F"><span class="nav-text">升序和降序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-text">分页查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">删除的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#varchar-%E5%92%8C-char"><span class="nav-text">varchar 和 char</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%A2%9E"><span class="nav-text">自增</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="nav-text">主键约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%9E%E7%A9%BA%E7%BA%A6%E6%9D%9F"><span class="nav-text">非空约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F-%E2%80%93unique"><span class="nav-text">唯一约束 –unique</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-text">连接查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#where-%E6%AF%94-having-%E5%85%88%E6%89%A7%E8%A1%8C"><span class="nav-text">where 比 having 先执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8C%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%8D%95%E5%BC%95%E5%8F%B7%E6%8B%AC%E8%B5%B7%E6%9D%A5%E8%BF%99%E6%A0%B7%E4%B9%9F%E4%BC%9A%E8%AF%86%E5%88%AB%E6%88%90%E6%95%B0%E5%80%BC%EF%BC%8C%E4%B8%80%E8%88%AC%E6%9D%A5%E8%AF%B4%E3%80%82%E6%B2%A1%E4%BA%BA%E8%BF%99%E4%B9%88%E9%97%B2%E3%80%82%E4%B8%8D%E8%BF%87%E5%AF%BC%E5%87%BA%E7%9A%84-sql-%E4%B8%80%E8%88%AC%E4%BC%9A%E8%87%AA%E5%B8%A6-%E2%80%98"><span class="nav-text">插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis"><span class="nav-text">Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97"><span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-text">好像有一个万能的转义字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis-1"><span class="nav-text">Mybatis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99-sql-%E7%89%87%E6%AE%B5%E6%97%B6-%E5%B0%8F%E4%BA%8E%E5%8F%B7%E4%BC%9A%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA-xml-%E7%9A%84%E6%A0%87%E7%AD%BE%EF%BC%8C%E5%A4%A7%E4%BA%8E%E4%B8%8D%E4%BC%9A%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%A4%A7%E4%BA%8E%E6%B2%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E6%A0%87%E5%BF%97-1"><span class="nav-text">写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A5%BD%E5%83%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E4%B8%87%E8%83%BD%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6-1"><span class="nav-text">好像有一个万能的转义字符</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
 </main>
 
 
 
 
-<script src="/js/utils.js"></script>
 
-<script src="/js/main.js"></script>
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
 
 <script src="/js/header-shrink.js"></script>
 
 <script src="/js/back2top.js"></script>
 
-<script src="/js/dark-light-toggle.js"></script>
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
 
 
+<!-- local search -->
 
     
 <script src="/js/local-search.js"></script>
 
 
 
+<!-- lazyload -->
 
     
-<script src="/js/code-copy.js"></script>
+<script src="/js/lazyload.js"></script>
 
 
 
-
-
-<div class="post-scripts">
+<div class="pjax">
+    <!-- home page -->
     
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
         
-<script src="/js/left-side-toggle.js"></script>
+<script src="/js/post/post-helper.js"></script>
 
-<script src="/js/libs/anime.min.js"></script>
 
-<script src="/js/toc.js"></script>
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
 
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
     
 </div>
 
+<!-- mermaid -->
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":180,"vOffset":35},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
 </html>
