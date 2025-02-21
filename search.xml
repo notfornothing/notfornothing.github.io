@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Centos 8 服务器配置</title>
-    <url>/2025/02/20/Centos-%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="Centos-8-安装一个neovim插件吧系统搞崩了记录一下安装基本插件的过程："><a href="#Centos-8-安装一个neovim插件吧系统搞崩了记录一下安装基本插件的过程：" class="headerlink" title="Centos 8 安装一个neovim插件吧系统搞崩了记录一下安装基本插件的过程："></a>Centos 8 安装一个neovim插件吧系统搞崩了记录一下安装基本插件的过程：</h2><h3 id="yum-源更换"><a href="#yum-源更换" class="headerlink" title="yum 源更换"></a>yum 源更换</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/yum.repos.d      //进入/etc/yum.repos.d目录</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line">yum -y clean all   //清除所有文件</span><br><span class="line">yum -y makecache   //建立缓存</span><br></pre></td></tr></table></figure>
+    <title>Centos基本的云服务器配置</title>
+    <url>/2025/02/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>玩云服务器时想装一个 neovim 的插件，因为 Centos 8 已经不维护了，然而我要用的 neovim 一直在更新用到了glibc,不能直接安装，然而他又是linux一个底层的玩意,只能编译安装，<br>然后就把系统搞崩了，命令全部用不了，我看了网上的 <a class="link"   href="https://blog.csdn.net/qq_56776641/article/details/134027044" >恢复教程<i class="fas fa-external-link-alt"></i></a> 有点困难，直接重置得了。</p>
+<p>于是乎顺手记录一下安装基本插件的过程</p>
+</blockquote>
+<h2 id="提前总结一下"><a href="#提前总结一下" class="headerlink" title="提前总结一下"></a>提前总结一下</h2><p>基本上能用yum就用yum，不行就去官方找对应操作系统的安装方式，实在不行再自己编译安装（最好提前拍个快照）。</p>
+<h2 id="一些常用的脚本、命令、工具："><a href="#一些常用的脚本、命令、工具：" class="headerlink" title="一些常用的脚本、命令、工具："></a>一些常用的脚本、命令、工具：</h2><h3 id="yum-源更换"><a href="#yum-源更换" class="headerlink" title="yum 源更换"></a>yum 源更换</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/yum.repos.d      //进入/etc/yum.repos.d目录</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line">yum -y clean all   //清除所有文件</span><br><span class="line">yum -y makecache   //建立缓存</span><br></pre></td></tr></table></figure>
 
-<h3 id="nvm-（node版本管理"><a href="#nvm-（node版本管理" class="headerlink" title="nvm （node版本管理)"></a>nvm （node版本管理)</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -o- https://ghfast.top/https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</span><br></pre></td></tr></table></figure>
+<h3 id="nvm-（node版本管理"><a href="#nvm-（node版本管理" class="headerlink" title="nvm （node版本管理)"></a>nvm （node版本管理)</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -o- https://ghfast.top/https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</span><br></pre></td></tr></table></figure>
 
-<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install zsh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># ohmyzsh</span></span></span><br><span class="line">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h3><h3 id="zsh-plugin"><a href="#zsh-plugin" class="headerlink" title="zsh-plugin"></a>zsh-plugin</h3><ul>
-<li>zsh-syntax-highlighting.git</li>
+<h3 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install tmux</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># ohmytmux</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="zsh-plugin"><a href="#zsh-plugin" class="headerlink" title="zsh-plugin"></a>zsh-plugin</h3><ul>
+<li>zsh-syntax-highlighting</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>zsh-autosuggestions</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>Git冲突处理</title>
@@ -1139,6 +1146,27 @@
     <url>/2024/04/08/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</url>
     <content><![CDATA[<h2 id="通过反射获取参数化类型"><a href="#通过反射获取参数化类型" class="headerlink" title="通过反射获取参数化类型"></a>通过反射获取参数化类型</h2><p><a class="link"   href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">R&lt;?&gt; result = handle.handle(receive.substring(<span class="number">1</span>));</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">Type</span> <span class="variable">returnType</span> <span class="operator">=</span> handle.getClass().getMethod(<span class="string">&quot;handle&quot;</span>, String.class).getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (returnType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">        Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();</span><br><span class="line">        <span class="keyword">if</span> (actualTypeArguments.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Class&lt;?&gt; genericClass = (Class&lt;?&gt;) actualTypeArguments[<span class="number">0</span>];</span><br><span class="line">            System.out.println(<span class="string">&quot;Found generic type: &quot;</span> + genericClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>免费添加SSL证书</title>
+    <url>/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
+<hr>
+<h2 id="为什么要有ssl证书？"><a href="#为什么要有ssl证书？" class="headerlink" title="为什么要有ssl证书？"></a>为什么要有ssl证书？</h2><p>不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。<br>因为你的数据不经过证书加密，会容易被篡改。<br>所以证书就是为了加密，保证发送消息和接收消息的安全。</p>
+<h2 id="谁有说服力有势力去管理这么多网站对应的证书？"><a href="#谁有说服力有势力去管理这么多网站对应的证书？" class="headerlink" title="谁有说服力有势力去管理这么多网站对应的证书？"></a>谁有说服力有势力去管理这么多网站对应的证书？</h2><blockquote>
+<p>我怎么知道你的证书就是属于你的网站的，得有一个有公信的机构盖章我才相信</p>
+</blockquote>
+<p>于是乎就有这种机构，好像是要交多少钱类似于保证金的东西，用钱证明实力。<br>这个机构来维护一个证书对应关系类似于 Java 的 Map，比如某某网站对应某个证书。<br>用户请求这个网站就拿这个证书去加密请求，对应的服务端也需要配置私钥去解密，于是加密请求就完成了。<br>用户信任机构的证书，服务端拿私钥也解密成功了，这个世界没有人受伤害。</p>
+<h2 id="道理懂了，那证书怎么申请？"><a href="#道理懂了，那证书怎么申请？" class="headerlink" title="道理懂了，那证书怎么申请？"></a>道理懂了，那证书怎么申请？</h2><p>拿钱买或者搞免费的，我的需求只是为了让用户信任我，当你访问 <a class="link"   href="https://leijiba.cn/" >leijiba.cn<i class="fas fa-external-link-alt"></i></a> 的时候,为了让浏览器不弹出这是一个不安全的链接。</p>
+<p>我用的是这家 <a class="link"   href="https://freessl.cn/" >freessl.cn<i class="fas fa-external-link-alt"></i></a> 免费的。</p>
+<p>流程是：</p>
+<ol>
+<li>freessl 给你一个特定的<code>主机记录</code>还有<code>记录值</code> ，让你放到域名提供商解析那里解析，需要点时间同步到dns去。</li>
+<li>域名提供商那里解析成功了，freessl这边也读到了，证明这就是属于你的域名。</li>
+<li>1.2. 这两步就是为了验证这是你的域名，然后 freessl 就会给你公钥私钥。</li>
+<li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>学习&amp;延伸 用 Collections.unmodifiableList</title>

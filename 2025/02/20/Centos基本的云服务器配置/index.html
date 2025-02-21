@@ -9,7 +9,7 @@
     
     <title>
         
-            Java实现天气预报 |
+            Centos基本的云服务器配置 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        Java实现天气预报
+                        Centos基本的云服务器配置
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2021-11-10 18:22:54</span>
+                <span class="datetime">2025-02-20 23:01:17</span>
             </span>
 
             
@@ -209,7 +209,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>160 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>325 字</span>
             </span>
         
         
@@ -236,40 +236,28 @@
                     
 
                     
-                         <h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
-<li>因每次去上班都不知道今天下不下雨。要是下雨鞋子就会湿的。</li>
-<li>然后逛 github 发现有一个 QQ 机器人。可以用 Java 调用。遂想到实时预报下雨的天气。</li>
-<li>所以设置每天早上 6 点发消息提醒今天的降水概率。</li>
-</ul>
-<h2 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h2><ol>
-<li>使用 <a class="link"   target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot" >simbot QQ 机器人<i class="fas fa-external-link-alt"></i></a>  (github 开源的）</li>
-<li>使用和风天气和阿里云的易源数据作为天气 API</li>
-</ol>
-<h2 id="核心代码图片："><a href="#核心代码图片：" class="headerlink" title="核心代码图片："></a>核心代码图片：</h2><ul>
-<li><p>RestFul 风格调用，接口见名知意<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-29-11.jpg"
-                       
-                 ></p>
-</li>
-<li><p>OKHttps 访问 API 获取实时数据<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-32-31.jpg"
-                       
-                 ></p>
-</li>
-<li><p>QQ 机器人代码参考<br><a class="link"   target="_blank" rel="noopener" href="https://github.com/ForteScarlet/simpler-robot" >github<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-</ul>
-<h2 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h2><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
+                         <blockquote>
+<p>玩云服务器时想装一个 neovim 的插件，因为 Centos 8 已经不维护了，然而我要用的 neovim 一直在更新用到了glibc,不能直接安装，然而他又是linux一个底层的玩意,只能编译安装，<br>然后就把系统搞崩了，命令全部用不了，我看了网上的 <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_56776641/article/details/134027044" >恢复教程<i class="fas fa-external-link-alt"></i></a> 有点困难，直接重置得了。</p>
+<p>于是乎顺手记录一下安装基本插件的过程</p>
+</blockquote>
+<h2 id="提前总结一下"><a href="#提前总结一下" class="headerlink" title="提前总结一下"></a>提前总结一下</h2><p>基本上能用yum就用yum，不行就去官方找对应操作系统的安装方式，实在不行再自己编译安装（最好提前拍个快照）。</p>
+<h2 id="一些常用的脚本、命令、工具："><a href="#一些常用的脚本、命令、工具：" class="headerlink" title="一些常用的脚本、命令、工具："></a>一些常用的脚本、命令、工具：</h2><h3 id="yum-源更换"><a href="#yum-源更换" class="headerlink" title="yum 源更换"></a>yum 源更换</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d      //进入/etc/yum.repos.d目录</span><br><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line">yum -y clean all   //清除所有文件</span><br><span class="line">yum -y makecache   //建立缓存</span><br></pre></td></tr></table></figure>
 
+<h3 id="nvm-（node版本管理"><a href="#nvm-（node版本管理" class="headerlink" title="nvm （node版本管理)"></a>nvm （node版本管理)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://ghfast.top/https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install zsh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># ohmyzsh</span></span></span><br><span class="line">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install tmux</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># ohmytmux</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="zsh-plugin"><a href="#zsh-plugin" class="headerlink" title="zsh-plugin"></a>zsh-plugin</h3><ul>
+<li>zsh-syntax-highlighting</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>zsh-autosuggestions</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
                     
                 </div>
 
@@ -292,14 +280,14 @@
                             <div class="prev-post">
                                 <a class="prev"
                                    rel="prev"
-                                   href="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/"
-                                   title="MySQL 总结（二）"
+                                   href="/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/"
+                                   title="免费添加SSL证书"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">MySQL 总结（二）</span>
+                                        <span class="post-nav-title-item text-ellipsis">免费添加SSL证书</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -309,11 +297,11 @@
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/"
-                                   title="摸鱼神器 scrcpy"
+                                   href="/2024/04/08/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/"
+                                   title="代码片段"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">摸鱼神器 scrcpy</span>
+                                        <span class="post-nav-title-item text-ellipsis">代码片段</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -341,7 +329,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-Java-%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5"><span class="nav-text">用 Java 实现天气预报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step"><span class="nav-text">Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%9A"><span class="nav-text">核心代码图片：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE%EF%BC%9A"><span class="nav-text">效果图：</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%89%8D%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B"><span class="nav-text">提前总结一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC%E3%80%81%E5%91%BD%E4%BB%A4%E3%80%81%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-text">一些常用的脚本、命令、工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yum-%E6%BA%90%E6%9B%B4%E6%8D%A2"><span class="nav-text">yum 源更换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvm-%EF%BC%88node%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-text">nvm （node版本管理)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh"><span class="nav-text">zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux"><span class="nav-text">tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-plugin"><span class="nav-text">zsh-plugin</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -519,7 +507,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-Java-%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5"><span class="nav-text">用 Java 实现天气预报</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step"><span class="nav-text">Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%9A"><span class="nav-text">核心代码图片：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE%EF%BC%9A"><span class="nav-text">效果图：</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%89%8D%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B"><span class="nav-text">提前总结一下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC%E3%80%81%E5%91%BD%E4%BB%A4%E3%80%81%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-text">一些常用的脚本、命令、工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yum-%E6%BA%90%E6%9B%B4%E6%8D%A2"><span class="nav-text">yum 源更换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvm-%EF%BC%88node%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-text">nvm （node版本管理)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh"><span class="nav-text">zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux"><span class="nav-text">tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-plugin"><span class="nav-text">zsh-plugin</span></a></li></ol></li></ol>
     </div>
 </div>
 
