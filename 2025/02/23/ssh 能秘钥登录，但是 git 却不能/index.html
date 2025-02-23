@@ -9,7 +9,7 @@
     
     <title>
         
-            归档: 2025/2 |
+            ssh 能秘钥登录，但是 git 却不能 |
         
         磊磊的博客
     </title>
@@ -92,7 +92,7 @@
                         </li>
                     
                         
-                        <li class="menu-item flex-start border-box active">
+                        <li class="menu-item flex-start border-box">
                             <a class="menu-text-color border-box" href="/archives">
                                 
                                 历史时间线
@@ -135,7 +135,7 @@
                 </li>
             
                 
-                <li class="drawer-menu-item border-box not-sub-menu active">
+                <li class="drawer-menu-item border-box not-sub-menu">
                     <label class="drawer-menu-label border-box">
                         <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
                             
@@ -161,61 +161,152 @@
             <div class="main-content border-box">
                 
 
-                    <div class="fade-in-down-animation">
-    <div class="archives-container">
-        <div class="archives-timeline border-box">
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
             
-<div class="archive-list-container border-box">
-    
-        <section class="archive-item border-box">
-            <div class="archive-item-header border-box">
-                <span class="archive-year">2025</span>
-            </div>
-            <ul class="archive-item-body border-box">
+
+            <div class="post-content-bottom border-box">
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">02-23</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/02/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/"
-                        >ssh 能秘钥登录，但是 git 却不能</a>
-                    </li>
+                    <div class="post-title">
+                        ssh 能秘钥登录，但是 git 却不能
+                    </div>
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">02-23</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/02/23/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/"
-                        >Github Action 自动部署博客</a>
-                    </li>
+
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">02-21</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/"
-                        >免费添加SSL证书</a>
-                    </li>
-                
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">02-20</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/02/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"
-                        >Centos基本的云服务器配置</a>
-                    </li>
-                
-            </ul>
-        </section>
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">磊磊</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-02-23 16:16:41</span>
+            </span>
+
+            
+        
+
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>120 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
     
 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
+<li>重新配置公钥私钥</li>
+<li>ssh-agent 管理</li>
+</ol>
+<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
+<p>找到这篇文章：<a class="link"   target="_blank" rel="noopener" href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
+<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/02/23/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/"
+                                   title="Github Action 自动部署博客"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Github Action 自动部署博客</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
         </div>
+
+        
+            <div class="pc-post-toc left-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
     </div>
-    
+</div>
 
-
-
+            </div>
+        
+    </div>
 </div>
 
 
@@ -267,6 +358,31 @@
 
     <!-- post tools -->
     
+        <div class="post-tools left-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
 
     <!-- side tools -->
     <div class="side-tools">
@@ -297,6 +413,10 @@
     </ul>
 
     <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
         
 
         
@@ -354,8 +474,18 @@
 
     <!-- tablet toc -->
     
-</main>
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
 
+            </div>
+        </div>
+    
+</main>
 
 
 
@@ -397,6 +527,24 @@
     
 
     <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
     
 
     <!-- categories page -->
