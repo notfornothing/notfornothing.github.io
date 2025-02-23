@@ -9,7 +9,7 @@
     
     <title>
         
-            免费添加SSL证书 |
+            Github Action 自动部署博客 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        免费添加SSL证书
+                        Github Action 自动部署博客
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-02-21 22:40:31</span>
+                <span class="datetime">2025-02-23 08:29:12</span>
             </span>
 
             
@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>555 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>474 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
             </span>
         
         
@@ -236,22 +236,13 @@
                     
 
                     
-                         <p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
+                         <p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
 <hr>
-<h2 id="为什么要有ssl证书？"><a href="#为什么要有ssl证书？" class="headerlink" title="为什么要有ssl证书？"></a>为什么要有ssl证书？</h2><p>不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。<br>因为你的数据不经过证书加密，会容易被篡改。<br>所以证书就是为了加密，保证发送消息和接收消息的安全。</p>
-<h2 id="谁有说服力去管理这么多网站对应的证书？"><a href="#谁有说服力去管理这么多网站对应的证书？" class="headerlink" title="谁有说服力去管理这么多网站对应的证书？"></a>谁有说服力去管理这么多网站对应的证书？</h2><blockquote>
-<p>我怎么知道你的证书就是属于你的网站的，得有一个有公信的机构盖章我才相信</p>
-</blockquote>
-<p>于是乎就有这种机构，好像是要交多少钱类似于保证金的东西，用钱证明实力。<br>这个机构来维护一个证书对应关系类似于 Java 的 Map，比如某某网站对应某个证书。<br>用户请求这个网站就拿这个证书去加密请求，对应的服务端也需要配置私钥去解密，于是加密请求就完成了。<br>用户信任机构的证书，服务端拿私钥也解密成功了，这个世界没有人受伤害。</p>
-<h2 id="道理懂了，那证书怎么申请？"><a href="#道理懂了，那证书怎么申请？" class="headerlink" title="道理懂了，那证书怎么申请？"></a>道理懂了，那证书怎么申请？</h2><p>拿钱买或者搞免费的，我的需求只是为了让用户信任我，当你访问 <a class="link"   target="_blank" rel="noopener" href="https://leijiba.cn/" >leijiba.cn<i class="fas fa-external-link-alt"></i></a> 的时候,为了让浏览器不弹出这是一个不安全的链接。</p>
-<p>我用的是这家 <a class="link"   target="_blank" rel="noopener" href="https://freessl.cn/" >freessl.cn<i class="fas fa-external-link-alt"></i></a> 免费的。</p>
-<p>流程是：</p>
-<ol>
-<li>freessl 给你一个特定的<code>主机记录</code>还有<code>记录值</code> ，让你放到域名提供商解析那里解析，需要点时间同步到dns去。</li>
-<li>域名提供商那里解析成功了，freessl这边也读到了，证明这就是属于你的域名。</li>
-<li>1.2. 这两步就是为了验证这是你的域名，然后 freessl 就会给你公钥私钥。</li>
-<li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
-</ol>
+<p>命令 <code>hexo generate</code>会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
+<p>为了写完博客提交到github的后自动执行部署操作，于是有了这篇文章</p>
+<p>其实有网上有很多方案，我采用的是 Github Action</p>
+<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
 
                     
                 </div>
@@ -272,31 +263,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/02/23/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/"
-                                   title="Github Action 自动部署博客"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">Github Action 自动部署博客</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2025/02/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"
-                                   title="Centos基本的云服务器配置"
+                                   href="/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/"
+                                   title="免费添加SSL证书"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">Centos基本的云服务器配置</span>
+                                        <span class="post-nav-title-item text-ellipsis">免费添加SSL证书</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -324,7 +299,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89ssl%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="nav-text">为什么要有ssl证书？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%81%E6%9C%89%E8%AF%B4%E6%9C%8D%E5%8A%9B%E5%8E%BB%E7%AE%A1%E7%90%86%E8%BF%99%E4%B9%88%E5%A4%9A%E7%BD%91%E7%AB%99%E5%AF%B9%E5%BA%94%E7%9A%84%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="nav-text">谁有说服力去管理这么多网站对应的证书？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%93%E7%90%86%E6%87%82%E4%BA%86%EF%BC%8C%E9%82%A3%E8%AF%81%E4%B9%A6%E6%80%8E%E4%B9%88%E7%94%B3%E8%AF%B7%EF%BC%9F"><span class="nav-text">道理懂了，那证书怎么申请？</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Action"><span class="nav-text">Github Action</span></a></li></ol>
     </div>
 </div>
 
@@ -502,7 +477,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89ssl%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="nav-text">为什么要有ssl证书？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%81%E6%9C%89%E8%AF%B4%E6%9C%8D%E5%8A%9B%E5%8E%BB%E7%AE%A1%E7%90%86%E8%BF%99%E4%B9%88%E5%A4%9A%E7%BD%91%E7%AB%99%E5%AF%B9%E5%BA%94%E7%9A%84%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="nav-text">谁有说服力去管理这么多网站对应的证书？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%93%E7%90%86%E6%87%82%E4%BA%86%EF%BC%8C%E9%82%A3%E8%AF%81%E4%B9%A6%E6%80%8E%E4%B9%88%E7%94%B3%E8%AF%B7%EF%BC%9F"><span class="nav-text">道理懂了，那证书怎么申请？</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-Action"><span class="nav-text">Github Action</span></a></li></ol>
     </div>
 </div>
 
