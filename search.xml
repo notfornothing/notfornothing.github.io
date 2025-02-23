@@ -33,6 +33,49 @@
 <h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
+    <title>I-like-KFC-And-McDonald&#39;s</title>
+    <url>/2025/02/23/I-like-KFC-And-McDonald&#39;s/</url>
+    <content><![CDATA[<h2 id="我喜欢"><a href="#我喜欢" class="headerlink" title="我喜欢"></a>我喜欢</h2><p>well,我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。想看的话，你就等着吧，昂哈哈哈</p>
+<hr>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/2F66906AE559E3E1012ACC789D38BF87.jpg"
+                        alt="2F66906AE559E3E1012ACC789D38BF87.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/9812D950000EC834F1EC39FEB51987E6.jpg"
+                        alt="9812D950000EC834F1EC39FEB51987E6.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/77610A1DAF6184B86F0E1E4DC38330CA.jpg"
+                        alt="77610A1DAF6184B86F0E1E4DC38330CA.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/BB36721806F7A8640742FFAF67536036.jpg"
+                        alt="BB36721806F7A8640742FFAF67536036.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/BD13BF58EEA4E7102E346E94F949E002.jpg"
+                        alt="BD13BF58EEA4E7102E346E94F949E002.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/D1AAA85894C42ED1113F756A71E5C6E7.jpg"
+                        alt="D1AAA85894C42ED1113F756A71E5C6E7.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/F2E10C93E0EB4592659594B4F8B0808C.jpg"
+                        alt="F2E10C93E0EB4592659594B4F8B0808C.jpg"
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Github Action 自动部署博客</title>
     <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
@@ -42,55 +85,6 @@
 <p>其实有网上有很多方案，我采用的是 Github Action</p>
 <h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-  </entry>
-  <entry>
-    <title>I-like-KFC-And-McDonald&#39;s</title>
-    <url>/2025/02/23/I-like-KFC-And-McDonald&#39;s%20/</url>
-    <content><![CDATA[<h2 id="我喜欢"><a href="#我喜欢" class="headerlink" title="我喜欢"></a>我喜欢</h2><p>well,我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。想看的话，你就等着吧，昂哈哈哈</p>
-<hr>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/BD13BF58EEA4E7102E346E94F949E002.jpg"
-                        alt="BD13BF58EEA4E7102E346E94F949E002.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/2F66906AE559E3E1012ACC789D38BF87.jpg"
-                        alt="2F66906AE559E3E1012ACC789D38BF87.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/D1AAA85894C42ED1113F756A71E5C6E7.jpg"
-                        alt="D1AAA85894C42ED1113F756A71E5C6E7.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                        alt="77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/BD13BF58EEA4E7102E346E94F949E002.jpg"
-                        alt="BD13BF58EEA4E7102E346E94F949E002.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/BB36721806F7A8640742FFAF67536036.jpg"
-                        alt="BB36721806F7A8640742FFAF67536036.jpg"
-                 ></p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/I-like-KFC/77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                        alt="77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                 ></p>
 ]]></content>
   </entry>
   <entry>
@@ -1146,6 +1140,42 @@
 ]]></content>
   </entry>
   <entry>
+    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
+    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
+    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
+<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
+<ul>
+<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
+</li>
+<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
+<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Test</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试结果</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
+                       
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Java实现天气预报</title>
     <url>/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/</url>
     <content><![CDATA[<h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
@@ -1180,42 +1210,6 @@
                        alt="image"
                        data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
                         alt="PANGU_DISABLE"
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
-    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
-    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
-<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
-<ul>
-<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
-</li>
-<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
-</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
-</ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
-<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
-<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Test</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>测试结果</li>
-</ul>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
-                       
                  ></p>
 ]]></content>
   </entry>
