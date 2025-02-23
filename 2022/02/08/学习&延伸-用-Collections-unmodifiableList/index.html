@@ -9,7 +9,7 @@
     
     <title>
         
-            Java 为什么要使用泛型 |
+            学习&amp;延伸 用 Collections.unmodifiableList |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        Java 为什么要使用泛型
+                        学习&amp;延伸 用 Collections.unmodifiableList
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2022-11-01 10:16:53</span>
+                <span class="datetime">2022-02-08 20:07:42</span>
             </span>
 
             
@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>601 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>320 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
             </span>
         
         
@@ -236,49 +236,37 @@
                     
 
                     
-                         <h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
-<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>  Java1.5 之前的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
-
-<p>图例</p>
+                         <h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
+<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
+<ul>
+<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
+</li>
+<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
+<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Test</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试结果</li>
+</ul>
 <p><img  
                        lazyload
                        alt="image"
-                       data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
+                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
                        
                  ></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
-<p>  如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
-<h4 id="解决办法-1："><a href="#解决办法-1：" class="headerlink" title="解决办法 1："></a>解决办法 1：</h4><p>  在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
-<blockquote>
-<p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
-</blockquote>
-<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2:"></a>解决办法 2:</h4><p>  限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
-<blockquote>
-<p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>源代码：</p>
-<p><code>System.out.println(list.get(i));</code></p>
-</li>
-<li><p>class 字节码：</p>
-<p><code>System.out.println((String)list.get(i));</code></p>
-</li>
-</ul>
-<p>可以知道编译器会自动转换</p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>  1.减少 Java5 以往代码的冗余，提高代码复用性</p>
-<p>  2.返回泛型类型时，会自动强转，强转后的变量必须要当前泛型类或者其父类（Object 之类）接收，省时省力</p>
-<blockquote>
-<p>Java 执行顺序：*.java 文件 （编译） -&gt; *.class 字节码 （运行）-&gt;  jvm</p>
-</blockquote>
-<p>  3.由 2 知：把运行时报错转成了编译就报错，编译没过自然没法运行，减少试错成本</p>
 
                     
                 </div>
@@ -302,14 +290,14 @@
                             <div class="prev-post">
                                 <a class="prev"
                                    rel="prev"
-                                   href="/2022/11/05/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/"
-                                   title="Java 泛型擦除小实验"
+                                   href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/"
+                                   title="Java 为什么要使用泛型"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">Java 泛型擦除小实验</span>
+                                        <span class="post-nav-title-item text-ellipsis">Java 为什么要使用泛型</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -319,11 +307,11 @@
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/"
-                                   title="学习&amp;延伸 用 Collections.unmodifiableList"
+                                   href="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/"
+                                   title="lombok 注解，绝中绝，顶上顶！"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">学习&amp;延伸 用 Collections.unmodifiableList</span>
+                                        <span class="post-nav-title-item text-ellipsis">lombok 注解，绝中绝，顶上顶！</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -351,7 +339,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%8E%86%E5%8F%B2"><span class="nav-text">Java 历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E7%94%A8%E6%B3%9B%E5%9E%8B%E4%BC%9A%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E4%BE%BF%E6%80%A7"><span class="nav-text">不用泛型会有哪些不便性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%EF%BC%9A%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-text">需求：遍历集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95-1%EF%BC%9A"><span class="nav-text">解决办法 1：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95-2"><span class="nav-text">解决办法 2:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%B3%9B%E5%9E%8B%E5%90%8E"><span class="nav-text">引入泛型后</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-final-%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-text">用 final 修饰的变量，对象属性可以修改的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li></ol>
     </div>
 </div>
 
@@ -529,7 +517,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%8E%86%E5%8F%B2"><span class="nav-text">Java 历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E7%94%A8%E6%B3%9B%E5%9E%8B%E4%BC%9A%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E4%BE%BF%E6%80%A7"><span class="nav-text">不用泛型会有哪些不便性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%EF%BC%9A%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-text">需求：遍历集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95-1%EF%BC%9A"><span class="nav-text">解决办法 1：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95-2"><span class="nav-text">解决办法 2:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%B3%9B%E5%9E%8B%E5%90%8E"><span class="nav-text">引入泛型后</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8-final-%E4%BF%AE%E9%A5%B0%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9%E7%9A%84"><span class="nav-text">用 final 修饰的变量，对象属性可以修改的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li></ol>
     </div>
 </div>
 

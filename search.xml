@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Centos基本的云服务器配置</title>
-    <url>/2025/02/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
+    <url>/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
 <p>玩云服务器时想装一个 neovim 的插件，因为 Centos 8 已经不维护了，然而我要用的 neovim 一直在更新用到了glibc,不能直接安装，然而他又是linux一个底层的玩意,只能编译安装，<br>然后就把系统搞崩了，命令全部用不了，我看了网上的 <a class="link"   href="https://blog.csdn.net/qq_56776641/article/details/134027044" >恢复教程<i class="fas fa-external-link-alt"></i></a> 有点困难，直接重置得了。</p>
 <p>于是乎顺手记录一下安装基本插件的过程</p>
@@ -28,13 +28,13 @@
   </entry>
   <entry>
     <title>Git 设置 配置分支</title>
-    <url>/2021/09/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
+    <url>/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
     <content><![CDATA[<h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
 <h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>Github Action 自动部署博客</title>
-    <url>/2025/02/23/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
+    <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
 <hr>
 <p>命令 <code>hexo generate</code>会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
@@ -48,11 +48,7 @@
     <title>Java 为什么要使用泛型</title>
     <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
-<h1 id="为什么要使用泛型"><a href="#为什么要使用泛型" class="headerlink" title="为什么要使用泛型"></a>为什么要使用泛型</h1><h2 id="提高代码复用性"><a href="#提高代码复用性" class="headerlink" title="提高代码复用性"></a>提高代码复用性</h2><ul>
-<li><p>需求：遍历集合</p>
-<p>Java1.5 之前的代码：</p>
-</li>
-</ul>
+<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>  Java1.5 之前的代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>  输出</p>
@@ -65,30 +61,19 @@
                        data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
                        
                  ></p>
-<ul>
-<li><p>问题</p>
-<p>如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
-<p>如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
-</li>
-<li><p>解决办法 1：</p>
-<p>在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
-</li>
-</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
+<p>  如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
+<h4 id="解决办法-1："><a href="#解决办法-1：" class="headerlink" title="解决办法 1："></a>解决办法 1：</h4><p>  在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
 <blockquote>
 <p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
 </blockquote>
-<ul>
-<li><p>解决办法 2:</p>
-<p>限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
-</li>
-</ul>
+<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2:"></a>解决办法 2:</h4><p>  限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
 <blockquote>
 <p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>引入泛型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>源代码：</p>
@@ -438,7 +423,7 @@
   </entry>
   <entry>
     <title>Map 中引用遇到的问题</title>
-    <url>/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <url>/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h1 id="Map-中引用遇到的问题"><a href="#Map-中引用遇到的问题" class="headerlink" title="Map 中引用遇到的问题"></a>Map 中引用遇到的问题</h1><h2 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、有 List&lt;String&gt; nameList 值为『张三，李四，王五』</span><br><span class="line">2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Object&gt; 中</span><br><span class="line">3、并把 map 放到 List&lt;Map&lt;String, Object&gt;&gt; 里面</span><br></pre></td></tr></table></figure>
 <p>等于说是：</p>
 <p>『张三，李四，王五』&#x3D;&#x3D;&gt; 『{name&#x3D; 张三}, {name&#x3D; 李四}, {name&#x3D; 王五}』</p>
@@ -453,7 +438,7 @@
 <p><img  
                        lazyload
                        alt="image"
-                       data-src="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
                         alt="PANGU_DISABLE"
                  ></p>
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
@@ -468,7 +453,7 @@
 <p><img  
                        lazyload
                        alt="image"
-                       data-src="/2021/12/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
                        
                  ></p>
 ]]></content>
@@ -1021,7 +1006,7 @@
   </entry>
   <entry>
     <title>ssh 能秘钥登录，但是 git 却不能</title>
-    <url>/2025/02/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
+    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
     <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
 <h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
 <li>重新配置公钥私钥</li>
@@ -1085,7 +1070,7 @@
   </entry>
   <entry>
     <title>免费添加SSL证书</title>
-    <url>/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
+    <url>/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
     <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
 <hr>
 <h2 id="为什么要有ssl证书？"><a href="#为什么要有ssl证书？" class="headerlink" title="为什么要有ssl证书？"></a>为什么要有ssl证书？</h2><p>不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。<br>因为你的数据不经过证书加密，会容易被篡改。<br>所以证书就是为了加密，保证发送消息和接收消息的安全。</p>
@@ -1106,7 +1091,7 @@
   </entry>
   <entry>
     <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
-    <url>/2022/08/16/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
+    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
     <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
 <p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
 <ul>
@@ -1135,7 +1120,7 @@
 <p><img  
                        lazyload
                        alt="image"
-                       data-src="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
+                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
                        
                  ></p>
 ]]></content>
