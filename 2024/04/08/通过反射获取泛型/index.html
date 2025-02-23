@@ -9,7 +9,7 @@
     
     <title>
         
-            代码片段 |
+            通过反射获取泛型 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        代码片段
+                        通过反射获取泛型
                     </div>
                 
 
@@ -209,7 +209,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>92 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>89 字</span>
             </span>
         
         
@@ -236,7 +236,7 @@
                     
 
                     
-                         <h2 id="通过反射获取参数化类型"><a href="#通过反射获取参数化类型" class="headerlink" title="通过反射获取参数化类型"></a>通过反射获取参数化类型</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
+                         <h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><p><a class="link"   target="_blank" rel="noopener" href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">R&lt;?&gt; result = handle.handle(receive.substring(<span class="number">1</span>));</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">Type</span> <span class="variable">returnType</span> <span class="operator">=</span> handle.getClass().getMethod(<span class="string">&quot;handle&quot;</span>, String.class).getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (returnType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">        Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();</span><br><span class="line">        <span class="keyword">if</span> (actualTypeArguments.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Class&lt;?&gt; genericClass = (Class&lt;?&gt;) actualTypeArguments[<span class="number">0</span>];</span><br><span class="line">            System.out.println(<span class="string">&quot;Found generic type: &quot;</span> + genericClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                     
                 </div>
@@ -309,7 +309,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%8C%96%E7%B1%BB%E5%9E%8B"><span class="nav-text">通过反射获取参数化类型</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B"><span class="nav-text">通过反射获取泛型</span></a></li></ol>
     </div>
 </div>
 
@@ -487,7 +487,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%8C%96%E7%B1%BB%E5%9E%8B"><span class="nav-text">通过反射获取参数化类型</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B"><span class="nav-text">通过反射获取泛型</span></a></li></ol>
     </div>
 </div>
 

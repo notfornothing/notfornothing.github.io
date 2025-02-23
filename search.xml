@@ -1154,12 +1154,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>代码片段</title>
-    <url>/2024/04/08/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</url>
-    <content><![CDATA[<h2 id="通过反射获取参数化类型"><a href="#通过反射获取参数化类型" class="headerlink" title="通过反射获取参数化类型"></a>通过反射获取参数化类型</h2><p><a class="link"   href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">R&lt;?&gt; result = handle.handle(receive.substring(<span class="number">1</span>));</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">Type</span> <span class="variable">returnType</span> <span class="operator">=</span> handle.getClass().getMethod(<span class="string">&quot;handle&quot;</span>, String.class).getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (returnType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">        Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();</span><br><span class="line">        <span class="keyword">if</span> (actualTypeArguments.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Class&lt;?&gt; genericClass = (Class&lt;?&gt;) actualTypeArguments[<span class="number">0</span>];</span><br><span class="line">            System.out.println(<span class="string">&quot;Found generic type: &quot;</span> + genericClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>免费添加SSL证书</title>
     <url>/2025/02/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
     <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
@@ -1283,5 +1277,11 @@
                         alt="PANGU_DISABLE"
                  ></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>通过反射获取泛型</title>
+    <url>/2024/04/08/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><p><a class="link"   href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">R&lt;?&gt; result = handle.handle(receive.substring(<span class="number">1</span>));</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">Type</span> <span class="variable">returnType</span> <span class="operator">=</span> handle.getClass().getMethod(<span class="string">&quot;handle&quot;</span>, String.class).getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (returnType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">        Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();</span><br><span class="line">        <span class="keyword">if</span> (actualTypeArguments.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Class&lt;?&gt; genericClass = (Class&lt;?&gt;) actualTypeArguments[<span class="number">0</span>];</span><br><span class="line">            System.out.println(<span class="string">&quot;Found generic type: &quot;</span> + genericClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
 </search>
