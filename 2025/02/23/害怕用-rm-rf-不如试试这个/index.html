@@ -9,7 +9,7 @@
     
     <title>
         
-            I-like-KFC-And-McDonald&#39;s |
+            害怕用`rm -rf`? 不如试试这个 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        I-like-KFC-And-McDonald&#39;s
+                        害怕用`rm -rf`? 不如试试这个
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-02-23 17:03:19</span>
+                <span class="datetime">2025-02-23 21:45:33</span>
             </span>
 
             
@@ -209,7 +209,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>47 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>365 字</span>
             </span>
         
         
@@ -236,45 +236,22 @@
                     
 
                     
-                         <h2 id="我喜欢"><a href="#我喜欢" class="headerlink" title="我喜欢"></a>我喜欢</h2><p>我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。<br>好像有cdn这个东西，这个有时间在弄了。</p>
-<hr>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/2F66906AE559E3E1012ACC789D38BF87.jpg"
-                        alt="2F66906AE559E3E1012ACC789D38BF87.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/9812D950000EC834F1EC39FEB51987E6.jpg"
-                        alt="9812D950000EC834F1EC39FEB51987E6.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                        alt="77610A1DAF6184B86F0E1E4DC38330CA.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/BB36721806F7A8640742FFAF67536036.jpg"
-                        alt="BB36721806F7A8640742FFAF67536036.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/BD13BF58EEA4E7102E346E94F949E002.jpg"
-                        alt="BD13BF58EEA4E7102E346E94F949E002.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/D1AAA85894C42ED1113F756A71E5C6E7.jpg"
-                        alt="D1AAA85894C42ED1113F756A71E5C6E7.jpg"
-                 ><br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/F2E10C93E0EB4592659594B4F8B0808C.jpg"
-                        alt="F2E10C93E0EB4592659594B4F8B0808C.jpg"
-                 ></p>
+                         <p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不熟悉</p>
+<h1 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h1><h2 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h2><ul>
+<li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
+</ul>
+<p>这种方式治标不治本，因为主动权还是在我手中</p>
+<h2 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h2><ul>
+<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行，</li>
+</ul>
+<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式</p>
+<h2 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h2><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">trash-put           把文件或目录移动到回收站</span><br><span class="line">trash-empty         清空回收站</span><br><span class="line">trash-list          列出回收站文件</span><br><span class="line">trash-restore       恢复回收站文件</span><br><span class="line">trash-rm            删除回收站文件</span><br></pre></td></tr></table></figure>
 
+<p>在你的shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕正常rm就行，</p>
+<p>使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/opt/test # touch testFile                                                                         root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # rm testFile                                                                            root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-list                                                                             root@Sparrow</span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # tree ~/.local/share/Trash                                                              root@Sparrow</span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-restore                                                                          root@Sparrow</span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-list                                                                             root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # tree ~/.local/share/Trash                                                              root@Sparrow</span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test #                                                                                        root@Sparrow</span><br></pre></td></tr></table></figure>
                     
                 </div>
 
@@ -294,31 +271,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/02/23/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/"
-                                   title="害怕用`rm -rf`? 不如试试这个"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">害怕用`rm -rf`? 不如试试这个</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/"
-                                   title="nginx 代理妙用"
+                                   href="/2025/02/23/I-like-KFC-And-McDonald's/"
+                                   title="I-like-KFC-And-McDonald&#39;s"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">nginx 代理妙用</span>
+                                        <span class="post-nav-title-item text-ellipsis">I-like-KFC-And-McDonald&#39;s</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -346,7 +307,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%96%9C%E6%AC%A2"><span class="nav-text">我喜欢</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BA%86%E5%87%8F%E5%B0%91%E8%AF%AF%E6%93%8D%E4%BD%9C%EF%BC%8C%E7%BD%91%E4%B8%8A%E6%9C%89%E5%BE%88%E5%A4%9A%E6%96%B9%E6%A1%88"><span class="nav-text">为了减少误操作，网上有很多方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-1-%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 1 (不推荐)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-2-%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 2 (不推荐)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-3-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 3 (强烈推荐)</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -524,7 +485,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E5%96%9C%E6%AC%A2"><span class="nav-text">我喜欢</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BA%86%E5%87%8F%E5%B0%91%E8%AF%AF%E6%93%8D%E4%BD%9C%EF%BC%8C%E7%BD%91%E4%B8%8A%E6%9C%89%E5%BE%88%E5%A4%9A%E6%96%B9%E6%A1%88"><span class="nav-text">为了减少误操作，网上有很多方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-1-%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 1 (不推荐)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-2-%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 2 (不推荐)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%A1%88-3-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90"><span class="nav-text">方案 3 (强烈推荐)</span></a></li></ol></li></ol>
     </div>
 </div>
 
