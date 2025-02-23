@@ -9,7 +9,7 @@
     
     <title>
         
-            Java 泛型详解汇总 |
+            Java 泛型擦除小实验 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        Java 泛型详解汇总
+                        Java 泛型擦除小实验
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2022-11-01 09:52:38</span>
+                <span class="datetime">2022-11-05 10:16:53</span>
             </span>
 
             
@@ -209,7 +209,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>185 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>340 字</span>
             </span>
         
         
@@ -236,24 +236,32 @@
                     
 
                     
-                         <h1 id="Java-泛型"><a href="#Java-泛型" class="headerlink" title="Java 泛型"></a>Java 泛型</h1><blockquote>
-<p>看了 Java 的 Collection 等源码，发现泛型用处很多，不知道为什么要这样设计如<code>（extends 和 super）</code>于是有了这篇文章。</p>
-</blockquote>
-<h2 id="阅读顺序"><a href="#阅读顺序" class="headerlink" title="阅读顺序"></a>阅读顺序</h2><ol start="0">
-<li><p>Java 泛型擦除小实验</p>
+                         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li>很多人看到泛型就害怕，其实你只要想象成人为的一个约束。</li>
+<li>泛型是编译期间的行为，下面会通过程序运行时的反射案例校验。</li>
+<li>泛型是防止错误输入的，本质上就是 <code>Object</code>,存在的意义是方便编码确认类型。只在编译阶段有效 – 绕过编译无效</li>
+</ul>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>  Test.Java 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@org.junit.Test</span><br><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">    list.add(&quot;A&quot;);</span><br><span class="line">//        编译报错，类型不同不能转换</span><br><span class="line">//        list.add(1);</span><br><span class="line">    @SuppressWarnings(&quot;rawtypes&quot;)</span><br><span class="line">    Class&lt;? extends List&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(&quot;add&quot;, Object.class).invoke(list, 666);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String) list.get(0));</span><br><span class="line">    System.out.println((String) list.get(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/./Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4/Snipaste_2024-03-26_15-12-36.png"
+                       
+                 ></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><ul>
+<li><p>通过反射（运行时执行方法）,把 <code>Integer</code> 类型 666 放入 list 中。</p>
 </li>
-<li><p>Java 为什么要使用泛型（从Java的发展历史来了解泛型）</p>
+<li><p>可知道程序运行时 <code>List&lt;String&gt;</code> 并没有被约束（即放入时就报错）。</p>
 </li>
-</ol>
-<blockquote>
-<p>使用泛型目的是要在编译阶段就找出类型的错误来，而不是运行时。所以我们应该带着能在解决运行抛错的问题来了解泛型。</p>
-</blockquote>
-<ol start="2">
-<li>PECS(Producer Extends, Consumer Super) 规范原则</li>
-</ol>
-<blockquote>
-<p>Producer Extends 设置上边界（协变）用来获取值<br>Consumer Super 设置下边界（逆变）用来操作值<br>如果你想都支持获取修改操作则设置 T 任意类型。</p>
-</blockquote>
+<li><p>所以 <code>List&lt;String&gt;</code> 就相当于 <code>List&lt;Object&gt;</code> 所以可以取出来。</p>
+</li>
+<li><p>由于是泛型返回值类型自动强转（可以看 class 文件结果），强转会会报运行时异常。</p>
+</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>所以 Java 的泛型只是编译期的约束行为。 应该尽量避免这种运行时能赋值非泛型类型值的行为，不然会导致后面自动强转报运行错误。</li>
+</ul>
 
                     
                 </div>
@@ -277,14 +285,14 @@
                             <div class="prev-post">
                                 <a class="prev"
                                    rel="prev"
-                                   href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/"
-                                   title="Java 为什么要使用泛型"
+                                   href="/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/"
+                                   title="通过反射获取泛型"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">Java 为什么要使用泛型</span>
+                                        <span class="post-nav-title-item text-ellipsis">通过反射获取泛型</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -294,11 +302,11 @@
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2022/08/16/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/"
-                                   title="学习&amp;延伸 用 Collections.unmodifiableList"
+                                   href="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/"
+                                   title="Java 为什么要使用泛型"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">学习&amp;延伸 用 Collections.unmodifiableList</span>
+                                        <span class="post-nav-title-item text-ellipsis">Java 为什么要使用泛型</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -326,7 +334,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E6%B3%9B%E5%9E%8B"><span class="nav-text">Java 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E9%A1%BA%E5%BA%8F"><span class="nav-text">阅读顺序</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
     </div>
 </div>
 
@@ -504,7 +512,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E6%B3%9B%E5%9E%8B"><span class="nav-text">Java 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E9%A1%BA%E5%BA%8F"><span class="nav-text">阅读顺序</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
     </div>
 </div>
 

@@ -27,6 +27,12 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
+    <title>Git 设置 配置分支</title>
+    <url>/2021/09/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
+    <content><![CDATA[<h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
+<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>Github Action 自动部署博客</title>
     <url>/2025/02/23/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
@@ -36,82 +42,6 @@
 <p>其实有网上有很多方案，我采用的是 Github Action</p>
 <h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-  </entry>
-  <entry>
-    <title>Git冲突处理</title>
-    <url>/2021/09/15/Git%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h1 id="Git-冲突处理"><a href="#Git-冲突处理" class="headerlink" title="Git 冲突处理"></a>Git 冲突处理</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
-<li>最开始经历过学 Git，玩着玩着把代码弄丢了的事情。然后当时也没深究。也知道一些大概：遇事别急，只要你 commit 了，代码就不会跑，所以没事就 <code>git add ./</code> , <code>git commit -m &quot;like a shit&quot;</code>。</li>
-<li>以前也是一个人玩，很少遇到冲突基本上没有，也只是了解过冲突的部分概念。后面了解到 gitflow 工作流。也逐渐明白：别在主分支上乱搞，自己拉的分支随便你怎么处理。体会到了 git 的魅力，C 语言指针思想深入人心。Linus 看起来很酷。</li>
-</ul>
-<blockquote>
-<p>gitlab 叫 merge request</p>
-<p>github 叫 pull request</p>
-</blockquote>
-<ul>
-<li><p>在此之前，我所知道的就是：</p>
-<p><strong>拉分支 &#x3D;&#x3D;&gt; 做需求 &#x3D;&#x3D;&gt; 本地自测没问题 &#x3D;&#x3D;&gt; 把本地推到远程分支 &#x3D;&#x3D;&gt; 提交发起合并请求</strong></p>
-</li>
-</ul>
-<h2 id="经过"><a href="#经过" class="headerlink" title="经过"></a>经过</h2><p>一次在和长沙的技术组长：黄哥！在一起写一个项目的代码的时候。因为我们都是修改的同一个文件。然后过来问我进度怎么样了。</p>
-<p>由于我采用最保守的方式。从本地拉分支再进行修改。BTW，我知道 commit 很多会在 git 历史上很丑，一条线几个节点，巨丑无比。因为刚入手这个项目组，然后他过来看我改了哪些地方。我说我还没 commit（我怕还要改，因为 commit 太多了很丑）。</p>
-<ul>
-<li>然后他让我切到主分支上去。然后我就跟他争论说，我担心 checkout 后代码会丢了。</li>
-<li>他说不会：<strong>不 commit 的话，切换分支你修改的是会跟着你走的，commit 相当于绑定上这个分支了。</strong></li>
-</ul>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>经过组长的讲解，我觉得他这种方法特别的好。</p>
-<ol>
-<li>先在主分支上做代码开发<blockquote>
-<p>（如果有急事要到另一个分支可以 git stash 存储修改的代码快照到当前分支，git pop 弹出修改的代码）</p>
-</blockquote>
-</li>
-<li>假如需求自测没问题了。拉一下主分支的最新代码，如果有冲突会在本地解决掉。</li>
-<li>解决冲突后，按照提交规范，新建需求分支并 checkout.</li>
-<li>commit，推送远程仓库。</li>
-<li>最后在远程合并。</li>
-</ol>
-<hr>
-<p>通过上述步骤，冲突基本上能在本地解决。</p>
-<p>但是聪明的我脑洞大开：<br>如果我在上述第四步：</p>
-<ol start="4">
-<li><p>新建分支 commit 后，别人同一时间也 commit 了同一文件并比我早一步合并远程分支。那我推送远程的代码照样会冲突禁止合并。</p>
-</li>
-<li><p>接下来我们可以在本地主分支拉取最新的代码，就是导致你冲突的代码。</p>
-</li>
-<li><p>然后在 checkout 到当前需求分支</p>
-</li>
-<li><p>在需求分支 <code>git merge --on-ff 主分支</code> 。把最新的主分支合并到开发分支。此时会提示冲突，就可以在本地解决冲突了。</p>
-<blockquote>
-<p>git merge –on-ff 是 no fast-forward，即禁止快速合并<br>关闭 fast-forward 模式，在提交的时候，会创建一个 merge 的 commit 信息，能更清晰显示冲突的问题。</p>
-</blockquote>
-</li>
-<li><p>解决冲突后推送代码</p>
-</li>
-</ol>
-<h1 id="活到老学到老！奥利给！"><a href="#活到老学到老！奥利给！" class="headerlink" title="活到老学到老！奥利给！"></a>活到老学到老！奥利给！</h1>]]></content>
-  </entry>
-  <entry>
-    <title>Java 泛型详解汇总</title>
-    <url>/2022/11/01/Java%20%E6%B3%9B%E5%9E%8B%E8%AF%A6%E8%A7%A3%E6%B1%87%E6%80%BB/</url>
-    <content><![CDATA[<h1 id="Java-泛型"><a href="#Java-泛型" class="headerlink" title="Java 泛型"></a>Java 泛型</h1><blockquote>
-<p>看了 Java 的 Collection 等源码，发现泛型用处很多，不知道为什么要这样设计如<code>（extends 和 super）</code>于是有了这篇文章。</p>
-</blockquote>
-<h2 id="阅读顺序"><a href="#阅读顺序" class="headerlink" title="阅读顺序"></a>阅读顺序</h2><ol start="0">
-<li><p>Java 泛型擦除小实验</p>
-</li>
-<li><p>Java 为什么要使用泛型（从Java的发展历史来了解泛型）</p>
-</li>
-</ol>
-<blockquote>
-<p>使用泛型目的是要在编译阶段就找出类型的错误来，而不是运行时。所以我们应该带着能在解决运行抛错的问题来了解泛型。</p>
-</blockquote>
-<ol start="2">
-<li>PECS(Producer Extends, Consumer Super) 规范原则</li>
-</ol>
-<blockquote>
-<p>Producer Extends 设置上边界（协变）用来获取值<br>Consumer Super 设置下边界（逆变）用来操作值<br>如果你想都支持获取修改操作则设置 T 任意类型。</p>
-</blockquote>
 ]]></content>
   </entry>
   <entry>
@@ -179,7 +109,7 @@
   </entry>
   <entry>
     <title>Java 泛型擦除小实验</title>
-    <url>/2022/08/16/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/</url>
+    <url>/2022/11/05/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
 <li>很多人看到泛型就害怕，其实你只要想象成人为的一个约束。</li>
 <li>泛型是编译期间的行为，下面会通过程序运行时的反射案例校验。</li>
@@ -187,10 +117,6 @@
 </ul>
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>  Test.Java 文件：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@org.junit.Test</span><br><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">    list.add(&quot;A&quot;);</span><br><span class="line">//        编译报错，类型不同不能转换</span><br><span class="line">//        list.add(1);</span><br><span class="line">    @SuppressWarnings(&quot;rawtypes&quot;)</span><br><span class="line">    Class&lt;? extends List&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(&quot;add&quot;, Object.class).invoke(list, 666);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String) list.get(0));</span><br><span class="line">    System.out.println((String) list.get(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  Test.class 字节码文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = new ArrayList();</span><br><span class="line">    list.add(&quot;A&quot;);</span><br><span class="line">    Class&lt;? extends List&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(&quot;add&quot;, Object.class).invoke(list, 666);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String)list.get(0));</span><br><span class="line">    System.out.println((String)list.get(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><img  
                        lazyload
                        alt="image"
@@ -1271,8 +1197,12 @@
   </entry>
   <entry>
     <title>通过反射获取泛型</title>
-    <url>/2024/04/08/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><p><a class="link"   href="https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302" >https://github.com/second-state/chat-with-chatgpt/issues/306#issuecomment-2041743302<i class="fas fa-external-link-alt"></i></a></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">R&lt;?&gt; result = handle.handle(receive.substring(<span class="number">1</span>));</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="type">Type</span> <span class="variable">returnType</span> <span class="operator">=</span> handle.getClass().getMethod(<span class="string">&quot;handle&quot;</span>, String.class).getGenericReturnType();</span><br><span class="line">    <span class="keyword">if</span> (returnType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">        Type[] actualTypeArguments = ((ParameterizedType) returnType).getActualTypeArguments();</span><br><span class="line">        <span class="keyword">if</span> (actualTypeArguments.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Class&lt;?&gt; genericClass = (Class&lt;?&gt;) actualTypeArguments[<span class="number">0</span>];</span><br><span class="line">            System.out.println(<span class="string">&quot;Found generic type: &quot;</span> + genericClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException e) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
+<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
+<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
+<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
+<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
+<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
 </search>

@@ -9,7 +9,7 @@
     
     <title>
         
-            Git冲突处理 |
+            通过反射获取泛型 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        Git冲突处理
+                        通过反射获取泛型
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2021-09-15 17:52:55</span>
+                <span class="datetime">2022-11-21 10:16:53</span>
             </span>
 
             
@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>810 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>378 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
             </span>
         
         
@@ -236,55 +236,12 @@
                     
 
                     
-                         <h1 id="Git-冲突处理"><a href="#Git-冲突处理" class="headerlink" title="Git 冲突处理"></a>Git 冲突处理</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
-<li>最开始经历过学 Git，玩着玩着把代码弄丢了的事情。然后当时也没深究。也知道一些大概：遇事别急，只要你 commit 了，代码就不会跑，所以没事就 <code>git add ./</code> , <code>git commit -m &quot;like a shit&quot;</code>。</li>
-<li>以前也是一个人玩，很少遇到冲突基本上没有，也只是了解过冲突的部分概念。后面了解到 gitflow 工作流。也逐渐明白：别在主分支上乱搞，自己拉的分支随便你怎么处理。体会到了 git 的魅力，C 语言指针思想深入人心。Linus 看起来很酷。</li>
-</ul>
-<blockquote>
-<p>gitlab 叫 merge request</p>
-<p>github 叫 pull request</p>
-</blockquote>
-<ul>
-<li><p>在此之前，我所知道的就是：</p>
-<p><strong>拉分支 &#x3D;&#x3D;&gt; 做需求 &#x3D;&#x3D;&gt; 本地自测没问题 &#x3D;&#x3D;&gt; 把本地推到远程分支 &#x3D;&#x3D;&gt; 提交发起合并请求</strong></p>
-</li>
-</ul>
-<h2 id="经过"><a href="#经过" class="headerlink" title="经过"></a>经过</h2><p>一次在和长沙的技术组长：黄哥！在一起写一个项目的代码的时候。因为我们都是修改的同一个文件。然后过来问我进度怎么样了。</p>
-<p>由于我采用最保守的方式。从本地拉分支再进行修改。BTW，我知道 commit 很多会在 git 历史上很丑，一条线几个节点，巨丑无比。因为刚入手这个项目组，然后他过来看我改了哪些地方。我说我还没 commit（我怕还要改，因为 commit 太多了很丑）。</p>
-<ul>
-<li>然后他让我切到主分支上去。然后我就跟他争论说，我担心 checkout 后代码会丢了。</li>
-<li>他说不会：<strong>不 commit 的话，切换分支你修改的是会跟着你走的，commit 相当于绑定上这个分支了。</strong></li>
-</ul>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>经过组长的讲解，我觉得他这种方法特别的好。</p>
-<ol>
-<li>先在主分支上做代码开发<blockquote>
-<p>（如果有急事要到另一个分支可以 git stash 存储修改的代码快照到当前分支，git pop 弹出修改的代码）</p>
-</blockquote>
-</li>
-<li>假如需求自测没问题了。拉一下主分支的最新代码，如果有冲突会在本地解决掉。</li>
-<li>解决冲突后，按照提交规范，新建需求分支并 checkout.</li>
-<li>commit，推送远程仓库。</li>
-<li>最后在远程合并。</li>
-</ol>
-<hr>
-<p>通过上述步骤，冲突基本上能在本地解决。</p>
-<p>但是聪明的我脑洞大开：<br>如果我在上述第四步：</p>
-<ol start="4">
-<li><p>新建分支 commit 后，别人同一时间也 commit 了同一文件并比我早一步合并远程分支。那我推送远程的代码照样会冲突禁止合并。</p>
-</li>
-<li><p>接下来我们可以在本地主分支拉取最新的代码，就是导致你冲突的代码。</p>
-</li>
-<li><p>然后在 checkout 到当前需求分支</p>
-</li>
-<li><p>在需求分支 <code>git merge --on-ff 主分支</code> 。把最新的主分支合并到开发分支。此时会提示冲突，就可以在本地解决冲突了。</p>
-<blockquote>
-<p>git merge –on-ff 是 no fast-forward，即禁止快速合并<br>关闭 fast-forward 模式，在提交的时候，会创建一个 merge 的 commit 信息，能更清晰显示冲突的问题。</p>
-</blockquote>
-</li>
-<li><p>解决冲突后推送代码</p>
-</li>
-</ol>
-<h1 id="活到老学到老！奥利给！"><a href="#活到老学到老！奥利给！" class="headerlink" title="活到老学到老！奥利给！"></a>活到老学到老！奥利给！</h1>
+                         <p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
+<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
+<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
+<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
+<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
                     
                 </div>
 
@@ -307,14 +264,14 @@
                             <div class="prev-post">
                                 <a class="prev"
                                    rel="prev"
-                                   href="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/"
-                                   title="摸鱼神器 scrcpy"
+                                   href="/2025/02/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"
+                                   title="Centos基本的云服务器配置"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">摸鱼神器 scrcpy</span>
+                                        <span class="post-nav-title-item text-ellipsis">Centos基本的云服务器配置</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -324,11 +281,11 @@
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2021/09/10/%E4%BA%94%E7%AC%94/"
-                                   title="五笔"
+                                   href="/2022/11/05/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/"
+                                   title="Java 泛型擦除小实验"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">五笔</span>
+                                        <span class="post-nav-title-item text-ellipsis">Java 泛型擦除小实验</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -356,7 +313,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86"><span class="nav-text">Git 冲突处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E8%BF%87"><span class="nav-text">经过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B4%BB%E5%88%B0%E8%80%81%E5%AD%A6%E5%88%B0%E8%80%81%EF%BC%81%E5%A5%A5%E5%88%A9%E7%BB%99%EF%BC%81"><span class="nav-text">活到老学到老！奥利给！</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B"><span class="nav-text">通过反射获取泛型</span></a></li></ol>
     </div>
 </div>
 
@@ -534,7 +491,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86"><span class="nav-text">Git 冲突处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E8%BF%87"><span class="nav-text">经过</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B4%BB%E5%88%B0%E8%80%81%E5%AD%A6%E5%88%B0%E8%80%81%EF%BC%81%E5%A5%A5%E5%88%A9%E7%BB%99%EF%BC%81"><span class="nav-text">活到老学到老！奥利给！</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B"><span class="nav-text">通过反射获取泛型</span></a></li></ol>
     </div>
 </div>
 
