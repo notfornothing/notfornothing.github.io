@@ -45,6 +45,35 @@
 ]]></content>
   </entry>
   <entry>
+    <title>I like KFC</title>
+    <url>/2025/02/23/I-like-KFC/</url>
+    <content><![CDATA[<h2 id="我喜欢吃肯德基"><a href="#我喜欢吃肯德基" class="headerlink" title="我喜欢吃肯德基"></a>我喜欢吃肯德基</h2><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC/20250223aaaaaaa.png"
+                        alt="20250223aaaaaaa.png"
+                 ></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/I-like-KFC/2F66906AE559E3E1012ACC789D38BF87.jpg"
+                        alt="2F66906AE559E3E1012ACC789D38BF87.jpg"
+                 ></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/I-like-KFC/D1AAA85894C42ED1113F756A71E5C6E7.jpg"
+                        alt="D1AAA85894C42ED1113F756A71E5C6E7.jpg"
+                 ></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/I-like-KFC/77610A1DAF6184B86F0E1E4DC38330CA.jpg"
+                        alt="77610A1DAF6184B86F0E1E4DC38330CA.jpg"
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Java 为什么要使用泛型</title>
     <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
@@ -1018,6 +1047,13 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
+    <title>nginx 代理妙用</title>
+    <url>/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
+    <content><![CDATA[<p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
+<p>于是有了这篇文章：</p>
+]]></content>
+  </entry>
+  <entry>
     <title>五笔</title>
     <url>/2021/09/10/%E4%BA%94%E7%AC%94/</url>
     <content><![CDATA[<h1 id="五笔"><a href="#五笔" class="headerlink" title="五笔"></a>五笔</h1><p><img  
@@ -1052,23 +1088,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>五笔学习之路</title>
-    <url>/2021/09/01/%E4%BA%94%E7%AC%94%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
-    <content><![CDATA[<h1 id="五笔学习之路"><a href="#五笔学习之路" class="headerlink" title="五笔学习之路"></a>五笔学习之路</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
-<li><strong>起因</strong>：最开始由于全拼的击键次数过多，以后工作上经常会用到电脑，遂学习双拼（小鹤双拼）只由声母和韵母组成，任何一个字只需要击键两次，上手容易，熟悉后输入速度上有所提升。但是无法避免的拼音的重码率很高，还是要去候选框去选字。</li>
-<li><strong>本质</strong>：由于本人在拼音中 in ing 分不清，而且拼音重码率高，五笔基本上四个键确定一个字，选字的情况比较少，空格就完事，为提高 <del>聊天摸鱼</del> 工作效率，故克服重重困难学习五笔 86 版本。</li>
-<li><strong>情感升华</strong>：了解过五笔，对于中国汉字的结构以及五笔的渊源，其博大精深，被五笔输入的魅力所折服。<blockquote>
-<p>这篇文章是用双拼打的</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="五笔易错集合"><a href="#五笔易错集合" class="headerlink" title="五笔易错集合"></a>五笔易错集合</h2><ul>
-<li>女<br>vvvv 键名汉子</li>
-</ul>
-<p>最后一笔为 横</p>
-]]></content>
-  </entry>
-  <entry>
     <title>免费添加SSL证书</title>
     <url>/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
     <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
@@ -1087,6 +1106,23 @@
 <li>1.2. 这两步就是为了验证这是你的域名，然后 freessl 就会给你公钥私钥。</li>
 <li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>五笔学习之路</title>
+    <url>/2021/09/01/%E4%BA%94%E7%AC%94%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<h1 id="五笔学习之路"><a href="#五笔学习之路" class="headerlink" title="五笔学习之路"></a>五笔学习之路</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
+<li><strong>起因</strong>：最开始由于全拼的击键次数过多，以后工作上经常会用到电脑，遂学习双拼（小鹤双拼）只由声母和韵母组成，任何一个字只需要击键两次，上手容易，熟悉后输入速度上有所提升。但是无法避免的拼音的重码率很高，还是要去候选框去选字。</li>
+<li><strong>本质</strong>：由于本人在拼音中 in ing 分不清，而且拼音重码率高，五笔基本上四个键确定一个字，选字的情况比较少，空格就完事，为提高 <del>聊天摸鱼</del> 工作效率，故克服重重困难学习五笔 86 版本。</li>
+<li><strong>情感升华</strong>：了解过五笔，对于中国汉字的结构以及五笔的渊源，其博大精深，被五笔输入的魅力所折服。<blockquote>
+<p>这篇文章是用双拼打的</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="五笔易错集合"><a href="#五笔易错集合" class="headerlink" title="五笔易错集合"></a>五笔易错集合</h2><ul>
+<li>女<br>vvvv 键名汉子</li>
+</ul>
+<p>最后一笔为 横</p>
 ]]></content>
   </entry>
   <entry>
