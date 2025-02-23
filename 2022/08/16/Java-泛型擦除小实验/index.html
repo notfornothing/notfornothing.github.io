@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>583 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>403 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
             </span>
         
         
@@ -242,7 +242,7 @@
 <li>泛型是防止错误输入的，本质上就是 <code>Object</code>,存在的意义是方便编码确认类型。只在编译阶段有效 – 绕过编译无效</li>
 </ul>
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>  Test.Java 文件：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@org</span>.junit.Test</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    list.add(<span class="string">&quot;A&quot;</span>);</span><br><span class="line"><span class="comment">//        编译报错，类型不同不能转换</span></span><br><span class="line"><span class="comment">//        list.add(1);</span></span><br><span class="line">    <span class="meta">@SuppressWarnings(&quot;rawtypes&quot;)</span></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">List</span>&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(<span class="string">&quot;add&quot;</span>, Object.class).invoke(list, <span class="number">666</span>);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String) list.get(<span class="number">0</span>));</span><br><span class="line">    System.out.println((String) list.get(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@org.junit.Test</span><br><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">    list.add(&quot;A&quot;);</span><br><span class="line">//        编译报错，类型不同不能转换</span><br><span class="line">//        list.add(1);</span><br><span class="line">    @SuppressWarnings(&quot;rawtypes&quot;)</span><br><span class="line">    Class&lt;? extends List&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(&quot;add&quot;, Object.class).invoke(list, 666);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String) list.get(0));</span><br><span class="line">    System.out.println((String) list.get(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>  Test.class 字节码文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test1() throws Exception &#123;</span><br><span class="line">    List&lt;String&gt; list = new ArrayList();</span><br><span class="line">    list.add(&quot;A&quot;);</span><br><span class="line">    Class&lt;? extends List&gt; aClass = list.getClass();</span><br><span class="line">    aClass.getMethod(&quot;add&quot;, Object.class).invoke(list, 666);</span><br><span class="line">    System.out.println(list);</span><br><span class="line">    System.out.println((String)list.get(0));</span><br><span class="line">    System.out.println((String)list.get(1));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -264,17 +264,8 @@
 </li>
 </ul>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
-<li>所以 Java 的泛型只是编译期的约束行为。</li>
+<li>所以 Java 的泛型只是编译期的约束行为。 应该尽量避免这种运行时能赋值非泛型类型值的行为，不然会导致后面自动强转报运行错误。</li>
 </ul>
-<h2 id="进一步结论"><a href="#进一步结论" class="headerlink" title="进一步结论"></a>进一步结论</h2><ul>
-<li><p>所以 Java 应该尽量避免这种运行时能赋值非泛型类型值的行为，不然会导致后面自动强转报运行错误，你知道重启一次服务是很久的嘛~</p>
-</li>
-<li><p>但是由于历史遗留原因，Java5 之前没有泛型，为了方便集合的存储转换.规定 Java 数组是支持协变的.即用父类数组接受所有子类数组，这样会导致集合里面值类型不一致的问题.So?Java 改不了但又要向下兼容古老代码就禁止这种行为嘛，所以 Java 禁止数组泛型。</p>
-</li>
-</ul>
-<blockquote>
-<p>Tips:不过这也是迫不得已的方法，因为当时没有泛型，当时开发人员只能用这中方式存储。所以你会发现很多代码里有(Object[],Object[])做为参数</p>
-</blockquote>
 
                     
                 </div>
@@ -347,7 +338,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%BB%93%E8%AE%BA"><span class="nav-text">进一步结论</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
     </div>
 </div>
 
@@ -525,7 +516,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E7%BB%93%E8%AE%BA"><span class="nav-text">进一步结论</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-text">过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-text">结论</span></a></li></ol>
     </div>
 </div>
 
