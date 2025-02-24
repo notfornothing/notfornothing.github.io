@@ -9,7 +9,7 @@
     
     <title>
         
-            ssh 能秘钥登录，但是 git 却不能 |
+            MySQL-外连接的几种情况 |
         
         磊磊的博客
     </title>
@@ -170,7 +170,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        ssh 能秘钥登录，但是 git 却不能
+                        MySQL-外连接的几种情况
                     </div>
                 
 
@@ -196,7 +196,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2024-06-23 16:16:41</span>
+                <span class="datetime">2024-12-24 21:53:15</span>
             </span>
 
             
@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>120 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>541 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
             </span>
         
         
@@ -236,15 +236,43 @@
                     
 
                     
-                         <p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
-<li>重新配置公钥私钥</li>
-<li>ssh-agent 管理</li>
-</ol>
-<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
-<p>找到这篇文章：<a class="link"   target="_blank" rel="noopener" href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
-<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>
+                         <p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2024/12/24/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/1554979255233.png"
+                        alt="1554979255233.png"
+                 ></p>
+<hr>
+<p>前提： </p>
+<ul>
+<li><p>因为有可能有的员工没有部门（他是老总）</p>
+</li>
+<li><p>有的部门没有员工（部门刚成立的情况）</p>
+</li>
+</ul>
+<h1 id="查询有部门的员工-内连接"><a href="#查询有部门的员工-内连接" class="headerlink" title="查询有部门的员工(内连接)"></a>查询有部门的员工(内连接)</h1><p>你只要查询有部门的员工，潜意识就是没有部门的不要查<br>所以就是员工和部门表的交集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- where 子句方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e, departments d</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="operator">=</span> d.id; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 内连接方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.id;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="查询所有员工的部门-左外连接"><a href="#查询所有员工的部门-左外连接" class="headerlink" title="查询所有员工的部门(左外连接)"></a>查询所有员工的部门(左外连接)</h1><p>你要查询 <strong><code>所有</code></strong> 员工，然后把他部门信息也带上<br>考虑到这种情况，即需要员工表设为主表，涉及到外连接；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id </span><br></pre></td></tr></table></figure>
+
+<h1 id="查询所有员工的部门-只查询有部门的员工-左外连接"><a href="#查询所有员工的部门-只查询有部门的员工-左外连接" class="headerlink" title="查询所有员工的部门,只查询有部门的员工(左外连接)"></a>查询所有员工的部门,只查询有部门的员工(左外连接)</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="查询所有部门下的员工信息-右外连接"><a href="#查询所有部门下的员工信息-右外连接" class="headerlink" title="查询所有部门下的员工信息(右外连接)"></a>查询所有部门下的员工信息(右外连接)</h1><p>你要查询 <strong><code>所有</code></strong> 部门，然后把他员工信息列出来，没有员工也得给我列出来；</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br></pre></td></tr></table></figure>
+
+<h1 id="查询所有部门下的有部门的员工信息，-右外连接"><a href="#查询所有部门下的有部门的员工信息，-右外连接" class="headerlink" title="查询所有部门下的有部门的员工信息，(右外连接)"></a>查询所有部门下的有部门的员工信息，(右外连接)</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">not null</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="查询没有员工的部门，还有没有部门的员工-全外连接"><a href="#查询没有员工的部门，还有没有部门的员工-全外连接" class="headerlink" title="查询没有员工的部门，还有没有部门的员工(全外连接)"></a>查询没有员工的部门，还有没有部门的员工(全外连接)</h1><blockquote>
+<p>MySQL 不支持全外链接 可以用 <code>Union all</code>实现</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="查询所有员工，还有所有部门-全外连接"><a href="#查询所有员工，还有所有部门-全外连接" class="headerlink" title="查询所有员工，还有所有部门(全外连接)"></a>查询所有员工，还有所有部门(全外连接)</h1><p>补充：没有部门的员工，没有员工的部门都要带出来</p>
+<blockquote>
+<p>MySQL 不支持全外链接 可以用 <code>Union all</code>实现</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 部门id 为空的那个老总</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询所有部门下的员工信息 </span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br></pre></td></tr></table></figure>
+
                     
                 </div>
 
@@ -267,14 +295,14 @@
                             <div class="prev-post">
                                 <a class="prev"
                                    rel="prev"
-                                   href="/2024/12/24/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/"
-                                   title="MySQL-外连接的几种情况"
+                                   href="/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/"
+                                   title="nginx 代理妙用"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">MySQL-外连接的几种情况</span>
+                                        <span class="post-nav-title-item text-ellipsis">nginx 代理妙用</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -284,11 +312,11 @@
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/"
-                                   title="免费添加SSL证书"
+                                   href="/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/"
+                                   title="ssh 能秘钥登录，但是 git 却不能"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">免费添加SSL证书</span>
+                                        <span class="post-nav-title-item text-ellipsis">ssh 能秘钥登录，但是 git 却不能</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -316,7 +344,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询有部门的员工(内连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工的部门(左外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8-%E5%8F%AA%E6%9F%A5%E8%AF%A2%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工的部门,只查询有部门的员工(左外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8%E4%B8%8B%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有部门下的员工信息(右外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8%E4%B8%8B%E7%9A%84%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF%EF%BC%8C-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有部门下的有部门的员工信息，(右外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%B2%A1%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8%EF%BC%8C%E8%BF%98%E6%9C%89%E6%B2%A1%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询没有员工的部门，还有没有部门的员工(全外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%EF%BC%8C%E8%BF%98%E6%9C%89%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工，还有所有部门(全外连接)</span></a></li></ol>
     </div>
 </div>
 
@@ -494,7 +522,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询有部门的员工(内连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工的部门(左外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8-%E5%8F%AA%E6%9F%A5%E8%AF%A2%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工的部门,只查询有部门的员工(左外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8%E4%B8%8B%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有部门下的员工信息(右外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8%E4%B8%8B%E7%9A%84%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5%E4%BF%A1%E6%81%AF%EF%BC%8C-%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有部门下的有部门的员工信息，(右外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%B2%A1%E6%9C%89%E5%91%98%E5%B7%A5%E7%9A%84%E9%83%A8%E9%97%A8%EF%BC%8C%E8%BF%98%E6%9C%89%E6%B2%A1%E6%9C%89%E9%83%A8%E9%97%A8%E7%9A%84%E5%91%98%E5%B7%A5-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询没有员工的部门，还有没有部门的员工(全外连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89%E5%91%98%E5%B7%A5%EF%BC%8C%E8%BF%98%E6%9C%89%E6%89%80%E6%9C%89%E9%83%A8%E9%97%A8-%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-text">查询所有员工，还有所有部门(全外连接)</span></a></li></ol>
     </div>
 </div>
 
