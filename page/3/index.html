@@ -170,14 +170,19 @@
                 <div class="home-post-item-bottom border-box">
                     
                     <h3 class="home-post-title border-box">
-                        <a href="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
-                            Map 中引用遇到的问题
+                        <a href="/2025/02/23/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/">
+                            害怕用`rm -rf`? 不如试试这个
                         </a>
                     </h3>
 
                     <div class="home-post-content keep-markdown-body">
                         
-                            Map 中引用遇到的问题场景：1231、有 List&lt;String&gt; nameList 值为『张三，李四，王五』2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Obje...
+                            Linux 中 rm -rf / 这个命令大家应该不熟悉
+为了减少误操作，网上有很多方案方案 1 (不推荐)
+起别名 alias rm=&#39;rm -i&#39; 删除都需要确认
+
+这种方式治标不治本，因为主动权还是在我手中
+方案 2 (不推荐)...
                         
                     </div>
 
@@ -188,8 +193,8 @@
         
             <span class="meta-info-item border-box">
                 <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
-                                                                                data-updated="Tue Jun 08 2021 20:07:42 GMT+0800"
-                >2021-06-08 20:07:42</span>
+                                                                                data-updated="Sun Feb 23 2025 21:45:33 GMT+0800"
+                >2025-02-23 21:45:33</span>
             </span>
         
 
@@ -206,7 +211,7 @@
     </div>
 
     
-        <a class="home-read-more" href="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+        <a class="home-read-more" href="/2025/02/23/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
     
 </div>
 
@@ -220,25 +225,17 @@
                 <div class="home-post-item-bottom border-box">
                     
                     <h3 class="home-post-title border-box">
-                        <a href="/2021/04/25/MySQL%E6%80%BB%E7%BB%931/">
-                            MySQL 总结 (一)
+                        <a href="/2025/02/23/I-like-KFC-And-McDonald's/">
+                            I-like-KFC-And-McDonald&#39;s
                         </a>
                     </h3>
 
                     <div class="home-post-content keep-markdown-body">
                         
-                            MySQL 相关desc 表名describe– 描述
-descend– 下降
+                            我喜欢我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。好像有cdn这个东西，这个有时间在弄了。
 
 
-descibe 是查看表的结构，例：
-1describe tablename;
 
-desc 是 describe 的简写，例：
-1desc tablename;
-
-
-...
                         
                     </div>
 
@@ -249,8 +246,8 @@ desc 是 describe 的简写，例：
         
             <span class="meta-info-item border-box">
                 <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
-                                                                                data-updated="Sun Apr 25 2021 21:14:11 GMT+0800"
-                >2021-04-25 21:14:11</span>
+                                                                                data-updated="Sun Feb 23 2025 17:03:19 GMT+0800"
+                >2025-02-23 17:03:19</span>
             </span>
         
 
@@ -267,7 +264,429 @@ desc 是 describe 的简写，例：
     </div>
 
     
-        <a class="home-read-more" href="/2021/04/25/MySQL%E6%80%BB%E7%BB%931/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+        <a class="home-read-more" href="/2025/02/23/I-like-KFC-And-McDonald's/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/">
+                            nginx 代理妙用
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。
+于是有了这篇文章：
+
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Sun Feb 23 2025 16:55:48 GMT+0800"
+                >2025-02-23 16:55:48</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/">
+                            ssh 能秘钥登录，但是 git 却不能
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            ssh 配置了且能秘钥登录，但是git提交代码要密码
+排查问题流程
+重新配置公钥私钥
+ssh-agent 管理
+
+1. 2. 都试过了，有没有可能是命令本身的问题？
+找到这篇文章：https://github.com/orgs/community/d...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Sun Jun 23 2024 16:16:41 GMT+0800"
+                >2024-06-23 16:16:41</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/">
+                            免费添加SSL证书
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解
+
+为什么要有ssl证书？不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。因为你的数据不经过证书加密，会容易被篡改。所以证书就是为了加密，保证发...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Fri Jun 21 2024 22:40:31 GMT+0800"
+                >2024-06-21 22:40:31</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/">
+                            Centos基本的云服务器配置
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            
+玩云服务器时想装一个 neovim 的插件，因为 Centos 8 已经不维护了，然而我要用的 neovim 一直在更新用到了glibc,不能直接安装，然而他又是linux一个底层的玩意,只能编译安装，然后就把系统搞崩了，命令全部用不了，我看了网上...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Jun 20 2024 23:01:17 GMT+0800"
+                >2024-06-20 23:01:17</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/">
+                            Github Action 自动部署博客
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。
+
+命令 hexo generate会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 ng...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Jun 20 2024 08:29:12 GMT+0800"
+                >2024-06-20 08:29:12</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/">
+                            Git 设置 配置分支
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            缘故项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。
+开发的时候拉去代码自动 rebase settin...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Feb 15 2024 17:52:55 GMT+0800"
+                >2024-02-15 17:52:55</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/">
+                            通过反射获取泛型
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？
+网上看了一大堆 
+发现虽然泛型是被擦除了，存储的还是Object。
+但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Mon Nov 21 2022 10:16:53 GMT+0800"
+                >2022-11-21 10:16:53</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2022/11/05/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/">
+                            Java 泛型擦除小实验
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            简介
+很多人看到泛型就害怕，其实你只要想象成人为的一个约束。
+泛型是编译期间的行为，下面会通过程序运行时的反射案例校验。
+泛型是防止错误输入的，本质上就是 Object,存在的意义是方便编码确认类型。只在编译阶段有效 – 绕过编译无效
+
+案例  Te...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Sat Nov 05 2022 10:16:53 GMT+0800"
+                >2022-11-05 10:16:53</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2022/11/05/Java-%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4%E5%B0%8F%E5%AE%9E%E9%AA%8C/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
     
 </div>
 
@@ -293,18 +712,18 @@ desc 是 describe 的简写，例：
                    type="number"
                    value="3"
                    min="1"
-                   max="3"
-            /><span class="delimiter base-style">/</span><span class="base-style">3</span>
+                   max="5"
+            /><span class="delimiter base-style">/</span><span class="base-style">5</span>
         </div>
 
 
-        <div class="border-box paginator-btn">
+        <div class="border-box paginator-btn allowed">
             <a class="border-box"
-               href="/"
+               href="/page/4/"
             ><i class="fa-solid fa-chevron-right"></i></a>
         </div>
 
-        <div class="border-box last-page paginator-btn not-allow">
+        <div class="border-box last-page paginator-btn allowed">
             <a class="border-box"><i class="fa-solid fa-angle-double-right"></i></a>
         </div>
     </div>
