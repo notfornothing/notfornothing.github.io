@@ -543,6 +543,26 @@
 ]]></content>
   </entry>
   <entry>
+    <title>MySQL 查询优化</title>
+    <url>/2025/02/25/MySQL-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>考虑到面试可能会问到 SQL 优化相关的问题，提前总结一下：</p>
+<h1 id="能写在where限定的条件就不要写在having中"><a href="#能写在where限定的条件就不要写在having中" class="headerlink" title="能写在where限定的条件就不要写在having中"></a>能写在where限定的条件就不要写在having中</h1><p>查询 部门为产品部,宣传部的平均工资</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 反例</span></span><br><span class="line"><span class="keyword">select</span> dept_name,<span class="built_in">avg</span>(salary)</span><br><span class="line"><span class="keyword">from</span> dept t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_name</span><br><span class="line"><span class="keyword">having</span> t.dept_name <span class="keyword">in</span> (<span class="string">&#x27;产品部&#x27;</span>,<span class="string">&#x27;宣传部&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正例</span></span><br><span class="line"><span class="keyword">select</span> dept_name,<span class="built_in">avg</span>(salary)</span><br><span class="line"><span class="keyword">from</span> dept t</span><br><span class="line"><span class="keyword">where</span> t.dept_name <span class="keyword">in</span> (<span class="string">&#x27;产品部&#x27;</span>,<span class="string">&#x27;宣传部&#x27;</span>)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_name;</span><br></pre></td></tr></table></figure>
+
+<p>因为 sql 的执行顺序是</p>
+<p>FROM -&gt; WHERE -&gt; GROUP BY -&gt; HAVING -&gt; SELECT 的字段 -&gt; DISTINCT -&gt; ORDER BY -&gt; LIMIT</p>
+<p>所以 avg() 会把其他部门的薪水也进行分组计算，放到where语句中可减少avg的消耗。</p>
+<h1 id="避免select-应该只查询所需字段"><a href="#避免select-应该只查询所需字段" class="headerlink" title="避免select *,应该只查询所需字段"></a>避免select *,应该只查询所需字段</h1><h1 id="大表数据：垂直分表"><a href="#大表数据：垂直分表" class="headerlink" title="大表数据：垂直分表"></a>大表数据：垂直分表</h1><p>例如 一个接口是查询各个汽车，点击查看详细才会去跳转到这辆汽车的各种排气孔大小，轮胎尺寸，后备箱空间等特别详细的参数。<br>对于这种特别详细的参数不属于高频查询的数据，可以采用多个表，用id关联。</p>
+<h1 id="like-查询尽量加上左边确定的值-如-like-‘nameSpac-’"><a href="#like-查询尽量加上左边确定的值-如-like-‘nameSpac-’" class="headerlink" title="like 查询尽量加上左边确定的值 如 like ‘nameSpac%’"></a>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</h1><h1 id="避免使用-is-not-null、-or-、not-in-这样不会走索引"><a href="#避免使用-is-not-null、-or-、not-in-这样不会走索引" class="headerlink" title="避免使用 is not null、 or 、not in 这样不会走索引"></a>避免使用 is not null、 or 、not in 这样不会走索引</h1><h1 id="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"><a href="#表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查" class="headerlink" title="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"></a>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</h1><h1 id="对于查询慢的sql，经常要用到的条件（where-order-by-group-by-distinct-…-添加索引"><a href="#对于查询慢的sql，经常要用到的条件（where-order-by-group-by-distinct-…-添加索引" class="headerlink" title="对于查询慢的sql，经常要用到的条件（where ,order by,group by,distinct …)添加索引"></a>对于查询慢的sql，经常要用到的条件（where ,order by,group by,distinct …)添加索引</h1><p>添加索引要注意：</p>
+<ul>
+<li>一个表中最好不要超过3个索引</li>
+<li>尽量是区分度高的数据作为索引</li>
+<li>条件中多个字段要创建索引的情况下，可以创建联合索引。如 age &gt; 18 and hight &lt; 183</li>
+<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>MySQL 资料</title>
     <url>/2021/11/30/MySQL/</url>
     <content><![CDATA[<blockquote>
