@@ -1,6 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2025-02-27 面试总结</title>
+    <url>/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<blockquote>
+<p>上次面试还是两年前刚来深圳的时候。那时候一天能跑 4 趟面试，住在青年旅社，我想早点在深圳找工作然后租房子稳定下来，我记得还拿了挺多 offer ，真的挺佩服当时的自己的。</p>
+<p>时隔两年，公司裁员了，现在要重新找工作，感慨万分，写下这篇文章。</p>
+</blockquote>
+<hr>
+<h1 id="面试前"><a href="#面试前" class="headerlink" title="面试前"></a>面试前</h1><p>面试地点是深圳第一高楼：平安金融中心</p>
+<p>从购物公园地铁站一出来就是高楼大厦，正好是午休时间的，楼下的咖啡亭子都坐满了人，路过的行人都很有班味儿，端着咖啡，穿着黑色行政装。我感觉自己像条土狗。</p>
+<details>
+<summary>随手拍的平安大楼图片（点击展开）</summary>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/2B02D818819DACDF4DBDD6497D419B8E.jpg"
+                       
+                 ></p>
+</details>
+
+<details>
+
+<summary>面试走廊（点击展开）</summary>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/F2E812A2B6E8CED7CE1ED84B8076E2FE.jpg"
+                       
+                 ></p>
+</details>
+
+<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p>这次面试20多分钟就结束了，感觉上是没戏了。因为他问了很多八股文，我几乎没准备。</p>
+<hr>
+<ul>
+<li>介绍一下你项目，你主要负责哪些功能</li>
+<li>redis 几种数据类型，hash 类型应用场景，击穿，雪崩方案</li>
+<li>mq 消息怎么保证不重复消费</li>
+<li>数据库优化方案</li>
+<li>SpringCloud 常用注解</li>
+<li>Feign 超时时间，超时怎么处理</li>
+<li>心跳机制</li>
+</ul>
+<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><ul>
+<li><p>自我介绍</p>
+<p> 自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br> 自我介绍这块我得打个草稿提前过一遍</p>
+</li>
+<li><p>redis 几种类型，击穿，雪崩方案</p>
+<p>redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
+</li>
+</ul>
+<details>
+<summary> 我觉得满意的回答（点击展开）</summary>
+
+<p>string,hash,list,set,sorted set</p>
+<hr>
+<ul>
+<li>string 适合一些简单单一的公共的数据，因为太复杂会污染 key 。适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）；</li>
+</ul>
+<hr>
+<ul>
+<li>hash 适合结构化对象，因为可以局部更新不用整体写入，例如：<br>key:学生id-field:班级-value:一班<br>key:学生id-field:年龄-value:18</li>
+</ul>
+<hr>
+<ul>
+<li>list 支持两端操作，你可以理解为一根管子，另外有Range方法。可以适用的场景：</li>
+<li><ul>
+<li>用作队列：先进先出（FIFO）。队列有啥用？</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>消息队列：好处</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>异步消息：不需要等你完成，丢队列里面就行，需要延迟处理的任务放入消息队列，设置延迟时间，消费者在指定时间处理任务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>任务调度：任务放入队列，定时调度任务，延迟消费，完成任务1才去完成任务2，按顺序处理待办任务。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>解耦</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>时间轴：比如朋友圈查看，最新的放在左边开头，每次刷新就 lrange(0,页码);查看新动态。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>set 特点是无序且唯一,有 intersect 方法（求两个set的交集）。语法：<code>SADD key value</code>,<code>SMEMBERS key</code></li>
+<li><ul>
+<li>由唯一性会想到去重、不重复。例如，你往学生添加爱好，爱好不可以重复 <code>sadd student1 [football,baseball,basketball]</code></li>
+</ul>
+</li>
+<li><ul>
+<li>无序想到随机抽取等</li>
+</ul>
+</li>
+<li><ul>
+<li>交集方法：查找两个班级学生名字相同的人。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>sort set 有序set 语法 <code>ZADD key score1 member1 [score2 member2 ...]</code></li>
+<li><ul>
+<li>可以根据sort 排序这条记录。应用场景：排行榜</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>redis为了缓解数据库压力，设置缓存缓存数据防止查mysql。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
+<ul>
+<li><p>缓存击穿：出现原因：查询到了不存在的值。</p>
+</li>
+<li><ul>
+<li>例如来了个请求查询id为 -999 的数据，mysql没得，导致redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
+</ul>
+</li>
+<li><ul>
+<li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，。或者设置ip黑名单。</li>
+</ul>
+</li>
+<li><p>缓存雪崩：出现原因：突然一下子很多redis key过期，导致来的请求直接走数据库。 </p>
+</li>
+<li><ul>
+<li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存（吹牛逼的）？</details></li>
+</ul>
+</li>
+<li><p>mq 不重复消费</p>
+<p>我回答的是消费mq的数据的时候带过来唯一的 ID 先查 select 数据库数据是否存在，没有的话再创建该业务数据，后面再执行后续的消费功能。</p>
+</li>
+</ul>
+<h3 id="洗澡澡睡觉了，明天还有面试，现总结到这里。"><a href="#洗澡澡睡觉了，明天还有面试，现总结到这里。" class="headerlink" title="洗澡澡睡觉了，明天还有面试，现总结到这里。"></a>洗澡澡睡觉了，明天还有面试，现总结到这里。</h3>]]></content>
+  </entry>
+  <entry>
     <title>Centos基本的云服务器配置</title>
     <url>/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
