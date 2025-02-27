@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>7 分钟</span>
             </span>
         
         
@@ -277,18 +277,13 @@
 <li>Feign 超时时间，超时怎么处理</li>
 <li>心跳机制</li>
 </ul>
-<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><ul>
-<li><p>自我介绍</p>
-<p> 自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br> 自我介绍这块我得打个草稿提前过一遍</p>
-</li>
-<li><p>redis 几种类型，击穿，雪崩方案</p>
-<p>redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
-</li>
-</ul>
+<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><p>   自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>   自我介绍这块我得打个草稿提前过一遍</p>
+<hr>
+<h4 id="redis-几种类型，击穿，雪崩方案"><a href="#redis-几种类型，击穿，雪崩方案" class="headerlink" title="redis 几种类型，击穿，雪崩方案"></a>redis 几种类型，击穿，雪崩方案</h4><p>  redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
 <details>
-<summary> 我觉得满意的回答（点击展开）</summary>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
 
-<p>string,hash,list,set,sorted set</p>
+<p>主要有这些：string,hash,list,set,sorted set</p>
 <hr>
 <ul>
 <li>string 适合一些简单单一的公共的数据，因为太复杂会污染 key 。适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）；</li>
@@ -373,8 +368,7 @@
 <hr>
 <p>redis为了缓解数据库压力，设置缓存缓存数据防止查mysql。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
 <ul>
-<li><p>缓存击穿：出现原因：查询到了不存在的值。</p>
-</li>
+<li>缓存击穿：出现原因：查询到了不存在的值。</li>
 <li><ul>
 <li>例如来了个请求查询id为 -999 的数据，mysql没得，导致redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
 </ul>
@@ -383,17 +377,40 @@
 <li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，。或者设置ip黑名单。</li>
 </ul>
 </li>
-<li><p>缓存雪崩：出现原因：突然一下子很多redis key过期，导致来的请求直接走数据库。 </p>
-</li>
+<li>缓存雪崩：出现原因：突然一下子很多redis key过期，导致来的请求直接走数据库。 </li>
 <li><ul>
 <li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存（吹牛逼的）？</details></li>
 </ul>
 </li>
-<li><p>mq 不重复消费</p>
-<p>我回答的是消费mq的数据的时候带过来唯一的 ID 先查 select 数据库数据是否存在，没有的话再创建该业务数据，后面再执行后续的消费功能。</p>
-</li>
 </ul>
-<h3 id="洗澡澡睡觉了，明天还有面试，现总结到这里。"><a href="#洗澡澡睡觉了，明天还有面试，现总结到这里。" class="headerlink" title="洗澡澡睡觉了，明天还有面试，现总结到这里。"></a>洗澡澡睡觉了，明天还有面试，现总结到这里。</h3>
+<hr>
+<h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><p>  其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 mq 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>  我回答的是消费mq的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>  因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>  我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
+<details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+
+<ul>
+<li>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</li>
+</ul>
+<p>队列基本流程是，生产者-&gt;交换机-&gt;队列-&gt;消费者</p>
+<p>TODO 我看了交换机有好多，这些有啥用啊晕死…….</p>
+<p>消费者处理失败：消息未被正确确认（acknowledge），消息队列系统会重新投递该消息<br>消费者进程崩溃，同上。<br>网络问题，同上。</p>
+<p>都是因为消费者未能及时确认消息，队列没收到ack，认为消息没处理。</p>
+<p>所以才会产生重复消费的场景</p>
+<p>有很多种方案：</p>
+<ol>
+<li>消息去重<br>  使用唯一消息 ID 进行去重，确保每个消息只被处理一次。比如消费的时候查一遍缓存，查到了就报重复，没有就把 ID 放缓存里。这种方式比我面试说的好一点用缓存而不用查库。</li>
+<li>数据库去重<br>  使用唯一消息 ID 进行去重，把它在数据库字段设置成 unique 的列。</li>
+<li>消息确认机制（Consumer Acknowledgements）<br>  使用手动消息确认机制，确保只有成功处理的消息才会被确认，未确认的消息会被重新投递。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// 处理消息</span></span><br><span class="line">          System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 手动确认消息</span></span><br><span class="line">          channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">          System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">          channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">          System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Redis 分布式锁 这名字挺高级，我怎么感觉就和第一种id放缓存一样呢。<br>不一样，因为如果两个线程会同时检查key是否存在，这样可能会漏。所以得给key(id)加锁。</li>
+</ol>
+<p>给key加锁<br>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败。<br>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间。<br>解锁：使用 DEL 命令删除锁，释放资源。</p>
+</details>
+
+<hr>
+<h4 id="洗澡澡睡觉了，明天还有面试，现总结到这里。"><a href="#洗澡澡睡觉了，明天还有面试，现总结到这里。" class="headerlink" title="洗澡澡睡觉了，明天还有面试，现总结到这里。"></a>洗澡澡睡觉了，明天还有面试，现总结到这里。</h4>
                     
                 </div>
 
@@ -449,7 +466,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B4%97%E6%BE%A1%E6%BE%A1%E7%9D%A1%E8%A7%89%E4%BA%86%EF%BC%8C%E6%98%8E%E5%A4%A9%E8%BF%98%E6%9C%89%E9%9D%A2%E8%AF%95%EF%BC%8C%E7%8E%B0%E6%80%BB%E7%BB%93%E5%88%B0%E8%BF%99%E9%87%8C%E3%80%82"><span class="nav-text">洗澡澡睡觉了，明天还有面试，现总结到这里。</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">redis 几种类型，击穿，雪崩方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">mq 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B4%97%E6%BE%A1%E6%BE%A1%E7%9D%A1%E8%A7%89%E4%BA%86%EF%BC%8C%E6%98%8E%E5%A4%A9%E8%BF%98%E6%9C%89%E9%9D%A2%E8%AF%95%EF%BC%8C%E7%8E%B0%E6%80%BB%E7%BB%93%E5%88%B0%E8%BF%99%E9%87%8C%E3%80%82"><span class="nav-text">洗澡澡睡觉了，明天还有面试，现总结到这里。</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
 
@@ -627,7 +644,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B4%97%E6%BE%A1%E6%BE%A1%E7%9D%A1%E8%A7%89%E4%BA%86%EF%BC%8C%E6%98%8E%E5%A4%A9%E8%BF%98%E6%9C%89%E9%9D%A2%E8%AF%95%EF%BC%8C%E7%8E%B0%E6%80%BB%E7%BB%93%E5%88%B0%E8%BF%99%E9%87%8C%E3%80%82"><span class="nav-text">洗澡澡睡觉了，明天还有面试，现总结到这里。</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">redis 几种类型，击穿，雪崩方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">mq 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B4%97%E6%BE%A1%E6%BE%A1%E7%9D%A1%E8%A7%89%E4%BA%86%EF%BC%8C%E6%98%8E%E5%A4%A9%E8%BF%98%E6%9C%89%E9%9D%A2%E8%AF%95%EF%BC%8C%E7%8E%B0%E6%80%BB%E7%BB%93%E5%88%B0%E8%BF%99%E9%87%8C%E3%80%82"><span class="nav-text">洗澡澡睡觉了，明天还有面试，现总结到这里。</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
 
