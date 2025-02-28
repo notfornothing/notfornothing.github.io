@@ -46,7 +46,13 @@
 </ul>
 <h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><p>   自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>   自我介绍这块我得打个草稿提前过一遍</p>
 <hr>
-<h4 id="redis-几种类型，击穿，雪崩方案"><a href="#redis-几种类型，击穿，雪崩方案" class="headerlink" title="redis 几种类型，击穿，雪崩方案"></a>redis 几种类型，击穿，雪崩方案</h4><p>  redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
+<h4 id="redis-几种类型，击穿，雪崩方案"><a href="#redis-几种类型，击穿，雪崩方案" class="headerlink" title="redis 几种类型，击穿，雪崩方案"></a>redis 几种类型，击穿，雪崩方案</h4><details>
+<summary><b> 实际上的回答（点击展开）</b></summary>
+ 
+<p>  redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
+</details>
+ 
+
 <details>
 <summary><b> 我觉得满意的回答（点击展开）</b></summary>
 
@@ -151,9 +157,13 @@
 </li>
 </ul>
 <hr>
-<h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><p>  其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 mq 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>  我回答的是消费mq的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>  因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>  我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
+<h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><details>
+<summary><b> 实际上的回答（点击展开）</b></summary>
+
+<p>  其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 mq 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>  我回答的是消费mq的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>  因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>  我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
+</details>
 <details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+<summary><b> 满意的回答（点击展开）</b></summary>
 
 <ul>
 <li>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</li>
@@ -740,210 +750,6 @@
 <li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
 <li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>MySQL 总结 (一)</title>
-    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
-    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
-<p>descend– 下降</p>
-<hr>
-<blockquote>
-<p>descibe 是查看表的结构，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
-
-<p>desc 是 describe 的简写，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
-
-</blockquote>
-<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
-
-<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么修改的是全局的</p>
-</blockquote>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么删除的是全部的 所以要注意</p>
-</blockquote>
-<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
-<hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
-<blockquote>
-<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
-<blockquote>
-<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
-<blockquote>
-<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
-<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
-<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
-<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
-<blockquote>
-<p>可以和 % _ 使用。</p>
-<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
-</blockquote>
-<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
-<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
-<hr>
-<p>count（列名 | *):                  | 是或的意思</p>
-<blockquote>
-<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
-</blockquote>
-<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
-<ul>
-<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
-</ul>
-<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
-<hr>
-<p>select count(*) from emp;<br>– 如果没有分组，</p>
-<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
-<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
-<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
-<hr>
-<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
-<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
-<ul>
-<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
-<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
-<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
-</ul>
-<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
-<p>区别一，定长和变长</p>
-<blockquote>
-<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
-</blockquote>
-<blockquote>
-<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
-</blockquote>
-<p>区别之二，存储的容量不同</p>
-<blockquote>
-<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
-</blockquote>
-<p>区别之三，空格</p>
-<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
-<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
-<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
-<hr>
-<p>可以用 show create  table emp</p>
-<blockquote>
-<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
-</blockquote>
-<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
-<p>唯一，非空。一般和 auto_increment 一起用</p>
-<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
-<p>非空，但是可以重复</p>
-<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
-<p>不能重复，可以为 null</p>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
-
-<p>以上有笛卡尔积。</p>
-<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>以上两种都可以。但是 null 值不会显示出来</p>
-<p>可以用左外连接和右外连接：</p>
-<blockquote>
-<p>左外连接。查询左边的所以值</p>
-<p>右外连接：查询右边所有的值</p>
-</blockquote>
-<p>显示所有部门对应的员工值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>显示所有员工对应的部门值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>这样不能查询所以的对应的 null 值</p>
-<p>而且 mysql 没有全外连接查询。</p>
-<p>可以通过 union 模拟这种查询</p>
-<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
-<p>having 和 where 区别：</p>
-<blockquote>
-<ul>
-<li>where 放在 from 之后，group by 之前</li>
-<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
-<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
-<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
-</ul>
-</blockquote>
-<p>where 和 having 的区别：</p>
-<blockquote>
-<ul>
-<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
-</li>
-<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
-</li>
-<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
-<blockquote>
-<p>select name as 姓名，sal as 薪资 from emp e;</p>
-<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
-</blockquote>
-</li>
-<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
   </entry>
   <entry>
@@ -8047,6 +7853,210 @@
 
 <p>总之，递归公用表表达式对于查询一个有共同的根节点的树形结构数据，非常有用。它可以不受层级的限制，轻松查出所有节点的数据。如果用其他的查询方式，就比较复杂了。</p>
 <h3 id="3-3-小-结"><a href="#3-3-小-结" class="headerlink" title="3.3 小 结"></a>3.3 小 结</h3><p>公用表表达式的作用是可以替代子查询，而且可以被多次引用。递归公用表表达式对查询有一个共同根节点的树形结构数据非常高效，可以轻松搞定其他查询方式难以处理的查询。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL 总结 (一)</title>
+    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
+    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
+<p>descend– 下降</p>
+<hr>
+<blockquote>
+<p>descibe 是查看表的结构，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
+
+<p>desc 是 describe 的简写，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么修改的是全局的</p>
+</blockquote>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么删除的是全部的 所以要注意</p>
+</blockquote>
+<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
+<blockquote>
+<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<blockquote>
+<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+<blockquote>
+<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
+<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
+<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
+<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
+<blockquote>
+<p>可以和 % _ 使用。</p>
+<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
+</blockquote>
+<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
+<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
+<hr>
+<p>count（列名 | *):                  | 是或的意思</p>
+<blockquote>
+<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
+</blockquote>
+<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
+<ul>
+<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
+</ul>
+<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
+<hr>
+<p>select count(*) from emp;<br>– 如果没有分组，</p>
+<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
+<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
+<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
+<hr>
+<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
+<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
+<ul>
+<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
+<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
+<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
+</ul>
+<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
+<p>区别一，定长和变长</p>
+<blockquote>
+<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
+</blockquote>
+<blockquote>
+<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
+</blockquote>
+<p>区别之二，存储的容量不同</p>
+<blockquote>
+<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
+</blockquote>
+<p>区别之三，空格</p>
+<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
+<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
+<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
+<hr>
+<p>可以用 show create  table emp</p>
+<blockquote>
+<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
+</blockquote>
+<p>注意：</p>
+<blockquote>
+<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
+</blockquote>
+<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
+<p>唯一，非空。一般和 auto_increment 一起用</p>
+<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
+<p>非空，但是可以重复</p>
+<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
+<p>不能重复，可以为 null</p>
+<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
+
+<p>以上有笛卡尔积。</p>
+<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>以上两种都可以。但是 null 值不会显示出来</p>
+<p>可以用左外连接和右外连接：</p>
+<blockquote>
+<p>左外连接。查询左边的所以值</p>
+<p>右外连接：查询右边所有的值</p>
+</blockquote>
+<p>显示所有部门对应的员工值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>显示所有员工对应的部门值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>这样不能查询所以的对应的 null 值</p>
+<p>而且 mysql 没有全外连接查询。</p>
+<p>可以通过 union 模拟这种查询</p>
+<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
+<p>having 和 where 区别：</p>
+<blockquote>
+<ul>
+<li>where 放在 from 之后，group by 之前</li>
+<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
+<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
+<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
+</ul>
+</blockquote>
+<p>where 和 having 的区别：</p>
+<blockquote>
+<ul>
+<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
+</li>
+<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
+</li>
+<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
+<blockquote>
+<p>select name as 姓名，sal as 薪资 from emp e;</p>
+<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
+</blockquote>
+</li>
+<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
   <entry>
