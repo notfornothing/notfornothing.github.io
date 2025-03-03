@@ -174,12 +174,13 @@
 <p>都是因为消费者未能及时确认消息，队列没收到ack，认为消息没处理。</p>
 <p>所以才会产生重复消费的场景</p>
 <p>有很多种方案：</p>
+<p>如遇到并发问题方案2可行但是比较粗暴，或者方案 3 手动应答但是 <code>不放/放</code>回队列（我公司就是这种方法，然后多个消费者，这批数据跑完了再跑失败的数据）。或者看方案 4 比较麻烦。</p>
 <ol>
-<li>消息去重<br>  使用唯一消息 ID 进行去重，确保每个消息只被处理一次。比如消费的时候查一遍缓存，查到了就报重复，没有就把 ID 放缓存里。这种方式比我面试说的好一点用缓存而不用查库。</li>
-<li>数据库去重<br>  使用唯一消息 ID 进行去重，把它在数据库字段设置成 unique 的列。</li>
-<li>消息确认机制（Consumer Acknowledgements）<br>  使用手动消息确认机制，确保只有成功处理的消息才会被确认，未确认的消息会被重新投递。</li>
+<li>缓存 ID 去重<br>  每个消息附带一个唯一的 ID，放到静态变量或者缓存中，插入前先查询一遍缓存。</li>
+<li>数据库去重<br>  每个消息附带一个唯一的 ID,通过唯一约束避免重复处理，把它在数据库字段设置成 unique 的字段。</li>
+<li>消息确认机制（Consumer Acknowledgements）<br>  使用手动消息确认机制，basicAck 方法最后一个参数。确保只有成功处理的消息才会被确认，未确认的消息会被重新投递。<br>  虽然在 RabbitMQ 中，每条消息只会被一个消费者接收，但如果消费者并未及时确认（acknowledge），则消息可能会在消费者处理期间超时，并被 RabbitMQ 重新投递，导致重复消费。</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// 处理消息</span></span><br><span class="line">          System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line"></span><br><span class="line">          <span class="comment">// 手动确认消息</span></span><br><span class="line">          channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">          System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">          channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">          System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;myQueue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 处理消息</span></span><br><span class="line">    System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line">    <span class="comment">// 手动确认消息</span></span><br><span class="line">    channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">    channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li>Redis 分布式锁 这名字挺高级，我怎么感觉就和第一种id放缓存一样呢。<br>不一样，因为如果两个线程会同时检查key是否存在，这样可能会漏。所以得给key(id)加锁。</li>
 </ol>
@@ -187,7 +188,143 @@
 </details>
 
 <hr>
-<h4 id="TODO-洗澡澡睡觉了，明天还有面试，现总结到这里。"><a href="#TODO-洗澡澡睡觉了，明天还有面试，现总结到这里。" class="headerlink" title="TODO  洗澡澡睡觉了，明天还有面试，现总结到这里。"></a>TODO  洗澡澡睡觉了，明天还有面试，现总结到这里。</h4>]]></content>
+<h4 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h4><details>
+<summary><b> 满意的回答（点击展开）</b></summary>
+
+<ul>
+<li>能写在where限定的条件就不要写在having中</li>
+<li>避免select *,应该只查询所需字段</li>
+<li>大表数据：垂直分表(Union all)</li>
+<li><ul>
+<li>例如日志表，可以每个月一个日志。</li>
+</ul>
+</li>
+<li>大表数据：水平分表(建一个表，id关联)</li>
+<li>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</li>
+<li>减少索引失效</li>
+<li><ul>
+<li>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</li>
+</ul>
+</li>
+<li><ul>
+<li>like ‘%something’ 不会走索引</li>
+</ul>
+</li>
+<li><ul>
+<li>隐式类型转换</li>
+</ul>
+</li>
+<li><ul>
+<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效。</li>
+</ul>
+</li>
+<li><ul>
+<li>select 很慢可以用覆盖索引，和联合索引差不多，不过解决的问题不同。</li>
+</ul>
+</li>
+<li>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</li>
+<li>对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引</li>
+<li>varchar 存储浪费空间，特殊定长字段用char</li>
+<li>一个表中最好不要超过6个索引</li>
+<li>尽量是区分度高的数据作为索引</li>
+<li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
+<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
+</ul>
+</details>
+
+<h4 id="SpringCloud-常用注解"><a href="#SpringCloud-常用注解" class="headerlink" title="SpringCloud 常用注解"></a>SpringCloud 常用注解</h4><details>
+<summary><b> 满意的回答（点击展开）</b></summary>
+
+<ul>
+<li><p>@SpringBootApplication 这是springboot的配置，主要是约定大于配置，自动加载一些配置文件。</p>
+</li>
+<li><p>@EnableDiscoveryClient</p>
+</li>
+<li><ul>
+<li>开启服务注册发现功能,如让 Eureka，Nacos 能访问到你</li>
+</ul>
+</li>
+<li><p>@EnableFeignClients</p>
+</li>
+<li><ul>
+<li>用于启用 Feign 客户端，简化 RESTful 服务的调用。</li>
+</ul>
+</li>
+<li><p>@FeignClient</p>
+</li>
+<li><ul>
+<li>加在 feign 接口上，用于其他模块引用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="variable">@FeignClient</span>(<span class="keyword">value</span><span class="operator">=</span>&quot;XXX-service&quot;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>@RefreshScope</p>
+</li>
+<li><ul>
+<li>动态刷新配置文件<br><code>@Value(&quot;$&#123;config.property&#125;&quot;)</code></li>
+</ul>
+</li>
+<li><p>@EnableHystrix</p>
+</li>
+<li><ul>
+<li>熔断降级</details></li>
+</ul>
+</li>
+</ul>
+<h4 id="Feign-超时时间，超时怎么处理"><a href="#Feign-超时时间，超时怎么处理" class="headerlink" title="Feign 超时时间，超时怎么处理"></a>Feign 超时时间，超时怎么处理</h4><details>
+<summary><b> 实际的的回答（点击展开）</b></summary>
+递归 `exception.getCause instance of socketTimeoutException`去获取去识别的。
+我们项目是catch这个异常转成业务异常，基本上所有的都是把能转成业务异常的都转业务异常，不能转的报联系管理员
+
+<p>不过面试官想问的应该不是这个…</p>
+</details>
+
+<details>
+<summary><b> 满意的回答（点击展开）</b></summary>
+启动类中启用 Hystrix 熔断降级功能
+自定义实现 fallback 接口
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">feign:</span><br><span class="line">  client:</span><br><span class="line">    config:</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        connectTimeout: <span class="number">5000</span>  # 连接超时，单位为毫秒</span><br><span class="line">        readTimeout: <span class="number">10000</span>    # 读取超时，单位为毫秒</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name = &quot;my-service&quot;, fallback = MyServiceFallback.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyServiceClient</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/endpoint&quot;)</span></span><br><span class="line">    String <span class="title function_">getEndpoint</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><details>
+<summary><b> 实际的的回答（点击展开）</b></summary>
+我大概知道这是啥，就是你服务启动的时候，比如nacos地址配错了、或者挂了，服务器就会一直刷日志，heartbeat之类的，就是一直找注册中心。springCloud 启动的时候会显示用什么配置文件，用地址是什么，给你展示出来。
+应该就是心跳机制，检查服务是否在，免得真正调用的时候才发现出问题。
+
+<p>很显然没答到点上。</p>
+</details>
+
+<details>
+<summary><b> 满意的回答（点击展开）</b></summary>
+心跳机制的主要作用是：
+
+<ul>
+<li><p>确保服务可用性：定期向注册中心发送心跳信号，报告服务实例的健康状况。如果心跳信号发送失败，说明服务可能不可用，便于及时发现和处理问题。</p>
+</li>
+<li><p>预防调用失败：通过心跳机制，可以在服务实例不可用时及时将其从注册中心移除，避免实际调用时发现服务不可用的问题。</p>
+</li>
+<li><p>提高系统可靠性：定期监控服务健康状况，确保系统各个服务实例处于正常运行状态，提高系统的整体可靠性和稳定性。</p>
+</li>
+</ul>
+<p>Nacos 提供两种健康检查机制，分别对应不同类型的服务实例：</p>
+<ul>
+<li>临时实例（非持久化实例）：</li>
+</ul>
+<p>机制：客户端主动上报心跳消息。</p>
+<p>特点：临时实例不会在 Nacos 服务端持久化存储，需要通过上报心跳的方式进行保活。如果一段时间内没有上报心跳，实例会被 Nacos 服务端摘除</p>
+<ul>
+<li>永久实例（持久化实例）：</li>
+</ul>
+<p>机制：服务器端反向探测健康状况。</p>
+<p>特点：永久实例会在 Nacos 服务端持久化存储，即使注册实例的客户端进程不在，实例也不会从服务端删除，只会将健康状态设为不健康</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: my-service</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">        ephemeral: true  # 设置实例为临时实例</span><br></pre></td></tr></table></figure>
+
+</details>
+]]></content>
   </entry>
   <entry>
     <title>2025-02-28 面试总结</title>
@@ -862,7 +999,18 @@
 <p>所以 avg() 会把其他部门的薪水也进行分组计算，放到where语句中可减少avg的消耗。</p>
 <h1 id="避免select-应该只查询所需字段"><a href="#避免select-应该只查询所需字段" class="headerlink" title="避免select *,应该只查询所需字段"></a>避免select *,应该只查询所需字段</h1><h1 id="大表数据：垂直分表"><a href="#大表数据：垂直分表" class="headerlink" title="大表数据：垂直分表"></a>大表数据：垂直分表</h1><p>例如 一个接口是查询各个汽车，点击查看详细才会去跳转到这辆汽车的各种排气孔大小，轮胎尺寸，后备箱空间等特别详细的参数。<br>对于这种特别详细的参数不属于高频查询的数据，可以采用多个表，用id关联。</p>
 <h1 id="大表数据：水平分表"><a href="#大表数据：水平分表" class="headerlink" title="大表数据：水平分表"></a>大表数据：水平分表</h1><p>Union all<br>例如日志表，可以每个月一个日志。</p>
-<h1 id="like-查询尽量加上左边确定的值-如-like-‘nameSpac-’"><a href="#like-查询尽量加上左边确定的值-如-like-‘nameSpac-’" class="headerlink" title="like 查询尽量加上左边确定的值 如 like ‘nameSpac%’"></a>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</h1><h1 id="避免使用-is-not-null、-or-、not-in-、-这样不会走索引"><a href="#避免使用-is-not-null、-or-、not-in-、-这样不会走索引" class="headerlink" title="避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引"></a>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</h1><h1 id="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"><a href="#表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查" class="headerlink" title="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"></a>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</h1><h1 id="对于查询慢的sql，经常要用到的条件（where-order-by-group-by-distinct-…-添加索引"><a href="#对于查询慢的sql，经常要用到的条件（where-order-by-group-by-distinct-…-添加索引" class="headerlink" title="对于查询慢的sql，经常要用到的条件（where ,order by,group by,distinct …)添加索引"></a>对于查询慢的sql，经常要用到的条件（where ,order by,group by,distinct …)添加索引</h1><p>添加索引要注意：</p>
+<h1 id="like-查询尽量加上左边确定的值-如-like-‘nameSpac-’"><a href="#like-查询尽量加上左边确定的值-如-like-‘nameSpac-’" class="headerlink" title="like 查询尽量加上左边确定的值 如 like ‘nameSpac%’"></a>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</h1><h1 id="导致索引失效"><a href="#导致索引失效" class="headerlink" title="导致索引失效"></a>导致索引失效</h1><ul>
+<li>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</li>
+<li>like ‘%something’ 不会走索引</li>
+<li>隐式类型转换</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这里 age 为整数类型，但查询条件是字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> age <span class="operator">=</span> <span class="string">&#x27;30&#x27;</span>;  </span><br></pre></td></tr></table></figure>
+<ul>
+<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效。</li>
+</ul>
+<h1 id="select-很慢可以用覆盖索引"><a href="#select-很慢可以用覆盖索引" class="headerlink" title="select 很慢可以用覆盖索引"></a>select 很慢可以用覆盖索引</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name_city <span class="keyword">ON</span> users (name, city);</span><br></pre></td></tr></table></figure>
+
+<h1 id="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"><a href="#表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查" class="headerlink" title="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"></a>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</h1><h1 id="对于查询慢的sql，经常要用到的条件（select，where-order-by-group-by-distinct-…-添加索引"><a href="#对于查询慢的sql，经常要用到的条件（select，where-order-by-group-by-distinct-…-添加索引" class="headerlink" title="对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引"></a>对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引</h1><h1 id="varchar-存储浪费空间，特殊定长字段用char"><a href="#varchar-存储浪费空间，特殊定长字段用char" class="headerlink" title="varchar 存储浪费空间，特殊定长字段用char"></a>varchar 存储浪费空间，特殊定长字段用char</h1><p>添加索引要注意：</p>
 <ul>
 <li>一个表中最好不要超过6个索引</li>
 <li>尽量是区分度高的数据作为索引</li>
