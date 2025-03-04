@@ -513,8 +513,29 @@
                  ></p>
 </details>
 
+<details>
+<summary><strong>岗厦北地铁站真漂亮（点击展开）</strong></summary>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/03/04/2025-03-04-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/FFC01AE5A1E405186C316B2F8D530012.jpg"
+                       
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/03/04/2025-03-04-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/E1C759A5359BAAF3D149D9CA08AECACF.jpg"
+                       
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/03/04/2025-03-04-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/0F29702FD5C6D0609E9E4A1AAA348495.jpg"
+                       
+                 ></p>
+</details>
+
 <blockquote>
-<p>面试体验不错，聊了有 40 多分钟，但是我感觉后半段面试官有点赶，可能是还有人在排队等候面试。面试官和我坐的很近，我描述东西的时候手又喜欢比划，讲一些底层的数据结构之类的就在桌上比划给他看。<br>基本上把我简历上项目做过的功能问了个遍，技术点的也问了几个，都能答上来，虽然不是标准级别的答案，但我觉得至少把我理解的东西给表达出来了，而且面试官给到我的反馈也是正向的，比如点头等，让我能够没有压力的表达自己的想法。</p>
+<p>面试体验不错，聊了有 40 多分钟，但是后半段面试官有点赶，可能是还有人在排队等候面试。面试官和我坐的很近，我描述东西的时候手又喜欢比划，讲一些底层的数据结构之类的就在桌上比划给他看。<br>面试过程基本上把我简历上项目做过的功能问了个遍，技术点的也问了几个，都能答上来，虽然不是标准级别的答案，但我觉得至少把我理解的东西给表达出来了，而且面试官给到我的反馈也是正向的，比如点头等，让我能够没有压力的表达自己的想法。</p>
 </blockquote>
 <ul>
 <li>Java 代理模式</li>
@@ -8241,6 +8262,187 @@
 ]]></content>
   </entry>
   <entry>
+    <title>MySQL 总结（二）</title>
+    <url>/2021/11/25/MySQL%E6%80%BB%E7%BB%932/</url>
+    <content><![CDATA[<h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
+<p>写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章</p>
+</blockquote>
+<hr>
+<h2 id="为什么-where-不能用字段别名。因为-mysql-执行顺序："><a href="#为什么-where-不能用字段别名。因为-mysql-执行顺序：" class="headerlink" title="为什么 where 不能用字段别名。因为 mysql 执行顺序："></a>为什么 where 不能用<code>字段</code>别名。因为 mysql <strong>执行顺序</strong>：</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name        <span class="comment">-- 最后再 select 生成字段</span></span><br><span class="line"><span class="keyword">from</span> employees                  <span class="comment">-- 先执行 from 哪个表</span></span><br><span class="line"><span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;  <span class="comment">-- 再执行 where 条件</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="limit-使用方法"><a href="#limit-使用方法" class="headerlink" title="limit 使用方法"></a>limit 使用方法</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这条语句意思是 从第 51 条数据（包括 51) 开始数，数 10 条数据出来</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">50</span>,<span class="number">10</span>;</span><br><span class="line"><span class="comment">-- 前端传第几页可以这样给：</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit (currentPage<span class="number">-1</span>)<span class="operator">*</span>pageSize,pageSize;</span><br><span class="line"><span class="comment">---------------------------------</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">0</span>,<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。"><a href="#从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。" class="headerlink" title="从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。"></a>从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</h2><blockquote>
+<p>E-R 图<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/Snipaste_2022-03-17_17-35-04.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确：</span><br><span class="line">select employees.department_id, departments.department_id, employees.employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br><span class="line"></span><br><span class="line">-- 正确（但是不高效）：</span><br><span class="line">select employees.department_id, departments.department_id, employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名"><a href="#如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名" class="headerlink" title="如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名"></a>如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确</span><br><span class="line">select employee_id, dept.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where emp.department_id = dept.department_id;</span><br><span class="line"></span><br><span class="line">-- 错误</span><br><span class="line">select employee_id, departments.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。"><a href="#UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。" class="headerlink" title="UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。"></a>UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</h2><hr>
+<h2 id="COUNT-是计算不包括-null-的个数"><a href="#COUNT-是计算不包括-null-的个数" class="headerlink" title="COUNT() 是计算不包括 null 的个数"></a>COUNT() 是计算不包括 null 的个数</h2><hr>
+<h2 id="酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？"><a href="#酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？" class="headerlink" title="酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？"></a>酷<code>COUNT(*)</code>,<code>COUNT(1)</code>,<code>COUNT（字段）</code>哪个效率更高？</h2><p>如果是 MyISAM 存储引擎，三者效率都一样，因为这个引擎有一个字段专门存多少行的。<br>如果是 InnoDB 存储引擎，则效率：<code>COUNT(1)</code>&#x3D;<code>COUNT(*)</code>&gt;<code>COUNT（字段）</code>, 因为这个引擎会自动找 len 最短的去 count, 指定了字段没法优化。</p>
+<hr>
+<h2 id="这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。"><a href="#这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。" class="headerlink" title="这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。"></a>这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">正确</span><br><span class="line"><span class="keyword">select</span> job_id j,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> j;</span><br><span class="line"></span><br><span class="line">也正确</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br><span class="line"></span><br><span class="line">错误：</span><br><span class="line"><span class="keyword">select</span> employee_id,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY"><a href="#HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY" class="headerlink" title="HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY"></a>HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</h2><hr>
+<h2 id="where-和-having-效率区别，以及使用区别"><a href="#where-和-having-效率区别，以及使用区别" class="headerlink" title="where 和 having 效率区别，以及使用区别"></a>where 和 having 效率区别，以及使用区别</h2><p>没有聚合函数的情况下最好用 where 先判断条件。然后再分组再用 having 去操作条件，不然会 把没用的数据也给分组，浪费性能。<br>where 后面不能跟聚合函数，因为你就一组你没分组聚合按照条件没有意义啊。但是 HAVING 可以因为你分了很多个组所以就可以筛选。</p>
+<hr>
+<h2 id="mysql-执行顺序"><a href="#mysql-执行顺序" class="headerlink" title="mysql 执行顺序"></a>mysql 执行顺序</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 这里后执行</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line"><span class="keyword">JOIN</span>        这里先执行，且按顺序执行</span><br><span class="line"><span class="keyword">ON</span></span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>    很奇怪的是这里可以用 <span class="keyword">SELECT</span> 字段的别名</span><br><span class="line"><span class="keyword">HAVING</span>      <span class="keyword">HAVING</span> 也能用，按道理执行顺序是不可以的</span><br><span class="line">            这是 MYSQL 可以的，特例这是。</span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>    这里最后执行</span><br><span class="line">LIMIT</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。"><a href="#GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。" class="headerlink" title="GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。"></a>GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</h2><hr>
+<h2 id="MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以"><a href="#MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以" class="headerlink" title="MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以"></a>MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</h2><hr>
+<h2 id="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化"><a href="#子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化" class="headerlink" title="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化"></a>子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</h2><hr>
+<h2 id="mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写"><a href="#mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写" class="headerlink" title="mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)"></a>mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</h2><hr>
+<h2 id="mysql-创建表有两种方式"><a href="#mysql-创建表有两种方式" class="headerlink" title="mysql 创建表有两种方式"></a>mysql 创建表有两种方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 一个一个创建</span></span><br><span class="line"><span class="keyword">create table</span> t1</span><br><span class="line">(</span><br><span class="line">    id   <span class="type">int</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> t1</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>),</span><br><span class="line">       (<span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create table</span> t2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> t1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="DDL-DML-DCL-TCL"><a href="#DDL-DML-DCL-TCL" class="headerlink" title="DDL,DML,DCL,TCL"></a>DDL,DML,DCL,TCL</h2><ul>
+<li><p>DDL:Data Definition Language (DDL)数据库定义语句</p>
+<blockquote>
+<p>用来创建数据库中的表、索引、视图、存储过程、触发器等<br>CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME</p>
+</blockquote>
+</li>
+<li><p>DML:Data Manipulation Language (DML)数据操纵语句</p>
+<blockquote>
+<p>用来查询、添加、更新、删除等<br>SELECT,INSERT,UPDATE,DELETE,MERGE,CALL,EXPLAIN PLAN,LOCK TABLE</p>
+</blockquote>
+</li>
+<li><p>DCL:Data Control Language (DCL)数据控制语句</p>
+<blockquote>
+<p>用于授权&#x2F;撤销数据库及其字段的权限<br>GRANT,REVOKE。</p>
+</blockquote>
+</li>
+<li><p>TCL:Transaction Control Language (TCL)事务控制语句</p>
+<blockquote>
+<p>用于控制事务<br>COMMIT,ROLLBACK,SAVEPOINT,SET TRANSACTION</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="DROP-表结构和表数据都会删除，释放表空间"><a href="#DROP-表结构和表数据都会删除，释放表空间" class="headerlink" title="DROP 表结构和表数据都会删除，释放表空间"></a>DROP 表结构和表数据都会删除，释放表空间</h2><hr>
+<h2 id="TRUNCATE-只会清空表数据，但是保留表结构"><a href="#TRUNCATE-只会清空表数据，但是保留表结构" class="headerlink" title="TRUNCATE 只会清空表数据，但是保留表结构"></a>TRUNCATE 只会清空表数据，但是保留表结构</h2><hr>
+<h2 id="TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，"><a href="#TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，" class="headerlink" title="TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，"></a>TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</h2><hr>
+<h2 id="ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"><a href="#ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。" class="headerlink" title="ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"></a>ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</h2><hr>
+<h2 id="TRUNCATE-和-DELETE-FROM-异同点"><a href="#TRUNCATE-和-DELETE-FROM-异同点" class="headerlink" title="TRUNCATE 和 DELETE FROM 异同点"></a>TRUNCATE 和 DELETE FROM 异同点</h2><ul>
+<li>相同：<ul>
+<li>都可以实现对数据的删除，同时保留表结构</li>
+</ul>
+</li>
+<li>不同:<ul>
+<li>DELETE FROM 是DML，TRUNCATE是DDL</li>
+<li>TRUNCATE TABLE 不能回滚！！！</li>
+<li>注意：COMMIT 在DML中是默认开启的，即set autocommit&#x3D;true，这是默认开启的，所以delete默认也不能回滚，只能设置为false才能回滚。</li>
+<li>但是TRUNCATE不会触发TRIGGER（日志记录）所以是个危险操作尽量不用，虽然效率高。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="MySQL-8-0-有DDL的原子性，但是5-7没有。即："><a href="#MySQL-8-0-有DDL的原子性，但是5-7没有。即：" class="headerlink" title="MySQL 8.0 有DDL的原子性，但是5.7没有。即："></a>MySQL 8.0 有DDL的原子性，但是5.7没有。即：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql8.0</span><br><span class="line">CREATE TABLE table1();</span><br><span class="line">DROP table1,table2;</span><br><span class="line">-- 因为table2不存在，所以不会成功。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="MyBatis-用-的情况，用到表名做参数的时候就用这个。"><a href="#MyBatis-用-的情况，用到表名做参数的时候就用这个。" class="headerlink" title="MyBatis 用${}的情况，用到表名做参数的时候就用这个。"></a>MyBatis 用${}的情况，用到表名做参数的时候就用这个。</h2><hr>
+<h2 id="INSERT-添加可以添加查询结果："><a href="#INSERT-添加可以添加查询结果：" class="headerlink" title="INSERT 添加可以添加查询结果："></a>INSERT 添加可以添加查询结果：</h2><ul>
+<li>但是要注意添加的字段要和查询的字段对应。</li>
+<li>字段的范围也要对应,对应或者大于。如果里面的数据没有那么长，那可以。但是最好还是大于等于。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT into emp(id,name)</span><br><span class="line">select id,name </span><br><span class="line">from emp2;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。"><a href="#UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。" class="headerlink" title="UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。"></a>UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</h2><hr>
+<h2 id="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"><a href="#小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED" class="headerlink" title="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"></a>小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</h2><hr>
+<h2 id="CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来"><a href="#CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来" class="headerlink" title="CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来"></a>CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</h2><hr>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
+<li>not null</li>
+<li>unique</li>
+<li>check 5.7没有,8.0有，</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test01(</span><br><span class="line">id int,</span><br><span class="line">last_name varchar(15)，</span><br><span class="line">salary decimal(10,2) check(salary&gt;2000))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DEFAULT</li>
+</ul>
+<hr>
+<h2 id="行级约束，表级约束"><a href="#行级约束，表级约束" class="headerlink" title="行级约束，表级约束"></a>行级约束，表级约束</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test1(</span><br><span class="line">id INT UNIQUE, -- 行级约束</span><br><span class="line">last_name VARCHAR(15),</span><br><span class="line">email VARCHAR(15),</span><br><span class="line">CONSTRAINT uk_test1_email UNIQUE(emial) -- 表级约束</span><br><span class="line">-- NOT NULL 没有表级约束</span><br><span class="line">)</span><br><span class="line">-- 这里给约束命名了，默认不给的话是和列名相同的</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNIQUE-可以有null，但是可以有多个null，"><a href="#UNIQUE-可以有null，但是可以有多个null，" class="headerlink" title="UNIQUE 可以有null，但是可以有多个null，"></a>UNIQUE 可以有null，但是可以有多个null，</h2><hr>
+<h2 id="mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"><a href="#mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决" class="headerlink" title="mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"></a>mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</h2><hr>
+<h2 id="UTF8mb4和UTF8mb3"><a href="#UTF8mb4和UTF8mb3" class="headerlink" title="UTF8mb4和UTF8mb3"></a>UTF8mb4和UTF8mb3</h2><ul>
+<li>utf8mb3:1~3个字节表示字符</li>
+<li>utf8mb4:1~4个字节表示字符<br>mysql utf8 默认是utf8mb3。utf8mb4用于emoji表情一般；</li>
+</ul>
+<hr>
+<h2 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h2><ul>
+<li>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器-&gt;找存储引擎API看用的哪个engine</li>
+</ul>
+<hr>
+<h2 id="InnoDB-的好处"><a href="#InnoDB-的好处" class="headerlink" title="InnoDB 的好处"></a>InnoDB 的好处</h2><ul>
+<li>你可以<code>show engines</code>看到，支持事物和分布式</li>
+</ul>
+<hr>
+<h2 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h2><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外键</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>事物</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>行表锁</td>
+<td>表锁，即使操作一条记录会锁住整个表，不适合高并发</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>只缓存索引，不缓存真实数据,增加查询很多优选选</td>
+<td>缓存和数据都是真实数据，都是 .idb 结尾的文件,使用的时候会更占据内存 ,</td>
+</tr>
+<tr>
+<td>关注点</td>
+<td>性能：节省资源，消耗少，简单业务</td>
+<td>事物：并发写，事物，更大资源</td>
+</tr>
+<tr>
+<td>默认安装</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>默认使用</td>
+<td>No(MySQL 5.5 之前 Yes)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>增加查询多用MyISAM</td>
+<td>更新删除多优选选InnoDB</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
     <title>MySQL 总结 (一)</title>
     <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
     <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
@@ -8442,187 +8644,6 @@
 
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-  </entry>
-  <entry>
-    <title>MySQL 总结（二）</title>
-    <url>/2021/11/25/MySQL%E6%80%BB%E7%BB%932/</url>
-    <content><![CDATA[<h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
-<p>写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章</p>
-</blockquote>
-<hr>
-<h2 id="为什么-where-不能用字段别名。因为-mysql-执行顺序："><a href="#为什么-where-不能用字段别名。因为-mysql-执行顺序：" class="headerlink" title="为什么 where 不能用字段别名。因为 mysql 执行顺序："></a>为什么 where 不能用<code>字段</code>别名。因为 mysql <strong>执行顺序</strong>：</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name        <span class="comment">-- 最后再 select 生成字段</span></span><br><span class="line"><span class="keyword">from</span> employees                  <span class="comment">-- 先执行 from 哪个表</span></span><br><span class="line"><span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;  <span class="comment">-- 再执行 where 条件</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="limit-使用方法"><a href="#limit-使用方法" class="headerlink" title="limit 使用方法"></a>limit 使用方法</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这条语句意思是 从第 51 条数据（包括 51) 开始数，数 10 条数据出来</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">50</span>,<span class="number">10</span>;</span><br><span class="line"><span class="comment">-- 前端传第几页可以这样给：</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit (currentPage<span class="number">-1</span>)<span class="operator">*</span>pageSize,pageSize;</span><br><span class="line"><span class="comment">---------------------------------</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">0</span>,<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。"><a href="#从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。" class="headerlink" title="从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。"></a>从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</h2><blockquote>
-<p>E-R 图<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/Snipaste_2022-03-17_17-35-04.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确：</span><br><span class="line">select employees.department_id, departments.department_id, employees.employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br><span class="line"></span><br><span class="line">-- 正确（但是不高效）：</span><br><span class="line">select employees.department_id, departments.department_id, employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名"><a href="#如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名" class="headerlink" title="如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名"></a>如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确</span><br><span class="line">select employee_id, dept.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where emp.department_id = dept.department_id;</span><br><span class="line"></span><br><span class="line">-- 错误</span><br><span class="line">select employee_id, departments.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。"><a href="#UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。" class="headerlink" title="UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。"></a>UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</h2><hr>
-<h2 id="COUNT-是计算不包括-null-的个数"><a href="#COUNT-是计算不包括-null-的个数" class="headerlink" title="COUNT() 是计算不包括 null 的个数"></a>COUNT() 是计算不包括 null 的个数</h2><hr>
-<h2 id="酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？"><a href="#酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？" class="headerlink" title="酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？"></a>酷<code>COUNT(*)</code>,<code>COUNT(1)</code>,<code>COUNT（字段）</code>哪个效率更高？</h2><p>如果是 MyISAM 存储引擎，三者效率都一样，因为这个引擎有一个字段专门存多少行的。<br>如果是 InnoDB 存储引擎，则效率：<code>COUNT(1)</code>&#x3D;<code>COUNT(*)</code>&gt;<code>COUNT（字段）</code>, 因为这个引擎会自动找 len 最短的去 count, 指定了字段没法优化。</p>
-<hr>
-<h2 id="这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。"><a href="#这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。" class="headerlink" title="这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。"></a>这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">正确</span><br><span class="line"><span class="keyword">select</span> job_id j,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> j;</span><br><span class="line"></span><br><span class="line">也正确</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br><span class="line"></span><br><span class="line">错误：</span><br><span class="line"><span class="keyword">select</span> employee_id,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY"><a href="#HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY" class="headerlink" title="HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY"></a>HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</h2><hr>
-<h2 id="where-和-having-效率区别，以及使用区别"><a href="#where-和-having-效率区别，以及使用区别" class="headerlink" title="where 和 having 效率区别，以及使用区别"></a>where 和 having 效率区别，以及使用区别</h2><p>没有聚合函数的情况下最好用 where 先判断条件。然后再分组再用 having 去操作条件，不然会 把没用的数据也给分组，浪费性能。<br>where 后面不能跟聚合函数，因为你就一组你没分组聚合按照条件没有意义啊。但是 HAVING 可以因为你分了很多个组所以就可以筛选。</p>
-<hr>
-<h2 id="mysql-执行顺序"><a href="#mysql-执行顺序" class="headerlink" title="mysql 执行顺序"></a>mysql 执行顺序</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 这里后执行</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line"><span class="keyword">JOIN</span>        这里先执行，且按顺序执行</span><br><span class="line"><span class="keyword">ON</span></span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>    很奇怪的是这里可以用 <span class="keyword">SELECT</span> 字段的别名</span><br><span class="line"><span class="keyword">HAVING</span>      <span class="keyword">HAVING</span> 也能用，按道理执行顺序是不可以的</span><br><span class="line">            这是 MYSQL 可以的，特例这是。</span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>    这里最后执行</span><br><span class="line">LIMIT</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。"><a href="#GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。" class="headerlink" title="GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。"></a>GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</h2><hr>
-<h2 id="MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以"><a href="#MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以" class="headerlink" title="MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以"></a>MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</h2><hr>
-<h2 id="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化"><a href="#子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化" class="headerlink" title="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化"></a>子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</h2><hr>
-<h2 id="mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写"><a href="#mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写" class="headerlink" title="mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)"></a>mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</h2><hr>
-<h2 id="mysql-创建表有两种方式"><a href="#mysql-创建表有两种方式" class="headerlink" title="mysql 创建表有两种方式"></a>mysql 创建表有两种方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 一个一个创建</span></span><br><span class="line"><span class="keyword">create table</span> t1</span><br><span class="line">(</span><br><span class="line">    id   <span class="type">int</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> t1</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>),</span><br><span class="line">       (<span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create table</span> t2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> t1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="DDL-DML-DCL-TCL"><a href="#DDL-DML-DCL-TCL" class="headerlink" title="DDL,DML,DCL,TCL"></a>DDL,DML,DCL,TCL</h2><ul>
-<li><p>DDL:Data Definition Language (DDL)数据库定义语句</p>
-<blockquote>
-<p>用来创建数据库中的表、索引、视图、存储过程、触发器等<br>CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME</p>
-</blockquote>
-</li>
-<li><p>DML:Data Manipulation Language (DML)数据操纵语句</p>
-<blockquote>
-<p>用来查询、添加、更新、删除等<br>SELECT,INSERT,UPDATE,DELETE,MERGE,CALL,EXPLAIN PLAN,LOCK TABLE</p>
-</blockquote>
-</li>
-<li><p>DCL:Data Control Language (DCL)数据控制语句</p>
-<blockquote>
-<p>用于授权&#x2F;撤销数据库及其字段的权限<br>GRANT,REVOKE。</p>
-</blockquote>
-</li>
-<li><p>TCL:Transaction Control Language (TCL)事务控制语句</p>
-<blockquote>
-<p>用于控制事务<br>COMMIT,ROLLBACK,SAVEPOINT,SET TRANSACTION</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<h2 id="DROP-表结构和表数据都会删除，释放表空间"><a href="#DROP-表结构和表数据都会删除，释放表空间" class="headerlink" title="DROP 表结构和表数据都会删除，释放表空间"></a>DROP 表结构和表数据都会删除，释放表空间</h2><hr>
-<h2 id="TRUNCATE-只会清空表数据，但是保留表结构"><a href="#TRUNCATE-只会清空表数据，但是保留表结构" class="headerlink" title="TRUNCATE 只会清空表数据，但是保留表结构"></a>TRUNCATE 只会清空表数据，但是保留表结构</h2><hr>
-<h2 id="TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，"><a href="#TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，" class="headerlink" title="TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，"></a>TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</h2><hr>
-<h2 id="ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"><a href="#ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。" class="headerlink" title="ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"></a>ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</h2><hr>
-<h2 id="TRUNCATE-和-DELETE-FROM-异同点"><a href="#TRUNCATE-和-DELETE-FROM-异同点" class="headerlink" title="TRUNCATE 和 DELETE FROM 异同点"></a>TRUNCATE 和 DELETE FROM 异同点</h2><ul>
-<li>相同：<ul>
-<li>都可以实现对数据的删除，同时保留表结构</li>
-</ul>
-</li>
-<li>不同:<ul>
-<li>DELETE FROM 是DML，TRUNCATE是DDL</li>
-<li>TRUNCATE TABLE 不能回滚！！！</li>
-<li>注意：COMMIT 在DML中是默认开启的，即set autocommit&#x3D;true，这是默认开启的，所以delete默认也不能回滚，只能设置为false才能回滚。</li>
-<li>但是TRUNCATE不会触发TRIGGER（日志记录）所以是个危险操作尽量不用，虽然效率高。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="MySQL-8-0-有DDL的原子性，但是5-7没有。即："><a href="#MySQL-8-0-有DDL的原子性，但是5-7没有。即：" class="headerlink" title="MySQL 8.0 有DDL的原子性，但是5.7没有。即："></a>MySQL 8.0 有DDL的原子性，但是5.7没有。即：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql8.0</span><br><span class="line">CREATE TABLE table1();</span><br><span class="line">DROP table1,table2;</span><br><span class="line">-- 因为table2不存在，所以不会成功。</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="MyBatis-用-的情况，用到表名做参数的时候就用这个。"><a href="#MyBatis-用-的情况，用到表名做参数的时候就用这个。" class="headerlink" title="MyBatis 用${}的情况，用到表名做参数的时候就用这个。"></a>MyBatis 用${}的情况，用到表名做参数的时候就用这个。</h2><hr>
-<h2 id="INSERT-添加可以添加查询结果："><a href="#INSERT-添加可以添加查询结果：" class="headerlink" title="INSERT 添加可以添加查询结果："></a>INSERT 添加可以添加查询结果：</h2><ul>
-<li>但是要注意添加的字段要和查询的字段对应。</li>
-<li>字段的范围也要对应,对应或者大于。如果里面的数据没有那么长，那可以。但是最好还是大于等于。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT into emp(id,name)</span><br><span class="line">select id,name </span><br><span class="line">from emp2;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。"><a href="#UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。" class="headerlink" title="UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。"></a>UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</h2><hr>
-<h2 id="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"><a href="#小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED" class="headerlink" title="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"></a>小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</h2><hr>
-<h2 id="CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来"><a href="#CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来" class="headerlink" title="CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来"></a>CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</h2><hr>
-<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
-<li>not null</li>
-<li>unique</li>
-<li>check 5.7没有,8.0有，</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test01(</span><br><span class="line">id int,</span><br><span class="line">last_name varchar(15)，</span><br><span class="line">salary decimal(10,2) check(salary&gt;2000))</span><br></pre></td></tr></table></figure>
-<ul>
-<li>DEFAULT</li>
-</ul>
-<hr>
-<h2 id="行级约束，表级约束"><a href="#行级约束，表级约束" class="headerlink" title="行级约束，表级约束"></a>行级约束，表级约束</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test1(</span><br><span class="line">id INT UNIQUE, -- 行级约束</span><br><span class="line">last_name VARCHAR(15),</span><br><span class="line">email VARCHAR(15),</span><br><span class="line">CONSTRAINT uk_test1_email UNIQUE(emial) -- 表级约束</span><br><span class="line">-- NOT NULL 没有表级约束</span><br><span class="line">)</span><br><span class="line">-- 这里给约束命名了，默认不给的话是和列名相同的</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UNIQUE-可以有null，但是可以有多个null，"><a href="#UNIQUE-可以有null，但是可以有多个null，" class="headerlink" title="UNIQUE 可以有null，但是可以有多个null，"></a>UNIQUE 可以有null，但是可以有多个null，</h2><hr>
-<h2 id="mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"><a href="#mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决" class="headerlink" title="mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"></a>mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</h2><hr>
-<h2 id="UTF8mb4和UTF8mb3"><a href="#UTF8mb4和UTF8mb3" class="headerlink" title="UTF8mb4和UTF8mb3"></a>UTF8mb4和UTF8mb3</h2><ul>
-<li>utf8mb3:1~3个字节表示字符</li>
-<li>utf8mb4:1~4个字节表示字符<br>mysql utf8 默认是utf8mb3。utf8mb4用于emoji表情一般；</li>
-</ul>
-<hr>
-<h2 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h2><ul>
-<li>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器-&gt;找存储引擎API看用的哪个engine</li>
-</ul>
-<hr>
-<h2 id="InnoDB-的好处"><a href="#InnoDB-的好处" class="headerlink" title="InnoDB 的好处"></a>InnoDB 的好处</h2><ul>
-<li>你可以<code>show engines</code>看到，支持事物和分布式</li>
-</ul>
-<hr>
-<h2 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h2><table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>MyISAM</th>
-<th>InnoDB</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>外键</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>事物</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>行表锁</td>
-<td>表锁，即使操作一条记录会锁住整个表，不适合高并发</td>
-<td>行锁</td>
-</tr>
-<tr>
-<td>缓存</td>
-<td>只缓存索引，不缓存真实数据,增加查询很多优选选</td>
-<td>缓存和数据都是真实数据，都是 .idb 结尾的文件,使用的时候会更占据内存 ,</td>
-</tr>
-<tr>
-<td>关注点</td>
-<td>性能：节省资源，消耗少，简单业务</td>
-<td>事物：并发写，事物，更大资源</td>
-</tr>
-<tr>
-<td>默认安装</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>默认使用</td>
-<td>No(MySQL 5.5 之前 Yes)</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>选择</td>
-<td>增加查询多用MyISAM</td>
-<td>更新删除多优选选InnoDB</td>
-</tr>
-</tbody></table>
 ]]></content>
   </entry>
   <entry>
@@ -8965,6 +8986,42 @@
 ]]></content>
   </entry>
   <entry>
+    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
+    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
+    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
+<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
+<ul>
+<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
+</li>
+<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
+<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Test</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试结果</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
+                       
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Java实现天气预报</title>
     <url>/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/</url>
     <content><![CDATA[<h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
@@ -8999,42 +9056,6 @@
                        alt="image"
                        data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
                         alt="PANGU_DISABLE"
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
-    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
-    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
-<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
-<ul>
-<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
-</li>
-<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
-</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
-</ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
-<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
-<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Test</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>测试结果</li>
-</ul>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
-                       
                  ></p>
 ]]></content>
   </entry>
