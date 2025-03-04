@@ -156,7 +156,6 @@
 </ul>
 </li>
 </ul>
-<hr>
 <h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><details>
 <summary><b> 实际上的回答（点击展开）</b></summary>
 
@@ -187,7 +186,6 @@
 <p>给key加锁<br>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败。<br>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间。<br>解锁：使用 DEL 命令删除锁，释放资源。</p>
 </details>
 
-<hr>
 <h4 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h4><details>
 <summary><b> 满意的回答（点击展开）</b></summary>
 
@@ -369,10 +367,7 @@
 <li><p>循环依赖怎么解决</p>
 </li>
 </ul>
-<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="上午的问题"><a href="#上午的问题" class="headerlink" title="上午的问题"></a>上午的问题</h4><h5 id=""><a href="#" class="headerlink" title=""></a></h5><ul>
-<li>线程的创建方式</li>
-</ul>
-<details>
+<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="线程的创建方式"><a href="#线程的创建方式" class="headerlink" title="线程的创建方式"></a>线程的创建方式</h4><details>
 <summary><b> 我觉得满意的回答（点击展开）</b></summary>
 四种：
 
@@ -414,8 +409,11 @@
 <li>缺点：相对复杂？性能问题，要创建Future 对象，有一点点开销。</li>
 </ul>
 </li>
-<li><p>Executors 接口实现线程池</p>
-</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">extracted</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 创建 FutureTask 包装 Callable 任务</span></span><br><span class="line">    FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">Callable</span>&lt;String&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 创建并启动线程来执行任务</span></span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask);</span><br><span class="line">    thread.start();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 获取任务执行结果</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> futureTask.get();</span><br><span class="line">        <span class="comment">// 打印结果</span></span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Executors 接口实现线程池</li>
 <li><ul>
 <li>优点：高效，面对使用对象简单</li>
 </ul>
@@ -425,25 +423,57 @@
 </ul>
 </li>
 </ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 </details>
 
+
+<h4 id="线程的几种状态"><a href="#线程的几种状态" class="headerlink" title="线程的几种状态"></a>线程的几种状态</h4><details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+
 <ul>
-<li><p>线程的几种状态</p>
-</li>
-<li><p>线程池几种策略</p>
-</li>
-<li><p>为什么要三次握手</p>
-</li>
-<li><p>Redis 几种类型</p>
-</li>
-<li><p>Jvm内存模型</p>
-</li>
-<li><p>Jvm如何调优</p>
-</li>
-<li><p>你还需要了解一些什么？</p>
-</li>
+<li>新建 new Thread()</li>
+<li>就绪 start() 跟cpu抢夺资源</li>
+<li>运行 实际在跑</li>
+<li>阻塞 线程被锁</li>
+<li>等待 wait(),join(),sleep(),sleep(argument),join(arg),wait(arg)</li>
+<li>终止</details></li>
 </ul>
-<h4 id="下午的问题"><a href="#下午的问题" class="headerlink" title="下午的问题"></a>下午的问题</h4><h5 id="-1"><a href="#-1" class="headerlink" title=""></a></h5>]]></content>
+<h4 id="线程池几种策略"><a href="#线程池几种策略" class="headerlink" title="线程池几种策略"></a>线程池几种策略</h4><details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+
+<p>当线程池和任务队列都满时，线程池会拒绝新任务。常见的拒绝策略包括：</p>
+<ul>
+<li>AbortPolicy 抛出 RejectedExecutionException 异常，默认策略。</li>
+<li>CallerRunsPolicy 由调用线程处理该任务。</li>
+<li>DiscardPolicy 直接丢弃任务，不抛出异常</li>
+<li>DiscardOldestPolicy 丢弃队列中最旧的任务，并尝试重新提交新任务。</details></li>
+</ul>
+<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><h4 id="你还需要了解一些什么？"><a href="#你还需要了解一些什么？" class="headerlink" title="你还需要了解一些什么？"></a>你还需要了解一些什么？</h4>]]></content>
+  </entry>
+  <entry>
+    <title>2025-03-04 面试总结</title>
+    <url>/2025/03/04/2025-03-04-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<blockquote>
+<p>今天约了两场，上午和下午。<br>上午是线上会议面试<br>下午是线下现场面</p>
+</blockquote>
+<hr>
+<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p><strong>上午场的面试：</strong> </p>
+<blockquote>
+<p>上午的面试是腾讯会议面试，聊了半个钟感觉还行，我开了摄像头感觉我巨帅，看到会议中的自己感觉很自信，因为见不到面试官只能听到他声音，我答不上来也没有那么紧张，体验还不错。我不喜欢面试官一边拿着我简历一边看着我审问我的感觉。<br>提前预总结一下，感觉好多能说的没说上来，比如sql优化，就说了两个方面，其实这方面能说很多的，之前总结那么多都忘记说了。晕晕晕</p>
+</blockquote>
+<ul>
+<li>Java 常用的设计模式</li>
+<li>SpringBean 的作用</li>
+<li>用过哪些代理模式</li>
+<li>docker 查看容器</li>
+<li>docker 怎么导出</li>
+<li>docker 要修改端口，挂载目录怎么做</li>
+<li>redis 有几种类型</li>
+<li>MySQL 的隔离级别是</li>
+<li>sql 优化</li>
+</ul>
+<p><strong>下午场的面试：</strong></p>
+]]></content>
   </entry>
   <entry>
     <title>Centos基本的云服务器配置</title>
@@ -529,6 +559,26 @@
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/F2E10C93E0EB4592659594B4F8B0808C.jpg"
                         alt="F2E10C93E0EB4592659594B4F8B0808C.jpg"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/4a49b266d9ae1a65344a9b8ebdf9aa8-min.jpg"
+                       
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/6cef04e9b240e7735773186c2d0690b-min.jpg"
+                       
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/50b9dd5c666bd6d2a403946655400ef-min.jpg"
+                       
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/02/23/I-like-KFC-And-McDonald's/50d05593f90f84fff4b88357d379bfd-min.jpg"
+                       
                  ></p>
 ]]></content>
   </entry>

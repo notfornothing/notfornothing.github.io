@@ -389,7 +389,6 @@
 </ul>
 </li>
 </ul>
-<hr>
 <h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><details>
 <summary><b> 实际上的回答（点击展开）</b></summary>
 
@@ -420,7 +419,6 @@
 <p>给key加锁<br>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败。<br>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间。<br>解锁：使用 DEL 命令删除锁，释放资源。</p>
 </details>
 
-<hr>
 <h4 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h4><details>
 <summary><b> 满意的回答（点击展开）</b></summary>
 
