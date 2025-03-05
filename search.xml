@@ -357,7 +357,7 @@
 
 <p><strong>下午场的面试：</strong></p>
 <blockquote>
-<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，hr 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 10 分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
+<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，hr 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 20 多分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
 </blockquote>
 <ul>
 <li><p>SpringBean 生命周期</p>
@@ -565,12 +565,6 @@
 <h4 id="Docker-哪些些命令"><a href="#Docker-哪些些命令" class="headerlink" title="Docker 哪些些命令"></a>Docker 哪些些命令</h4><h4 id="字符串-String、StringBuilder-区别"><a href="#字符串-String、StringBuilder-区别" class="headerlink" title="字符串 String、StringBuilder 区别"></a>字符串 String、StringBuilder 区别</h4><h4 id="集合-ArrayList、LinkedList-区别"><a href="#集合-ArrayList、LinkedList-区别" class="headerlink" title="集合 ArrayList、LinkedList 区别"></a>集合 ArrayList、LinkedList 区别</h4>]]></content>
   </entry>
   <entry>
-    <title>Git 设置 配置分支</title>
-    <url>/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
-    <content><![CDATA[<h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
-<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>Centos基本的云服务器配置</title>
     <url>/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
@@ -595,6 +589,12 @@
 <li>zsh-autosuggestions</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Git 设置 配置分支</title>
+    <url>/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
+    <content><![CDATA[<h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
+<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>Github Action 自动部署博客</title>
@@ -1087,11 +1087,11 @@
   </entry>
   <entry>
     <title>MySQL-外连接的几种情况</title>
-    <url>/2024/12/24/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</url>
+    <url>/2021/11/28/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</url>
     <content><![CDATA[<p><img  
                        lazyload
                        alt="image"
-                       data-src="/2024/12/24/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/1554979255233.png"
+                       data-src="/2021/11/28/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/1554979255233.png"
                         alt="1554979255233.png"
                  ></p>
 <hr>
@@ -8809,7 +8809,7 @@
   </entry>
   <entry>
     <title>nginx 代理妙用</title>
-    <url>/2025/02/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
+    <url>/2023/06/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
     <content><![CDATA[<p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
 <p>于是有了这篇文章：</p>
 ]]></content>
@@ -9061,7 +9061,7 @@
   </entry>
   <entry>
     <title>害怕用`rm -rf`? 不如试试这个</title>
-    <url>/2025/02/23/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
+    <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
     <content><![CDATA[<p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不熟悉</p>
 <h1 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h1><h2 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h2><ul>
 <li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
