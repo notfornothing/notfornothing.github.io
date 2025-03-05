@@ -209,12 +209,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.7k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>3 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>6 分钟</span>
             </span>
         
         
@@ -332,10 +332,10 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor</span></span><br><span class="line"><span class="comment">(核心线程数量,最大线程数量,空闲线程最大存活时间,任务队列,创建线程工厂,任务的拒绝策略);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">参数一：核心线程数量              不能小于0</span></span><br><span class="line"><span class="comment">参数二：最大线程数                不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line"><span class="comment">参数三：空闲线程最大存活时间       不能小于0</span></span><br><span class="line"><span class="comment">参数四：时间单位                  用TimeUnit指定</span></span><br><span class="line"><span class="comment">参数五：任务队列                  不能为null</span></span><br><span class="line"><span class="comment">参数六：创建线程工厂              不能为null</span></span><br><span class="line"><span class="comment">参数七：任务的拒绝策略             不能为null</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">ThreadPoolExecutor</span> <span class="variable">pool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">        <span class="number">3</span>,  <span class="comment">//核心线程数量，能小于0</span></span><br><span class="line">        <span class="number">6</span>,  <span class="comment">//最大线程数，不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line">        <span class="number">60</span>,<span class="comment">//空闲线程最大存活时间</span></span><br><span class="line">        TimeUnit.SECONDS,<span class="comment">//时间单位</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>),<span class="comment">//任务队列</span></span><br><span class="line">        Executors.defaultThreadFactory(),<span class="comment">//创建线程工厂</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.AbortPolicy()<span class="comment">//任务的拒绝策略</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 
-
+<p><strong>上午场的面试：</strong></p>
 <h4 id="线程的几种状态"><a href="#线程的几种状态" class="headerlink" title="线程的几种状态"></a>线程的几种状态</h4><details>
 <summary><b> 我觉得满意的回答（点击展开）</b></summary>
 
@@ -357,7 +357,58 @@
 <li>DiscardPolicy 直接丢弃任务，不抛出异常</li>
 <li>DiscardOldestPolicy 丢弃队列中最旧的任务，并尝试重新提交新任务。</details></li>
 </ul>
-<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><h4 id="你还需要了解一些什么？"><a href="#你还需要了解一些什么？" class="headerlink" title="你还需要了解一些什么？"></a>你还需要了解一些什么？</h4>
+<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>太抽象了，看不懂</p>
+<h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><p>27号有总结</p>
+<h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><p>比较抽象是以下这几种</p>
+<ul>
+<li>堆（Heap）</li>
+<li>栈（Stack）：</li>
+<li>方法区（Method Area）</li>
+<li>本地方法栈（Native Method Stack）：主要是native，比如 hashcode 这种</li>
+<li>程序计数器（Program Counter, PC）：存储当前执行指令的地址</li>
+</ul>
+<h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><ul>
+<li>垃圾回收器（Garbage Collection）</li>
+<li><ul>
+<li>触发GC</li>
+</ul>
+</li>
+<li>内存分配调优、JVM 参数调优</li>
+<li><ul>
+<li>比如IDEA 内存太小，用指令-Xms1024m -Xmx2048m</li>
+</ul>
+</li>
+<li><ul>
+<li>-Xss 设置线程栈大小</li>
+</ul>
+</li>
+</ul>
+<h4 id="你还需要了解一些什么？"><a href="#你还需要了解一些什么？" class="headerlink" title="你还需要了解一些什么？"></a>你还需要了解一些什么？</h4><p>这是一道拓展题，一般答得还行几乎都会留给自己发挥，等会总结一下</p>
+<hr>
+<p><strong>下午场的面试：</strong></p>
+<ul>
+<li><p>SpringBean 生命周期</p>
+</li>
+<li></li>
+<li><p>Jvm 垃圾回收的几种算法</p>
+</li>
+</ul>
+<ol>
+<li><p>标记-清除算法（Mark-Sweep）<br>标记阶段：从根节点（如栈和静态变量）开始遍历，对所有可达对象进行标记。<br>清除阶段：遍历整个堆，对没有标记的对象进行回收。<br>优点：简单、直接。 缺点：内存碎片化严重，影响性能。</p>
+</li>
+<li><p>复制算法（Copying）<br>复制算法将堆分为两个相等的区域，每次只使用其中一个。当内存用尽时，将存活的对象复制到另一个区域，并清空当前区域。<br>优点：高效，避免内存碎片。<br>缺点：需要双倍的内存空间。</p>
+</li>
+<li><p>标记-整理算法（Mark-Compact）<br>这种算法结合了标记-清除和复制算法的优点：<br>标记阶段：标记所有可达对象。<br>整理阶段：将存活对象移动到堆的一端，按顺序排列，最后清理掉非存活对象。</p>
+</li>
+</ol>
+<p>优点：避免内存碎片。 缺点：对象移动成本高。</p>
+<ol start="4">
+<li>分代收集算法（Generational Collection）</li>
+</ol>
+<ul>
+<li>循环依赖怎么解决</li>
+</ul>
+
                     
                 </div>
 
