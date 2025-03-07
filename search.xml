@@ -1,183 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>2025-02-28 面试总结</title>
-    <url>/2025/02/28/2025-02-28-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<blockquote>
-<p>这两天的面试能约就约，因为马上就是周末了基本上没公司上班，今天约了两场，上午和下午。<br>我遇到不会的答不上来，或者答出来不是很满意，就很紧张然后磕磕绊绊的，得多面试见识不同的面试官练练胆子，然后看看面试中级程序员主要问哪些问题，</p>
-</blockquote>
-<hr>
-<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p><strong>上午场的面试：</strong> </p>
-<blockquote>
-<p>上午的面试比较无厘头，提的问题我基本能答上来，最后问我还需要了解一些什么？最后就说让我回去等消息，然后软件上说我不通过…问他原因也不说，不过还是总结一下他的问题。</p>
-</blockquote>
-<ul>
-<li><p>线程的创建方式</p>
-</li>
-<li><p>线程的几种状态</p>
-</li>
-<li><p>线程池几种策略</p>
-</li>
-<li><p>为什么要三次握手</p>
-</li>
-<li><p>Redis 几种类型</p>
-</li>
-<li><p>Jvm内存模型</p>
-</li>
-<li><p>Jvm如何调优</p>
-</li>
-<li><p>你还需要了解一些什么？</p>
-</li>
-</ul>
-<hr>
-
-<p><strong>下午场的面试：</strong></p>
-<blockquote>
-<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，hr 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 20 多分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
-</blockquote>
-<ul>
-<li><p>SpringBean 生命周期</p>
-</li>
-<li><p>Jvm 垃圾回收的几种算法</p>
-</li>
-<li><p>循环依赖怎么解决</p>
-</li>
-</ul>
-<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="线程的创建方式"><a href="#线程的创建方式" class="headerlink" title="线程的创建方式"></a>线程的创建方式</h4><details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
-四种：
-
-<ul>
-<li>继承 Thread 类</li>
-<li>实现 RunAble 接口</li>
-<li>实现 CallAble 接口</li>
-<li>线程池</li>
-</ul>
-<p>要是只说这四种也太逊了，我觉得得知道哪些时候用哪种，或者说应用场景优劣势。</p>
-<ul>
-<li><p>继承 Thread 类</p>
-</li>
-<li><ul>
-<li>优点：能直接调用 Thread 类的方法，如 getName,其他实现的接口得用 Thread.currentThread才行</li>
-</ul>
-</li>
-<li><ul>
-<li>缺点：因为 Java 是单继承多实现的，拓展性差。</li>
-</ul>
-</li>
-<li><p>实现 RunAble 接口</p>
-</li>
-<li><ul>
-<li>优点：拓展性高，一个类可以实现多个接口，而且比1方法写法简单，匿名内部类只需写方法的实现即可。</li>
-</ul>
-</li>
-<li><ul>
-<li>缺点：不能直接调用 Thread 类的方法</li>
-</ul>
-</li>
-<li><p>使用 Callable 和 Future</p>
-</li>
-<li><ul>
-<li>优点：可以接受返回值</li>
-</ul>
-</li>
-<li><ul>
-<li>缺点：相对复杂？性能问题，要创建Future 对象，有一点点开销。</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">extracted</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 创建 FutureTask 包装 Callable 任务</span></span><br><span class="line">    FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">Callable</span>&lt;String&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 创建并启动线程来执行任务</span></span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask);</span><br><span class="line">    thread.start();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 获取任务执行结果</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> futureTask.get();</span><br><span class="line">        <span class="comment">// 打印结果</span></span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Executors 接口实现线程池</li>
-<li><ul>
-<li>优点：高效，面对使用对象简单</li>
-</ul>
-</li>
-<li><ul>
-<li>缺点：管理和维护较为复杂</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor</span></span><br><span class="line"><span class="comment">(核心线程数量,最大线程数量,空闲线程最大存活时间,任务队列,创建线程工厂,任务的拒绝策略);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">参数一：核心线程数量              不能小于0</span></span><br><span class="line"><span class="comment">参数二：最大线程数                不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line"><span class="comment">参数三：空闲线程最大存活时间       不能小于0</span></span><br><span class="line"><span class="comment">参数四：时间单位                  用TimeUnit指定</span></span><br><span class="line"><span class="comment">参数五：任务队列                  不能为null</span></span><br><span class="line"><span class="comment">参数六：创建线程工厂              不能为null</span></span><br><span class="line"><span class="comment">参数七：任务的拒绝策略             不能为null</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">ThreadPoolExecutor</span> <span class="variable">pool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">        <span class="number">3</span>,  <span class="comment">//核心线程数量，能小于0</span></span><br><span class="line">        <span class="number">6</span>,  <span class="comment">//最大线程数，不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line">        <span class="number">60</span>,<span class="comment">//空闲线程最大存活时间</span></span><br><span class="line">        TimeUnit.SECONDS,<span class="comment">//时间单位</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>),<span class="comment">//任务队列</span></span><br><span class="line">        Executors.defaultThreadFactory(),<span class="comment">//创建线程工厂</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.AbortPolicy()<span class="comment">//任务的拒绝策略</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-
-<p><strong>上午场的面试：</strong></p>
-<h4 id="线程的几种状态"><a href="#线程的几种状态" class="headerlink" title="线程的几种状态"></a>线程的几种状态</h4><details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
-
-<ul>
-<li>新建 new Thread()</li>
-<li>就绪 start() 跟cpu抢夺资源</li>
-<li>运行 实际在跑</li>
-<li>阻塞 线程被锁</li>
-<li>等待 wait(),join(),sleep(),sleep(argument),join(arg),wait(arg)</li>
-<li>终止</details></li>
-</ul>
-<h4 id="线程池几种策略"><a href="#线程池几种策略" class="headerlink" title="线程池几种策略"></a>线程池几种策略</h4><details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
-
-<p>当线程池和任务队列都满时，线程池会拒绝新任务。常见的拒绝策略包括：</p>
-<ul>
-<li>AbortPolicy 抛出 RejectedExecutionException 异常，默认策略。</li>
-<li>CallerRunsPolicy 由调用线程处理该任务。</li>
-<li>DiscardPolicy 直接丢弃任务，不抛出异常</li>
-<li>DiscardOldestPolicy 丢弃队列中最旧的任务，并尝试重新提交新任务。</details></li>
-</ul>
-<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>太抽象了，看不懂</p>
-<h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><p>27号有总结</p>
-<h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><p>比较抽象是以下这几种</p>
-<ul>
-<li>堆（Heap）</li>
-<li>栈（Stack）：</li>
-<li>方法区（Method Area）</li>
-<li>本地方法栈（Native Method Stack）：主要是native，比如 hashcode 这种</li>
-<li>程序计数器（Program Counter, PC）：存储当前执行指令的地址</li>
-</ul>
-<h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><ul>
-<li>垃圾回收器（Garbage Collection）</li>
-<li><ul>
-<li>触发GC</li>
-</ul>
-</li>
-<li>内存分配调优、JVM 参数调优</li>
-<li><ul>
-<li>比如IDEA 内存太小，用指令-Xms1024m -Xmx2048m</li>
-</ul>
-</li>
-<li><ul>
-<li>-Xss 设置线程栈大小</li>
-</ul>
-</li>
-</ul>
-<h4 id="你还需要了解一些什么？"><a href="#你还需要了解一些什么？" class="headerlink" title="你还需要了解一些什么？"></a>你还需要了解一些什么？</h4><p>这是一道拓展题，一般答得还行几乎都会留给自己发挥，等会总结一下</p>
-<hr>
-<p><strong>下午场的面试：</strong></p>
-<ul>
-<li><p>SpringBean 生命周期</p>
-</li>
-<li></li>
-<li><p>Jvm 垃圾回收的几种算法</p>
-</li>
-</ul>
-<ol>
-<li><p>标记-清除算法（Mark-Sweep）<br>标记阶段：从根节点（如栈和静态变量）开始遍历，对所有可达对象进行标记。<br>清除阶段：遍历整个堆，对没有标记的对象进行回收。<br>优点：简单、直接。 缺点：内存碎片化严重，影响性能。</p>
-</li>
-<li><p>复制算法（Copying）<br>复制算法将堆分为两个相等的区域，每次只使用其中一个。当内存用尽时，将存活的对象复制到另一个区域，并清空当前区域。<br>优点：高效，避免内存碎片。<br>缺点：需要双倍的内存空间。</p>
-</li>
-<li><p>标记-整理算法（Mark-Compact）<br>这种算法结合了标记-清除和复制算法的优点：<br>标记阶段：标记所有可达对象。<br>整理阶段：将存活对象移动到堆的一端，按顺序排列，最后清理掉非存活对象。</p>
-</li>
-</ol>
-<p>优点：避免内存碎片。 缺点：对象移动成本高。</p>
-<ol start="4">
-<li>分代收集算法（Generational Collection）</li>
-</ol>
-<ul>
-<li>循环依赖怎么解决</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>2025-02-27 面试总结</title>
     <url>/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<blockquote>
@@ -499,6 +322,183 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: my-service</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">        ephemeral: true  # 设置实例为临时实例</span><br></pre></td></tr></table></figure>
 
 </details>
+]]></content>
+  </entry>
+  <entry>
+    <title>2025-02-28 面试总结</title>
+    <url>/2025/02/28/2025-02-28-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<blockquote>
+<p>这两天的面试能约就约，因为马上就是周末了基本上没公司上班，今天约了两场，上午和下午。<br>我遇到不会的答不上来，或者答出来不是很满意，就很紧张然后磕磕绊绊的，得多面试见识不同的面试官练练胆子，然后看看面试中级程序员主要问哪些问题，</p>
+</blockquote>
+<hr>
+<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p><strong>上午场的面试：</strong> </p>
+<blockquote>
+<p>上午的面试比较无厘头，提的问题我基本能答上来，最后问我还需要了解一些什么？最后就说让我回去等消息，然后软件上说我不通过…问他原因也不说，不过还是总结一下他的问题。</p>
+</blockquote>
+<ul>
+<li><p>线程的创建方式</p>
+</li>
+<li><p>线程的几种状态</p>
+</li>
+<li><p>线程池几种策略</p>
+</li>
+<li><p>为什么要三次握手</p>
+</li>
+<li><p>Redis 几种类型</p>
+</li>
+<li><p>Jvm内存模型</p>
+</li>
+<li><p>Jvm如何调优</p>
+</li>
+<li><p>你还需要了解一些什么？</p>
+</li>
+</ul>
+<hr>
+
+<p><strong>下午场的面试：</strong></p>
+<blockquote>
+<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，hr 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 20 多分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
+</blockquote>
+<ul>
+<li><p>SpringBean 生命周期</p>
+</li>
+<li><p>Jvm 垃圾回收的几种算法</p>
+</li>
+<li><p>循环依赖怎么解决</p>
+</li>
+</ul>
+<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="线程的创建方式"><a href="#线程的创建方式" class="headerlink" title="线程的创建方式"></a>线程的创建方式</h4><details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+四种：
+
+<ul>
+<li>继承 Thread 类</li>
+<li>实现 RunAble 接口</li>
+<li>实现 CallAble 接口</li>
+<li>线程池</li>
+</ul>
+<p>要是只说这四种也太逊了，我觉得得知道哪些时候用哪种，或者说应用场景优劣势。</p>
+<ul>
+<li><p>继承 Thread 类</p>
+</li>
+<li><ul>
+<li>优点：能直接调用 Thread 类的方法，如 getName,其他实现的接口得用 Thread.currentThread才行</li>
+</ul>
+</li>
+<li><ul>
+<li>缺点：因为 Java 是单继承多实现的，拓展性差。</li>
+</ul>
+</li>
+<li><p>实现 RunAble 接口</p>
+</li>
+<li><ul>
+<li>优点：拓展性高，一个类可以实现多个接口，而且比1方法写法简单，匿名内部类只需写方法的实现即可。</li>
+</ul>
+</li>
+<li><ul>
+<li>缺点：不能直接调用 Thread 类的方法</li>
+</ul>
+</li>
+<li><p>使用 Callable 和 Future</p>
+</li>
+<li><ul>
+<li>优点：可以接受返回值</li>
+</ul>
+</li>
+<li><ul>
+<li>缺点：相对复杂？性能问题，要创建Future 对象，有一点点开销。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">extracted</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 创建 FutureTask 包装 Callable 任务</span></span><br><span class="line">    FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">Callable</span>&lt;String&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 创建并启动线程来执行任务</span></span><br><span class="line">    <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask);</span><br><span class="line">    thread.start();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 获取任务执行结果</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> futureTask.get();</span><br><span class="line">        <span class="comment">// 打印结果</span></span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Executors 接口实现线程池</li>
+<li><ul>
+<li>优点：高效，面对使用对象简单</li>
+</ul>
+</li>
+<li><ul>
+<li>缺点：管理和维护较为复杂</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor</span></span><br><span class="line"><span class="comment">(核心线程数量,最大线程数量,空闲线程最大存活时间,任务队列,创建线程工厂,任务的拒绝策略);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">参数一：核心线程数量              不能小于0</span></span><br><span class="line"><span class="comment">参数二：最大线程数                不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line"><span class="comment">参数三：空闲线程最大存活时间       不能小于0</span></span><br><span class="line"><span class="comment">参数四：时间单位                  用TimeUnit指定</span></span><br><span class="line"><span class="comment">参数五：任务队列                  不能为null</span></span><br><span class="line"><span class="comment">参数六：创建线程工厂              不能为null</span></span><br><span class="line"><span class="comment">参数七：任务的拒绝策略             不能为null</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">ThreadPoolExecutor</span> <span class="variable">pool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(</span><br><span class="line">        <span class="number">3</span>,  <span class="comment">//核心线程数量，能小于0</span></span><br><span class="line">        <span class="number">6</span>,  <span class="comment">//最大线程数，不能小于0，最大数量 &gt;= 核心线程数量</span></span><br><span class="line">        <span class="number">60</span>,<span class="comment">//空闲线程最大存活时间</span></span><br><span class="line">        TimeUnit.SECONDS,<span class="comment">//时间单位</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>),<span class="comment">//任务队列</span></span><br><span class="line">        Executors.defaultThreadFactory(),<span class="comment">//创建线程工厂</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.AbortPolicy()<span class="comment">//任务的拒绝策略</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+<p><strong>上午场的面试：</strong></p>
+<h4 id="线程的几种状态"><a href="#线程的几种状态" class="headerlink" title="线程的几种状态"></a>线程的几种状态</h4><details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+
+<ul>
+<li>新建 new Thread()</li>
+<li>就绪 start() 跟cpu抢夺资源</li>
+<li>运行 实际在跑</li>
+<li>阻塞 线程被锁</li>
+<li>等待 wait(),join(),sleep(),sleep(argument),join(arg),wait(arg)</li>
+<li>终止</details></li>
+</ul>
+<h4 id="线程池几种策略"><a href="#线程池几种策略" class="headerlink" title="线程池几种策略"></a>线程池几种策略</h4><details>
+<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+
+<p>当线程池和任务队列都满时，线程池会拒绝新任务。常见的拒绝策略包括：</p>
+<ul>
+<li>AbortPolicy 抛出 RejectedExecutionException 异常，默认策略。</li>
+<li>CallerRunsPolicy 由调用线程处理该任务。</li>
+<li>DiscardPolicy 直接丢弃任务，不抛出异常</li>
+<li>DiscardOldestPolicy 丢弃队列中最旧的任务，并尝试重新提交新任务。</details></li>
+</ul>
+<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>太抽象了，看不懂</p>
+<h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><p>27号有总结</p>
+<h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><p>比较抽象是以下这几种</p>
+<ul>
+<li>堆（Heap）</li>
+<li>栈（Stack）：</li>
+<li>方法区（Method Area）</li>
+<li>本地方法栈（Native Method Stack）：主要是native，比如 hashcode 这种</li>
+<li>程序计数器（Program Counter, PC）：存储当前执行指令的地址</li>
+</ul>
+<h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><ul>
+<li>垃圾回收器（Garbage Collection）</li>
+<li><ul>
+<li>触发GC</li>
+</ul>
+</li>
+<li>内存分配调优、JVM 参数调优</li>
+<li><ul>
+<li>比如IDEA 内存太小，用指令-Xms1024m -Xmx2048m</li>
+</ul>
+</li>
+<li><ul>
+<li>-Xss 设置线程栈大小</li>
+</ul>
+</li>
+</ul>
+<h4 id="你还需要了解一些什么？"><a href="#你还需要了解一些什么？" class="headerlink" title="你还需要了解一些什么？"></a>你还需要了解一些什么？</h4><p>这是一道拓展题，一般答得还行几乎都会留给自己发挥，等会总结一下</p>
+<hr>
+<p><strong>下午场的面试：</strong></p>
+<ul>
+<li><p>SpringBean 生命周期</p>
+</li>
+<li></li>
+<li><p>Jvm 垃圾回收的几种算法</p>
+</li>
+</ul>
+<ol>
+<li><p>标记-清除算法（Mark-Sweep）<br>标记阶段：从根节点（如栈和静态变量）开始遍历，对所有可达对象进行标记。<br>清除阶段：遍历整个堆，对没有标记的对象进行回收。<br>优点：简单、直接。 缺点：内存碎片化严重，影响性能。</p>
+</li>
+<li><p>复制算法（Copying）<br>复制算法将堆分为两个相等的区域，每次只使用其中一个。当内存用尽时，将存活的对象复制到另一个区域，并清空当前区域。<br>优点：高效，避免内存碎片。<br>缺点：需要双倍的内存空间。</p>
+</li>
+<li><p>标记-整理算法（Mark-Compact）<br>这种算法结合了标记-清除和复制算法的优点：<br>标记阶段：标记所有可达对象。<br>整理阶段：将存活对象移动到堆的一端，按顺序排列，最后清理掉非存活对象。</p>
+</li>
+</ol>
+<p>优点：避免内存碎片。 缺点：对象移动成本高。</p>
+<ol start="4">
+<li>分代收集算法（Generational Collection）</li>
+</ol>
+<ul>
+<li>循环依赖怎么解决</li>
+</ul>
 ]]></content>
   </entry>
   <entry>
@@ -1225,210 +1225,6 @@
 <li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
 <li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>MySQL 总结 (一)</title>
-    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
-    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
-<p>descend– 下降</p>
-<hr>
-<blockquote>
-<p>descibe 是查看表的结构，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
-
-<p>desc 是 describe 的简写，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
-
-</blockquote>
-<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
-
-<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么修改的是全局的</p>
-</blockquote>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么删除的是全部的 所以要注意</p>
-</blockquote>
-<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
-<hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
-<blockquote>
-<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
-<blockquote>
-<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
-<blockquote>
-<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
-<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
-<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
-<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
-<blockquote>
-<p>可以和 % _ 使用。</p>
-<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
-</blockquote>
-<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
-<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
-<hr>
-<p>count（列名 | *):                  | 是或的意思</p>
-<blockquote>
-<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
-</blockquote>
-<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
-<ul>
-<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
-</ul>
-<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
-<hr>
-<p>select count(*) from emp;<br>– 如果没有分组，</p>
-<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
-<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
-<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
-<hr>
-<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
-<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
-<ul>
-<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
-<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
-<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
-</ul>
-<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
-<p>区别一，定长和变长</p>
-<blockquote>
-<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
-</blockquote>
-<blockquote>
-<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
-</blockquote>
-<p>区别之二，存储的容量不同</p>
-<blockquote>
-<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
-</blockquote>
-<p>区别之三，空格</p>
-<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
-<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
-<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
-<hr>
-<p>可以用 show create  table emp</p>
-<blockquote>
-<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
-</blockquote>
-<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
-<p>唯一，非空。一般和 auto_increment 一起用</p>
-<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
-<p>非空，但是可以重复</p>
-<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
-<p>不能重复，可以为 null</p>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
-
-<p>以上有笛卡尔积。</p>
-<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>以上两种都可以。但是 null 值不会显示出来</p>
-<p>可以用左外连接和右外连接：</p>
-<blockquote>
-<p>左外连接。查询左边的所以值</p>
-<p>右外连接：查询右边所有的值</p>
-</blockquote>
-<p>显示所有部门对应的员工值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>显示所有员工对应的部门值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>这样不能查询所以的对应的 null 值</p>
-<p>而且 mysql 没有全外连接查询。</p>
-<p>可以通过 union 模拟这种查询</p>
-<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
-<p>having 和 where 区别：</p>
-<blockquote>
-<ul>
-<li>where 放在 from 之后，group by 之前</li>
-<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
-<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
-<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
-</ul>
-</blockquote>
-<p>where 和 having 的区别：</p>
-<blockquote>
-<ul>
-<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
-</li>
-<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
-</li>
-<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
-<blockquote>
-<p>select name as 姓名，sal as 薪资 from emp e;</p>
-<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
-</blockquote>
-</li>
-<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
   </entry>
   <entry>
@@ -8535,6 +8331,210 @@
 ]]></content>
   </entry>
   <entry>
+    <title>MySQL 总结 (一)</title>
+    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
+    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
+<p>descend– 下降</p>
+<hr>
+<blockquote>
+<p>descibe 是查看表的结构，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
+
+<p>desc 是 describe 的简写，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么修改的是全局的</p>
+</blockquote>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么删除的是全部的 所以要注意</p>
+</blockquote>
+<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
+<blockquote>
+<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<blockquote>
+<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+<blockquote>
+<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
+<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
+<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
+<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
+<blockquote>
+<p>可以和 % _ 使用。</p>
+<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
+</blockquote>
+<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
+<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
+<hr>
+<p>count（列名 | *):                  | 是或的意思</p>
+<blockquote>
+<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
+</blockquote>
+<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
+<ul>
+<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
+</ul>
+<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
+<hr>
+<p>select count(*) from emp;<br>– 如果没有分组，</p>
+<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
+<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
+<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
+<hr>
+<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
+<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
+<ul>
+<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
+<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
+<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
+</ul>
+<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
+<p>区别一，定长和变长</p>
+<blockquote>
+<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
+</blockquote>
+<blockquote>
+<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
+</blockquote>
+<p>区别之二，存储的容量不同</p>
+<blockquote>
+<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
+</blockquote>
+<p>区别之三，空格</p>
+<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
+<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
+<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
+<hr>
+<p>可以用 show create  table emp</p>
+<blockquote>
+<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
+</blockquote>
+<p>注意：</p>
+<blockquote>
+<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
+</blockquote>
+<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
+<p>唯一，非空。一般和 auto_increment 一起用</p>
+<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
+<p>非空，但是可以重复</p>
+<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
+<p>不能重复，可以为 null</p>
+<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
+
+<p>以上有笛卡尔积。</p>
+<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>以上两种都可以。但是 null 值不会显示出来</p>
+<p>可以用左外连接和右外连接：</p>
+<blockquote>
+<p>左外连接。查询左边的所以值</p>
+<p>右外连接：查询右边所有的值</p>
+</blockquote>
+<p>显示所有部门对应的员工值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>显示所有员工对应的部门值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>这样不能查询所以的对应的 null 值</p>
+<p>而且 mysql 没有全外连接查询。</p>
+<p>可以通过 union 模拟这种查询</p>
+<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
+<p>having 和 where 区别：</p>
+<blockquote>
+<ul>
+<li>where 放在 from 之后，group by 之前</li>
+<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
+<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
+<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
+</ul>
+</blockquote>
+<p>where 和 having 的区别：</p>
+<blockquote>
+<ul>
+<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
+</li>
+<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
+</li>
+<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
+<blockquote>
+<p>select name as 姓名，sal as 薪资 from emp e;</p>
+<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
+</blockquote>
+</li>
+<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>MySQL 总结（二）</title>
     <url>/2021/11/25/MySQL%E6%80%BB%E7%BB%932/</url>
     <content><![CDATA[<h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
@@ -8884,19 +8884,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>ssh 能秘钥登录，但是 git 却不能</title>
-    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
-    <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
-<li>重新配置公钥私钥</li>
-<li>ssh-agent 管理</li>
-</ol>
-<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
-<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
-<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>个人简历</title>
     <url>/2025/02/26/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/</url>
     <content><![CDATA[<!DOCTYPE html>
@@ -9053,6 +9040,19 @@
 <li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
 </ol>
 ]]></content>
+  </entry>
+  <entry>
+    <title>ssh 能秘钥登录，但是 git 却不能</title>
+    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
+    <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
+<li>重新配置公钥私钥</li>
+<li>ssh-agent 管理</li>
+</ol>
+<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
+<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
+<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
