@@ -634,6 +634,47 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h4 id="MySQL-事务"><a href="#MySQL-事务" class="headerlink" title="MySQL 事务"></a>MySQL 事务</h4><h4 id="MySQL-范式"><a href="#MySQL-范式" class="headerlink" title="MySQL 范式"></a>MySQL 范式</h4><h4 id="MySQL-优化"><a href="#MySQL-优化" class="headerlink" title="MySQL 优化"></a>MySQL 优化</h4><h4 id="设计一个有权限相关的菜单，表怎么设计"><a href="#设计一个有权限相关的菜单，表怎么设计" class="headerlink" title="设计一个有权限相关的菜单，表怎么设计"></a>设计一个有权限相关的菜单，表怎么设计</h4>]]></content>
   </entry>
   <entry>
+    <title>2025-03-08-面试总结</title>
+    <url>/2025/03/08/2025-03-08-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<blockquote>
+<p>今天约了一场线上会议面试</p>
+</blockquote>
+<hr>
+<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><blockquote>
+<p>视频会议面试，十几分钟，有两三个问题答不上来，就结束了。</p>
+</blockquote>
+<ul>
+<li>SpringBoot 启动的时候怎么读取的配置文件，说一下具体的流程</li>
+<li>Spring 请求的执行顺序</li>
+<li>Spring 缓存？</li>
+<li>MySQL 优化，索引失效情况</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
+<p>这个线上的面试给我的体验很糟糕，我不喜欢质问我的感觉，又或者说审问我而不是在交流，问完问题就噼里啪啦在打字也不知道在干什么，本身面试就是在互相选，我要想人人都满意是不可能的，答不上来感觉糟糕像是被老师提问，到时候工作了他是你领导或者组长也是这种态度，也不爽，话不投机半句多早点结束也好，有时候想想这些苦都是我自找的，想开了早点面下一个，免得影响一天的心情。</p>
+</blockquote>
+<blockquote>
+<p>但是这两天的也有电话面试大部分是交流就没写上来，有几个公司的初试是电话技术面，电话都能聊了半个小时，都是一些遇到的场景问题，我觉得我都能答到点上，说不会也没有这么难堪也能说个大概方案出来，面试官会告诉你有什么更好的方案等等，因为问题就是让人想办法来解决的不是吗？</p>
+</blockquote>
+<hr>
+<ul>
+<li><p>SpringBoot 启动的时候怎么读取的配置文件，说一下具体的流程</p>
+</li>
+<li><p>Spring 请求的执行顺序</p>
+</li>
+<li><p>Spring 缓存？</p>
+<blockquote>
+<p>他问的是 spring 自带的缓存注解，我当是说的 redis 作为一个应用用 template 引用进来。</p>
+</blockquote>
+</li>
+<li><p>MySQL 优化，索引失效情况（之前有总结过，不过答的顺序有问题他说大概知道了）</p>
+<blockquote>
+<p>我一上来就说联合索引的失效情况，然后还说了一些 not in is not null 这些范围不明确的条件。我答得比较乱他说知道了让我别说了，得排序一下怎么表达比较好。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>Centos基本的云服务器配置</title>
     <url>/2024/06/20/Centos%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
@@ -666,15 +707,51 @@
 <h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
-    <title>Github Action 自动部署博客</title>
-    <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
-<hr>
-<p>命令 <code>hexo generate</code>会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
-<p>为了写完博客提交到github的后自动执行部署操作，于是有了这篇文章</p>
-<p>其实有网上有很多方案，我采用的是 Github Action</p>
-<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
+    <title>Java 为什么要使用泛型</title>
+    <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
+<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>  Java1.5 之前的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  输出</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
+
+<p>图例</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
+                       
+                 ></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
+<p>  如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
+<h4 id="解决办法-1："><a href="#解决办法-1：" class="headerlink" title="解决办法 1："></a>解决办法 1：</h4><p>  在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
+<blockquote>
+<p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
+</blockquote>
+<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2:"></a>解决办法 2:</h4><p>  限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
+<blockquote>
+<p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>源代码：</p>
+<p><code>System.out.println(list.get(i));</code></p>
+</li>
+<li><p>class 字节码：</p>
+<p><code>System.out.println((String)list.get(i));</code></p>
+</li>
+</ul>
+<p>可以知道编译器会自动转换</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>  1.减少 Java5 以往代码的冗余，提高代码复用性</p>
+<p>  2.返回泛型类型时，会自动强转，强转后的变量必须要当前泛型类或者其父类（Object 之类）接收，省时省力</p>
+<blockquote>
+<p>Java 执行顺序：*.java 文件 （编译） -&gt; *.class 字节码 （运行）-&gt;  jvm</p>
+</blockquote>
+<p>  3.由 2 知：把运行时报错转成了编译就报错，编译没过自然没法运行，减少试错成本</p>
 ]]></content>
   </entry>
   <entry>
@@ -741,51 +818,15 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java 为什么要使用泛型</title>
-    <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
-<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>  Java1.5 之前的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
-
-<p>图例</p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
-                       
-                 ></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
-<p>  如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
-<h4 id="解决办法-1："><a href="#解决办法-1：" class="headerlink" title="解决办法 1："></a>解决办法 1：</h4><p>  在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
-<blockquote>
-<p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
-</blockquote>
-<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2:"></a>解决办法 2:</h4><p>  限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
-<blockquote>
-<p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>源代码：</p>
-<p><code>System.out.println(list.get(i));</code></p>
-</li>
-<li><p>class 字节码：</p>
-<p><code>System.out.println((String)list.get(i));</code></p>
-</li>
-</ul>
-<p>可以知道编译器会自动转换</p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>  1.减少 Java5 以往代码的冗余，提高代码复用性</p>
-<p>  2.返回泛型类型时，会自动强转，强转后的变量必须要当前泛型类或者其父类（Object 之类）接收，省时省力</p>
-<blockquote>
-<p>Java 执行顺序：*.java 文件 （编译） -&gt; *.class 字节码 （运行）-&gt;  jvm</p>
-</blockquote>
-<p>  3.由 2 知：把运行时报错转成了编译就报错，编译没过自然没法运行，减少试错成本</p>
+    <title>Github Action 自动部署博客</title>
+    <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
+<hr>
+<p>命令 <code>hexo generate</code>会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
+<p>为了写完博客提交到github的后自动执行部署操作，于是有了这篇文章</p>
+<p>其实有网上有很多方案，我采用的是 Github Action</p>
+<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
@@ -1115,43 +1156,6 @@
 <li><p><a class="link"   href="https://www.bilibili.com/video/BV1YA411T76k?p=23" >hashMap 变红黑树必须同时满足链表》8 和数组 &#x3D;&#x3D;64 才会变红黑树<i class="fas fa-external-link-alt"></i></a></p>
 </li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>Map 中引用遇到的问题</title>
-    <url>/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="Map-中引用遇到的问题"><a href="#Map-中引用遇到的问题" class="headerlink" title="Map 中引用遇到的问题"></a>Map 中引用遇到的问题</h1><h2 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、有 List&lt;String&gt; nameList 值为『张三，李四，王五』</span><br><span class="line">2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Object&gt; 中</span><br><span class="line">3、并把 map 放到 List&lt;Map&lt;String, Object&gt;&gt; 里面</span><br></pre></td></tr></table></figure>
-<p>等于说是：</p>
-<p>『张三，李四，王五』&#x3D;&#x3D;&gt; 『{name&#x3D; 张三}, {name&#x3D; 李四}, {name&#x3D; 王五}』</p>
-<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ul>
-<li><p>BUG : 一直都是最后一个人的姓名</p>
-</li>
-<li><p>BUG 代码：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[PANGU_DISABLE] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// BUG 一直都是最后一个人的姓名</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
-<li>由输出可见：存进 list 的值都是最后一个的 name.</li>
-<li>因为 list 存的都是这个 map 的同一个引用。类似于 C 语言的指针。也就是<strong>list  存的都是同一个地址</strong>，这个地址所指向的东西改变，其他存这个地址的里面的值也会改变。所以该 list 下面的值都会变，也就是 name 都是一样的。</li>
-<li>然后 map 的 put 有去重的效果，以最后一个 key 所 put 进去的值为准。所以存的是最后一个 name.</li>
-</ol>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
-<li>由<a href="#%E5%8E%9F%E5%9B%A0">原因</a>的第 2 点，我们只需不让 list 存同一个地址。即让 map 重新指向新的地址。即重新 new 一个 HashMap.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把 map 放到循环里面，避免重复引用</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
-                       
-                 ></p>
 ]]></content>
   </entry>
   <entry>
@@ -8884,6 +8888,19 @@
 ]]></content>
   </entry>
   <entry>
+    <title>ssh 能秘钥登录，但是 git 却不能</title>
+    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
+    <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
+<li>重新配置公钥私钥</li>
+<li>ssh-agent 管理</li>
+</ol>
+<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
+<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
+<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>个人简历</title>
     <url>/2025/02/26/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/</url>
     <content><![CDATA[<!DOCTYPE html>
@@ -9042,19 +9059,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>ssh 能秘钥登录，但是 git 却不能</title>
-    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
-    <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
-<li>重新配置公钥私钥</li>
-<li>ssh-agent 管理</li>
-</ol>
-<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
-<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
-<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
     <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
     <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
@@ -9179,6 +9183,16 @@
 ]]></content>
   </entry>
   <entry>
+    <title>通过反射获取泛型</title>
+    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
+<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
+<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
+<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
+<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
+<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
     <title>连表查询时未指定表别名导致的查询错误</title>
     <url>/2024/03/24/%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2%E6%97%B6%E6%9C%AA%E6%8C%87%E5%AE%9A%E8%A1%A8%E5%88%AB%E5%90%8D%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/</url>
     <content><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在给数据库新增字段后，自己的的功能测试没问题，拍拍屁股走人了。然后就这么上了生产。<br>然后用户发现其他功能模块出问题，去看日志是sql报错：<code>Column &#39;name&#39; in field list is ambiguous。</code>。<br>奇怪：我的功能没问题，并且我都没改代码怎么其他地方会报这个错误呢？</p>
@@ -9202,13 +9216,40 @@
 ]]></content>
   </entry>
   <entry>
-    <title>通过反射获取泛型</title>
-    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
-<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
-<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
-<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
-<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
-<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>Map 中引用遇到的问题</title>
+    <url>/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="Map-中引用遇到的问题"><a href="#Map-中引用遇到的问题" class="headerlink" title="Map 中引用遇到的问题"></a>Map 中引用遇到的问题</h1><h2 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、有 List&lt;String&gt; nameList 值为『张三，李四，王五』</span><br><span class="line">2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Object&gt; 中</span><br><span class="line">3、并把 map 放到 List&lt;Map&lt;String, Object&gt;&gt; 里面</span><br></pre></td></tr></table></figure>
+<p>等于说是：</p>
+<p>『张三，李四，王五』&#x3D;&#x3D;&gt; 『{name&#x3D; 张三}, {name&#x3D; 李四}, {name&#x3D; 王五}』</p>
+<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ul>
+<li><p>BUG : 一直都是最后一个人的姓名</p>
+</li>
+<li><p>BUG 代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[PANGU_DISABLE] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// BUG 一直都是最后一个人的姓名</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
+<li>由输出可见：存进 list 的值都是最后一个的 name.</li>
+<li>因为 list 存的都是这个 map 的同一个引用。类似于 C 语言的指针。也就是<strong>list  存的都是同一个地址</strong>，这个地址所指向的东西改变，其他存这个地址的里面的值也会改变。所以该 list 下面的值都会变，也就是 name 都是一样的。</li>
+<li>然后 map 的 put 有去重的效果，以最后一个 key 所 put 进去的值为准。所以存的是最后一个 name.</li>
+</ol>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
+<li>由<a href="#%E5%8E%9F%E5%9B%A0">原因</a>的第 2 点，我们只需不让 list 存同一个地址。即让 map 重新指向新的地址。即重新 new 一个 HashMap.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把 map 放到循环里面，避免重复引用</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
+                       
+                 ></p>
+]]></content>
   </entry>
 </search>
