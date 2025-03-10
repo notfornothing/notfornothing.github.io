@@ -9,7 +9,7 @@
     
     <title>
         
-            Git 设置 配置分支 |
+            Git 设置配置分支 |
         
         磊磊的博客
     </title>
@@ -214,7 +214,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        Git 设置 配置分支
+                        Git 设置配置分支
                     </div>
                 
 
@@ -253,7 +253,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>216 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>223 字</span>
             </span>
         
         
@@ -280,8 +280,8 @@
                     
 
                     
-                         <h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
-<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>
+                         <h1 id="Git-设置配置分支"><a href="#Git-设置配置分支" class="headerlink" title="Git 设置配置分支"></a>Git 设置配置分支</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
+<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新最新的远程分支</span></span><br><span class="line">git fetch o dev <span class="built_in">test</span> prod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暂存</span></span><br><span class="line">git stash save <span class="string">&#x27;before checkout :)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复位 dev 为最新</span></span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span></span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># dev-mine 为我开发的需求</span></span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebase 配置，然后开始需求开发</span></span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发完了之后</span></span><br><span class="line"><span class="comment"># 左边是开区间（不包含settngs提交的rebase）</span></span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交合并请求</span></span><br></pre></td></tr></table></figure>
                     
                 </div>
 
@@ -322,10 +322,10 @@
                                 <a class="next"
                                    rel="next"
                                    href="/2023/06/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/"
-                                   title="nginx 代理妙用"
+                                   title="Nginx 代理妙用"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">nginx 代理妙用</span>
+                                        <span class="post-nav-title-item text-ellipsis">Nginx 代理妙用</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -353,7 +353,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%9A%84%E6%97%B6%E5%80%99%E6%8B%89%E5%8E%BB%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8-rebase-settings"><span class="nav-text">开发的时候拉去代码自动 rebase settings</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E8%AE%BE%E7%BD%AE%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF"><span class="nav-text">Git 设置配置分支</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%9A%84%E6%97%B6%E5%80%99%E6%8B%89%E5%8E%BB%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8-rebase-settings"><span class="nav-text">开发的时候拉去代码自动 rebase settings</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -531,7 +531,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%9A%84%E6%97%B6%E5%80%99%E6%8B%89%E5%8E%BB%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8-rebase-settings"><span class="nav-text">开发的时候拉去代码自动 rebase settings</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E8%AE%BE%E7%BD%AE%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF"><span class="nav-text">Git 设置配置分支</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E6%95%85"><span class="nav-text">缘故</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%9A%84%E6%97%B6%E5%80%99%E6%8B%89%E5%8E%BB%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8-rebase-settings"><span class="nav-text">开发的时候拉去代码自动 rebase settings</span></a></li></ol></li></ol>
     </div>
 </div>
 

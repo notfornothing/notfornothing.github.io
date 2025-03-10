@@ -9,7 +9,7 @@
     
     <title>
         
-            ssh 能秘钥登录，但是 git 却不能 |
+            SSH 能秘钥登录，但是 Git 却不能 |
         
         磊磊的博客
     </title>
@@ -214,7 +214,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        ssh 能秘钥登录，但是 git 却不能
+                        SSH 能秘钥登录，但是 Git 却不能
                     </div>
                 
 
@@ -253,7 +253,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>120 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>132 字</span>
             </span>
         
         
@@ -280,15 +280,15 @@
                     
 
                     
-                         <p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
+                         <h1 id="SSH-能秘钥登录，但是-Git-却不能"><a href="#SSH-能秘钥登录，但是-Git-却不能" class="headerlink" title="SSH 能秘钥登录，但是 Git 却不能"></a>SSH 能秘钥登录，但是 Git 却不能</h1><p>SSH 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h2 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h2><ol>
 <li>重新配置公钥私钥</li>
 <li>ssh-agent 管理</li>
 </ol>
 <p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
 <p>找到这篇文章：<a class="link"   target="_blank" rel="noopener" href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
 <p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>
                     
                 </div>
 
@@ -360,7 +360,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH-%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF-Git-%E5%8D%B4%E4%B8%8D%E8%83%BD"><span class="nav-text">SSH 能秘钥登录，但是 Git 却不能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -538,7 +538,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH-%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF-Git-%E5%8D%B4%E4%B8%8D%E8%83%BD"><span class="nav-text">SSH 能秘钥登录，但是 Git 却不能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98%E6%B5%81%E7%A8%8B"><span class="nav-text">排查问题流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li></ol>
     </div>
 </div>
 

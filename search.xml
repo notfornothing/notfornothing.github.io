@@ -7,365 +7,316 @@
 <p>上次面试还是两年前刚来深圳的时候。那时候一天能跑 4 趟面试，住在青年旅社，我想早点在深圳找工作然后租房子稳定下来，我记得还拿了挺多 offer ，真的挺佩服当时的自己的。</p>
 <p>时隔两年，公司裁员了，现在要重新找工作，感慨万分，写下这篇文章。</p>
 </blockquote>
-<hr>
-<h1 id="面试前"><a href="#面试前" class="headerlink" title="面试前"></a>面试前</h1><p>面试地点是深圳第一高楼：平安金融中心</p>
+<h2 id="面试前"><a href="#面试前" class="headerlink" title="面试前"></a>面试前</h2><p>面试地点是深圳第一高楼：平安金融中心</p>
 <p>从购物公园地铁站一出来就是高楼大厦，正好是午休时间的，楼下的咖啡亭子都坐满了人，路过的行人都很有班味儿，端着咖啡，穿着黑色行政装。我感觉自己像条土狗。</p>
 <details>
-<summary><strong>随手拍的平安大楼图片（点击展开）</strong></summary>
+<summary><strong>随手拍的平安大楼图片</strong></summary>
 
 <p><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/2B02D818819DACDF4DBDD6497D419B8E.jpg"
-                       
+                        alt="平安大楼"
                  ></p>
 </details>
 
 <details>
-
-<summary><strong>面试走廊（点击展开）</strong></summary>
+<summary><strong>面试走廊</strong></summary>
 
 <p><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/F2E812A2B6E8CED7CE1ED84B8076E2FE.jpg"
-                       
+                        alt="面试走廊"
                  ></p>
 </details>
 
-<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p>这次面试20多分钟就结束了，感觉上是没戏了。因为他问了很多八股文，我几乎没准备。</p>
-<hr>
+<h2 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h2><p>这次面试20多分钟就结束了，感觉上是没戏了。因为他问了很多八股文，我几乎没准备。</p>
+<p>面试问题概览：</p>
 <ul>
 <li>介绍一下你项目，你主要负责哪些功能</li>
-<li>redis 几种数据类型，hash 类型应用场景，击穿，雪崩方案</li>
-<li>mq 消息怎么保证不重复消费</li>
+<li>Redis 几种数据类型，Hash 类型应用场景，击穿，雪崩方案</li>
+<li>MQ 消息怎么保证不重复消费</li>
 <li>数据库优化方案</li>
 <li>SpringCloud 常用注解</li>
 <li>Feign 超时时间，超时怎么处理</li>
 <li>心跳机制</li>
 </ul>
-<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><p>   自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>   自我介绍这块我得打个草稿提前过一遍</p>
-<hr>
-<h4 id="redis-几种类型，击穿，雪崩方案"><a href="#redis-几种类型，击穿，雪崩方案" class="headerlink" title="redis 几种类型，击穿，雪崩方案"></a>redis 几种类型，击穿，雪崩方案</h4><details>
-<summary><b> 实际上的回答（点击展开）</b></summary>
+<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>自我介绍这块我得打个草稿提前过一遍。</p>
+<h3 id="Redis-几种类型，击穿，雪崩方案"><a href="#Redis-几种类型，击穿，雪崩方案" class="headerlink" title="Redis 几种类型，击穿，雪崩方案"></a>Redis 几种类型，击穿，雪崩方案</h3><details>
+<summary><strong>实际上的回答</strong></summary>
  
-<p>  redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
+<p>Redis 类型。我项目就用的 String 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 Hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 String 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
 </details>
  
-
 <details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+<summary><strong>我觉得满意的回答</strong></summary>
 
-<p>主要有这些：string,hash,list,set,sorted set</p>
-<hr>
-<ul>
-<li>string 适合一些简单单一的公共的数据，因为太复杂会污染 key 。适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）；</li>
+<p>主要有这些：String, Hash, List, Set, Sorted Set</p>
+<h4 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h4><ul>
+<li>适合一些简单单一的公共的数据，因为太复杂会污染 key</li>
+<li>适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）</li>
 </ul>
-<hr>
-<ul>
-<li>hash 适合结构化对象，因为可以局部更新不用整体写入，例如：<br>key:学生id-field:班级-value:一班<br>key:学生id-field:年龄-value:18</li>
-</ul>
-<hr>
-<ul>
-<li>list 支持两端操作，你可以理解为一根管子，另外有Range方法。可以适用的场景：</li>
-<li><ul>
-<li>用作队列：先进先出（FIFO）。队列有啥用？</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>消息队列：好处</li>
+<h4 id="Hash-类型"><a href="#Hash-类型" class="headerlink" title="Hash 类型"></a>Hash 类型</h4><ul>
+<li>适合结构化对象，因为可以局部更新不用整体写入，例如：<ul>
+<li>key:学生id-field:班级-value:一班</li>
+<li>key:学生id-field:年龄-value:18</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
+<h4 id="List-类型"><a href="#List-类型" class="headerlink" title="List 类型"></a>List 类型</h4><ul>
+<li>支持两端操作，你可以理解为一根管子，另外有Range方法</li>
+<li>可以适用的场景：<ul>
+<li>用作队列：先进先出（FIFO）<ul>
+<li>消息队列的好处：<ul>
 <li>异步消息：不需要等你完成，丢队列里面就行，需要延迟处理的任务放入消息队列，设置延迟时间，消费者在指定时间处理任务</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>任务调度：任务放入队列，定时调度任务，延迟消费，完成任务1才去完成任务2，按顺序处理待办任务。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
+<li>任务调度：任务放入队列，定时调度任务，延迟消费，完成任务1才去完成任务2，按顺序处理待办任务</li>
 <li>解耦</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><ul>
-<li>时间轴：比如朋友圈查看，最新的放在左边开头，每次刷新就 lrange(0,页码);查看新动态。</li>
+<li>时间轴：比如朋友圈查看，最新的放在左边开头，每次刷新就 lrange(0,页码);查看新动态</li>
 </ul>
 </li>
 </ul>
-<hr>
-<ul>
-<li>set 特点是无序且唯一,有 intersect 方法（求两个set的交集）。语法：<code>SADD key value</code>,<code>SMEMBERS key</code></li>
-<li><ul>
-<li>由唯一性会想到去重、不重复。例如，你往学生添加爱好，爱好不可以重复 <code>sadd student1 [football,baseball,basketball]</code></li>
-</ul>
-</li>
-<li><ul>
+<h4 id="Set-类型"><a href="#Set-类型" class="headerlink" title="Set 类型"></a>Set 类型</h4><ul>
+<li>特点是无序且唯一，有 intersect 方法（求两个set的交集）</li>
+<li>语法：<code>SADD key value</code>, <code>SMEMBERS key</code></li>
+<li>应用场景：<ul>
+<li>由唯一性会想到去重、不重复。例如，你往学生添加爱好，爱好不可以重复 <code>sadd student1 [football,baseball,basketball]</code> </li>
 <li>无序想到随机抽取等</li>
-</ul>
-</li>
-<li><ul>
-<li>交集方法：查找两个班级学生名字相同的人。</li>
+<li>交集方法：查找两个班级学生名字相同的人</li>
 </ul>
 </li>
 </ul>
-<hr>
+<h4 id="Sorted-Set-类型"><a href="#Sorted-Set-类型" class="headerlink" title="Sorted Set 类型"></a>Sorted Set 类型</h4><ul>
+<li>有序set，语法 <code>ZADD key score1 member1 [score2 member2 ...]</code></li>
+<li>可以根据score排序这条记录</li>
+<li>应用场景：排行榜</li>
+</ul>
+<h4 id="缓存问题及解决方案"><a href="#缓存问题及解决方案" class="headerlink" title="缓存问题及解决方案"></a>缓存问题及解决方案</h4><p>Redis为了缓解数据库压力，设置缓存缓存数据防止查MySQL。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
 <ul>
-<li>sort set 有序set 语法 <code>ZADD key score1 member1 [score2 member2 ...]</code></li>
-<li><ul>
-<li>可以根据sort 排序这条记录。应用场景：排行榜</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>redis为了缓解数据库压力，设置缓存缓存数据防止查mysql。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
+<li><p>缓存击穿：</p>
 <ul>
-<li>缓存击穿：出现原因：查询到了不存在的值。</li>
-<li><ul>
-<li>例如来了个请求查询id为 -999 的数据，mysql没得，导致redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
+<li>出现原因：查询到了不存在的值</li>
+<li>例如来了个请求查询id为 -999 的数据，MySQL没得，导致Redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
+<li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，或者设置ip黑名单</li>
 </ul>
 </li>
-<li><ul>
-<li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，。或者设置ip黑名单。</li>
-</ul>
-</li>
-<li>缓存雪崩：出现原因：突然一下子很多redis key过期，导致来的请求直接走数据库。 </li>
-<li><ul>
-<li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存（吹牛逼的）？</details></li>
+<li><p>缓存雪崩：</p>
+<ul>
+<li>出现原因：突然一下子很多Redis key过期，导致来的请求直接走数据库</li>
+<li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存</details></li>
 </ul>
 </li>
 </ul>
-<h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><details>
-<summary><b> 实际上的回答（点击展开）</b></summary>
+<h3 id="MQ-消息怎么保证不重复消费"><a href="#MQ-消息怎么保证不重复消费" class="headerlink" title="MQ 消息怎么保证不重复消费"></a>MQ 消息怎么保证不重复消费</h3><details>
+<summary><strong>实际上的回答</strong></summary>
 
-<p>  其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 mq 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>  我回答的是消费mq的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>  因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>  我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
+<p>其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 MQ 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>我回答的是消费MQ的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
 </details>
+
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
+<summary><strong>满意的回答</strong></summary>
 
+<p>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</p>
+<p>队列基本流程是：生产者 -&gt; 交换机 -&gt; 队列 -&gt; 消费者</p>
+<p>重复消费的原因：</p>
 <ul>
-<li>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</li>
+<li>消费者处理失败：消息未被正确确认（acknowledge），消息队列系统会重新投递该消息</li>
+<li>消费者进程崩溃，同上</li>
+<li>网络问题，同上</li>
 </ul>
-<p>队列基本流程是，生产者-&gt;交换机-&gt;队列-&gt;消费者</p>
-<p>TODO 我看了交换机有好多，这些有啥用啊晕死…….</p>
-<p>消费者处理失败：消息未被正确确认（acknowledge），消息队列系统会重新投递该消息<br>消费者进程崩溃，同上。<br>网络问题，同上。</p>
 <p>都是因为消费者未能及时确认消息，队列没收到ack，认为消息没处理。</p>
-<p>所以才会产生重复消费的场景</p>
-<p>有很多种方案：</p>
-<p>如遇到并发问题方案2可行但是比较粗暴，或者方案 3 手动应答但是 <code>不放/放</code>回队列（我公司就是这种方法，然后多个消费者，这批数据跑完了再跑失败的数据）。或者看方案 4 比较麻烦。</p>
+<p>解决方案：</p>
 <ol>
-<li>缓存 ID 去重<br>  每个消息附带一个唯一的 ID，放到静态变量或者缓存中，插入前先查询一遍缓存。</li>
-<li>数据库去重<br>  每个消息附带一个唯一的 ID,通过唯一约束避免重复处理，把它在数据库字段设置成 unique 的字段。</li>
-<li>消息确认机制（Consumer Acknowledgements）<br>  使用手动消息确认机制，basicAck 方法最后一个参数。确保只有成功处理的消息才会被确认，未确认的消息会被重新投递。<br>  虽然在 RabbitMQ 中，每条消息只会被一个消费者接收，但如果消费者并未及时确认（acknowledge），则消息可能会在消费者处理期间超时，并被 RabbitMQ 重新投递，导致重复消费。</li>
+<li><p><strong>缓存 ID 去重</strong></p>
+<ul>
+<li>每个消息附带一个唯一的 ID，放到静态变量或者缓存中，插入前先查询一遍缓存</li>
+</ul>
+</li>
+<li><p><strong>数据库去重</strong></p>
+<ul>
+<li>每个消息附带一个唯一的 ID，通过唯一约束避免重复处理，把它在数据库字段设置成 unique 的字段</li>
+</ul>
+</li>
+<li><p><strong>消息确认机制（Consumer Acknowledgements）</strong></p>
+<ul>
+<li>使用手动消息确认机制，basicAck 方法最后一个参数</li>
+<li>确保只有成功处理的消息才会被确认，未确认的消息会被重新投递</li>
+<li>虽然在 RabbitMQ 中，每条消息只会被一个消费者接收，但如果消费者并未及时确认，则消息可能会在消费者处理期间超时，并被重新投递，导致重复消费</li>
+</ul>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;myQueue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 处理消息</span></span><br><span class="line">    System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line">    <span class="comment">// 手动确认消息</span></span><br><span class="line">    channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">    channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;myQueue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 处理消息</span></span><br><span class="line">    System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line">    <span class="comment">// 手动确认消息</span></span><br><span class="line">    channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">    channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
-<li>Redis 分布式锁 这名字挺高级，我怎么感觉就和第一种id放缓存一样呢。<br>不一样，因为如果两个线程会同时检查key是否存在，这样可能会漏。所以得给key(id)加锁。</li>
+<li><strong>Redis 分布式锁</strong><ul>
+<li>不同于简单的ID缓存，分布式锁可以防止并发问题</li>
+<li>给key加锁：<ul>
+<li>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败</li>
+<li>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间</li>
+<li>解锁：使用 DEL 命令删除锁，释放资源</details></li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-<p>给key加锁<br>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败。<br>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间。<br>解锁：使用 DEL 命令删除锁，释放资源。</p>
-</details>
+<h3 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h3><details>
+<summary><strong>满意的回答</strong></summary>
 
-<h4 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h4><details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-
-<ul>
+<h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><ul>
 <li>能写在where限定的条件就不要写在having中</li>
-<li>避免select *,应该只查询所需字段</li>
-<li>大表数据：垂直分表(Union all)</li>
-<li><ul>
-<li>例如日志表，可以每个月一个日志。</li>
+<li>避免select *，应该只查询所需字段</li>
+<li>like 查询尽量加上左边确定的值，如 like ‘nameSpac%’</li>
+<li>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放SQL去查</li>
 </ul>
-</li>
-<li>大表数据：水平分表(建一个表，id关联)</li>
-<li>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</li>
-<li>减少索引失效</li>
-<li><ul>
-<li>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</li>
-</ul>
-</li>
-<li><ul>
+<h4 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h4><ul>
+<li>减少索引失效情况：<ul>
+<li>避免使用 is not null、or、not in、!&#x3D;这样不会走索引</li>
 <li>like ‘%something’ 不会走索引</li>
+<li>避免隐式类型转换</li>
+<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效</li>
 </ul>
 </li>
-<li><ul>
-<li>隐式类型转换</li>
-</ul>
-</li>
-<li><ul>
-<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效。</li>
-</ul>
-</li>
-<li><ul>
-<li>select 很慢可以用覆盖索引，和联合索引差不多，不过解决的问题不同。</li>
-</ul>
-</li>
-<li>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</li>
-<li>对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引</li>
-<li>varchar 存储浪费空间，特殊定长字段用char</li>
+<li>对于查询慢的SQL，经常要用到的条件（select，where，order by，group by，distinct…）添加索引</li>
 <li>一个表中最好不要超过6个索引</li>
-<li>尽量是区分度高的数据作为索引</li>
+<li>尽量选择区分度高的数据作为索引</li>
 <li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
-<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
+<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀建立索引（前缀索引）</li>
+<li>select 很慢可以用覆盖索引，和联合索引差不多，不过解决的问题不同</li>
 </ul>
-</details>
-
-<h4 id="SpringCloud-常用注解"><a href="#SpringCloud-常用注解" class="headerlink" title="SpringCloud 常用注解"></a>SpringCloud 常用注解</h4><details>
-<summary><b> 满意的回答（点击展开）</b></summary>
+<h4 id="表结构优化"><a href="#表结构优化" class="headerlink" title="表结构优化"></a>表结构优化</h4><ul>
+<li>varchar 存储浪费空间，特殊定长字段用char</li>
+<li>大表数据处理：<ul>
+<li>垂直分表(Union all)：例如日志表，可以每个月一个日志</li>
+<li>水平分表(建一个表，id关联)</details></li>
+</ul>
+</li>
+</ul>
+<h3 id="SpringCloud-常用注解"><a href="#SpringCloud-常用注解" class="headerlink" title="SpringCloud 常用注解"></a>SpringCloud 常用注解</h3><details>
+<summary><strong>满意的回答</strong></summary>
 
 <ul>
-<li><p>@SpringBootApplication 这是springboot的配置，主要是约定大于配置，自动加载一些配置文件。</p>
-</li>
-<li><p>@EnableDiscoveryClient</p>
-</li>
-<li><ul>
-<li>开启服务注册发现功能,如让 Eureka，Nacos 能访问到你</li>
-</ul>
-</li>
-<li><p>@EnableFeignClients</p>
-</li>
-<li><ul>
-<li>用于启用 Feign 客户端，简化 RESTful 服务的调用。</li>
-</ul>
-</li>
-<li><p>@FeignClient</p>
-</li>
-<li><ul>
-<li>加在 feign 接口上，用于其他模块引用</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="variable">@FeignClient</span>(<span class="keyword">value</span><span class="operator">=</span>&quot;XXX-service&quot;)</span><br></pre></td></tr></table></figure>
+<li><p><strong>@SpringBootApplication</strong></p>
 <ul>
-<li><p>@RefreshScope</p>
-</li>
-<li><ul>
-<li>动态刷新配置文件<br><code>@Value(&quot;$&#123;config.property&#125;&quot;)</code></li>
+<li>这是SpringBoot的配置，主要是约定大于配置，自动加载一些配置文件</li>
 </ul>
 </li>
-<li><p>@EnableHystrix</p>
+<li><p><strong>@EnableDiscoveryClient</strong></p>
+<ul>
+<li>开启服务注册发现功能，如让 Eureka，Nacos 能访问到你</li>
+</ul>
 </li>
-<li><ul>
+<li><p><strong>@EnableFeignClients</strong></p>
+<ul>
+<li>用于启用 Feign 客户端，简化 RESTful 服务的调用</li>
+</ul>
+</li>
+<li><p><strong>@FeignClient</strong></p>
+<ul>
+<li>加在 Feign 接口上，用于其他模块引用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value=&quot;XXX-service&quot;)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>@RefreshScope</strong></p>
+<ul>
+<li>动态刷新配置文件</li>
+<li>例如：<code>@Value(&quot;$&#123;config.property&#125;&quot;)</code></li>
+</ul>
+</li>
+<li><p><strong>@EnableHystrix</strong></p>
+<ul>
 <li>熔断降级</details></li>
 </ul>
 </li>
 </ul>
-<h4 id="Feign-超时时间，超时怎么处理"><a href="#Feign-超时时间，超时怎么处理" class="headerlink" title="Feign 超时时间，超时怎么处理"></a>Feign 超时时间，超时怎么处理</h4><details>
-<summary><b> 实际的的回答（点击展开）</b></summary>
-递归 `exception.getCause instance of socketTimeoutException`去获取去识别的。
-我们项目是catch这个异常转成业务异常，基本上所有的都是把能转成业务异常的都转业务异常，不能转的报联系管理员
+<h3 id="Feign-超时时间，超时怎么处理"><a href="#Feign-超时时间，超时怎么处理" class="headerlink" title="Feign 超时时间，超时怎么处理"></a>Feign 超时时间，超时怎么处理</h3><details>
+<summary><strong>实际的回答</strong></summary>
 
+<p>递归 <code>exception.getCause instance of socketTimeoutException</code>去获取去识别的。<br>我们项目是catch这个异常转成业务异常，基本上所有的都是把能转成业务异常的都转业务异常，不能转的报联系管理员。</p>
 <p>不过面试官想问的应该不是这个…</p>
 </details>
 
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-启动类中启用 Hystrix 熔断降级功能
-自定义实现 fallback 接口
+<summary><strong>满意的回答</strong></summary>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">feign:</span><br><span class="line">  client:</span><br><span class="line">    config:</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        connectTimeout: <span class="number">5000</span>  # 连接超时，单位为毫秒</span><br><span class="line">        readTimeout: <span class="number">10000</span>    # 读取超时，单位为毫秒</span><br></pre></td></tr></table></figure>
+<h4 id="配置超时时间"><a href="#配置超时时间" class="headerlink" title="配置超时时间"></a>配置超时时间</h4><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">default:</span></span><br><span class="line">        <span class="attr">connectTimeout:</span> <span class="number">5000</span>  <span class="comment"># 连接超时，单位为毫秒</span></span><br><span class="line">        <span class="attr">readTimeout:</span> <span class="number">10000</span>    <span class="comment"># 读取超时，单位为毫秒</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="超时处理方案"><a href="#超时处理方案" class="headerlink" title="超时处理方案"></a>超时处理方案</h4><p>启动类中启用 Hystrix 熔断降级功能，自定义实现 fallback 接口：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name = &quot;my-service&quot;, fallback = MyServiceFallback.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyServiceClient</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/endpoint&quot;)</span></span><br><span class="line">    String <span class="title function_">getEndpoint</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 
-<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><details>
-<summary><b> 实际的的回答（点击展开）</b></summary>
-我大概知道这是啥，就是你服务启动的时候，比如nacos地址配错了、或者挂了，服务器就会一直刷日志，heartbeat之类的，就是一直找注册中心。springCloud 启动的时候会显示用什么配置文件，用地址是什么，给你展示出来。
-应该就是心跳机制，检查服务是否在，免得真正调用的时候才发现出问题。
+<h3 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h3><details>
+<summary><strong>实际的回答</strong></summary>
 
+<p>我大概知道这是啥，就是你服务启动的时候，比如Nacos地址配错了、或者挂了，服务器就会一直刷日志，heartbeat之类的，就是一直找注册中心。SpringCloud 启动的时候会显示用什么配置文件，用地址是什么，给你展示出来。<br>应该就是心跳机制，检查服务是否在，免得真正调用的时候才发现出问题。</p>
 <p>很显然没答到点上。</p>
 </details>
 
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-心跳机制的主要作用是：
+<summary><strong>满意的回答</strong></summary>
 
+<p>心跳机制的主要作用是：</p>
 <ul>
-<li><p>确保服务可用性：定期向注册中心发送心跳信号，报告服务实例的健康状况。如果心跳信号发送失败，说明服务可能不可用，便于及时发现和处理问题。</p>
+<li><p><strong>确保服务可用性</strong>：定期向注册中心发送心跳信号，报告服务实例的健康状况。如果心跳信号发送失败，说明服务可能不可用，便于及时发现和处理问题。</p>
 </li>
-<li><p>预防调用失败：通过心跳机制，可以在服务实例不可用时及时将其从注册中心移除，避免实际调用时发现服务不可用的问题。</p>
+<li><p><strong>预防调用失败</strong>：通过心跳机制，可以在服务实例不可用时及时将其从注册中心移除，避免实际调用时发现服务不可用的问题。</p>
 </li>
-<li><p>提高系统可靠性：定期监控服务健康状况，确保系统各个服务实例处于正常运行状态，提高系统的整体可靠性和稳定性。</p>
+<li><p><strong>提高系统可靠性</strong>：定期监控服务健康状况，确保系统各个服务实例处于正常运行状态，提高系统的整体可靠性和稳定性。</p>
 </li>
 </ul>
 <p>Nacos 提供两种健康检查机制，分别对应不同类型的服务实例：</p>
 <ul>
-<li>临时实例（非持久化实例）：</li>
-</ul>
-<p>机制：客户端主动上报心跳消息。</p>
-<p>特点：临时实例不会在 Nacos 服务端持久化存储，需要通过上报心跳的方式进行保活。如果一段时间内没有上报心跳，实例会被 Nacos 服务端摘除</p>
+<li><p><strong>临时实例（非持久化实例）</strong>：</p>
 <ul>
-<li>永久实例（持久化实例）：</li>
+<li>机制：客户端主动上报心跳消息</li>
+<li>特点：临时实例不会在 Nacos 服务端持久化存储，需要通过上报心跳的方式进行保活。如果一段时间内没有上报心跳，实例会被 Nacos 服务端摘除</li>
 </ul>
-<p>机制：服务器端反向探测健康状况。</p>
-<p>特点：永久实例会在 Nacos 服务端持久化存储，即使注册实例的客户端进程不在，实例也不会从服务端删除，只会将健康状态设为不健康</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: my-service</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">        ephemeral: true  # 设置实例为临时实例</span><br></pre></td></tr></table></figure>
-
+</li>
+<li><p><strong>永久实例（持久化实例）</strong>：</p>
+<ul>
+<li>机制：服务器端反向探测健康状况</li>
+<li>特点：永久实例会在 Nacos 服务端持久化存储，即使注册实例的客户端进程不在，实例也不会从服务端删除，只会将健康状态设为不健康</li>
+</ul>
+</li>
+</ul>
+<p>配置示例：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">ephemeral:</span> <span class="literal">true</span>  <span class="comment"># 设置实例为临时实例</span></span><br></pre></td></tr></table></figure>
 </details>
 ]]></content>
   </entry>
   <entry>
-    <title>2025-02-28 面试总结</title>
+    <title>2025-02-28-面试总结</title>
     <url>/2025/02/28/2025-02-28-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<blockquote>
 <p>这两天的面试能约就约，因为马上就是周末了基本上没公司上班，今天约了两场，上午和下午。<br>我遇到不会的答不上来，或者答出来不是很满意，就很紧张然后磕磕绊绊的，得多面试见识不同的面试官练练胆子，然后看看面试中级程序员主要问哪些问题，</p>
 </blockquote>
 <hr>
-<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p><strong>上午场的面试：</strong> </p>
+<h2 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h2><p><strong>上午场的面试：</strong> </p>
 <blockquote>
 <p>上午的面试比较无厘头，提的问题我基本能答上来，最后问我还需要了解一些什么？最后就说让我回去等消息，然后软件上说我不通过…问他原因也不说，不过还是总结一下他的问题。</p>
 </blockquote>
 <ul>
-<li><p>线程的创建方式</p>
-</li>
-<li><p>线程的几种状态</p>
-</li>
-<li><p>线程池几种策略</p>
-</li>
-<li><p>为什么要三次握手</p>
-</li>
-<li><p>Redis 几种类型</p>
-</li>
-<li><p>Jvm内存模型</p>
-</li>
-<li><p>Jvm如何调优</p>
-</li>
-<li><p>你还需要了解一些什么？</p>
-</li>
+<li>线程的创建方式</li>
+<li>线程的几种状态</li>
+<li>线程池几种策略</li>
+<li>为什么要三次握手</li>
+<li>Redis 几种类型</li>
+<li>JVM内存模型</li>
+<li>JVM如何调优</li>
+<li>你还需要了解一些什么？</li>
 </ul>
 <hr>
 
 <p><strong>下午场的面试：</strong></p>
 <blockquote>
-<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，hr 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 20 多分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
+<p>下午的面试体验还可以，但问了几个八股文我答不上来应该是没过，这个公司面试的人比较多，要先填表，HR 还会倒杯水喝，映像很不错比昨天放松一些。我前面那个哥们进去不到 5 分钟就出来了，下一个是我。但面试官看起来比较和善，自我介绍后，问了一些学校、然后工作的项目经历，谈了大概快 20 多分钟整体上还不错挺轻松的，但随之就问八股文了，丫的，问的这些八股文太抽象了，我是一个答不上来，虽然我看到过这种题目但是真没去记这些东西，但是我也说了很多自己的理解，把我知道的都说了，很显然是不标准的，然后开始紧张了…类似于空气凝固了，面试官估计也懂，问我哪时候开始准备面试的，我说昨天才开始面试。</p>
 </blockquote>
 <ul>
-<li><p>SpringBean 生命周期</p>
-</li>
-<li><p>Jvm 垃圾回收的几种算法</p>
-</li>
-<li><p>循环依赖怎么解决</p>
-</li>
+<li>SpringBean 生命周期</li>
+<li>JVM 垃圾回收的几种算法</li>
 </ul>
 <h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="线程的创建方式"><a href="#线程的创建方式" class="headerlink" title="线程的创建方式"></a>线程的创建方式</h4><details>
 <summary><b> 我觉得满意的回答（点击展开）</b></summary>
@@ -448,9 +399,14 @@
 <li>DiscardPolicy 直接丢弃任务，不抛出异常</li>
 <li>DiscardOldestPolicy 丢弃队列中最旧的任务，并尝试重新提交新任务。</details></li>
 </ul>
-<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>太抽象了，看不懂</p>
+<h4 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h4><p>三次握手是为了确保双方都能正常接收和发送数据，防止已失效的连接请求报文段被服务端接收，造成错误。</p>
+<ol>
+<li><strong>第一次握手</strong>：客户端发送连接请求报文段，等待服务端确认。</li>
+<li><strong>第二次握手</strong>：服务端收到请求后，发送同意连接的确认报文段。</li>
+<li><strong>第三次握手</strong>：客户端收到确认后，再次向服务端发送确认报文段，连接建立。</li>
+</ol>
 <h4 id="Redis-几种类型"><a href="#Redis-几种类型" class="headerlink" title="Redis 几种类型"></a>Redis 几种类型</h4><p>27号有总结</p>
-<h4 id="Jvm内存模型"><a href="#Jvm内存模型" class="headerlink" title="Jvm内存模型"></a>Jvm内存模型</h4><p>比较抽象是以下这几种</p>
+<h4 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h4><p>比较抽象是以下这几种</p>
 <ul>
 <li>堆（Heap）</li>
 <li>栈（Stack）：</li>
@@ -458,7 +414,7 @@
 <li>本地方法栈（Native Method Stack）：主要是native，比如 hashcode 这种</li>
 <li>程序计数器（Program Counter, PC）：存储当前执行指令的地址</li>
 </ul>
-<h4 id="Jvm如何调优"><a href="#Jvm如何调优" class="headerlink" title="Jvm如何调优"></a>Jvm如何调优</h4><ul>
+<h4 id="JVM如何调优"><a href="#JVM如何调优" class="headerlink" title="JVM如何调优"></a>JVM如何调优</h4><ul>
 <li>垃圾回收器（Garbage Collection）</li>
 <li><ul>
 <li>触发GC</li>
@@ -481,7 +437,7 @@
 <li><p>SpringBean 生命周期</p>
 </li>
 <li></li>
-<li><p>Jvm 垃圾回收的几种算法</p>
+<li><p>JVM 垃圾回收的几种算法</p>
 </li>
 </ul>
 <ol>
@@ -499,6 +455,15 @@
 <ul>
 <li>循环依赖怎么解决</li>
 </ul>
+<ol>
+<li><strong>构造器注入</strong>：不支持循环依赖。</li>
+<li><strong>Setter 注入</strong>：Spring 通过三级缓存解决循环依赖。<ul>
+<li><strong>一级缓存</strong>：存放完全初始化好的 Bean。</li>
+<li><strong>二级缓存</strong>：存放早期暴露的 Bean（未完成初始化）。</li>
+<li><strong>三级缓存</strong>：存放 Bean 工厂对象，用于解决循环依赖。</li>
+</ul>
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -701,65 +666,27 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
-    <title>Git 设置 配置分支</title>
+    <title>Git 设置配置分支</title>
     <url>/2024/02/15/Git%20%E8%AE%BE%E7%BD%AE%20%E9%85%8D%E7%BD%AE%E5%88%86%E6%94%AF/</url>
-    <content><![CDATA[<h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
-<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">-- 更新最新的远程分支</span><br><span class="line">git fetch o dev test prod</span><br><span class="line"></span><br><span class="line">-- 暂存</span><br><span class="line">git stash save &#x27;before checkout :)&#x27;</span><br><span class="line"></span><br><span class="line">-- 复位 dev 为最新</span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line">-- rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line">-- dev-mine 为我开发的需求</span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line">-- rebase 配置，然后开始需求开发</span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line">-- 开发完了之后</span><br><span class="line">-- 左边是开区间（不包含settngs提交的rebase）</span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line">-- 提交合并请求</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<h1 id="Git-设置配置分支"><a href="#Git-设置配置分支" class="headerlink" title="Git 设置配置分支"></a>Git 设置配置分支</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><p>项目总有一些本地文件不能他提交到服务器上，例如 yml 配置信息，打印日志代码等。又不想提交代码的时候总是勾选。所以想着弄个settings分支并且与开发分支（dev）保持一致。以下是折腾过程。</p>
+<h2 id="开发的时候拉去代码自动-rebase-settings"><a href="#开发的时候拉去代码自动-rebase-settings" class="headerlink" title="开发的时候拉去代码自动 rebase settings"></a>开发的时候拉去代码自动 rebase settings</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 更新最新的远程分支</span></span><br><span class="line">git fetch o dev <span class="built_in">test</span> prod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暂存</span></span><br><span class="line">git stash save <span class="string">&#x27;before checkout :)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复位 dev 为最新</span></span><br><span class="line">git checkout -B dev o/dev</span><br><span class="line">git checkout settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebase settings 分支到最新的dev 然后我的分分支就基于settings开发 </span></span><br><span class="line">git rebase --onto dev settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># dev-mine 为我开发的需求</span></span><br><span class="line">git checkout dev-mine</span><br><span class="line"></span><br><span class="line"><span class="comment"># rebase 配置，然后开始需求开发</span></span><br><span class="line">git rebase settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发完了之后</span></span><br><span class="line"><span class="comment"># 左边是开区间（不包含settngs提交的rebase）</span></span><br><span class="line">git rebase --onto dev yulei-settings dev-mine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交合并请求</span></span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
-    <title>Java 为什么要使用泛型</title>
-    <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h1><p>泛型是从 Java 1.5 出现的。</p>
-<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>  Java1.5 之前的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">//多态，查找父类的 toString 方法，打印出结果，</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">//在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  输出</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
-
-<p>图例</p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
-                       
-                 ></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>  如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
-<p>  如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法</p>
-<h4 id="解决办法-1："><a href="#解决办法-1：" class="headerlink" title="解决办法 1："></a>解决办法 1：</h4><p>  在遍历集合的时候用 instance of 去判断属于哪个类，再进行强转</p>
-<blockquote>
-<p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
-</blockquote>
-<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2:"></a>解决办法 2:</h4><p>  限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
-<blockquote>
-<p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>源代码：</p>
-<p><code>System.out.println(list.get(i));</code></p>
-</li>
-<li><p>class 字节码：</p>
-<p><code>System.out.println((String)list.get(i));</code></p>
-</li>
-</ul>
-<p>可以知道编译器会自动转换</p>
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>  1.减少 Java5 以往代码的冗余，提高代码复用性</p>
-<p>  2.返回泛型类型时，会自动强转，强转后的变量必须要当前泛型类或者其父类（Object 之类）接收，省时省力</p>
-<blockquote>
-<p>Java 执行顺序：*.java 文件 （编译） -&gt; *.class 字节码 （运行）-&gt;  jvm</p>
-</blockquote>
-<p>  3.由 2 知：把运行时报错转成了编译就报错，编译没过自然没法运行，减少试错成本</p>
+    <title>Github Action 自动部署博客</title>
+    <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="Github-Action-自动部署博客"><a href="#Github-Action-自动部署博客" class="headerlink" title="Github Action 自动部署博客"></a>Github Action 自动部署博客</h1><p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>命令 <code>hexo generate</code> 会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
+<p>为了写完博客提交到github的后自动执行部署操作，于是有了这篇文章。</p>
+<p>其实有网上有很多方案，我采用的是 Github Action。</p>
+<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
-    <title>I-like-KFC-And-McDonald&#39;s</title>
+    <title>I like KFC And McDonald&#39;s</title>
     <url>/2025/02/23/I-like-KFC-And-McDonald&#39;s/</url>
-    <content><![CDATA[<h2 id="我喜欢"><a href="#我喜欢" class="headerlink" title="我喜欢"></a>我喜欢</h2><p>我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。<br>好像有cdn这个东西，这个有时间在弄了。</p>
-<hr>
-<p><img  
+    <content><![CDATA[<h1 id="我喜欢肯德基和麦当劳"><a href="#我喜欢肯德基和麦当劳" class="headerlink" title="我喜欢肯德基和麦当劳"></a>我喜欢肯德基和麦当劳</h1><p>我没搞图片外链，这图片放我放服务器上的，服务器带宽太小只有5M。<br>好像有cdn这个东西，这个有时间在弄了。</p>
+<h2 id="图片展示"><a href="#图片展示" class="headerlink" title="图片展示"></a>图片展示</h2><p><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/2F66906AE559E3E1012ACC789D38BF87.jpg"
@@ -798,35 +725,74 @@
                        lazyload
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/4a49b266d9ae1a65344a9b8ebdf9aa8-min.jpg"
-                       
+                        alt="4a49b266d9ae1a65344a9b8ebdf9aa8-min.jpg"
                  ><br><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/6cef04e9b240e7735773186c2d0690b-min.jpg"
-                       
+                        alt="6cef04e9b240e7735773186c2d0690b-min.jpg"
                  ><br><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/50b9dd5c666bd6d2a403946655400ef-min.jpg"
-                       
+                        alt="50b9dd5c666bd6d2a403946655400ef-min.jpg"
                  ><br><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/23/I-like-KFC-And-McDonald's/50d05593f90f84fff4b88357d379bfd-min.jpg"
-                       
+                        alt="50d05593f90f84fff4b88357d379bfd-min.jpg"
                  ></p>
 ]]></content>
   </entry>
   <entry>
-    <title>Github Action 自动部署博客</title>
-    <url>/2024/06/20/Github-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<p>我是用的是 hexo 静态博客，该博客原理是解析 markdown 成 HTML 文件。</p>
-<hr>
-<p>命令 <code>hexo generate</code>会把原始的博客转换成一个可以访问的 public 文件夹（类似于前端工程的 dist 文件夹）。 把这个文件夹放服务器上 nginx 代理就是你的博客了。 我是用 github 仓库管理博客，<code>hexo generate</code> 生成文件夹要部署到服务器上，得把它打包到服务器上 <code>/www/wwwroot/leijiba.cn</code> 解压才行。</p>
-<p>为了写完博客提交到github的后自动执行部署操作，于是有了这篇文章</p>
-<p>其实有网上有很多方案，我采用的是 Github Action</p>
-<h2 id="Github-Action"><a href="#Github-Action" class="headerlink" title="Github Action"></a>Github Action</h2><p>原理是推送代码到仓库后，github 会给你一个虚拟机，配置好配置文件虚拟机就会按照yaml文件执行命令。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">Hexo</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span> <span class="comment"># 或你使用的默认分支名称</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">blog</span> <span class="string">source</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="string">&quot;18&quot;</span> <span class="comment"># 设置 Node.js 版本</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Hexo</span> <span class="string">CLI</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">-g</span> <span class="string">hexo-cli</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Generate</span> <span class="string">static</span> <span class="string">pages</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">        <span class="attr">working-directory:</span> <span class="string">./blog</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">personal_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.PERSONAL_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./blog/public</span></span><br><span class="line">          <span class="attr">external_repository:</span> <span class="string">notfornothing/notfornothing.github.io</span> <span class="comment"># 更改为你的 GitHub Pages 仓库, username 是你的用户名</span></span><br><span class="line">          <span class="attr">publish_branch:</span> <span class="string">main</span> <span class="comment"># GitHub Pages 分支</span></span><br><span class="line">          </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">JD_Server</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@v2.1.1</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="comment"># 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_SSH_PRIVATE_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 复制操作的参数。&quot;-avzr --delete&quot;意味部署时清空服务器目标目录下的文件</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr --delete&quot;</span></span><br><span class="line">          <span class="comment"># 源目录，相对于$GITHUB_WORKSPACE根目录的路径</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">&quot;./blog/public/&quot;</span></span><br><span class="line">          <span class="comment"># 服务器域名/IP</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.JD_REMOTE_HOST</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="comment"># 服务器默认用户名为root</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">&quot;root&quot;</span></span><br><span class="line">          <span class="comment"># 目标目录</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">&#x27;/opt/hexo&#x27;</span></span><br></pre></td></tr></table></figure>
+    <title>Java 为什么要使用泛型</title>
+    <url>/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="Java-为什么要使用泛型"><a href="#Java-为什么要使用泛型" class="headerlink" title="Java 为什么要使用泛型"></a>Java 为什么要使用泛型</h1><h2 id="Java-历史"><a href="#Java-历史" class="headerlink" title="Java 历史"></a>Java 历史</h2><p>泛型是从 Java 1.5 出现的。</p>
+<h2 id="不用泛型会有哪些不便性"><a href="#不用泛型会有哪些不便性" class="headerlink" title="不用泛型会有哪些不便性"></a>不用泛型会有哪些不便性</h2><h3 id="需求：遍历集合"><a href="#需求：遍历集合" class="headerlink" title="需求：遍历集合"></a>需求：遍历集合</h3><p>Java 1.5 之前的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestCase</span> &#123;</span><br><span class="line">  <span class="meta">@org</span>.junit.Test</span><br><span class="line">  <span class="meta">@SuppressWarnings(value = &#123;&quot;rawtypes&quot;, &quot;unchecked&quot;&#125;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">    list.add(<span class="string">&quot;Sparrow&quot;</span>);</span><br><span class="line">    list.add(<span class="number">23</span>);</span><br><span class="line">    <span class="keyword">for</span> (Object obj : list) &#123;</span><br><span class="line">      <span class="comment">// 多态，查找父类的 toString 方法，打印出结果</span></span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果我们遍历的时候就想得到自己想要的数据类型</span></span><br><span class="line">    <span class="keyword">for</span> (Object o : list) &#123;</span><br><span class="line">      <span class="comment">// 在取 Integer 的时候会报类型转换错误</span></span><br><span class="line">      <span class="type">String</span> <span class="variable">obj</span> <span class="operator">=</span> (String) o;</span><br><span class="line">      System.out.println(obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sparrow</span><br><span class="line">23</span><br><span class="line">Sparrow</span><br><span class="line">Exception in thread &quot;main&quot; java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</span><br><span class="line">	at cn.leijiba.config.MyConfig.Test.main(Test.java:20)</span><br></pre></td></tr></table></figure>
+
+<p>图例：</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2022/11/01/Java-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B/Snipaste_2024-03-26_15-21-17.png"
+                        alt="类型转换错误"
+                 ></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>如图抛错所示，List 存和取元素都是 Object 类型。所以存在运行时异常，编译不会报错有安全隐患，不方便写代码。</p>
+<p>如果我们遍历的时候就想得到自己想要的数据类型有以下解决办法：</p>
+<h4 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法 1"></a>解决办法 1</h4><p>在遍历集合的时候用 instanceof 去判断属于哪个类，再进行强转。</p>
+<blockquote>
+<p>但是这样不合理，类很多，而且只能处理逻辑已知的类型，不知情的类型还是会报错。</p>
+</blockquote>
+<h4 id="解决办法-2"><a href="#解决办法-2" class="headerlink" title="解决办法 2"></a>解决办法 2</h4><p>限定存入的类型，也限制取出的类型。所以会有如下代码出现：</p>
+<blockquote>
+<p>但是这样对于未知的类型还是没法判断。而且太过于繁琐。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringArrayList</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> List list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">StringArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.list = <span class="keyword">new</span> <span class="title class_">StringList</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">get</span><span class="params">(<span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (String) list.get(index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        list.add(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="引入泛型后"><a href="#引入泛型后" class="headerlink" title="引入泛型后"></a>引入泛型后</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;2&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;3&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    System.out.println(list.get(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>源代码：<br><code>System.out.println(list.get(i));</code></p>
+</li>
+<li><p>class 字节码：<br><code>System.out.println((String)list.get(i));</code></p>
+</li>
+</ul>
+<p>可以知道编译器会自动转换。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li><p>减少 Java 5 以往代码的冗余，提高代码复用性</p>
+</li>
+<li><p>返回泛型类型时，会自动强转，强转后的变量必须要当前泛型类或者其父类（Object 之类）接收，省时省力</p>
+<blockquote>
+<p>Java 执行顺序：*.java 文件 （编译） -&gt; *.class 字节码 （运行）-&gt;  JVM</p>
+</blockquote>
+</li>
+<li><p>由 2 知：把运行时报错转成了编译就报错，编译没过自然没法运行，减少试错成本</p>
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -863,20 +829,22 @@
   <entry>
     <title>JavaSE 总结</title>
     <url>/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="面试总结："><a href="#面试总结：" class="headerlink" title="面试总结："></a>面试总结：</h1><h2 id="Java-内存分区"><a href="#Java-内存分区" class="headerlink" title="Java 内存分区"></a>Java 内存分区</h2><details><summary>图解（点击展开）</summary>
+    <content><![CDATA[<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><h3 id="Java-内存分区"><a href="#Java-内存分区" class="headerlink" title="Java 内存分区"></a>Java 内存分区</h3><details>
+<summary><strong>图解（点击展开）</strong></summary>
 
 <p><img  
                        lazyload
                        alt="image"
                        data-src="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/Snipaste_2022-03-20_19-44-14.jpg"
-                        alt="PANGU_DISABLE"
+                        alt="内存分区图"
                  ></p>
 </details>
 
 <ul>
-<li><a class="link"   href="https://www.bilibili.com/video/BV12t411u726" >java jvm 内存模型<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   href="https://www.bilibili.com/video/BV12t411u726" >Java JVM 内存模型<i class="fas fa-external-link-alt"></i></a></li>
 </ul>
-<h2 id="JVM-分区？"><a href="#JVM-分区？" class="headerlink" title="JVM 分区？"></a>JVM 分区？</h2><h3 id="根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要-JVM-的垃圾收集器清理。"><a href="#根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要-JVM-的垃圾收集器清理。" class="headerlink" title="根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。"></a>根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。</h3><ul>
+<h3 id="JVM-分区"><a href="#JVM-分区" class="headerlink" title="JVM 分区"></a>JVM 分区</h3><p>根据上一个问题得，堆区是用来存放创建对象的地方，堆区的清理需要 JVM 的垃圾收集器清理。</p>
+<ul>
 <li>GCRoot– 栈 &#x2F; 本地方法栈 &#x2F; 方法区域<ul>
 <li>被 GCRoot 直接或者间接引用的对象是不能被删除的</li>
 </ul>
@@ -897,7 +865,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="JVM-分区"><a href="#JVM-分区" class="headerlink" title="JVM 分区"></a>JVM 分区</h3><h4 id="young-区-–-也叫新生代"><a href="#young-区-–-也叫新生代" class="headerlink" title="young 区 – 也叫新生代"></a>young 区 – 也叫新生代</h4><ul>
+<h3 id="JVM-分区-1"><a href="#JVM-分区-1" class="headerlink" title="JVM 分区"></a>JVM 分区</h3><h4 id="young-区-–-也叫新生代"><a href="#young-区-–-也叫新生代" class="headerlink" title="young 区 – 也叫新生代"></a>young 区 – 也叫新生代</h4><ul>
 <li>内部又分为 Eden 区域，作为对象初始分配的区域还有两个 Survivor（也叫幸存区），有时候也叫 from、to 区域，被用来放置从 young GC（也叫 Minor GC ,Eden 区满了就会触发） 中保留下来的对象。young GC 采用的是复制算法。</li>
 </ul>
 <p><strong>每一次 young GC 后，对象的年龄就会加一，然后超过 6 次。就会到 old 区 , 然后大的对象 (Integer.maxValue) 也会直接存到 old 区，因为前面不容易啊！</strong></p>
@@ -909,17 +877,6 @@
 <h4 id="Permanent-区-–-永久代？"><a href="#Permanent-区-–-永久代？" class="headerlink" title="Permanent 区 – 永久代？"></a><del>Permanent 区 – 永久代？</del></h4><ul>
 <li>永久代在 JDK 7 中逐渐变化，到 JDK 8 之后完全消失，合并到了 Native 堆中</li>
 </ul>
-<details><summary>图解（点击展开）</summary>
-
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/06/20/JavaSE%E6%80%BB%E7%BB%93/Snipaste_2022-03-20_19-43-36.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-</details>
-
-
 <p><a class="link"   href="https://www.bilibili.com/video/BV1dt411u7wi/" >GC 过程<i class="fas fa-external-link-alt"></i></a></p>
 <h2 id="Java-中的-equals-与-hashCode-的区别与联系"><a href="#Java-中的-equals-与-hashCode-的区别与联系" class="headerlink" title="Java 中的 &#x3D;&#x3D;, equals 与 hashCode 的区别与联系"></a><a class="link"   href="https://blog.csdn.net/justloveyou_/article/details/52464440" >Java 中的 &#x3D;&#x3D;, equals 与 hashCode 的区别与联系<i class="fas fa-external-link-alt"></i></a></h2><hr>
 <h3 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h3><p>一般把常量写 前面 即 “常量”.equals() 防止空指针异常</p>
@@ -1053,7 +1010,7 @@
         // 所以指向同一内存地址 为 true.
         // 所以 integerTest2 超过了 127 的最大值。你自己可以进 valueOf 方法里看。
     &#125;
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### String</span><br><span class="line"></span><br><span class="line">重写了 equals 方法和 toString 方法</span><br><span class="line"></span><br><span class="line">sout 默认打印的是他的 toString 方法</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">String =&quot; &quot;  和 String str=new String(&quot; &quot;) 的区别 ==&gt;[StringTest.java](https://github.com/notfornothing/JavaSE/blob/main/JavaSE_Basic_Basic/src/cn/leijiba/day11/StringTest.java)</span><br><span class="line"></span><br><span class="line">&gt; [基于 == 判断的，因为 == 是比较的地址值.](https://blog.csdn.net/justloveyou_/article/details/52464440)</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    /** String=&quot;&quot;  和 String s=new String(&quot;string&quot;) 的区别*/</span><br><span class="line"></span><br><span class="line">    String str1 = &quot;abcd&quot;;</span><br><span class="line">    String str2 = &quot;abcd&quot;;</span><br><span class="line">    System.out.println(str1==str2);//true</span><br><span class="line">    // 因为 String str1 = &quot;abcd&quot;的实现过程：</span><br><span class="line">    // 首先栈区创建 str 引用，然后在 String 池（独立于栈和堆而存在，存储不可变量）</span><br><span class="line">    // 中寻找其指向的内容为&quot;abcd&quot;的对象，如果 String 池中没有，则创建一个，</span><br><span class="line">    // 然后 str 指向 String 池中的对象，如果有，则直接将 str1 指向&quot;abcd&quot;&quot;；</span><br><span class="line">   // 如果后来又定义了字符串变量 str2 = &quot;abcd&quot;,</span><br><span class="line">    // 则直接将 str2 引用指向 String 池中已经存在的“abcd”，不再重新创建对象；</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = &quot;abc&quot;;</span><br><span class="line">    String str3 = &quot;abc&quot;;</span><br><span class="line">    System.out.println(str1 == str3);//true</span><br><span class="line">    // 当 str1 进行了赋值（str1=“abc”），则 str1 将不再指向&quot;abcd&quot;，</span><br><span class="line">    // 而是重新指 String 池中的&quot;abc&quot;，此时如果定义 String str3 = &quot;abc&quot;,</span><br><span class="line">    // 进行 str1 == str3 操作，返回值为 true，因为他们的值一样，地址一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = str3 + &quot;d&quot;;</span><br><span class="line">    System.out.println(str2 == str1);//false</span><br><span class="line">    System.out.println(str2.equals(str1));//true</span><br><span class="line">    // 内容为&quot;abc&quot;的 str1 进行了字符串的 + 连接 str1 = str1+&quot;d&quot;；</span><br><span class="line">    // 此时 str1 指向的是在堆中新建的内容为&quot;abcd&quot;的对象，*************这是重点</span><br><span class="line">    // 即此时进行 str1==str2，返回值 false，因为地址不一样。但是值一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;=================&quot;);</span><br><span class="line">    System.out.println(&quot;以下是区别&quot;);</span><br><span class="line"></span><br><span class="line">    String str4 = new String(&quot;abcd&quot;);</span><br><span class="line">    String str5 = new String(&quot;abcd&quot;);</span><br><span class="line">    System.out.println(str4 == str5);//false</span><br><span class="line">    System.out.println(str4.equals(str5));//true</span><br><span class="line">    //String str4 = new String(&quot;abcd&quot;) 的实现过程：</span><br><span class="line">    // 直接在堆中创建对象。如果后来又有 String str5 = new String(&quot;abcd&quot;)，</span><br><span class="line">    // str5 不会指向之前的对象，而是重新创建一个对象并指向它，</span><br><span class="line">    // 所以如果此时进行 str3==str4 返回值是 false，因为两个对象的地址不一样，</span><br><span class="line">    // 如果是 str3.equals(str4)，返回 true, 因为内容相同。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### String</span><br><span class="line"></span><br><span class="line">重写了 equals 方法和 toString 方法</span><br><span class="line"></span><br><span class="line">sout 默认打印的是他的 toString 方法</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">String =&quot; &quot;  和 String str=new String(&quot; &quot;) 的区别 ==&gt;[StringTest.java](https://github.com/notfornothing/JavaSE/blob/main/JavaSE_Basic_Basic/src/cn/leijiba/day11/StringTest.java)</span><br><span class="line"></span><br><span class="line">&gt; [基于 == 判断的，因为 == 是比较的地址值.](https://blog.csdn.net/justloveyou_/article/details/52464440)</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    /** String=&quot;&quot;  和 String s=new String(&quot;string&quot;) 的区别*/</span><br><span class="line"></span><br><span class="line">    String str1 = &quot;abcd&quot;;</span><br><span class="line">    String str2 = &quot;abcd&quot;;</span><br><span class="line">    System.out.println(str1==str2);//true</span><br><span class="line">    // 因为 String str1 = &quot;abcd&quot;的实现过程：</span><br><span class="line">    // 首先栈区创建 str 引用，然后在 String 池（独立于栈和堆而存在，存储不可变量）</span><br><span class="line">    // 中寻找其指向的内容为&quot;abcd&quot;的对象，如果 String 池中没有，则创建一个，</span><br><span class="line">    // 然后 str 指向 String 池中的对象，如果有，则直接将 str1 指向&quot;abcd&quot;&quot;；</span><br><span class="line">   // 如果后来又定义了字符串变量 str2 = &quot;abcd&quot;,</span><br><span class="line">    // 则直接将 str2 引用指向 String 池中已经存在的&quot;abcd&quot;，不再重新创建对象；</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = &quot;abc&quot;;</span><br><span class="line">    String str3 = &quot;abc&quot;;</span><br><span class="line">    System.out.println(str1 == str3);//true</span><br><span class="line">    // 当 str1 进行了赋值（str1=&quot;abc&quot;），则 str1 将不再指向&quot;abcd&quot;，</span><br><span class="line">    // 而是重新指 String 池中的&quot;abc&quot;，此时如果定义 String str3 = &quot;abc&quot;,</span><br><span class="line">    // 进行 str1 == str3 操作，返回值为 true，因为他们的值一样，地址一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;============&quot;);</span><br><span class="line">    str1 = str3 + &quot;d&quot;;</span><br><span class="line">    System.out.println(str2 == str1);//false</span><br><span class="line">    System.out.println(str2.equals(str1));//true</span><br><span class="line">    // 内容为&quot;abc&quot;的 str1 进行了字符串的 + 连接 str1 = str1+&quot;d&quot;；</span><br><span class="line">    // 此时 str1 指向的是在堆中新建的内容为&quot;abcd&quot;的对象，*************这是重点</span><br><span class="line">    // 即此时进行 str1==str2，返回值 false，因为地址不一样。但是值一样</span><br><span class="line"></span><br><span class="line">    System.out.println(&quot;=================&quot;);</span><br><span class="line">    System.out.println(&quot;以下是区别&quot;);</span><br><span class="line"></span><br><span class="line">    String str4 = new String(&quot;abcd&quot;);</span><br><span class="line">    String str5 = new String(&quot;abcd&quot;);</span><br><span class="line">    System.out.println(str4 == str5);//false</span><br><span class="line">    System.out.println(str4.equals(str5));//true</span><br><span class="line">    //String str4 = new String(&quot;abcd&quot;) 的实现过程：</span><br><span class="line">    // 直接在堆中创建对象。如果后来又有 String str5 = new String(&quot;abcd&quot;)，</span><br><span class="line">    // str5 不会指向之前的对象，而是重新创建一个对象并指向它，</span><br><span class="line">    // 所以如果此时进行 str3==str4 返回值是 false，因为两个对象的地址不一样，</span><br><span class="line">    // 如果是 str3.equals(str4)，返回 true, 因为内容相同。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </code></pre>
 </li>
 </ul>
@@ -1109,22 +1066,32 @@
 <p>主要用到的是 Objects 类的 Objects.equals</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object a, Object b)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="literal">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 id="Spring-AOP-几种通知？"><a href="#Spring-AOP-几种通知？" class="headerlink" title="Spring AOP 几种通知？"></a>Spring AOP 几种通知？</h2><h2 id="MySQL-四种特性？"><a href="#MySQL-四种特性？" class="headerlink" title="MySQL 四种特性？"></a>MySQL 四种特性？</h2><h2 id="MySQL-赃读，幻读那些"><a href="#MySQL-赃读，幻读那些" class="headerlink" title="MySQL 赃读，幻读那些"></a>MySQL 赃读，幻读那些</h2><h2 id="Spring-的注解有哪些（注意不是-SpringBoot-的）"><a href="#Spring-的注解有哪些（注意不是-SpringBoot-的）" class="headerlink" title="Spring 的注解有哪些（注意不是 SpringBoot 的）"></a>Spring 的注解有哪些（注意不是 SpringBoot 的）</h2><h2 id="业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？"><a href="#业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？" class="headerlink" title="业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？"></a>业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？</h2><h2 id="String-StringBuffer-StringBuilder-区别"><a href="#String-StringBuffer-StringBuilder-区别" class="headerlink" title="String , StringBuffer , StringBuilder 区别"></a>String , StringBuffer , StringBuilder 区别</h2><h2 id="SpringMVC-流程"><a href="#SpringMVC-流程" class="headerlink" title="SpringMVC 流程"></a>SpringMVC 流程</h2><h2 id="多线程状态"><a href="#多线程状态" class="headerlink" title="多线程状态"></a>多线程状态</h2><details><summary>图解（点击展开）</summary>
+<h2 id="Spring-AOP-几种通知"><a href="#Spring-AOP-几种通知" class="headerlink" title="Spring AOP 几种通知"></a>Spring AOP 几种通知</h2><ol>
+<li><strong>前置通知（Before）</strong>：在目标方法执行之前执行。</li>
+<li><strong>后置通知（After）</strong>：在目标方法执行之后执行，无论是否发生异常。</li>
+<li><strong>返回通知（AfterReturning）</strong>：在目标方法成功执行之后执行。</li>
+<li><strong>异常通知（AfterThrowing）</strong>：在目标方法抛出异常后执行。</li>
+<li><strong>环绕通知（Around）</strong>：可以在目标方法执行前后自定义行为。</li>
+</ol>
+<h2 id="MySQL-四种特性"><a href="#MySQL-四种特性" class="headerlink" title="MySQL 四种特性"></a>MySQL 四种特性</h2><ol>
+<li><strong>原子性（Atomicity）</strong>：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</li>
+<li><strong>一致性（Consistency）</strong>：事务必须使数据库从一个一致性状态变到另一个一致性状态。</li>
+<li><strong>隔离性（Isolation）</strong>：一个事务所做的修改在最终提交以前，对其他事务是不可见的。</li>
+<li><strong>持久性（Durability）</strong>：一旦事务提交，则其所做的修改会永久保存到数据库中。</li>
+</ol>
+<h2 id="Spring-的注解"><a href="#Spring-的注解" class="headerlink" title="Spring 的注解"></a>Spring 的注解</h2><ol>
+<li><strong>@Component</strong>：通用的 Spring 组件。</li>
+<li><strong>@Repository</strong>：用于 DAO 层，标识数据访问组件。</li>
+<li><strong>@Service</strong>：用于业务逻辑层。</li>
+<li><strong>@Controller</strong>：用于 Spring MVC 控制器。</li>
+<li><strong>@Autowired</strong>：自动注入依赖。</li>
+<li><strong>@Qualifier</strong>：与 @Autowired 一起使用，用于指定注入的 Bean。</li>
+<li><strong>@Value</strong>：注入属性值。</li>
+<li><strong>@Configuration</strong>：定义配置类。</li>
+<li><strong>@Bean</strong>：定义 Bean。</li>
+<li><strong>@Scope</strong>：定义 Bean 的作用域。</li>
+</ol>
+<h2 id="MySQL-赃读，幻读那些"><a href="#MySQL-赃读，幻读那些" class="headerlink" title="MySQL 赃读，幻读那些"></a>MySQL 赃读，幻读那些</h2><h2 id="Spring-的注解有哪些（注意不是-SpringBoot-的）"><a href="#Spring-的注解有哪些（注意不是-SpringBoot-的）" class="headerlink" title="Spring 的注解有哪些（注意不是 SpringBoot 的）"></a>Spring 的注解有哪些（注意不是 SpringBoot 的）</h2><h2 id="业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？"><a href="#业务：SpringBoot-中返回一个-JSON-和重定向应该怎么使用？" class="headerlink" title="业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？"></a>业务：SpringBoot 中返回一个 JSON, 和重定向应该怎么使用？</h2><h2 id="String-StringBuffer-StringBuilder-区别"><a href="#String-StringBuffer-StringBuilder-区别" class="headerlink" title="String , StringBuffer , StringBuilder 区别"></a>String , StringBuffer , StringBuilder 区别</h2><h2 id="SpringMVC-流程"><a href="#SpringMVC-流程" class="headerlink" title="SpringMVC 流程"></a>SpringMVC 流程</h2><h2 id="多线程状态"><a href="#多线程状态" class="headerlink" title="多线程状态"></a>多线程状态</h2><details><summary>图解（点击展开）</summary>
 
 <p><img  
                        lazyload
@@ -1159,75 +1126,112 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL-外连接的几种情况</title>
+    <title>Map 中引用遇到的问题</title>
+    <url>/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="Map-中引用遇到的问题"><a href="#Map-中引用遇到的问题" class="headerlink" title="Map 中引用遇到的问题"></a>Map 中引用遇到的问题</h1><h2 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、有 List&lt;String&gt; nameList 值为『张三，李四，王五』</span><br><span class="line">2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Object&gt; 中</span><br><span class="line">3、并把 map 放到 List&lt;Map&lt;String, Object&gt;&gt; 里面</span><br></pre></td></tr></table></figure>
+<p>等于说是：</p>
+<p>『张三，李四，王五』&#x3D;&#x3D;&gt; 『{name&#x3D; 张三}, {name&#x3D; 李四}, {name&#x3D; 王五}』</p>
+<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ul>
+<li><p>BUG : 一直都是最后一个人的姓名</p>
+</li>
+<li><p>BUG 代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[PANGU_DISABLE] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// BUG 一直都是最后一个人的姓名</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
+<li>由输出可见：存进 list 的值都是最后一个的 name.</li>
+<li>因为 list 存的都是这个 map 的同一个引用。类似于 C 语言的指针。也就是<strong>list  存的都是同一个地址</strong>，这个地址所指向的东西改变，其他存这个地址的里面的值也会改变。所以该 list 下面的值都会变，也就是 name 都是一样的。</li>
+<li>然后 map 的 put 有去重的效果，以最后一个 key 所 put 进去的值为准。所以存的是最后一个 name.</li>
+</ol>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
+<li>由<a href="#%E5%8E%9F%E5%9B%A0">原因</a>的第 2 点，我们只需不让 list 存同一个地址。即让 map 重新指向新的地址。即重新 new 一个 HashMap.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把 map 放到循环里面，避免重复引用</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
+                       
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL 外连接的几种情况</title>
     <url>/2021/11/28/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</url>
-    <content><![CDATA[<p><img  
+    <content><![CDATA[<h1 id="MySQL-外连接的几种情况"><a href="#MySQL-外连接的几种情况" class="headerlink" title="MySQL 外连接的几种情况"></a>MySQL 外连接的几种情况</h1><p><img  
                        lazyload
                        alt="image"
                        data-src="/2021/11/28/MySQL-%E5%A4%96%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/1554979255233.png"
-                        alt="1554979255233.png"
+                        alt="连接示意图"
                  ></p>
-<hr>
-<p>前提： </p>
-<ul>
-<li><p>因为有可能有的员工没有部门（他是老总）</p>
-</li>
-<li><p>有的部门没有员工（部门刚成立的情况）</p>
-</li>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ul>
+<li>因为有可能有的员工没有部门（他是老总）</li>
+<li>有的部门没有员工（部门刚成立的情况）</li>
 </ul>
-<h1 id="查询有部门的员工-内连接"><a href="#查询有部门的员工-内连接" class="headerlink" title="查询有部门的员工(内连接)"></a>查询有部门的员工(内连接)</h1><p>你只要查询有部门的员工，潜意识就是没有部门的不要查<br>所以就是员工和部门表的交集</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- where 子句方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e, departments d</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="operator">=</span> d.id; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 内连接方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.id;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="查询所有员工的部门-左外连接"><a href="#查询所有员工的部门-左外连接" class="headerlink" title="查询所有员工的部门(左外连接)"></a>查询所有员工的部门(左外连接)</h1><p>你要查询 <strong><code>所有</code></strong> 员工，然后把他部门信息也带上<br>考虑到这种情况，即需要员工表设为主表，涉及到外连接；</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id </span><br></pre></td></tr></table></figure>
+<h2 id="查询有部门的员工-内连接"><a href="#查询有部门的员工-内连接" class="headerlink" title="查询有部门的员工(内连接)"></a>查询有部门的员工(内连接)</h2><p>你只要查询有部门的员工，潜意识就是没有部门的不要查，所以就是员工和部门表的交集。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- where 子句方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e, departments d</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="operator">=</span> d.id; </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 内连接方式</span></span><br><span class="line"><span class="keyword">SELECT</span> e.name, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.id;</span><br></pre></td></tr></table></figure>
 
-<h1 id="查询所有员工的部门-只查询有部门的员工-左外连接"><a href="#查询所有员工的部门-只查询有部门的员工-左外连接" class="headerlink" title="查询所有员工的部门,只查询有部门的员工(左外连接)"></a>查询所有员工的部门,只查询有部门的员工(左外连接)</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="查询所有员工的部门-左外连接"><a href="#查询所有员工的部门-左外连接" class="headerlink" title="查询所有员工的部门(左外连接)"></a>查询所有员工的部门(左外连接)</h2><p>你要查询 <strong>所有</strong> 员工，然后把他部门信息也带上。考虑到这种情况，即需要员工表设为主表，涉及到外连接：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id;</span><br></pre></td></tr></table></figure>
 
-<h1 id="查询所有部门下的员工信息-右外连接"><a href="#查询所有部门下的员工信息-右外连接" class="headerlink" title="查询所有部门下的员工信息(右外连接)"></a>查询所有部门下的员工信息(右外连接)</h1><p>你要查询 <strong><code>所有</code></strong> 部门，然后把他员工信息列出来，没有员工也得给我列出来；</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br></pre></td></tr></table></figure>
+<h2 id="查询所有员工的部门-只查询有部门的员工-左外连接"><a href="#查询所有员工的部门-只查询有部门的员工-左外连接" class="headerlink" title="查询所有员工的部门,只查询有部门的员工(左外连接)"></a>查询所有员工的部门,只查询有部门的员工(左外连接)</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="keyword">IS</span> <span class="keyword">NOT NULL</span>;</span><br></pre></td></tr></table></figure>
 
-<h1 id="查询所有部门下的有部门的员工信息，-右外连接"><a href="#查询所有部门下的有部门的员工信息，-右外连接" class="headerlink" title="查询所有部门下的有部门的员工信息，(右外连接)"></a>查询所有部门下的有部门的员工信息，(右外连接)</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">not null</span></span><br></pre></td></tr></table></figure>
+<h2 id="查询所有部门下的员工信息-右外连接"><a href="#查询所有部门下的员工信息-右外连接" class="headerlink" title="查询所有部门下的员工信息(右外连接)"></a>查询所有部门下的员工信息(右外连接)</h2><p>你要查询 <strong>所有</strong> 部门，然后把他员工信息列出来，没有员工也得给我列出来：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id;</span><br></pre></td></tr></table></figure>
 
-<h1 id="查询没有员工的部门，还有没有部门的员工-全外连接"><a href="#查询没有员工的部门，还有没有部门的员工-全外连接" class="headerlink" title="查询没有员工的部门，还有没有部门的员工(全外连接)"></a>查询没有员工的部门，还有没有部门的员工(全外连接)</h1><blockquote>
-<p>MySQL 不支持全外链接 可以用 <code>Union all</code>实现</p>
+<h2 id="查询所有部门下的有部门的员工信息-右外连接"><a href="#查询所有部门下的有部门的员工信息-右外连接" class="headerlink" title="查询所有部门下的有部门的员工信息(右外连接)"></a>查询所有部门下的有部门的员工信息(右外连接)</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="keyword">IS</span> <span class="keyword">NOT NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询没有员工的部门，还有没有部门的员工-全外连接"><a href="#查询没有员工的部门，还有没有部门的员工-全外连接" class="headerlink" title="查询没有员工的部门，还有没有部门的员工(全外连接)"></a>查询没有员工的部门，还有没有部门的员工(全外连接)</h2><blockquote>
+<p>MySQL 不支持全外连接，可以用 <code>UNION ALL</code> 实现</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 查询没有部门的员工</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询没有员工的部门</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
 
-<h1 id="查询所有员工，还有所有部门-全外连接"><a href="#查询所有员工，还有所有部门-全外连接" class="headerlink" title="查询所有员工，还有所有部门(全外连接)"></a>查询所有员工，还有所有部门(全外连接)</h1><p>补充：没有部门的员工，没有员工的部门都要带出来</p>
+<h2 id="查询所有员工，还有所有部门-全外连接"><a href="#查询所有员工，还有所有部门-全外连接" class="headerlink" title="查询所有员工，还有所有部门(全外连接)"></a>查询所有员工，还有所有部门(全外连接)</h2><p>补充：没有部门的员工，没有员工的部门都要带出来</p>
 <blockquote>
-<p>MySQL 不支持全外链接 可以用 <code>Union all</code>实现</p>
+<p>MySQL 不支持全外连接，可以用 <code>UNION ALL</code> 实现</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 部门id 为空的那个老总</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">left</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">where</span> e.department_id <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span>  <span class="keyword">all</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询所有部门下的员工信息 </span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line">         <span class="keyword">right</span> <span class="keyword">join</span> departments d <span class="keyword">on</span> e.department_id <span class="operator">=</span> d.department_id</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 部门id为空的那个老总</span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id</span><br><span class="line"><span class="keyword">WHERE</span> e.department_id <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询所有部门下的员工信息 </span></span><br><span class="line"><span class="keyword">SELECT</span> e.last_name, e.department_id, d.department_name</span><br><span class="line"><span class="keyword">FROM</span> employees e</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> e.department_id <span class="operator">=</span> d.department_id;</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
     <title>MySQL 查询优化</title>
     <url>/2025/02/25/MySQL-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>考虑到面试可能会问到 SQL 优化相关的问题，提前总结一下：</p>
-<h1 id="能写在where限定的条件就不要写在having中"><a href="#能写在where限定的条件就不要写在having中" class="headerlink" title="能写在where限定的条件就不要写在having中"></a>能写在where限定的条件就不要写在having中</h1><p>查询 部门为产品部,宣传部的平均工资</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 反例</span></span><br><span class="line"><span class="keyword">select</span> dept_name,<span class="built_in">avg</span>(salary)</span><br><span class="line"><span class="keyword">from</span> dept t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_name</span><br><span class="line"><span class="keyword">having</span> t.dept_name <span class="keyword">in</span> (<span class="string">&#x27;产品部&#x27;</span>,<span class="string">&#x27;宣传部&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正例</span></span><br><span class="line"><span class="keyword">select</span> dept_name,<span class="built_in">avg</span>(salary)</span><br><span class="line"><span class="keyword">from</span> dept t</span><br><span class="line"><span class="keyword">where</span> t.dept_name <span class="keyword">in</span> (<span class="string">&#x27;产品部&#x27;</span>,<span class="string">&#x27;宣传部&#x27;</span>)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept_name;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="MySQL-查询优化"><a href="#MySQL-查询优化" class="headerlink" title="MySQL 查询优化"></a>MySQL 查询优化</h1><p>考虑到面试可能会问到 SQL 优化相关的问题，提前总结一下：</p>
+<h2 id="能写在-WHERE-限定的条件就不要写在-HAVING-中"><a href="#能写在-WHERE-限定的条件就不要写在-HAVING-中" class="headerlink" title="能写在 WHERE 限定的条件就不要写在 HAVING 中"></a>能写在 WHERE 限定的条件就不要写在 HAVING 中</h2><p>查询部门为产品部、宣传部的平均工资：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 反例</span></span><br><span class="line"><span class="keyword">SELECT</span> dept_name, <span class="built_in">AVG</span>(salary)</span><br><span class="line"><span class="keyword">FROM</span> dept t</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_name</span><br><span class="line"><span class="keyword">HAVING</span> t.dept_name <span class="keyword">IN</span> (<span class="string">&#x27;产品部&#x27;</span>, <span class="string">&#x27;宣传部&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正例</span></span><br><span class="line"><span class="keyword">SELECT</span> dept_name, <span class="built_in">AVG</span>(salary)</span><br><span class="line"><span class="keyword">FROM</span> dept t</span><br><span class="line"><span class="keyword">WHERE</span> t.dept_name <span class="keyword">IN</span> (<span class="string">&#x27;产品部&#x27;</span>, <span class="string">&#x27;宣传部&#x27;</span>)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> dept_name;</span><br></pre></td></tr></table></figure>
 
-<p>因为 sql 的执行顺序是</p>
+<p>因为 SQL 的执行顺序是：</p>
 <p>FROM -&gt; WHERE -&gt; GROUP BY -&gt; HAVING -&gt; SELECT 的字段 -&gt; DISTINCT -&gt; ORDER BY -&gt; LIMIT</p>
-<p>所以 avg() 会把其他部门的薪水也进行分组计算，放到where语句中可减少avg的消耗。</p>
-<h1 id="避免select-应该只查询所需字段"><a href="#避免select-应该只查询所需字段" class="headerlink" title="避免select *,应该只查询所需字段"></a>避免select *,应该只查询所需字段</h1><h1 id="大表数据：垂直分表"><a href="#大表数据：垂直分表" class="headerlink" title="大表数据：垂直分表"></a>大表数据：垂直分表</h1><p>例如 一个接口是查询各个汽车，点击查看详细才会去跳转到这辆汽车的各种排气孔大小，轮胎尺寸，后备箱空间等特别详细的参数。<br>对于这种特别详细的参数不属于高频查询的数据，可以采用多个表，用id关联。</p>
-<h1 id="大表数据：水平分表"><a href="#大表数据：水平分表" class="headerlink" title="大表数据：水平分表"></a>大表数据：水平分表</h1><p>Union all<br>例如日志表，可以每个月一个日志。</p>
-<h1 id="like-查询尽量加上左边确定的值-如-like-‘nameSpac-’"><a href="#like-查询尽量加上左边确定的值-如-like-‘nameSpac-’" class="headerlink" title="like 查询尽量加上左边确定的值 如 like ‘nameSpac%’"></a>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</h1><h1 id="导致索引失效"><a href="#导致索引失效" class="headerlink" title="导致索引失效"></a>导致索引失效</h1><ul>
-<li>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</li>
-<li>like ‘%something’ 不会走索引</li>
+<p>所以 AVG() 会把其他部门的薪水也进行分组计算，放到 WHERE 语句中可减少 AVG 的消耗。</p>
+<h2 id="避免-SELECT-，应该只查询所需字段"><a href="#避免-SELECT-，应该只查询所需字段" class="headerlink" title="避免 SELECT *，应该只查询所需字段"></a>避免 SELECT *，应该只查询所需字段</h2><h2 id="大表数据：垂直分表"><a href="#大表数据：垂直分表" class="headerlink" title="大表数据：垂直分表"></a>大表数据：垂直分表</h2><p>例如一个接口是查询各个汽车，点击查看详细才会去跳转到这辆汽车的各种排气孔大小，轮胎尺寸，后备箱空间等特别详细的参数。<br>对于这种特别详细的参数不属于高频查询的数据，可以采用多个表，用 ID 关联。</p>
+<h2 id="大表数据：水平分表"><a href="#大表数据：水平分表" class="headerlink" title="大表数据：水平分表"></a>大表数据：水平分表</h2><p>UNION ALL 例如日志表，可以每个月一个日志。</p>
+<h2 id="LIKE-查询尽量加上左边确定的值"><a href="#LIKE-查询尽量加上左边确定的值" class="headerlink" title="LIKE 查询尽量加上左边确定的值"></a>LIKE 查询尽量加上左边确定的值</h2><p>如 <code>LIKE &#39;nameSpac%&#39;</code></p>
+<h2 id="导致索引失效的情况"><a href="#导致索引失效的情况" class="headerlink" title="导致索引失效的情况"></a>导致索引失效的情况</h2><ul>
+<li>避免使用 IS NOT NULL、OR、NOT IN、!&#x3D; 这样不会走索引</li>
+<li>LIKE ‘%something’ 不会走索引</li>
 <li>隐式类型转换</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这里 age 为整数类型，但查询条件是字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> age <span class="operator">=</span> <span class="string">&#x27;30&#x27;</span>;  </span><br></pre></td></tr></table></figure>
-<ul>
-<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效。</li>
-</ul>
-<h1 id="select-很慢可以用覆盖索引"><a href="#select-很慢可以用覆盖索引" class="headerlink" title="select 很慢可以用覆盖索引"></a>select 很慢可以用覆盖索引</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name_city <span class="keyword">ON</span> users (name, city);</span><br></pre></td></tr></table></figure>
 
-<h1 id="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"><a href="#表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查" class="headerlink" title="表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查"></a>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</h1><h1 id="对于查询慢的sql，经常要用到的条件（select，where-order-by-group-by-distinct-…-添加索引"><a href="#对于查询慢的sql，经常要用到的条件（select，where-order-by-group-by-distinct-…-添加索引" class="headerlink" title="对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引"></a>对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引</h1><h1 id="varchar-存储浪费空间，特殊定长字段用char"><a href="#varchar-存储浪费空间，特殊定长字段用char" class="headerlink" title="varchar 存储浪费空间，特殊定长字段用char"></a>varchar 存储浪费空间，特殊定长字段用char</h1><p>添加索引要注意：</p>
 <ul>
+<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效</li>
+</ul>
+<h2 id="SELECT-很慢可以用覆盖索引"><a href="#SELECT-很慢可以用覆盖索引" class="headerlink" title="SELECT 很慢可以用覆盖索引"></a>SELECT 很慢可以用覆盖索引</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> INDEX idx_name_city <span class="keyword">ON</span> users (name, city);</span><br></pre></td></tr></table></figure>
+
+<h2 id="表太多大于3个最好不要连表"><a href="#表太多大于3个最好不要连表" class="headerlink" title="表太多大于3个最好不要连表"></a>表太多大于3个最好不要连表</h2><p>把数据到应用层处理，挑出来要的数据再放 SQL 去查</p>
+<h2 id="对于查询慢的-SQL，添加合适的索引"><a href="#对于查询慢的-SQL，添加合适的索引" class="headerlink" title="对于查询慢的 SQL，添加合适的索引"></a>对于查询慢的 SQL，添加合适的索引</h2><p>经常要用到的条件（SELECT，WHERE，ORDER BY，GROUP BY，DISTINCT…）添加索引</p>
+<h2 id="VARCHAR-存储浪费空间，特殊定长字段用-CHAR"><a href="#VARCHAR-存储浪费空间，特殊定长字段用-CHAR" class="headerlink" title="VARCHAR 存储浪费空间，特殊定长字段用 CHAR"></a>VARCHAR 存储浪费空间，特殊定长字段用 CHAR</h2><h2 id="添加索引要注意"><a href="#添加索引要注意" class="headerlink" title="添加索引要注意"></a>添加索引要注意</h2><ul>
 <li>一个表中最好不要超过6个索引</li>
 <li>尽量是区分度高的数据作为索引</li>
-<li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
-<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
+<li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 AND height &lt; 183</li>
+<li>当字段类型为字符串(VARCHAR, TEXT等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）</li>
 </ul>
 ]]></content>
   </entry>
@@ -8881,24 +8885,24 @@
 ]]></content>
   </entry>
   <entry>
-    <title>nginx 代理妙用</title>
+    <title>Nginx 代理妙用</title>
     <url>/2023/06/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
-    <content><![CDATA[<p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
-<p>于是有了这篇文章：</p>
+    <content><![CDATA[<h1 id="Nginx-代理妙用"><a href="#Nginx-代理妙用" class="headerlink" title="Nginx 代理妙用"></a>Nginx 代理妙用</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
+<p>于是有了这篇文章。</p>
 ]]></content>
   </entry>
   <entry>
-    <title>ssh 能秘钥登录，但是 git 却不能</title>
+    <title>SSH 能秘钥登录，但是 Git 却不能</title>
     <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
-    <content><![CDATA[<p>ssh 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h1 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h1><ol>
+    <content><![CDATA[<h1 id="SSH-能秘钥登录，但是-Git-却不能"><a href="#SSH-能秘钥登录，但是-Git-却不能" class="headerlink" title="SSH 能秘钥登录，但是 Git 却不能"></a>SSH 能秘钥登录，但是 Git 却不能</h1><p>SSH 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h2 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h2><ol>
 <li>重新配置公钥私钥</li>
 <li>ssh-agent 管理</li>
 </ol>
 <p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
 <p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
 <p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight bat"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>个人简历</title>
@@ -8914,7 +8918,7 @@
 <img   align="right" width="180" height="225"  
                        lazyload
                        alt="image"
-                       data-src="https://i.postimg.cc/jdXpMshG/20250101.jpg"
+                       data-src="https://i.postimg.cc/dtn89yjN/20250101.jpg"
                          class="medium-zoom-image" title="" style=""
                  >
     <h2 class="do_not_show_underline">联系方式</h2>
@@ -8987,34 +8991,21 @@
 ]]></content>
   </entry>
   <entry>
-    <title>五笔</title>
+    <title>五笔输入法学习</title>
     <url>/2021/09/10/%E4%BA%94%E7%AC%94/</url>
-    <content><![CDATA[<h1 id="五笔"><a href="#五笔" class="headerlink" title="五笔"></a>五笔</h1><p><img  
+    <content><![CDATA[<h1 id="五笔输入法学习"><a href="#五笔输入法学习" class="headerlink" title="五笔输入法学习"></a>五笔输入法学习</h1><p><img  
                        lazyload
                        alt="image"
                        data-src="/2021/09/10/%E4%BA%94%E7%AC%94/Snipaste_2021-09-10_09-43-31.jpg"
-                        alt="PANGU_DISABLE"
+                        alt="五笔键位图"
                  ></p>
-<h1 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h1><h2 id="字根"><a href="#字根" class="headerlink" title="字根"></a>字根</h2><ul>
-<li>横区 </li>
-<li><ul>
-<li>11(G) 王旁青头戋（兼）五一，</li>
-</ul>
-</li>
-<li><ul>
+<h2 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h2><h3 id="字根"><a href="#字根" class="headerlink" title="字根"></a>字根</h3><ul>
+<li>横区 <ul>
+<li>11(G) 王旁青头戋（兼）五一</li>
 <li>12(F) 土士二干十寸雨。二一还有革字底</li>
-</ul>
-</li>
-<li><ul>
-<li>13(D) 大犬三羊古石厂，</li>
-</ul>
-</li>
-<li><ul>
-<li>14(S) 木丁西，</li>
-</ul>
-</li>
-<li><ul>
-<li>15(A) 工戈草头右框七。（“右框”即“匚”）o</li>
+<li>13(D) 大犬三羊古石厂</li>
+<li>14(S) 木丁西</li>
+<li>15(A) 工戈草头右框七（”右框”即”匚”）</li>
 </ul>
 </li>
 </ul>
@@ -9135,22 +9126,21 @@
   <entry>
     <title>害怕用`rm -rf`? 不如试试这个</title>
     <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
-    <content><![CDATA[<p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不熟悉</p>
-<h1 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h1><h2 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h2><ul>
+    <content><![CDATA[<h1 id="害怕用-rm-rf？不如试试这个"><a href="#害怕用-rm-rf？不如试试这个" class="headerlink" title="害怕用 rm -rf？不如试试这个"></a>害怕用 rm -rf？不如试试这个</h1><p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不陌生。</p>
+<h2 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h2><h3 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h3><ul>
 <li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
 </ul>
-<p>这种方式治标不治本，因为主动权还是在我手中</p>
-<h2 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h2><ul>
-<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行，</li>
+<p>这种方式治标不治本，因为主动权还是在我手中。</p>
+<h3 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h3><ul>
+<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行</li>
 </ul>
-<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式</p>
-<h2 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h2><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
+<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式。</p>
+<h3 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h3><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
 <p><a class="link"   href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">trash-put           把文件或目录移动到回收站</span><br><span class="line">trash-empty         清空回收站</span><br><span class="line">trash-list          列出回收站文件</span><br><span class="line">trash-restore       恢复回收站文件</span><br><span class="line">trash-rm            删除回收站文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">trash-put           <span class="comment"># 把文件或目录移动到回收站</span></span><br><span class="line">trash-empty         <span class="comment"># 清空回收站</span></span><br><span class="line">trash-list          <span class="comment"># 列出回收站文件</span></span><br><span class="line">trash-restore       <span class="comment"># 恢复回收站文件</span></span><br><span class="line">trash-rm            <span class="comment"># 删除回收站文件</span></span><br></pre></td></tr></table></figure>
 
-<p>在你的shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕正常rm就行，</p>
-<p>使用方法：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/opt/test # touch testFile                                                                         root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # rm testFile                                                                            root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-list                                                                             root@Sparrow</span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # tree ~/.local/share/Trash                                                              root@Sparrow</span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-restore                                                                          root@Sparrow</span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # trash-list                                                                             root@Sparrow</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # tree ~/.local/share/Trash                                                              root@Sparrow</span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test # ll                                                                                     root@Sparrow</span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test #                                                                                        root@Sparrow</span><br></pre></td></tr></table></figure>]]></content>
+<p>在你的 shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕，正常 rm 就行。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/test <span class="comment"># touch testFile                                                                         root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># rm testFile                                                                            root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-restore                                                                          root@Sparrow</span></span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment">#                                                                                        root@Sparrow</span></span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>摸鱼神器 scrcpy</title>
@@ -9183,16 +9173,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>通过反射获取泛型</title>
-    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
-<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
-<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
-<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
-<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
-<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>连表查询时未指定表别名导致的查询错误</title>
     <url>/2024/03/24/%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2%E6%97%B6%E6%9C%AA%E6%8C%87%E5%AE%9A%E8%A1%A8%E5%88%AB%E5%90%8D%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/</url>
     <content><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在给数据库新增字段后，自己的的功能测试没问题，拍拍屁股走人了。然后就这么上了生产。<br>然后用户发现其他功能模块出问题，去看日志是sql报错：<code>Column &#39;name&#39; in field list is ambiguous。</code>。<br>奇怪：我的功能没问题，并且我都没改代码怎么其他地方会报这个错误呢？</p>
@@ -9216,40 +9196,13 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Map 中引用遇到的问题</title>
-    <url>/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="Map-中引用遇到的问题"><a href="#Map-中引用遇到的问题" class="headerlink" title="Map 中引用遇到的问题"></a>Map 中引用遇到的问题</h1><h2 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、有 List&lt;String&gt; nameList 值为『张三，李四，王五』</span><br><span class="line">2、把 nameList 的每个值都存到 key 为&quot;name&quot; 的 map&lt;String,Object&gt; 中</span><br><span class="line">3、并把 map 放到 List&lt;Map&lt;String, Object&gt;&gt; 里面</span><br></pre></td></tr></table></figure>
-<p>等于说是：</p>
-<p>『张三，李四，王五』&#x3D;&#x3D;&gt; 『{name&#x3D; 张三}, {name&#x3D; 李四}, {name&#x3D; 王五}』</p>
-<h2 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h2><ul>
-<li><p>BUG : 一直都是最后一个人的姓名</p>
-</li>
-<li><p>BUG 代码：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[PANGU_DISABLE] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// BUG 一直都是最后一个人的姓名</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-27-47.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ol>
-<li>由输出可见：存进 list 的值都是最后一个的 name.</li>
-<li>因为 list 存的都是这个 map 的同一个引用。类似于 C 语言的指针。也就是<strong>list  存的都是同一个地址</strong>，这个地址所指向的东西改变，其他存这个地址的里面的值也会改变。所以该 list 下面的值都会变，也就是 name 都是一样的。</li>
-<li>然后 map 的 put 有去重的效果，以最后一个 key 所 put 进去的值为准。所以存的是最后一个 name.</li>
-</ol>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ul>
-<li>由<a href="#%E5%8E%9F%E5%9B%A0">原因</a>的第 2 点，我们只需不让 list 存同一个地址。即让 map 重新指向新的地址。即重新 new 一个 HashMap.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    List&lt;String&gt; nameList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>));</span><br><span class="line">    System.out.println(nameList);</span><br><span class="line">    System.out.println(<span class="string">&quot;================================&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把 map 放到循环里面，避免重复引用</span></span><br><span class="line">    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String name : nameList) &#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">&quot;name&quot;</span>, name);</span><br><span class="line">        list.add(map);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/06/08/Map-%E4%B8%AD%E5%BC%95%E7%94%A8%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/Snipaste_2021-12-08_19-58-14.jpg"
-                       
-                 ></p>
-]]></content>
+    <title>通过反射获取泛型</title>
+    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
+<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
+<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
+<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
+<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
+<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
 </search>

@@ -253,12 +253,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>3.4k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>3.2k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>12 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
             </span>
         
         
@@ -284,320 +284,283 @@
 <p>上次面试还是两年前刚来深圳的时候。那时候一天能跑 4 趟面试，住在青年旅社，我想早点在深圳找工作然后租房子稳定下来，我记得还拿了挺多 offer ，真的挺佩服当时的自己的。</p>
 <p>时隔两年，公司裁员了，现在要重新找工作，感慨万分，写下这篇文章。</p>
 </blockquote>
-<hr>
-<h1 id="面试前"><a href="#面试前" class="headerlink" title="面试前"></a>面试前</h1><p>面试地点是深圳第一高楼：平安金融中心</p>
+<h2 id="面试前"><a href="#面试前" class="headerlink" title="面试前"></a>面试前</h2><p>面试地点是深圳第一高楼：平安金融中心</p>
 <p>从购物公园地铁站一出来就是高楼大厦，正好是午休时间的，楼下的咖啡亭子都坐满了人，路过的行人都很有班味儿，端着咖啡，穿着黑色行政装。我感觉自己像条土狗。</p>
 <details>
-<summary><strong>随手拍的平安大楼图片（点击展开）</strong></summary>
+<summary><strong>随手拍的平安大楼图片</strong></summary>
 
 <p><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/2B02D818819DACDF4DBDD6497D419B8E.jpg"
-                       
+                        alt="平安大楼"
                  ></p>
 </details>
 
 <details>
-
-<summary><strong>面试走廊（点击展开）</strong></summary>
+<summary><strong>面试走廊</strong></summary>
 
 <p><img  
                        lazyload
                        alt="image"
                        data-src="/2025/02/27/2025-02-27-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/F2E812A2B6E8CED7CE1ED84B8076E2FE.jpg"
-                       
+                        alt="面试走廊"
                  ></p>
 </details>
 
-<h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><p>这次面试20多分钟就结束了，感觉上是没戏了。因为他问了很多八股文，我几乎没准备。</p>
-<hr>
+<h2 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h2><p>这次面试20多分钟就结束了，感觉上是没戏了。因为他问了很多八股文，我几乎没准备。</p>
+<p>面试问题概览：</p>
 <ul>
 <li>介绍一下你项目，你主要负责哪些功能</li>
-<li>redis 几种数据类型，hash 类型应用场景，击穿，雪崩方案</li>
-<li>mq 消息怎么保证不重复消费</li>
+<li>Redis 几种数据类型，Hash 类型应用场景，击穿，雪崩方案</li>
+<li>MQ 消息怎么保证不重复消费</li>
 <li>数据库优化方案</li>
 <li>SpringCloud 常用注解</li>
 <li>Feign 超时时间，超时怎么处理</li>
 <li>心跳机制</li>
 </ul>
-<h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><p>   自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>   自我介绍这块我得打个草稿提前过一遍</p>
-<hr>
-<h4 id="redis-几种类型，击穿，雪崩方案"><a href="#redis-几种类型，击穿，雪崩方案" class="headerlink" title="redis 几种类型，击穿，雪崩方案"></a>redis 几种类型，击穿，雪崩方案</h4><details>
-<summary><b> 实际上的回答（点击展开）</b></summary>
+<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>自我介绍很磕磕绊绊，也可能太急于介绍项目了想到哪说哪，自我介绍没说的很完美。<br>自我介绍这块我得打个草稿提前过一遍。</p>
+<h3 id="Redis-几种类型，击穿，雪崩方案"><a href="#Redis-几种类型，击穿，雪崩方案" class="headerlink" title="Redis 几种类型，击穿，雪崩方案"></a>Redis 几种类型，击穿，雪崩方案</h3><details>
+<summary><strong>实际上的回答</strong></summary>
  
-<p>  redis 类型。我项目就用的 string 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 string 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
+<p>Redis 类型。我项目就用的 String 类型，需求是接口调用太久得缓存调用结果，key 是类名加方法名加方法入参，value 是方法返回值。关于其他类型我都没做太多了解，但是我都提了具体有哪些类型，然后他问了 Hash 类型应用场景，我说可能hash算法的原因随机访问快？（现在看起来太撤蛋了）他没往下问了。。。话说我这种情形用 String 应该没毛病，可能会污染key？比如 <code>keys *</code> 会弹出很多 key。他应该是想让我用hash存… 不过这都是后知后觉了。</p>
 </details>
  
-
 <details>
-<summary><b> 我觉得满意的回答（点击展开）</b></summary>
+<summary><strong>我觉得满意的回答</strong></summary>
 
-<p>主要有这些：string,hash,list,set,sorted set</p>
-<hr>
-<ul>
-<li>string 适合一些简单单一的公共的数据，因为太复杂会污染 key 。适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）；</li>
+<p>主要有这些：String, Hash, List, Set, Sorted Set</p>
+<h4 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h4><ul>
+<li>适合一些简单单一的公共的数据，因为太复杂会污染 key</li>
+<li>适合的例子：计数器（网页访问量、点赞数、控制接口访问频率）</li>
 </ul>
-<hr>
-<ul>
-<li>hash 适合结构化对象，因为可以局部更新不用整体写入，例如：<br>key:学生id-field:班级-value:一班<br>key:学生id-field:年龄-value:18</li>
-</ul>
-<hr>
-<ul>
-<li>list 支持两端操作，你可以理解为一根管子，另外有Range方法。可以适用的场景：</li>
-<li><ul>
-<li>用作队列：先进先出（FIFO）。队列有啥用？</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>消息队列：好处</li>
+<h4 id="Hash-类型"><a href="#Hash-类型" class="headerlink" title="Hash 类型"></a>Hash 类型</h4><ul>
+<li>适合结构化对象，因为可以局部更新不用整体写入，例如：<ul>
+<li>key:学生id-field:班级-value:一班</li>
+<li>key:学生id-field:年龄-value:18</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
+<h4 id="List-类型"><a href="#List-类型" class="headerlink" title="List 类型"></a>List 类型</h4><ul>
+<li>支持两端操作，你可以理解为一根管子，另外有Range方法</li>
+<li>可以适用的场景：<ul>
+<li>用作队列：先进先出（FIFO）<ul>
+<li>消息队列的好处：<ul>
 <li>异步消息：不需要等你完成，丢队列里面就行，需要延迟处理的任务放入消息队列，设置延迟时间，消费者在指定时间处理任务</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>任务调度：任务放入队列，定时调度任务，延迟消费，完成任务1才去完成任务2，按顺序处理待办任务。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
+<li>任务调度：任务放入队列，定时调度任务，延迟消费，完成任务1才去完成任务2，按顺序处理待办任务</li>
 <li>解耦</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li><ul>
-<li>时间轴：比如朋友圈查看，最新的放在左边开头，每次刷新就 lrange(0,页码);查看新动态。</li>
+<li>时间轴：比如朋友圈查看，最新的放在左边开头，每次刷新就 lrange(0,页码);查看新动态</li>
 </ul>
 </li>
 </ul>
-<hr>
-<ul>
-<li>set 特点是无序且唯一,有 intersect 方法（求两个set的交集）。语法：<code>SADD key value</code>,<code>SMEMBERS key</code></li>
-<li><ul>
-<li>由唯一性会想到去重、不重复。例如，你往学生添加爱好，爱好不可以重复 <code>sadd student1 [football,baseball,basketball]</code></li>
-</ul>
-</li>
-<li><ul>
+<h4 id="Set-类型"><a href="#Set-类型" class="headerlink" title="Set 类型"></a>Set 类型</h4><ul>
+<li>特点是无序且唯一，有 intersect 方法（求两个set的交集）</li>
+<li>语法：<code>SADD key value</code>, <code>SMEMBERS key</code></li>
+<li>应用场景：<ul>
+<li>由唯一性会想到去重、不重复。例如，你往学生添加爱好，爱好不可以重复 <code>sadd student1 [football,baseball,basketball]</code> </li>
 <li>无序想到随机抽取等</li>
-</ul>
-</li>
-<li><ul>
-<li>交集方法：查找两个班级学生名字相同的人。</li>
+<li>交集方法：查找两个班级学生名字相同的人</li>
 </ul>
 </li>
 </ul>
-<hr>
+<h4 id="Sorted-Set-类型"><a href="#Sorted-Set-类型" class="headerlink" title="Sorted Set 类型"></a>Sorted Set 类型</h4><ul>
+<li>有序set，语法 <code>ZADD key score1 member1 [score2 member2 ...]</code></li>
+<li>可以根据score排序这条记录</li>
+<li>应用场景：排行榜</li>
+</ul>
+<h4 id="缓存问题及解决方案"><a href="#缓存问题及解决方案" class="headerlink" title="缓存问题及解决方案"></a>缓存问题及解决方案</h4><p>Redis为了缓解数据库压力，设置缓存缓存数据防止查MySQL。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
 <ul>
-<li>sort set 有序set 语法 <code>ZADD key score1 member1 [score2 member2 ...]</code></li>
-<li><ul>
-<li>可以根据sort 排序这条记录。应用场景：排行榜</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>redis为了缓解数据库压力，设置缓存缓存数据防止查mysql。但会出现缓存击穿（也叫穿透 Cache Breakdown）、缓存雪崩</p>
+<li><p>缓存击穿：</p>
 <ul>
-<li>缓存击穿：出现原因：查询到了不存在的值。</li>
-<li><ul>
-<li>例如来了个请求查询id为 -999 的数据，mysql没得，导致redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
+<li>出现原因：查询到了不存在的值</li>
+<li>例如来了个请求查询id为 -999 的数据，MySQL没得，导致Redis缓存的是 -999 的查不到的数据。来多个-998 -997 这样非法的数据。导致很多缓存没被击中，也就是击穿</li>
+<li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，或者设置ip黑名单</li>
 </ul>
 </li>
-<li><ul>
-<li>处理方案：在缓存前，若传过来一些非法的数据给他拦截提示非法数据，直接返回，如ID必须为正数，。或者设置ip黑名单。</li>
-</ul>
-</li>
-<li>缓存雪崩：出现原因：突然一下子很多redis key过期，导致来的请求直接走数据库。 </li>
-<li><ul>
-<li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存（吹牛逼的）？</details></li>
+<li><p>缓存雪崩：</p>
+<ul>
+<li>出现原因：突然一下子很多Redis key过期，导致来的请求直接走数据库</li>
+<li>处理方案：随机过期时间、缓存预热（提前查一遍到缓存）、多级缓存</details></li>
 </ul>
 </li>
 </ul>
-<h4 id="mq-消息怎么保证不重复消费"><a href="#mq-消息怎么保证不重复消费" class="headerlink" title="mq 消息怎么保证不重复消费"></a>mq 消息怎么保证不重复消费</h4><details>
-<summary><b> 实际上的回答（点击展开）</b></summary>
+<h3 id="MQ-消息怎么保证不重复消费"><a href="#MQ-消息怎么保证不重复消费" class="headerlink" title="MQ 消息怎么保证不重复消费"></a>MQ 消息怎么保证不重复消费</h3><details>
+<summary><strong>实际上的回答</strong></summary>
 
-<p>  其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 mq 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>  我回答的是消费mq的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>  因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>  我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
+<p>其实我都不知道面试官要问啥，我以为是幂等性的问题，虽然有部分相似。实际要理解 MQ 为什么会出现这种问题，因为我实际没遇到过这种问题，这种又是经典八股文。<br>我回答的是消费MQ的数据的时候带过来唯一的 ID(流水号之类) 先查 select 数据库数据是否存在，没有的话根据ID创建该业务数据，后面再执行后续的消费功能。<br>因为我之前所做过的项目的特点，数据最好留下痕迹，简单就是调用过程的数据多入库，我先入库了，数据就好排查问题。<br>我的回答就这么简短，就是一句话就说完了。面试官也没多问。。。但是其实还可以拓展。</p>
 </details>
+
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
+<summary><strong>满意的回答</strong></summary>
 
+<p>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</p>
+<p>队列基本流程是：生产者 -&gt; 交换机 -&gt; 队列 -&gt; 消费者</p>
+<p>重复消费的原因：</p>
 <ul>
-<li>消息队列（MQ）的设计初衷是确保消息不会被重复消费，但在实际运行中，仍可能发生一些情况导致消息被多次消费。</li>
+<li>消费者处理失败：消息未被正确确认（acknowledge），消息队列系统会重新投递该消息</li>
+<li>消费者进程崩溃，同上</li>
+<li>网络问题，同上</li>
 </ul>
-<p>队列基本流程是，生产者-&gt;交换机-&gt;队列-&gt;消费者</p>
-<p>TODO 我看了交换机有好多，这些有啥用啊晕死…….</p>
-<p>消费者处理失败：消息未被正确确认（acknowledge），消息队列系统会重新投递该消息<br>消费者进程崩溃，同上。<br>网络问题，同上。</p>
 <p>都是因为消费者未能及时确认消息，队列没收到ack，认为消息没处理。</p>
-<p>所以才会产生重复消费的场景</p>
-<p>有很多种方案：</p>
-<p>如遇到并发问题方案2可行但是比较粗暴，或者方案 3 手动应答但是 <code>不放/放</code>回队列（我公司就是这种方法，然后多个消费者，这批数据跑完了再跑失败的数据）。或者看方案 4 比较麻烦。</p>
+<p>解决方案：</p>
 <ol>
-<li>缓存 ID 去重<br>  每个消息附带一个唯一的 ID，放到静态变量或者缓存中，插入前先查询一遍缓存。</li>
-<li>数据库去重<br>  每个消息附带一个唯一的 ID,通过唯一约束避免重复处理，把它在数据库字段设置成 unique 的字段。</li>
-<li>消息确认机制（Consumer Acknowledgements）<br>  使用手动消息确认机制，basicAck 方法最后一个参数。确保只有成功处理的消息才会被确认，未确认的消息会被重新投递。<br>  虽然在 RabbitMQ 中，每条消息只会被一个消费者接收，但如果消费者并未及时确认（acknowledge），则消息可能会在消费者处理期间超时，并被 RabbitMQ 重新投递，导致重复消费。</li>
+<li><p><strong>缓存 ID 去重</strong></p>
+<ul>
+<li>每个消息附带一个唯一的 ID，放到静态变量或者缓存中，插入前先查询一遍缓存</li>
+</ul>
+</li>
+<li><p><strong>数据库去重</strong></p>
+<ul>
+<li>每个消息附带一个唯一的 ID，通过唯一约束避免重复处理，把它在数据库字段设置成 unique 的字段</li>
+</ul>
+</li>
+<li><p><strong>消息确认机制（Consumer Acknowledgements）</strong></p>
+<ul>
+<li>使用手动消息确认机制，basicAck 方法最后一个参数</li>
+<li>确保只有成功处理的消息才会被确认，未确认的消息会被重新投递</li>
+<li>虽然在 RabbitMQ 中，每条消息只会被一个消费者接收，但如果消费者并未及时确认，则消息可能会在消费者处理期间超时，并被重新投递，导致重复消费</li>
+</ul>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;myQueue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 处理消息</span></span><br><span class="line">    System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line">    <span class="comment">// 手动确认消息</span></span><br><span class="line">    channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">    channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RabbitListener(queues = &quot;myQueue&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveMessage</span><span class="params">(String message, Channel channel, <span class="meta">@Header(AmqpHeaders.DELIVERY_TAG)</span> <span class="type">long</span> deliveryTag)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 处理消息</span></span><br><span class="line">    System.out.println(<span class="string">&quot;接收到消息: &quot;</span> + message);</span><br><span class="line">    <span class="comment">// 手动确认消息</span></span><br><span class="line">    channel.basicAck(deliveryTag, <span class="literal">false</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;消息已确认&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="comment">// 处理失败，拒绝消息并重新投递</span></span><br><span class="line">    channel.basicNack(deliveryTag, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">    System.err.println(<span class="string">&quot;消息处理失败，重新投递: &quot;</span> + message);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
-<li>Redis 分布式锁 这名字挺高级，我怎么感觉就和第一种id放缓存一样呢。<br>不一样，因为如果两个线程会同时检查key是否存在，这样可能会漏。所以得给key(id)加锁。</li>
+<li><strong>Redis 分布式锁</strong><ul>
+<li>不同于简单的ID缓存，分布式锁可以防止并发问题</li>
+<li>给key加锁：<ul>
+<li>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败</li>
+<li>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间</li>
+<li>解锁：使用 DEL 命令删除锁，释放资源</details></li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
-<p>给key加锁<br>加锁：使用 SETNX(SET if Not eXists) 命令尝试设置一个键，表示锁的存在，如果返回 1，说明加锁成功。如果返回 0，说明锁已经存在，加锁失败。<br>设置过期时间：为了防止进程在获得锁后崩溃，导致锁无法释放，需要为锁设置一个过期时间。<br>解锁：使用 DEL 命令删除锁，释放资源。</p>
-</details>
+<h3 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h3><details>
+<summary><strong>满意的回答</strong></summary>
 
-<h4 id="数据库优化方案"><a href="#数据库优化方案" class="headerlink" title="数据库优化方案"></a>数据库优化方案</h4><details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-
-<ul>
+<h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><ul>
 <li>能写在where限定的条件就不要写在having中</li>
-<li>避免select *,应该只查询所需字段</li>
-<li>大表数据：垂直分表(Union all)</li>
-<li><ul>
-<li>例如日志表，可以每个月一个日志。</li>
+<li>避免select *，应该只查询所需字段</li>
+<li>like 查询尽量加上左边确定的值，如 like ‘nameSpac%’</li>
+<li>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放SQL去查</li>
 </ul>
-</li>
-<li>大表数据：水平分表(建一个表，id关联)</li>
-<li>like 查询尽量加上左边确定的值 如 like ‘nameSpac%’</li>
-<li>减少索引失效</li>
-<li><ul>
-<li>避免使用 is not null、 or 、not in 、!&#x3D;这样不会走索引</li>
-</ul>
-</li>
-<li><ul>
+<h4 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h4><ul>
+<li>减少索引失效情况：<ul>
+<li>避免使用 is not null、or、not in、!&#x3D;这样不会走索引</li>
 <li>like ‘%something’ 不会走索引</li>
+<li>避免隐式类型转换</li>
+<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效</li>
 </ul>
 </li>
-<li><ul>
-<li>隐式类型转换</li>
-</ul>
-</li>
-<li><ul>
-<li>前导列失效：在联合索引中，如果查询条件中缺少前导列，索引将失效。</li>
-</ul>
-</li>
-<li><ul>
-<li>select 很慢可以用覆盖索引，和联合索引差不多，不过解决的问题不同。</li>
-</ul>
-</li>
-<li>表太多大于3个最好不要连表了，把数据到应用层处理，挑出来要的数据再放sql去查</li>
-<li>对于查询慢的sql，经常要用到的条件（select，where ,order by,group by,distinct …)添加索引</li>
-<li>varchar 存储浪费空间，特殊定长字段用char</li>
+<li>对于查询慢的SQL，经常要用到的条件（select，where，order by，group by，distinct…）添加索引</li>
 <li>一个表中最好不要超过6个索引</li>
-<li>尽量是区分度高的数据作为索引</li>
+<li>尽量选择区分度高的数据作为索引</li>
 <li>条件中多个字段要创建索引的情况下，可以创建联合索引（减少回表）。如 age &gt; 18 and hight &lt; 183</li>
-<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀，建立索引（前缀索引）。</li>
+<li>当字段类型为字符串(varchar, text等)时，有时候需要索引很长的字符串，这会让索引变得很大，此时可以只将字符串的一部分前缀建立索引（前缀索引）</li>
+<li>select 很慢可以用覆盖索引，和联合索引差不多，不过解决的问题不同</li>
 </ul>
-</details>
-
-<h4 id="SpringCloud-常用注解"><a href="#SpringCloud-常用注解" class="headerlink" title="SpringCloud 常用注解"></a>SpringCloud 常用注解</h4><details>
-<summary><b> 满意的回答（点击展开）</b></summary>
+<h4 id="表结构优化"><a href="#表结构优化" class="headerlink" title="表结构优化"></a>表结构优化</h4><ul>
+<li>varchar 存储浪费空间，特殊定长字段用char</li>
+<li>大表数据处理：<ul>
+<li>垂直分表(Union all)：例如日志表，可以每个月一个日志</li>
+<li>水平分表(建一个表，id关联)</details></li>
+</ul>
+</li>
+</ul>
+<h3 id="SpringCloud-常用注解"><a href="#SpringCloud-常用注解" class="headerlink" title="SpringCloud 常用注解"></a>SpringCloud 常用注解</h3><details>
+<summary><strong>满意的回答</strong></summary>
 
 <ul>
-<li><p>@SpringBootApplication 这是springboot的配置，主要是约定大于配置，自动加载一些配置文件。</p>
-</li>
-<li><p>@EnableDiscoveryClient</p>
-</li>
-<li><ul>
-<li>开启服务注册发现功能,如让 Eureka，Nacos 能访问到你</li>
-</ul>
-</li>
-<li><p>@EnableFeignClients</p>
-</li>
-<li><ul>
-<li>用于启用 Feign 客户端，简化 RESTful 服务的调用。</li>
-</ul>
-</li>
-<li><p>@FeignClient</p>
-</li>
-<li><ul>
-<li>加在 feign 接口上，用于其他模块引用</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@FeignClient</span>(<span class="keyword">value</span><span class="operator">=</span>&quot;XXX-service&quot;)</span><br></pre></td></tr></table></figure>
+<li><p><strong>@SpringBootApplication</strong></p>
 <ul>
-<li><p>@RefreshScope</p>
-</li>
-<li><ul>
-<li>动态刷新配置文件<br><code>@Value(&quot;$&#123;config.property&#125;&quot;)</code></li>
+<li>这是SpringBoot的配置，主要是约定大于配置，自动加载一些配置文件</li>
 </ul>
 </li>
-<li><p>@EnableHystrix</p>
+<li><p><strong>@EnableDiscoveryClient</strong></p>
+<ul>
+<li>开启服务注册发现功能，如让 Eureka，Nacos 能访问到你</li>
+</ul>
 </li>
-<li><ul>
+<li><p><strong>@EnableFeignClients</strong></p>
+<ul>
+<li>用于启用 Feign 客户端，简化 RESTful 服务的调用</li>
+</ul>
+</li>
+<li><p><strong>@FeignClient</strong></p>
+<ul>
+<li>加在 Feign 接口上，用于其他模块引用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value=&quot;XXX-service&quot;)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>@RefreshScope</strong></p>
+<ul>
+<li>动态刷新配置文件</li>
+<li>例如：<code>@Value(&quot;$&#123;config.property&#125;&quot;)</code></li>
+</ul>
+</li>
+<li><p><strong>@EnableHystrix</strong></p>
+<ul>
 <li>熔断降级</details></li>
 </ul>
 </li>
 </ul>
-<h4 id="Feign-超时时间，超时怎么处理"><a href="#Feign-超时时间，超时怎么处理" class="headerlink" title="Feign 超时时间，超时怎么处理"></a>Feign 超时时间，超时怎么处理</h4><details>
-<summary><b> 实际的的回答（点击展开）</b></summary>
-递归 `exception.getCause instance of socketTimeoutException`去获取去识别的。
-我们项目是catch这个异常转成业务异常，基本上所有的都是把能转成业务异常的都转业务异常，不能转的报联系管理员
+<h3 id="Feign-超时时间，超时怎么处理"><a href="#Feign-超时时间，超时怎么处理" class="headerlink" title="Feign 超时时间，超时怎么处理"></a>Feign 超时时间，超时怎么处理</h3><details>
+<summary><strong>实际的回答</strong></summary>
 
+<p>递归 <code>exception.getCause instance of socketTimeoutException</code>去获取去识别的。<br>我们项目是catch这个异常转成业务异常，基本上所有的都是把能转成业务异常的都转业务异常，不能转的报联系管理员。</p>
 <p>不过面试官想问的应该不是这个…</p>
 </details>
 
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-启动类中启用 Hystrix 熔断降级功能
-自定义实现 fallback 接口
+<summary><strong>满意的回答</strong></summary>
 
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  client:</span><br><span class="line">    config:</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        connectTimeout: <span class="number">5000</span>  # 连接超时，单位为毫秒</span><br><span class="line">        readTimeout: <span class="number">10000</span>    # 读取超时，单位为毫秒</span><br></pre></td></tr></table></figure>
+<h4 id="配置超时时间"><a href="#配置超时时间" class="headerlink" title="配置超时时间"></a>配置超时时间</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">default:</span></span><br><span class="line">        <span class="attr">connectTimeout:</span> <span class="number">5000</span>  <span class="comment"># 连接超时，单位为毫秒</span></span><br><span class="line">        <span class="attr">readTimeout:</span> <span class="number">10000</span>    <span class="comment"># 读取超时，单位为毫秒</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="超时处理方案"><a href="#超时处理方案" class="headerlink" title="超时处理方案"></a>超时处理方案</h4><p>启动类中启用 Hystrix 熔断降级功能，自定义实现 fallback 接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name = &quot;my-service&quot;, fallback = MyServiceFallback.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyServiceClient</span> &#123;</span><br><span class="line">    <span class="meta">@GetMapping(&quot;/endpoint&quot;)</span></span><br><span class="line">    String <span class="title function_">getEndpoint</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 
-<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><details>
-<summary><b> 实际的的回答（点击展开）</b></summary>
-我大概知道这是啥，就是你服务启动的时候，比如nacos地址配错了、或者挂了，服务器就会一直刷日志，heartbeat之类的，就是一直找注册中心。springCloud 启动的时候会显示用什么配置文件，用地址是什么，给你展示出来。
-应该就是心跳机制，检查服务是否在，免得真正调用的时候才发现出问题。
+<h3 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h3><details>
+<summary><strong>实际的回答</strong></summary>
 
+<p>我大概知道这是啥，就是你服务启动的时候，比如Nacos地址配错了、或者挂了，服务器就会一直刷日志，heartbeat之类的，就是一直找注册中心。SpringCloud 启动的时候会显示用什么配置文件，用地址是什么，给你展示出来。<br>应该就是心跳机制，检查服务是否在，免得真正调用的时候才发现出问题。</p>
 <p>很显然没答到点上。</p>
 </details>
 
 <details>
-<summary><b> 满意的回答（点击展开）</b></summary>
-心跳机制的主要作用是：
+<summary><strong>满意的回答</strong></summary>
 
+<p>心跳机制的主要作用是：</p>
 <ul>
-<li><p>确保服务可用性：定期向注册中心发送心跳信号，报告服务实例的健康状况。如果心跳信号发送失败，说明服务可能不可用，便于及时发现和处理问题。</p>
+<li><p><strong>确保服务可用性</strong>：定期向注册中心发送心跳信号，报告服务实例的健康状况。如果心跳信号发送失败，说明服务可能不可用，便于及时发现和处理问题。</p>
 </li>
-<li><p>预防调用失败：通过心跳机制，可以在服务实例不可用时及时将其从注册中心移除，避免实际调用时发现服务不可用的问题。</p>
+<li><p><strong>预防调用失败</strong>：通过心跳机制，可以在服务实例不可用时及时将其从注册中心移除，避免实际调用时发现服务不可用的问题。</p>
 </li>
-<li><p>提高系统可靠性：定期监控服务健康状况，确保系统各个服务实例处于正常运行状态，提高系统的整体可靠性和稳定性。</p>
+<li><p><strong>提高系统可靠性</strong>：定期监控服务健康状况，确保系统各个服务实例处于正常运行状态，提高系统的整体可靠性和稳定性。</p>
 </li>
 </ul>
 <p>Nacos 提供两种健康检查机制，分别对应不同类型的服务实例：</p>
 <ul>
-<li>临时实例（非持久化实例）：</li>
-</ul>
-<p>机制：客户端主动上报心跳消息。</p>
-<p>特点：临时实例不会在 Nacos 服务端持久化存储，需要通过上报心跳的方式进行保活。如果一段时间内没有上报心跳，实例会被 Nacos 服务端摘除</p>
+<li><p><strong>临时实例（非持久化实例）</strong>：</p>
 <ul>
-<li>永久实例（持久化实例）：</li>
+<li>机制：客户端主动上报心跳消息</li>
+<li>特点：临时实例不会在 Nacos 服务端持久化存储，需要通过上报心跳的方式进行保活。如果一段时间内没有上报心跳，实例会被 Nacos 服务端摘除</li>
 </ul>
-<p>机制：服务器端反向探测健康状况。</p>
-<p>特点：永久实例会在 Nacos 服务端持久化存储，即使注册实例的客户端进程不在，实例也不会从服务端删除，只会将健康状态设为不健康</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: my-service</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">        ephemeral: true  # 设置实例为临时实例</span><br></pre></td></tr></table></figure>
-
+</li>
+<li><p><strong>永久实例（持久化实例）</strong>：</p>
+<ul>
+<li>机制：服务器端反向探测健康状况</li>
+<li>特点：永久实例会在 Nacos 服务端持久化存储，即使注册实例的客户端进程不在，实例也不会从服务端删除，只会将健康状态设为不健康</li>
+</ul>
+</li>
+</ul>
+<p>配置示例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">        <span class="attr">ephemeral:</span> <span class="literal">true</span>  <span class="comment"># 设置实例为临时实例</span></span><br></pre></td></tr></table></figure>
 </details>
 
                     
@@ -623,13 +586,13 @@
                                 <a class="prev"
                                    rel="prev"
                                    href="/2025/02/28/2025-02-28-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"
-                                   title="2025-02-28 面试总结"
+                                   title="2025-02-28-面试总结"
                                 >
                                     <span class="left arrow-icon flex-center">
                                         <i class="fas fa-chevron-left"></i>
                                     </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">2025-02-28 面试总结</span>
+                                        <span class="post-nav-title-item text-ellipsis">2025-02-28-面试总结</span>
                                         <span class="post-nav-item">上一篇</span>
                                     </span>
                                 </a>
@@ -671,7 +634,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">redis 几种类型，击穿，雪崩方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">mq 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-text">数据库优化方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringCloud-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">SpringCloud 常用注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Feign-%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%EF%BC%8C%E8%B6%85%E6%97%B6%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-text">Feign 超时时间，超时怎么处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="nav-text">心跳机制</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">Redis 几种类型，击穿，雪崩方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-%E7%B1%BB%E5%9E%8B"><span class="nav-text">String 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Hash 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List-%E7%B1%BB%E5%9E%8B"><span class="nav-text">List 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Set 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sorted-Set-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Sorted Set 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text">缓存问题及解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQ-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">MQ 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-text">数据库优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%E4%BC%98%E5%8C%96"><span class="nav-text">SQL优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-text">索引优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E4%BC%98%E5%8C%96"><span class="nav-text">表结构优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringCloud-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">SpringCloud 常用注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign-%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%EF%BC%8C%E8%B6%85%E6%97%B6%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-text">Feign 超时时间，超时怎么处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-text">配置超时时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88"><span class="nav-text">超时处理方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="nav-text">心跳机制</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -849,7 +812,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">redis 几种类型，击穿，雪崩方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">mq 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-text">数据库优化方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringCloud-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">SpringCloud 常用注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Feign-%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%EF%BC%8C%E8%B6%85%E6%97%B6%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-text">Feign 超时时间，超时怎么处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="nav-text">心跳机制</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%89%8D"><span class="nav-text">面试前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-text">面试过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93"><span class="nav-text">面试总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D"><span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%87%BB%E7%A9%BF%EF%BC%8C%E9%9B%AA%E5%B4%A9%E6%96%B9%E6%A1%88"><span class="nav-text">Redis 几种类型，击穿，雪崩方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-%E7%B1%BB%E5%9E%8B"><span class="nav-text">String 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Hash 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List-%E7%B1%BB%E5%9E%8B"><span class="nav-text">List 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Set 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sorted-Set-%E7%B1%BB%E5%9E%8B"><span class="nav-text">Sorted Set 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text">缓存问题及解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQ-%E6%B6%88%E6%81%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9"><span class="nav-text">MQ 消息怎么保证不重复消费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-text">数据库优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%E4%BC%98%E5%8C%96"><span class="nav-text">SQL优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-text">索引优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E4%BC%98%E5%8C%96"><span class="nav-text">表结构优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringCloud-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-text">SpringCloud 常用注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feign-%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4%EF%BC%8C%E8%B6%85%E6%97%B6%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-text">Feign 超时时间，超时怎么处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-text">配置超时时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88"><span class="nav-text">超时处理方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="nav-text">心跳机制</span></a></li></ol></li></ol>
     </div>
 </div>
 
