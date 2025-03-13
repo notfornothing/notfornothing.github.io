@@ -643,7 +643,7 @@
     <title>2025-03-11 面试总结</title>
     <url>/2025/03/11/2025-03-11-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<blockquote>
-<p>今天约了三场面试<br>多的不说了，骑单车起了起码40公里，累得很，直接总结</p>
+<p>今天骑单车骑了起码 30 公里，不管结果如何，锻炼了身体就是赚到了。<br>今天约了三场面试<br>上午是小公司，太坑了，聊了两个半小时，3个人轮流面我，问我怎么发版本的，怎么管理文档，我估计是在套我话，最后应该是老板，我问她五险一金情况她支支吾吾的，问我后面期望薪资，我报个价，她直接说不合适（但他们招聘要求就是给的这么多啊)。我以后是再也不去这种 20 人的小公司了，太坑了。<br>下午也是小公司，还可以，腾讯边上，做了笔试题，感觉还行，但是场景题没答好，应该没戏了。<br>下午有个线上面试，是一个金融的公司，问的还行，但是事务这些都没答上来，应该没戏了。</p>
 </blockquote>
 <hr>
 <h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><ul>
@@ -653,6 +653,7 @@
 <li>explain sql 的type有几种</li>
 <li>spring 代理模式有哪几种</li>
 <li>项目中有哪些微服务哪些组件</li>
+<li>什么情况出现跨域，怎么解决</li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
 <p>感觉银行、金融类的项目很注重事务相关的问题，不过确实如此，因为他们跟钱打交道。事务这块还需加强一下</p>
@@ -664,6 +665,7 @@
 <li>explain sql 的type有几种</li>
 <li>spring 代理模式有哪几种</li>
 <li>项目中有哪些微服务哪些组件</li>
+<li>什么情况出现跨域，怎么解决</li>
 </ul>
 ]]></content>
   </entry>
@@ -9143,25 +9145,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>害怕用`rm -rf`? 不如试试这个</title>
-    <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
-    <content><![CDATA[<h1 id="害怕用-rm-rf？不如试试这个"><a href="#害怕用-rm-rf？不如试试这个" class="headerlink" title="害怕用 rm -rf？不如试试这个"></a>害怕用 rm -rf？不如试试这个</h1><p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不陌生。</p>
-<h2 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h2><h3 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h3><ul>
-<li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
-</ul>
-<p>这种方式治标不治本，因为主动权还是在我手中。</p>
-<h3 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h3><ul>
-<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行</li>
-</ul>
-<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式。</p>
-<h3 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h3><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
-<p><a class="link"   href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">trash-put           <span class="comment"># 把文件或目录移动到回收站</span></span><br><span class="line">trash-empty         <span class="comment"># 清空回收站</span></span><br><span class="line">trash-list          <span class="comment"># 列出回收站文件</span></span><br><span class="line">trash-restore       <span class="comment"># 恢复回收站文件</span></span><br><span class="line">trash-rm            <span class="comment"># 删除回收站文件</span></span><br></pre></td></tr></table></figure>
-
-<p>在你的 shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕，正常 rm 就行。</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/test <span class="comment"># touch testFile                                                                         root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># rm testFile                                                                            root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-restore                                                                          root@Sparrow</span></span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment">#                                                                                        root@Sparrow</span></span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>Java实现天气预报</title>
     <url>/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/</url>
     <content><![CDATA[<h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
@@ -9198,6 +9181,25 @@
                         alt="PANGU_DISABLE"
                  ></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>害怕用`rm -rf`? 不如试试这个</title>
+    <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
+    <content><![CDATA[<h1 id="害怕用-rm-rf？不如试试这个"><a href="#害怕用-rm-rf？不如试试这个" class="headerlink" title="害怕用 rm -rf？不如试试这个"></a>害怕用 rm -rf？不如试试这个</h1><p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不陌生。</p>
+<h2 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h2><h3 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h3><ul>
+<li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
+</ul>
+<p>这种方式治标不治本，因为主动权还是在我手中。</p>
+<h3 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h3><ul>
+<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行</li>
+</ul>
+<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式。</p>
+<h3 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h3><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
+<p><a class="link"   href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">trash-put           <span class="comment"># 把文件或目录移动到回收站</span></span><br><span class="line">trash-empty         <span class="comment"># 清空回收站</span></span><br><span class="line">trash-list          <span class="comment"># 列出回收站文件</span></span><br><span class="line">trash-restore       <span class="comment"># 恢复回收站文件</span></span><br><span class="line">trash-rm            <span class="comment"># 删除回收站文件</span></span><br></pre></td></tr></table></figure>
+
+<p>在你的 shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕，正常 rm 就行。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/test <span class="comment"># touch testFile                                                                         root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># rm testFile                                                                            root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-restore                                                                          root@Sparrow</span></span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment">#                                                                                        root@Sparrow</span></span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>摸鱼神器 scrcpy</title>

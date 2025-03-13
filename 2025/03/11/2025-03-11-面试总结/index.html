@@ -44,74 +44,15 @@
 
 
 <body>
-.progress-bar-container {
-  position fixed
-  top 0
-  left 0
-  z-index $z-index-9
-  width 100%
+<div class="progress-bar-container">
+    
 
-  if (hexo-config('pjax') && hexo-config('pjax.enable') == true) {
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
 
-    .pjax-progress-bar {
-      position absolute
-      top 0
-      left 0
-      z-index $z-index-8
-      width 0
-      height 2px
-      background var(--pjax-progress-bar-color)
-      visibility hidden
-      opacity 0
-      transition-t("width, opacity", "0, 0", "0.1, 0.1", "linear")
-
-
-      &.show {
-        visibility visible
-        opacity 1
-      }
-    }
-
-
-    .pjax-progress-icon {
-      position absolute
-      top 0.4rem
-      right 0.3rem
-      z-index $z-index-8
-      color var(--text-color-3)
-      font-size 1.1rem
-      visibility hidden
-
-      +keep-tablet() {
-        top 0.3rem
-        right 0.2rem
-        font-size 1rem
-      }
-
-      &.show {
-        visibility visible
-      }
-    }
-  }
-
-  if (hexo-config('scroll') && hexo-config('scroll.progress_bar') == true) {
-    .scroll-progress-bar {
-      position absolute
-      top 0
-      left 0
-      z-index $z-index-7
-      width 0
-      height var(--header-scroll-progress-bar-height)
-      background var(--primary-color)
-      visibility hidden
-      transition-t("width", "0", "0.1", "linear")
-
-      &.hide {
-        display none !important
-      }
-    }
-  }
-}
 
 
 <main class="page-container border-box">
@@ -312,7 +253,7 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>193 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>416 字</span>
             </span>
         
         
@@ -340,7 +281,7 @@
 
                     
                          <blockquote>
-<p>今天约了三场面试<br>多的不说了，骑单车起了起码40公里，累得很，直接总结</p>
+<p>今天骑单车骑了起码 30 公里，不管结果如何，锻炼了身体就是赚到了。<br>今天约了三场面试<br>上午是小公司，太坑了，聊了两个半小时，3个人轮流面我，问我怎么发版本的，怎么管理文档，我估计是在套我话，最后应该是老板，我问她五险一金情况她支支吾吾的，问我后面期望薪资，我报个价，她直接说不合适（但他们招聘要求就是给的这么多啊)。我以后是再也不去这种 20 人的小公司了，太坑了。<br>下午也是小公司，还可以，腾讯边上，做了笔试题，感觉还行，但是场景题没答好，应该没戏了。<br>下午有个线上面试，是一个金融的公司，问的还行，但是事务这些都没答上来，应该没戏了。</p>
 </blockquote>
 <hr>
 <h1 id="面试过程"><a href="#面试过程" class="headerlink" title="面试过程"></a>面试过程</h1><ul>
@@ -350,6 +291,7 @@
 <li>explain sql 的type有几种</li>
 <li>spring 代理模式有哪几种</li>
 <li>项目中有哪些微服务哪些组件</li>
+<li>什么情况出现跨域，怎么解决</li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
 <p>感觉银行、金融类的项目很注重事务相关的问题，不过确实如此，因为他们跟钱打交道。事务这块还需加强一下</p>
@@ -361,6 +303,7 @@
 <li>explain sql 的type有几种</li>
 <li>spring 代理模式有哪几种</li>
 <li>项目中有哪些微服务哪些组件</li>
+<li>什么情况出现跨域，怎么解决</li>
 </ul>
 
                     
