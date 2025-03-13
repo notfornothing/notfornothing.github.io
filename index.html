@@ -42,15 +42,74 @@
 
 
 <body>
-<div class="progress-bar-container">
-    
+.progress-bar-container {
+  position fixed
+  top 0
+  left 0
+  z-index $z-index-9
+  width 100%
 
-    
-        <span class="pjax-progress-bar"></span>
-        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
-    
-</div>
+  if (hexo-config('pjax') && hexo-config('pjax.enable') == true) {
 
+    .pjax-progress-bar {
+      position absolute
+      top 0
+      left 0
+      z-index $z-index-8
+      width 0
+      height 2px
+      background var(--pjax-progress-bar-color)
+      visibility hidden
+      opacity 0
+      transition-t("width, opacity", "0, 0", "0.1, 0.1", "linear")
+
+
+      &.show {
+        visibility visible
+        opacity 1
+      }
+    }
+
+
+    .pjax-progress-icon {
+      position absolute
+      top 0.4rem
+      right 0.3rem
+      z-index $z-index-8
+      color var(--text-color-3)
+      font-size 1.1rem
+      visibility hidden
+
+      +keep-tablet() {
+        top 0.3rem
+        right 0.2rem
+        font-size 1rem
+      }
+
+      &.show {
+        visibility visible
+      }
+    }
+  }
+
+  if (hexo-config('scroll') && hexo-config('scroll.progress_bar') == true) {
+    .scroll-progress-bar {
+      position absolute
+      top 0
+      left 0
+      z-index $z-index-7
+      width 0
+      height var(--header-scroll-progress-bar-height)
+      background var(--primary-color)
+      visibility hidden
+      transition-t("width", "0", "0.1", "linear")
+
+      &.hide {
+        display none !important
+      }
+    }
+  }
+}
 
 
 <main class="page-container border-box">
@@ -270,6 +329,64 @@
 
     
         <a class="home-read-more" href="/2025/02/26/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
+    
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-post-item">
+
+                
+
+                <div class="home-post-item-bottom border-box">
+                    
+                    <h3 class="home-post-title border-box">
+                        <a href="/2025/03/13/2025-03-13-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
+                            2025-03-13 面试总结
+                        </a>
+                    </h3>
+
+                    <div class="home-post-content keep-markdown-body">
+                        
+                            前言
+感觉不能再这么面下去了，总结的知识点也够多了，但也没好好看看，越面越怀疑自己不行，打算暂时不约面试了，搞几个demo项目做了。反正手里有钱花，不要给自己压力，洒脱一点！
+
+
+
+今天约了两场面试
+
+
+上午的面试排队四十多人，这场面头一次见，这一屋...
+                        
+                    </div>
+
+                    
+
+<div class="post-meta-info-container border-box home">
+    <div class="post-meta-info border-box">
+        
+            <span class="meta-info-item border-box">
+                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
+                                                                                data-updated="Thu Mar 13 2025 22:42:25 GMT+0800"
+                >2025-03-13 22:42:25</span>
+            </span>
+        
+
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+        <a class="home-read-more" href="/2025/03/13/2025-03-13-%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
     
 </div>
 
@@ -720,94 +837,94 @@ MySQL 优化，索引失...
                 </div>
             </li>
         
-            <li class="home-post-item">
-
-                
-
-                <div class="home-post-item-bottom border-box">
-                    
-                    <h3 class="home-post-title border-box">
-                        <a href="/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/">
-                            害怕用`rm -rf`? 不如试试这个
-                        </a>
-                    </h3>
-
-                    <div class="home-post-content keep-markdown-body">
-                        
-                            害怕用 rm -rf？不如试试这个Linux 中 rm -rf / 这个命令大家应该不陌生。
-为了减少误操作，网上有很多方案方案 1 (不推荐)
-起别名 alias rm=&#39;rm -i&#39; 删除都需要确认
-
-这种方式治标不治本，因为主动...
-                        
-                    </div>
-
-                    
-
-<div class="post-meta-info-container border-box home">
-    <div class="post-meta-info border-box">
-        
-            <span class="meta-info-item border-box">
-                <i class="icon fa-solid fa-file-circle-plus"></i>&nbsp;<span class="home-post-history"
-                                                                                data-updated="Tue Jun 25 2024 16:16:41 GMT+0800"
-                >2024-06-25 16:16:41</span>
-            </span>
-        
-
-        
-
-        
-
-        
-
-        
-        
-        
-        
-    </div>
-
-    
-        <a class="home-read-more" href="/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/">阅读全文&nbsp;<i class="icon fas fa-angle-right"></i></a>
-    
-</div>
-
-                </div>
-            </li>
-        
     </ul>
-    
-    <div class="paginator border-box flex-center">
-        <div class="border-box first-page paginator-btn not-allow">
-            <a class="border-box"><i class="fa-solid fa-angle-double-left"></i></a>
-        </div>
+    .paginator {
+  gap 1rem
+  margin-top $page-container-gap
+  user-select none
 
-        <div class="border-box paginator-btn">
-            <a class="border-box"
-               href="/"
-            ><i class="fa-solid fa-chevron-left"></i></a>
-        </div>
+  .paginator-btn {
+    cursor not-allowed
 
+    a {
+      padding 0.3rem 0.6rem
+      pointer-events none
 
-        <div class="page-number-box border-box flex-center">
-            <input class="page-number-input border-box base-style"
-                   type="number"
-                   value="1"
-                   min="1"
-                   max="4"
-            /><span class="delimiter base-style">/</span><span class="base-style">4</span>
-        </div>
+      i {
+        color var(--text-color-4)
+        font-size 1rem
+      }
+    }
 
 
-        <div class="border-box paginator-btn allowed">
-            <a class="border-box"
-               href="/page/2/"
-            ><i class="fa-solid fa-chevron-right"></i></a>
-        </div>
+    &.allowed {
+      cursor pointer
 
-        <div class="border-box last-page paginator-btn allowed">
-            <a class="border-box"><i class="fa-solid fa-angle-double-right"></i></a>
-        </div>
-    </div>
+      a {
+        pointer-events auto
+
+        i {
+          color var(--text-color-3)
+        }
+      }
+
+      &:hover {
+        a {
+          i {
+            color var(--primary-color)
+          }
+        }
+      }
+    }
+  }
+
+
+  .base-style {
+    color var(--text-color-4)
+    font-size 1.1rem
+  }
+
+
+  .page-number-box {
+    margin 0 0.2rem
+
+    .page-number-input {
+      width 2.8rem
+      height 2rem
+      margin 0
+      padding 0
+      font-weight 400 !important
+      font-size 1rem
+      text-align center
+      background none
+      border 0.1rem solid var(--border-color)
+      border-radius 0.3rem
+      outline none
+      -webkit-appearance none
+      transition-t("width, border-color", "0, 0", "0.2, 0.2", "ease, ease")
+
+
+      &::-webkit-outer-spin-button
+      &::-webkit-inner-spin-button {
+        -webkit-appearance none !important
+      }
+
+      &:hover
+      &:focus {
+        width 3.8rem
+        border-color var(--primary-color)
+      }
+    }
+
+
+    .delimiter {
+      margin 0 0.6rem
+    }
+  }
+}
+
+
+
 
 
 
