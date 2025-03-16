@@ -1295,873 +1295,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL 总结 (一)</title>
-    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
-    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
-<p>descend– 下降</p>
-<hr>
-<blockquote>
-<p>descibe 是查看表的结构，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
-
-<p>desc 是 describe 的简写，例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
-
-</blockquote>
-<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
-
-<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么修改的是全局的</p>
-</blockquote>
-<blockquote>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
-<p>如果不加 where 那么删除的是全部的 所以要注意</p>
-</blockquote>
-<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
-<hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
-<blockquote>
-<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
-</li>
-</ul>
-<blockquote>
-<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
-<blockquote>
-<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
-<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
-<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
-<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
-<blockquote>
-<p>可以和 % _ 使用。</p>
-<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
-</blockquote>
-<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
-<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
-<hr>
-<p>count（列名 | *):                  | 是或的意思</p>
-<blockquote>
-<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
-</blockquote>
-<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
-<ul>
-<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
-</ul>
-<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
-<hr>
-<p>select count(*) from emp;<br>– 如果没有分组，</p>
-<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
-<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
-<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
-<hr>
-<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
-<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
-<ul>
-<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
-<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
-<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
-</ul>
-<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
-<p>区别一，定长和变长</p>
-<blockquote>
-<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
-</blockquote>
-<blockquote>
-<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
-</blockquote>
-<p>区别之二，存储的容量不同</p>
-<blockquote>
-<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
-</blockquote>
-<p>区别之三，空格</p>
-<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
-<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
-<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
-<hr>
-<p>可以用 show create  table emp</p>
-<blockquote>
-<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
-</blockquote>
-<p>注意：</p>
-<blockquote>
-<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
-</blockquote>
-<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
-<p>唯一，非空。一般和 auto_increment 一起用</p>
-<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
-<p>非空，但是可以重复</p>
-<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
-<p>不能重复，可以为 null</p>
-<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
-
-<p>以上有笛卡尔积。</p>
-<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>以上两种都可以。但是 null 值不会显示出来</p>
-<p>可以用左外连接和右外连接：</p>
-<blockquote>
-<p>左外连接。查询左边的所以值</p>
-<p>右外连接：查询右边所有的值</p>
-</blockquote>
-<p>显示所有部门对应的员工值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>显示所有员工对应的部门值</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
-
-<p>这样不能查询所以的对应的 null 值</p>
-<p>而且 mysql 没有全外连接查询。</p>
-<p>可以通过 union 模拟这种查询</p>
-<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
-<p>having 和 where 区别：</p>
-<blockquote>
-<ul>
-<li>where 放在 from 之后，group by 之前</li>
-<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
-<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
-<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
-</ul>
-</blockquote>
-<p>where 和 having 的区别：</p>
-<blockquote>
-<ul>
-<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
-</li>
-<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
-</li>
-<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
-<blockquote>
-<p>select name as 姓名，sal as 薪资 from emp e;</p>
-<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
-</blockquote>
-</li>
-<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
-<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
-<p>大于：&gt;</p>
-<blockquote>
-<p>可以用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
-<p>小于：&lt;</p>
-<blockquote>
-<p> <strong>必须用</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
-<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
-<![CDATA[hello]]>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-  </entry>
-  <entry>
-    <title>MySQL 总结（二）</title>
-    <url>/2021/11/25/MySQL%E6%80%BB%E7%BB%932/</url>
-    <content><![CDATA[<h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
-<p>写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章</p>
-</blockquote>
-<hr>
-<h2 id="为什么-where-不能用字段别名。因为-mysql-执行顺序："><a href="#为什么-where-不能用字段别名。因为-mysql-执行顺序：" class="headerlink" title="为什么 where 不能用字段别名。因为 mysql 执行顺序："></a>为什么 where 不能用<code>字段</code>别名。因为 mysql <strong>执行顺序</strong>：</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name        <span class="comment">-- 最后再 select 生成字段</span></span><br><span class="line"><span class="keyword">from</span> employees                  <span class="comment">-- 先执行 from 哪个表</span></span><br><span class="line"><span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;  <span class="comment">-- 再执行 where 条件</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="limit-使用方法"><a href="#limit-使用方法" class="headerlink" title="limit 使用方法"></a>limit 使用方法</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这条语句意思是 从第 51 条数据（包括 51) 开始数，数 10 条数据出来</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">50</span>,<span class="number">10</span>;</span><br><span class="line"><span class="comment">-- 前端传第几页可以这样给：</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit (currentPage<span class="number">-1</span>)<span class="operator">*</span>pageSize,pageSize;</span><br><span class="line"><span class="comment">---------------------------------</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">0</span>,<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。"><a href="#从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。" class="headerlink" title="从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。"></a>从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</h2><blockquote>
-<p>E-R 图<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/Snipaste_2022-03-17_17-35-04.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确：</span><br><span class="line">select employees.department_id, departments.department_id, employees.employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br><span class="line"></span><br><span class="line">-- 正确（但是不高效）：</span><br><span class="line">select employees.department_id, departments.department_id, employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名"><a href="#如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名" class="headerlink" title="如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名"></a>如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确</span><br><span class="line">select employee_id, dept.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where emp.department_id = dept.department_id;</span><br><span class="line"></span><br><span class="line">-- 错误</span><br><span class="line">select employee_id, departments.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。"><a href="#UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。" class="headerlink" title="UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。"></a>UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</h2><hr>
-<h2 id="COUNT-是计算不包括-null-的个数"><a href="#COUNT-是计算不包括-null-的个数" class="headerlink" title="COUNT() 是计算不包括 null 的个数"></a>COUNT() 是计算不包括 null 的个数</h2><hr>
-<h2 id="酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？"><a href="#酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？" class="headerlink" title="酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？"></a>酷<code>COUNT(*)</code>,<code>COUNT(1)</code>,<code>COUNT（字段）</code>哪个效率更高？</h2><p>如果是 MyISAM 存储引擎，三者效率都一样，因为这个引擎有一个字段专门存多少行的。<br>如果是 InnoDB 存储引擎，则效率：<code>COUNT(1)</code>&#x3D;<code>COUNT(*)</code>&gt;<code>COUNT（字段）</code>, 因为这个引擎会自动找 len 最短的去 count, 指定了字段没法优化。</p>
-<hr>
-<h2 id="这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。"><a href="#这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。" class="headerlink" title="这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。"></a>这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">正确</span><br><span class="line"><span class="keyword">select</span> job_id j,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> j;</span><br><span class="line"></span><br><span class="line">也正确</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br><span class="line"></span><br><span class="line">错误：</span><br><span class="line"><span class="keyword">select</span> employee_id,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY"><a href="#HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY" class="headerlink" title="HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY"></a>HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</h2><hr>
-<h2 id="where-和-having-效率区别，以及使用区别"><a href="#where-和-having-效率区别，以及使用区别" class="headerlink" title="where 和 having 效率区别，以及使用区别"></a>where 和 having 效率区别，以及使用区别</h2><p>没有聚合函数的情况下最好用 where 先判断条件。然后再分组再用 having 去操作条件，不然会 把没用的数据也给分组，浪费性能。<br>where 后面不能跟聚合函数，因为你就一组你没分组聚合按照条件没有意义啊。但是 HAVING 可以因为你分了很多个组所以就可以筛选。</p>
-<hr>
-<h2 id="mysql-执行顺序"><a href="#mysql-执行顺序" class="headerlink" title="mysql 执行顺序"></a>mysql 执行顺序</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 这里后执行</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line"><span class="keyword">JOIN</span>        这里先执行，且按顺序执行</span><br><span class="line"><span class="keyword">ON</span></span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>    很奇怪的是这里可以用 <span class="keyword">SELECT</span> 字段的别名</span><br><span class="line"><span class="keyword">HAVING</span>      <span class="keyword">HAVING</span> 也能用，按道理执行顺序是不可以的</span><br><span class="line">            这是 MYSQL 可以的，特例这是。</span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>    这里最后执行</span><br><span class="line">LIMIT</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。"><a href="#GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。" class="headerlink" title="GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。"></a>GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</h2><hr>
-<h2 id="MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以"><a href="#MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以" class="headerlink" title="MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以"></a>MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</h2><hr>
-<h2 id="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化"><a href="#子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化" class="headerlink" title="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化"></a>子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</h2><hr>
-<h2 id="mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写"><a href="#mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写" class="headerlink" title="mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)"></a>mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</h2><hr>
-<h2 id="mysql-创建表有两种方式"><a href="#mysql-创建表有两种方式" class="headerlink" title="mysql 创建表有两种方式"></a>mysql 创建表有两种方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 一个一个创建</span></span><br><span class="line"><span class="keyword">create table</span> t1</span><br><span class="line">(</span><br><span class="line">    id   <span class="type">int</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> t1</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>),</span><br><span class="line">       (<span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create table</span> t2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> t1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="DDL-DML-DCL-TCL"><a href="#DDL-DML-DCL-TCL" class="headerlink" title="DDL,DML,DCL,TCL"></a>DDL,DML,DCL,TCL</h2><ul>
-<li><p>DDL:Data Definition Language (DDL)数据库定义语句</p>
-<blockquote>
-<p>用来创建数据库中的表、索引、视图、存储过程、触发器等<br>CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME</p>
-</blockquote>
-</li>
-<li><p>DML:Data Manipulation Language (DML)数据操纵语句</p>
-<blockquote>
-<p>用来查询、添加、更新、删除等<br>SELECT,INSERT,UPDATE,DELETE,MERGE,CALL,EXPLAIN PLAN,LOCK TABLE</p>
-</blockquote>
-</li>
-<li><p>DCL:Data Control Language (DCL)数据控制语句</p>
-<blockquote>
-<p>用于授权&#x2F;撤销数据库及其字段的权限<br>GRANT,REVOKE。</p>
-</blockquote>
-</li>
-<li><p>TCL:Transaction Control Language (TCL)事务控制语句</p>
-<blockquote>
-<p>用于控制事务<br>COMMIT,ROLLBACK,SAVEPOINT,SET TRANSACTION</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<h2 id="DROP-表结构和表数据都会删除，释放表空间"><a href="#DROP-表结构和表数据都会删除，释放表空间" class="headerlink" title="DROP 表结构和表数据都会删除，释放表空间"></a>DROP 表结构和表数据都会删除，释放表空间</h2><hr>
-<h2 id="TRUNCATE-只会清空表数据，但是保留表结构"><a href="#TRUNCATE-只会清空表数据，但是保留表结构" class="headerlink" title="TRUNCATE 只会清空表数据，但是保留表结构"></a>TRUNCATE 只会清空表数据，但是保留表结构</h2><hr>
-<h2 id="TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，"><a href="#TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，" class="headerlink" title="TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，"></a>TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</h2><hr>
-<h2 id="ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"><a href="#ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。" class="headerlink" title="ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"></a>ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</h2><hr>
-<h2 id="TRUNCATE-和-DELETE-FROM-异同点"><a href="#TRUNCATE-和-DELETE-FROM-异同点" class="headerlink" title="TRUNCATE 和 DELETE FROM 异同点"></a>TRUNCATE 和 DELETE FROM 异同点</h2><ul>
-<li>相同：<ul>
-<li>都可以实现对数据的删除，同时保留表结构</li>
-</ul>
-</li>
-<li>不同:<ul>
-<li>DELETE FROM 是DML，TRUNCATE是DDL</li>
-<li>TRUNCATE TABLE 不能回滚！！！</li>
-<li>注意：COMMIT 在DML中是默认开启的，即set autocommit&#x3D;true，这是默认开启的，所以delete默认也不能回滚，只能设置为false才能回滚。</li>
-<li>但是TRUNCATE不会触发TRIGGER（日志记录）所以是个危险操作尽量不用，虽然效率高。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="MySQL-8-0-有DDL的原子性，但是5-7没有。即："><a href="#MySQL-8-0-有DDL的原子性，但是5-7没有。即：" class="headerlink" title="MySQL 8.0 有DDL的原子性，但是5.7没有。即："></a>MySQL 8.0 有DDL的原子性，但是5.7没有。即：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql8.0</span><br><span class="line">CREATE TABLE table1();</span><br><span class="line">DROP table1,table2;</span><br><span class="line">-- 因为table2不存在，所以不会成功。</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="MyBatis-用-的情况，用到表名做参数的时候就用这个。"><a href="#MyBatis-用-的情况，用到表名做参数的时候就用这个。" class="headerlink" title="MyBatis 用${}的情况，用到表名做参数的时候就用这个。"></a>MyBatis 用${}的情况，用到表名做参数的时候就用这个。</h2><hr>
-<h2 id="INSERT-添加可以添加查询结果："><a href="#INSERT-添加可以添加查询结果：" class="headerlink" title="INSERT 添加可以添加查询结果："></a>INSERT 添加可以添加查询结果：</h2><ul>
-<li>但是要注意添加的字段要和查询的字段对应。</li>
-<li>字段的范围也要对应,对应或者大于。如果里面的数据没有那么长，那可以。但是最好还是大于等于。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT into emp(id,name)</span><br><span class="line">select id,name </span><br><span class="line">from emp2;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。"><a href="#UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。" class="headerlink" title="UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。"></a>UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</h2><hr>
-<h2 id="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"><a href="#小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED" class="headerlink" title="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"></a>小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</h2><hr>
-<h2 id="CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来"><a href="#CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来" class="headerlink" title="CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来"></a>CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</h2><hr>
-<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
-<li>not null</li>
-<li>unique</li>
-<li>check 5.7没有,8.0有，</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test01(</span><br><span class="line">id int,</span><br><span class="line">last_name varchar(15)，</span><br><span class="line">salary decimal(10,2) check(salary&gt;2000))</span><br></pre></td></tr></table></figure>
-<ul>
-<li>DEFAULT</li>
-</ul>
-<hr>
-<h2 id="行级约束，表级约束"><a href="#行级约束，表级约束" class="headerlink" title="行级约束，表级约束"></a>行级约束，表级约束</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test1(</span><br><span class="line">id INT UNIQUE, -- 行级约束</span><br><span class="line">last_name VARCHAR(15),</span><br><span class="line">email VARCHAR(15),</span><br><span class="line">CONSTRAINT uk_test1_email UNIQUE(emial) -- 表级约束</span><br><span class="line">-- NOT NULL 没有表级约束</span><br><span class="line">)</span><br><span class="line">-- 这里给约束命名了，默认不给的话是和列名相同的</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="UNIQUE-可以有null，但是可以有多个null，"><a href="#UNIQUE-可以有null，但是可以有多个null，" class="headerlink" title="UNIQUE 可以有null，但是可以有多个null，"></a>UNIQUE 可以有null，但是可以有多个null，</h2><hr>
-<h2 id="mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"><a href="#mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决" class="headerlink" title="mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"></a>mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</h2><hr>
-<h2 id="UTF8mb4和UTF8mb3"><a href="#UTF8mb4和UTF8mb3" class="headerlink" title="UTF8mb4和UTF8mb3"></a>UTF8mb4和UTF8mb3</h2><ul>
-<li>utf8mb3:1~3个字节表示字符</li>
-<li>utf8mb4:1~4个字节表示字符<br>mysql utf8 默认是utf8mb3。utf8mb4用于emoji表情一般；</li>
-</ul>
-<hr>
-<h2 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h2><ul>
-<li>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器-&gt;找存储引擎API看用的哪个engine</li>
-</ul>
-<hr>
-<h2 id="InnoDB-的好处"><a href="#InnoDB-的好处" class="headerlink" title="InnoDB 的好处"></a>InnoDB 的好处</h2><ul>
-<li>你可以<code>show engines</code>看到，支持事物和分布式</li>
-</ul>
-<hr>
-<h2 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h2><table>
-<thead>
-<tr>
-<th>对比项</th>
-<th>MyISAM</th>
-<th>InnoDB</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>外键</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>事物</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>行表锁</td>
-<td>表锁，即使操作一条记录会锁住整个表，不适合高并发</td>
-<td>行锁</td>
-</tr>
-<tr>
-<td>缓存</td>
-<td>只缓存索引，不缓存真实数据,增加查询很多优选选</td>
-<td>缓存和数据都是真实数据，都是 .idb 结尾的文件,使用的时候会更占据内存 ,</td>
-</tr>
-<tr>
-<td>关注点</td>
-<td>性能：节省资源，消耗少，简单业务</td>
-<td>事物：并发写，事物，更大资源</td>
-</tr>
-<tr>
-<td>默认安装</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>默认使用</td>
-<td>No(MySQL 5.5 之前 Yes)</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>选择</td>
-<td>增加查询多用MyISAM</td>
-<td>更新删除多优选选InnoDB</td>
-</tr>
-</tbody></table>
-]]></content>
-  </entry>
-  <entry>
-    <title>Oracle 中 substr 和 instr 函数简单用法</title>
-    <url>/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<!-- vim-markdown-toc Marked -->
-
-<ul>
-<li><a href="#oracle-%E7%9A%84-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">Oracle 的 substr 和 instr 函数简单用法</a><ul>
-<li><a href="#substr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">substr 函数简单用法</a><ul>
-<li><a href="#substr-%E4%BB%8B%E7%BB%8D">substr 介绍</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
-</ul>
-</li>
-<li><a href="#instr-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">instr 函数的简单用法</a><ul>
-<li><a href="#instr-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D%EF%BC%9A">instr 函数介绍：</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
-</ul>
-</li>
-<li><a href="#%E6%80%BB%E7%BB%93">总结</a><ul>
-<li><a href="#%E5%AE%9E%E4%BE%8B%E5%9B%BE%E7%89%87">实例图片</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- vim-markdown-toc -->
-
-<h1 id="Oracle-的-substr-和-instr-函数简单用法"><a href="#Oracle-的-substr-和-instr-函数简单用法" class="headerlink" title="Oracle 的 substr 和 instr 函数简单用法"></a>Oracle 的 substr 和 instr 函数简单用法</h1><h2 id="substr-函数简单用法"><a href="#substr-函数简单用法" class="headerlink" title="substr 函数简单用法"></a>substr 函数简单用法</h2><h3 id="substr-介绍"><a href="#substr-介绍" class="headerlink" title="substr 介绍"></a>substr 介绍</h3><blockquote>
-<p>/*</p>
-<p>* 截取字符串（字符串位置从 1 开始，而不是从 0 开始）</p>
-<p>* @param string 源字符串</p>
-<p>* @param position 检索位置，参数为正时，从左向右检索，参数为负时，从右向左检索</p>
-<p>* @param substring_length 要截取的长度，可省略（默认从 position 位开始截取全部）, 值小于 1 时返回空字符串</p>
-<p>* @return 返回截取的字符串</p>
-<p>*/</p>
-</blockquote>
-<p><strong><code>substr(string, position, substring_length);</code></strong></p>
-<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">0</span>, <span class="number">1</span>)  c1<span class="comment">-- 返回结果为 &#x27;H&#x27;  * 从字符串第一个字符开始截取长度为 1 的字符串</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">1</span>, <span class="number">1</span>)  c2<span class="comment">-- 返回结果为 &#x27;H&#x27;  *0 和 1 都是表示截取的开始位置为第一个字符</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">2</span>, <span class="number">4</span>)  c3<span class="comment">-- 返回结果为 &#x27;ello&#x27;</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) c4<span class="comment">-- 返回结果为 &#x27;rld&#x27; * 负数 (-i) 表示截取的开始位置为字符串右端向左数第 i 个</span></span><br><span class="line"><span class="keyword">from</span> PRPDKIND;</span><br></pre></td></tr></table></figure>
-
-<h3 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h3><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_15-28-28.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-<hr>
-<h2 id="instr-函数的简单用法"><a href="#instr-函数的简单用法" class="headerlink" title="instr 函数的简单用法"></a>instr 函数的简单用法</h2><h3 id="instr-函数介绍："><a href="#instr-函数介绍：" class="headerlink" title="instr 函数介绍："></a>instr 函数介绍：</h3><blockquote>
-<p>/*</p>
-<p>* 返回子字符串在源字符串中的位置（字符串位置从 1 开始，而不是从 0 开始）</p>
-<p>* @param string 源字符串</p>
-<p>* @param substring 子字符串</p>
-<p>* @param position 检索位置，可省略（默认为 1), 参数为正时，从左向右检索，参数为负时，从右向左检索</p>
-<p>* @param occurrence 检索子字符串出现的次数，可省略（默认为 1), 值只能为正整数，否则会报错</p>
-<p>* @return 返回子字符串在源字符串中出现的位置（没找到返回 0）</p>
-<p>*/</p>
-</blockquote>
-<p><strong><code>instr(string, substring, position, occurrence)</code></strong></p>
-<h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>) <span class="keyword">FROM</span> DUAL;           <span class="comment">-- 结果：3</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">5</span>) <span class="keyword">FROM</span> DUAL;        <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;       <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">2</span>, <span class="number">2</span>) <span class="keyword">FROM</span> DUAL;     <span class="comment">-- 结果：4</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) <span class="keyword">FROM</span> DUAL;    <span class="comment">-- 结果：0</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="测试图片-1"><a href="#测试图片-1" class="headerlink" title="测试图片"></a>测试图片</h3><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-16-28.jpg"
-                       
-                 ></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>可以将 SUBSTR 和 INSTR 结合使用来实现截取字符串中特定字符前后的字符串</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之前的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：hello</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之后的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="operator">+</span><span class="number">1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>,<span class="number">1</span>)<span class="operator">+</span><span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C1,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C2,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">+</span> <span class="number">1</span>)    C3,<span class="comment">-- 结果：world</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">1</span>) <span class="operator">+</span> <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>) <span class="operator">-</span> <span class="number">1</span>) C4</span><br><span class="line">       <span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串 -- 结果：world</span></span><br><span class="line"><span class="keyword">FROM</span> DUAL;</span><br></pre></td></tr></table></figure>
-
-<h3 id="实例图片"><a href="#实例图片" class="headerlink" title="实例图片"></a>实例图片</h3><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-30-19.jpg"
-                       
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>lombok 注解，绝中绝，顶上顶！</title>
-    <url>/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/</url>
-    <content><![CDATA[<h1 id="lombok-注解，绝中绝，顶上顶！"><a href="#lombok-注解，绝中绝，顶上顶！" class="headerlink" title="lombok 注解，绝中绝，顶上顶！"></a>lombok 注解，绝中绝，顶上顶！</h1><blockquote>
-<p>可以在编译后的 class 文件来看出不同。不过有时候修改注解后，项目并不会自动编译，此时在 maven 手动编译即可看出效果。</p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-24-14.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-<ul>
-<li>本文主要记录 lombok 可能会遇到的一些坑和一些注解解释</li>
-</ul>
-</blockquote>
-<h2 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h2><p>@Data</p>
-<p> &#x3D; @Getter + @Setter + @ToString + @EqualsAndHashCode</p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>@Data 里面没有构造函数。即如果没有写自定义的构造函数那就是 Java 自带的无参构造函数。如果有自定义的构造函数那就是只有写了的构造函数，没有无参的了</li>
-<li>由上一点，所以一般如果加了 @AllArgsConstructor, 那应该加个 @NoArgsConstructor.</li>
-</ul>
-<h2 id="EqualsAndHashCode"><a href="#EqualsAndHashCode" class="headerlink" title="@EqualsAndHashCode"></a>@EqualsAndHashCode</h2><p>@EqualsAndHashCode , 该注解是按照整个对象去重写 Equals 和 HashCode. 有时候业务场景是根据 ID 去判断是否重复，所以可以使用 @EqualsAndHashCode(of &#x3D; {“id”})</p>
-<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><blockquote>
-<ul>
-<li>没加 @EqualsAndHashCode(of &#x3D; {“id”})<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-52-03.jpg"
-                        alt="PANGU_DISABLE"
-                 ></li>
-<li>加了 @EqualsAndHashCode(of &#x3D; {“id”})<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-50-59.jpg"
-                        alt="PANGU_DISABLE"
-                 ></li>
-</ul>
-</blockquote>
-<h2 id="Accessors"><a href="#Accessors" class="headerlink" title="@Accessors"></a>@Accessors</h2><blockquote>
-<p>@Accessors 有两个属性</p>
-</blockquote>
-<h3 id="Accessors-chain-true"><a href="#Accessors-chain-true" class="headerlink" title="@Accessors(chain &#x3D; true)"></a>@Accessors(chain &#x3D; true)</h3><ul>
-<li>chain : 链</li>
-</ul>
-<p>现在链式编程很酷也很方便，å<br> 上该注解后，所有的 set 命令返回的都是 this 即调用对象本身。不加 @Accessors 默认 setXxx() 返回是 void</p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_11-00-45.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-<p>因此你可以像这样创建对象：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>().setId(<span class="number">1</span>).setName(<span class="string">&quot;lucy&quot;</span>).setAge(<span class="number">18</span>);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Accessors-fluent-true"><a href="#Accessors-fluent-true" class="headerlink" title="@Accessors(fluent &#x3D; true)"></a>@Accessors(fluent &#x3D; true)</h3><ul>
-<li>fluent : 流利的</li>
-</ul>
-<p>这个命令更牛逼，set get 都给你整没了。直接就是首字母小写的变量名。有参数的就是 set，没参数的就是 get</p>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_11-12-55.jpg"
-                        alt="PANGU_DISABLE"
-                 ><br>因此你可以像这样使用：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>().id(<span class="number">1</span>).name(<span class="string">&quot;lucy&quot;</span>).age(<span class="number">18</span>);</span><br><span class="line">System.out.println(student.id() + student.name() + student.age());</span><br></pre></td></tr></table></figure>
-
-<h2 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h2><blockquote>
-<p>一种设计模式：建造者模式</p>
-</blockquote>
-<h3 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>@Builder 会增加全参构造函数，那他就没有默认的无参构造了，得注意。所以得加上 @NoArgsConstructor，但是加上后 @Builder 默认的全参构造就没了，会报错，所以都得加上 @NoArgsConstructor,@AllArgsConstructor.</li>
-<li>并且内部类那个成员变量会覆盖掉他父类的成员变量的默认值，所以默认值会失效。<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_15-11-14.jpg"
-                        alt="PANGU_DISABLE"
-                 ></li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>之前在 <a class="link"   href="https://okhttps.ejlchina.com/v3/getstart.html#%E6%9E%84%E5%BB%BA-http" >OkHttps<i class="fas fa-external-link-alt"></i></a> 里面看到过 builder() 这玩意，现在知道了是一种设计模式。lombok 也有用到。但是 @Builder 会更消耗内存吧，静态内部类还没用就直接整上内存里了，好处应该是更直观一点。还是推荐如果喜欢流式的就用 <code>@Accessors(fluent = true)</code> , 喜欢链式编程 setXxx() 就用 <code>@Accessors(chain = true)</code></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Nginx 代理妙用</title>
-    <url>/2023/06/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Nginx-代理妙用"><a href="#Nginx-代理妙用" class="headerlink" title="Nginx 代理妙用"></a>Nginx 代理妙用</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
-<p>于是有了这篇文章。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>SSH 能秘钥登录，但是 Git 却不能</title>
-    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
-    <content><![CDATA[<h1 id="SSH-能秘钥登录，但是-Git-却不能"><a href="#SSH-能秘钥登录，但是-Git-却不能" class="headerlink" title="SSH 能秘钥登录，但是 Git 却不能"></a>SSH 能秘钥登录，但是 Git 却不能</h1><p>SSH 配置了且能秘钥登录，但是git提交代码要密码</p>
-<h2 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h2><ol>
-<li>重新配置公钥私钥</li>
-<li>ssh-agent 管理</li>
-</ol>
-<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
-<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
-<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>个人简历</title>
-    <url>/2025/02/26/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/</url>
-    <content><![CDATA[<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>简历</title>
-</head>
-<body>
-<div class="markdown-body indigo square">
-<img   align="right" width="180" height="225"  
-                       lazyload
-                       alt="image"
-                       data-src="https://i.postimg.cc/dtn89yjN/20250101.jpg"
-                         class="medium-zoom-image" title="" style=""
-                 >
-    <h2 class="do_not_show_underline">联系方式</h2>
-    <ul>
-        <li>手机：19176966686</li>
-        <li>Email：<a class="link"   href="mailto:m18390923477@gmail.com" >m18390923477@gmail.com<i class="fas fa-external-link-alt"></i></a></li>
-        <li>QQ/ 微信号：798953052</li>
-    </ul>
-    <h2> 个人信息 </h2>
-    <ul>
-        <li><strong>于磊</strong> / 男 / 26 岁</li>
-        <li><strong>本科</strong> / 湖南理工学院</li>
-        <li>博客：<a class="link"   href="https://leijiba.cn" >https://leijiba.cn<i class="fas fa-external-link-alt"></i></a></li>
-        <li>期望职位：Java 后端工程师</li>
-        <li>工作经验： <strong>三年</strong>
-        <ul>
-            <li>万达信息股份有限公司   (2022 年 5 月 - 2024 年 6 月)</li>
-            <li>中科软科技股份有限公司 (2021 年 6 月 - 2022 年 4 月)</li>
-        </ul>
-        </li>
-    </ul>
-    <hr>
-    <h2>专业技能</h2>
-    <ul>
-        <li>掌握 Java 基础，集合，stream 流等</li>
-        <li>掌握 Vim、Git、IDEA 等工具使用</li>
-        <li>能够使用 Spring，SpringMVC，MyBatis-Plus 等开源框架进行开发</li>
-        <li>能够使用 SpringBoot + SpringCloud 进行微服务开发</li>
-        <li>熟悉主流关系型数据库 Mysql，oracle， 掌握 sql 语法</li>
-        <li>熟练 Linux 系统，熟悉项目的搭建和常用命令，熟悉 Nginx 反向代理、负载均衡配置</li>
-        <li>熟悉 Jenkins ，docker CI/CD 流程</li>
-        <li>熟悉微服务架构体系：Eureka，Nacos 服务注册，Feign API 不同模块间调用方式，以及项目设计模式</li>
-    </ul>
-    <hr>
-    <h2>项目经验</h2>
-    <h3>深圳数字人社 - 深圳公共就业项目 (2023 年 1 月 - 2024 年 6 月)</h3>
-    <strong>项目介绍：</strong>
-    <blockquote>
-           <p>项目提供平台来帮助深圳工作的人员或者单位，根据一些政府的激励政策满足一定要求可享受对应的补贴。</p>
-        <p>本项目是一个重构项目，原来是独立的项目，现需要迁移到一体化平台作为入口进行统一管理全称为深圳数字人社。采用新的架构设计，数据库等国产化。我主要负责深圳市的工作就业相关的补助。例如：家政企业备案、家政企业社保补贴、高校毕业生、困难人员求职创业补贴、港澳台实习青年补贴、吸纳脱贫人员、吸纳退役军人、等等一系列补贴</p>
-    </blockquote>
-    <p><strong>开发技术：</strong> SpringBoot + MyBatis-Plus + Nacos + Redis</p>
-    <p><strong>责任描述：</strong> 第三方接口统一对接(工商局、教育部、公安户籍、脱贫人员信息等等)，家政企业备案、家政企业社保补贴、困难人员求职创业补贴、港澳台实习青年补贴、吸纳脱贫人员等等一系列补贴、以及处理部分旧系统的工单。</p>
-    <ul>
-        <li>对接第三方接口，提供切面日志记录调用状态，配置秘钥以区分生产测试环境。</li>
-        <li>缓存调用频繁的接口，提高测试通过率。对接第三方接口经常性出现超时现象，设计兼容性强，可动态配置的注解，容错性强，方便不同环境下调试。</li>
-        <li>补贴续发功能：社保补贴续发要求是只需一次申请后续根据社保是否缴纳自动发放补贴。需求社保补贴一次性能申请 6 个月，后续由系统判断逻辑满足要求的情况下系统自动申报给与补贴。设计续发日志表，设置待续发，续发失败，续发终止标识区分不同业务数据办理情况。</li>
-        <li>枚举策略模式：因业务现由经办一体化平台办理，故由对方传入流水号以及类型编码至我方系统接口进行保存。设计类枚举，类中有对应业务编码以及接口类型。因此省去大量 if else 判断，只需遍历枚举，业务类型编码走不同业务的的保存、更新逻辑。增强代码健壮性，减少出错概率。</li>
-        <li>一些网络环境问题(本地环境不能和中台前端环境联调)，使用 nginx 代理处理，提高团队开发和效率。</li>
-    </ul>
-    <hr>
-    <h3>深圳社保 - 深圳待遇项目（失业养老工伤待遇）(2022 年 5 月- 2023 年 1 月)</h3>
-    <strong>项目介绍：</strong>
-    <blockquote>
-        <p>深圳社保项目分为征收缴纳社保和享受社保待遇。该项目属于后者又称为：深圳待遇项目。</p>
-        <p>留工培训补贴是疫情期间，为了留住工人降低企业压力而根据其为员工缴纳的社保记录给与每人 500 元的企业补助。该项目主要实现对每个企业社保缴纳人数计算补贴。其中调用到很多第三方接口：社保缴纳情况、公安、企业信用办、工商局企业信息等接口。该项目为内部项目也提供了对外查询接口，最开始为自动给符合要求的单位申报，后续对接经办平台接口供个人来办事大厅办理。具体可搜索深圳人社公众号，留工补贴查看公示发放信息。</p>
-    </blockquote>
-    <p><strong>开发技术：</strong> Spring + MyBatis + RabbitMQ + JSP</p>
-    <p><strong>责任描述：</strong> 为深圳市 80 万家中小微企业匹配条件，符合要求的进行自动申报，不符合要求的进行归档供下次继续申报。该项目执行期间每月社保归档后跑一次数据，并配合需求员导出数据进行抽样比对，最后进行公示，汇总，推送银行发放。配合业务员对比数据准确无误。</p>
-    <ul>
-        <li>根据项目设计进行数据库结构设计消息队列日志表，业务流程表，业务办结表，归档表，推送银行信息汇总表等；</li>
-        <li>代码实现方面把校验和入库操作做成一个消费接口，单位信息作为参数传入接口中。发送给消息队列，减少服务器压力。</li>
-        <li>使用 Nginx 反向代理并且实现负载均衡。</li>
-        <li>设计单例模式优化公共的校验逻辑。</li>
-    </ul>
-    <hr>
-</div>
-</body>
-</html>
-]]></content>
-  </entry>
-  <entry>
-    <title>五笔输入法学习</title>
-    <url>/2021/09/10/%E4%BA%94%E7%AC%94/</url>
-    <content><![CDATA[<h1 id="五笔输入法学习"><a href="#五笔输入法学习" class="headerlink" title="五笔输入法学习"></a>五笔输入法学习</h1><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/09/10/%E4%BA%94%E7%AC%94/Snipaste_2021-09-10_09-43-31.jpg"
-                        alt="五笔键位图"
-                 ></p>
-<h2 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h2><h3 id="字根"><a href="#字根" class="headerlink" title="字根"></a>字根</h3><ul>
-<li>横区 <ul>
-<li>11(G) 王旁青头戋（兼）五一</li>
-<li>12(F) 土士二干十寸雨。二一还有革字底</li>
-<li>13(D) 大犬三羊古石厂</li>
-<li>14(S) 木丁西</li>
-<li>15(A) 工戈草头右框七（”右框”即”匚”）</li>
-</ul>
-</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>五笔学习之路</title>
-    <url>/2021/09/01/%E4%BA%94%E7%AC%94%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
-    <content><![CDATA[<h1 id="五笔学习之路"><a href="#五笔学习之路" class="headerlink" title="五笔学习之路"></a>五笔学习之路</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
-<li><strong>起因</strong>：最开始由于全拼的击键次数过多，以后工作上经常会用到电脑，遂学习双拼（小鹤双拼）只由声母和韵母组成，任何一个字只需要击键两次，上手容易，熟悉后输入速度上有所提升。但是无法避免的拼音的重码率很高，还是要去候选框去选字。</li>
-<li><strong>本质</strong>：由于本人在拼音中 in ing 分不清，而且拼音重码率高，五笔基本上四个键确定一个字，选字的情况比较少，空格就完事，为提高 <del>聊天摸鱼</del> 工作效率，故克服重重困难学习五笔 86 版本。</li>
-<li><strong>情感升华</strong>：了解过五笔，对于中国汉字的结构以及五笔的渊源，其博大精深，被五笔输入的魅力所折服。<blockquote>
-<p>这篇文章是用双拼打的</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="五笔易错集合"><a href="#五笔易错集合" class="headerlink" title="五笔易错集合"></a>五笔易错集合</h2><ul>
-<li>女<br>vvvv 键名汉子</li>
-</ul>
-<p>最后一笔为 横</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>免费添加SSL证书</title>
-    <url>/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
-    <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
-<hr>
-<h2 id="为什么要有ssl证书？"><a href="#为什么要有ssl证书？" class="headerlink" title="为什么要有ssl证书？"></a>为什么要有ssl证书？</h2><p>不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。<br>因为你的数据不经过证书加密，会容易被篡改。<br>所以证书就是为了加密，保证发送消息和接收消息的安全。</p>
-<h2 id="谁有说服力去管理这么多网站对应的证书？"><a href="#谁有说服力去管理这么多网站对应的证书？" class="headerlink" title="谁有说服力去管理这么多网站对应的证书？"></a>谁有说服力去管理这么多网站对应的证书？</h2><blockquote>
-<p>我怎么知道你的证书就是属于你的网站的，得有一个有公信的机构盖章我才相信</p>
-</blockquote>
-<p>于是乎就有这种机构，好像是要交多少钱类似于保证金的东西，用钱证明实力。<br>这个机构来维护一个证书对应关系类似于 Java 的 Map，比如某某网站对应某个证书。<br>用户请求这个网站就拿这个证书去加密请求，对应的服务端也需要配置私钥去解密，于是加密请求就完成了。<br>用户信任机构的证书，服务端拿私钥也解密成功了，这个世界没有人受伤害。</p>
-<h2 id="道理懂了，那证书怎么申请？"><a href="#道理懂了，那证书怎么申请？" class="headerlink" title="道理懂了，那证书怎么申请？"></a>道理懂了，那证书怎么申请？</h2><p>拿钱买或者搞免费的，我的需求只是为了让用户信任我，当你访问 <a class="link"   href="https://leijiba.cn/" >leijiba.cn<i class="fas fa-external-link-alt"></i></a> 的时候,为了让浏览器不弹出这是一个不安全的链接。</p>
-<p>我用的是这家 <a class="link"   href="https://freessl.cn/" >freessl.cn<i class="fas fa-external-link-alt"></i></a> 免费的。</p>
-<p>流程是：</p>
-<ol>
-<li>freessl 给你一个特定的<code>主机记录</code>还有<code>记录值</code> ，让你放到域名提供商解析那里解析，需要点时间同步到dns去。</li>
-<li>域名提供商那里解析成功了，freessl这边也读到了，证明这就是属于你的域名。</li>
-<li>1.2. 这两步就是为了验证这是你的域名，然后 freessl 就会给你公钥私钥。</li>
-<li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
-    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
-    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
-    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
-<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
-<ul>
-<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
-</li>
-<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
-</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
-</ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
-<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
-<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>Test</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>测试结果</li>
-</ul>
-<p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
-                       
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Java实现天气预报</title>
-    <url>/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/</url>
-    <content><![CDATA[<h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
-<li>因每次去上班都不知道今天下不下雨。要是下雨鞋子就会湿的。</li>
-<li>然后逛 github 发现有一个 QQ 机器人。可以用 Java 调用。遂想到实时预报下雨的天气。</li>
-<li>所以设置每天早上 6 点发消息提醒今天的降水概率。</li>
-</ul>
-<h2 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h2><ol>
-<li>使用 <a class="link"   href="https://github.com/ForteScarlet/simpler-robot" >simbot QQ 机器人<i class="fas fa-external-link-alt"></i></a>  (github 开源的）</li>
-<li>使用和风天气和阿里云的易源数据作为天气 API</li>
-</ol>
-<h2 id="核心代码图片："><a href="#核心代码图片：" class="headerlink" title="核心代码图片："></a>核心代码图片：</h2><ul>
-<li><p>RestFul 风格调用，接口见名知意<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-29-11.jpg"
-                       
-                 ></p>
-</li>
-<li><p>OKHttps 访问 API 获取实时数据<br><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-32-31.jpg"
-                       
-                 ></p>
-</li>
-<li><p>QQ 机器人代码参考<br><a class="link"   href="https://github.com/ForteScarlet/simpler-robot" >github<i class="fas fa-external-link-alt"></i></a></p>
-</li>
-</ul>
-<h2 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h2><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>害怕用`rm -rf`? 不如试试这个</title>
-    <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
-    <content><![CDATA[<h1 id="害怕用-rm-rf？不如试试这个"><a href="#害怕用-rm-rf？不如试试这个" class="headerlink" title="害怕用 rm -rf？不如试试这个"></a>害怕用 rm -rf？不如试试这个</h1><p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不陌生。</p>
-<h2 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h2><h3 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h3><ul>
-<li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
-</ul>
-<p>这种方式治标不治本，因为主动权还是在我手中。</p>
-<h3 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h3><ul>
-<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行</li>
-</ul>
-<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式。</p>
-<h3 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h3><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
-<p><a class="link"   href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">trash-put           <span class="comment"># 把文件或目录移动到回收站</span></span><br><span class="line">trash-empty         <span class="comment"># 清空回收站</span></span><br><span class="line">trash-list          <span class="comment"># 列出回收站文件</span></span><br><span class="line">trash-restore       <span class="comment"># 恢复回收站文件</span></span><br><span class="line">trash-rm            <span class="comment"># 删除回收站文件</span></span><br></pre></td></tr></table></figure>
-
-<p>在你的 shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕，正常 rm 就行。</p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/test <span class="comment"># touch testFile                                                                         root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># rm testFile                                                                            root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-restore                                                                          root@Sparrow</span></span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment">#                                                                                        root@Sparrow</span></span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>摸鱼神器 scrcpy</title>
-    <url>/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/</url>
-    <content><![CDATA[<h1 id="电脑操作手机的摸鱼神器-scrcpy"><a href="#电脑操作手机的摸鱼神器-scrcpy" class="headerlink" title="电脑操作手机的摸鱼神器 scrcpy"></a>电脑操作手机的摸鱼神器 <a class="link"   href="https://github.com/Genymobile/scrcpy" >scrcpy<i class="fas fa-external-link-alt"></i></a></h1><blockquote>
-<p>无线控制需要在同一局域网下，并获取手机静态 IP</p>
-</blockquote>
-<ol>
-<li>下载 <a class="link"   href="https://github.com/Genymobile/scrcpy/releases" >scrcpy<i class="fas fa-external-link-alt"></i></a>.</li>
-<li>多次点击版本号，把手机的 usb 调试打开。usb 连接上电脑。</li>
-<li>查看手机在当前 wifi 的 ip 地址。如果是 DHCP 模式，应当切换到静态模式</li>
-<li>电脑命令行输入<code>adb tcpip 6666</code></li>
-<li>电脑输入<code> adb connect IP:6666</code></li>
-<li>现在可以拔掉数据线，输入命令<code>scrcpy</code>即可进行连接</li>
-</ol>
-<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
-<li>在手机熄屏下操作手机<ul>
-<li><code>scrcpy -S</code></li>
-<li><code>scrcpy --turn-screen-off</code></li>
-</ul>
-</li>
-<li>操作屏幕点击鼠标右键即可解锁，也可以执行返回操作</li>
-</ul>
-<h1 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h1><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/Snipaste_2021-11-01_15-55-45.jpg"
-                        alt="PANGU_DISABLE"
-                 ></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>连表查询时未指定表别名导致的查询错误</title>
-    <url>/2024/03/24/%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2%E6%97%B6%E6%9C%AA%E6%8C%87%E5%AE%9A%E8%A1%A8%E5%88%AB%E5%90%8D%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/</url>
-    <content><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在给数据库新增字段后，自己的的功能测试没问题，拍拍屁股走人了。然后就这么上了生产。<br>然后用户发现其他功能模块出问题，去看日志是sql报错：<code>Column &#39;name&#39; in field list is ambiguous。</code>。<br>奇怪：我的功能没问题，并且我都没改代码怎么其他地方会报这个错误呢？</p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>比如我加入的是 table1 表的 name 字段。</p>
-<p><strong>因为出问题的地方是别人代码中使用了连表操作而且并没有给字段别名，<br>然后用正好 select 用到了这个字段，且现在两个表都有这个字段 MySQL 不知道取哪个表的 name 于是导致报错。</strong></p>
-<ul>
-<li>问题sql：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> table1,table2  <span class="keyword">where</span> table1.id<span class="operator">=</span>table2.id;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>正例：</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.name <span class="keyword">from</span> table1 <span class="keyword">as</span> t1 , table2 <span class="keyword">as</span> t2 <span class="keyword">where</span> t1.id<span class="operator">=</span>t2.id;</span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>为了避免这种问题。</p>
-<ul>
-<li>对于数据库中表记录的查询和变更，只要涉及多个表，都需要在列名前加表的别名（或 表名）进行限定。</li>
-<li>对多表进行查询记录、更新记录、删除记录时，如果对操作列没有限定表的别名（或表名），并且操作列在多个表中存在时，就会抛异常。</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>通过反射获取泛型</title>
-    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
-<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
-<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
-<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
-<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
-<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
     <title>MySQL 资料</title>
     <url>/2021/11/30/MySQL/</url>
     <content><![CDATA[<blockquote>
@@ -9263,5 +8396,950 @@
 <p>总之，递归公用表表达式对于查询一个有共同的根节点的树形结构数据，非常有用。它可以不受层级的限制，轻松查出所有节点的数据。如果用其他的查询方式，就比较复杂了。</p>
 <h3 id="3-3-小-结"><a href="#3-3-小-结" class="headerlink" title="3.3 小 结"></a>3.3 小 结</h3><p>公用表表达式的作用是可以替代子查询，而且可以被多次引用。递归公用表表达式对查询有一个共同根节点的树形结构数据非常高效，可以轻松搞定其他查询方式难以处理的查询。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>MySQL 总结 (一)</title>
+    <url>/2021/11/20/MySQL%E6%80%BB%E7%BB%931/</url>
+    <content><![CDATA[<h1 id="MySQL-相关"><a href="#MySQL-相关" class="headerlink" title="MySQL 相关"></a>MySQL 相关</h1><h2 id="desc-表名"><a href="#desc-表名" class="headerlink" title="desc 表名"></a>desc 表名</h2><p>describe– 描述</p>
+<p>descend– 下降</p>
+<hr>
+<blockquote>
+<p>descibe 是查看表的结构，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">describe tablename;</span><br></pre></td></tr></table></figure>
+
+<p>desc 是 describe 的简写，例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">desc tablename;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<p>另外 desc 在排序中的意义是降续排列（和 describe 的简写不是同一个），例：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">order</span> <span class="keyword">by</span> id  <span class="keyword">desc</span> ;</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于-where"><a href="#关于-where" class="headerlink" title="关于 where"></a>关于 where</h1><hr>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">22</span> [<span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么修改的是全局的</p>
+</blockquote>
+<blockquote>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> stu [<span class="keyword">where</span> id <span class="operator">=</span><span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果不加 where 那么删除的是全部的 所以要注意</p>
+</blockquote>
+<h1 id="select-中的-distinct"><a href="#select-中的-distinct" class="headerlink" title="select 中的 distinct"></a>select 中的 distinct</h1><p>–distinct  adj.  清晰的；清楚的；明白的；明显的；截然不同的；有区别的；不同种类的；确定无疑的；确实的；确切的；</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span>  gender <span class="keyword">from</span> emp</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Null-和仍和数据运算结果都是-null-以及有关-null-的运算"><a href="#Null-和仍和数据运算结果都是-null-以及有关-null-的运算" class="headerlink" title="Null 和仍和数据运算结果都是 null, 以及有关 null 的运算"></a>Null 和仍和数据运算结果都是 null, 以及有关 null 的运算</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	sal <span class="operator">+</span> bonus</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	sal <span class="operator">+</span> bonus <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>问题</strong>: 其中有一条数据 A 的 bonus 为 null, 但是他的 sal &gt;3500 了已经。<br>我们要求能把 null&#x3D;0 最好，而且查出来。</p>
+<blockquote>
+<p>方法 1: 将所有的奖金为 null 的列更新为 0</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">update</span> emp <span class="keyword">set</span> bonus <span class="operator">=</span><span class="number">0</span> <span class="keyword">where</span> bonus <span class="keyword">is</span> <span class="keyword">not null</span>;</span><br></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+<blockquote>
+<p>SELECT * from emp WHERE dept is not null<br>SELECT * from emp WHERE not (dept is  null)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+<blockquote>
+<p>方法 2: 在查询时将 null 值 看做 0 来处理（这种方式不会对表中的数据产生仍和影响）</p>
+<p><strong>ifnull（列名，值）</strong> 函数：判断指定的列是否包含 null, 若果有 null 就用第二个<strong>值</strong> 替换。<br>ifnull(bonus,0)</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> NAME</span><br><span class="line">	,</span><br><span class="line">	IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">IFNULL(bonus,<span class="number">0</span>) <span class="operator">+</span> sal <span class="operator">&gt;</span> <span class="number">3500</span></span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="取别名的问题"><a href="#取别名的问题" class="headerlink" title="取别名的问题"></a>取别名的问题</h1><hr>
+<h1 id="模糊查询-LIKE"><a href="#模糊查询-LIKE" class="headerlink" title="模糊查询 LIKE"></a>模糊查询 LIKE</h1><hr>
+<p>like 操作符 用在 WHERE 子句中搜索列中的指定模式。</p>
+<blockquote>
+<p>可以和 % _ 使用。</p>
+<p>其中 % 代表<strong>0 个或者多个</strong>任意字符，_代表<strong>一个</strong>任意字符。</p>
+</blockquote>
+<h1 id="多行函数查询"><a href="#多行函数查询" class="headerlink" title="多行函数查询"></a>多行函数查询</h1><p>– 多行函数也叫聚合函数，也叫聚集函数</p>
+<p><strong>多行函数会默认过滤 null 值</strong> , 即不统计 null 值</p>
+<hr>
+<p>count（列名 | *):                  | 是或的意思</p>
+<blockquote>
+<p>count（列名）: 表示统计当前列有多少个值<br>count(*): 以行为单位，统计查询结果中有多少行记录</p>
+</blockquote>
+<p>max（列名）:<br>min（列名）:<br>sum（列名）: 统计这一列中所有值的和 (<strong>会过滤 null 值</strong>) 参考上面的<br>avg（列名）: 会过滤 null 值（所有值的和 &#x2F; 不是 null 值的个数）</p>
+<ul>
+<li><strong>在统计时，不要加格外的列，因为没有任何意义</strong></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">COUNT</span>( <span class="operator">*</span> ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 如果没有分组 在进行统计时，不要添加格外的列，因为没有任何意义（这里的 name 只会将第一行的 name 显示出来）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">max</span>( sal ),</span><br><span class="line">	`name`</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	EMP</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	EMP.sal <span class="operator">&gt;</span> <span class="number">3000</span></span><br><span class="line"><span class="comment">-- 所以这里的 name 不能认为是最高薪资的那一个人，</span></span><br><span class="line"><span class="comment">-- 如果没有分组，那么最高薪资和姓名没有任何关系，薪资是所有薪资的最大值，但是 name 就是结果中的第一行的 name</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	<span class="built_in">sum</span>( bonus )</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	emp</span><br><span class="line"><span class="comment">-- 如果 bonus 是里面有 null 的话会过滤掉。前面说了的。不会参与统计</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>avg 是剔除了为 null 的 count 的那条记录的平均值，那一行不算在内</li>
+</ul>
+<h1 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h1><p>group by</p>
+<hr>
+<p>select count(*) from emp;<br>– 如果没有分组，</p>
+<h1 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h1><hr>
+<p>DESC 是 descend 降序意思<br>ASC 是 ascend 升序的意思 <strong>默认是 ASC</strong></p>
+<h1 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h1><p><strong>limit</strong></p>
+<hr>
+<h1 id="删除的区别"><a href="#删除的区别" class="headerlink" title="删除的区别"></a>删除的区别</h1><hr>
+<p>delete，drop，truncate 都有删除表的作用，区别在于：</p>
+<ul>
+<li>delete 和 truncate 仅仅删除表数据，所以会保存字段名，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</li>
+<li>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</li>
+<li>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，打个比方，drop 是神舟火箭，truncate 是和谐号动车，delete 是自行车。</li>
+</ul>
+<h1 id="varchar-和-char"><a href="#varchar-和-char" class="headerlink" title="varchar 和 char"></a>varchar 和 char</h1><hr>
+<p>区别一，定长和变长</p>
+<blockquote>
+<p>char 表示定长，长度固定，varch ar 表示变长，即长度可变。char 如果插入的长度小于定义长度时，则用空格填充；varchar 小于定义长度时，还是按实际长度存储，插入多长就存多长。</p>
+</blockquote>
+<blockquote>
+<p> 因为其长度固定，char 的存取速度还是要比 varchar 要快得多，方便程序的存储与查找；但是 char 也为此付出的是空间的代价，因为其长度固定，所以会占据多余的空间，可谓是以空间换取时间效率。varchar 则刚好相反，以时间换空间。</p>
+</blockquote>
+<p>区别之二，存储的容量不同</p>
+<blockquote>
+<p>对 char 来说，最多能存放的字符个数 255，和 编码无关。<br>而 varchar 呢，最多能存放 65532 个字符。varchar 的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是 65,532 字节。</p>
+</blockquote>
+<p>区别之三，空格</p>
+<p>char 在存储的时候会将右侧空格进行剔除，保留左侧空格。<br>varchar 在存储的时候保留所有空格，不进行任何删除</p>
+<p>varchar 和 char 在查询的时候都只会根据 where 条件中的左侧空格进行判断，右侧末尾的空格会忽略</p>
+<h1 id="自增"><a href="#自增" class="headerlink" title="自增"></a>自增</h1><p>auto_increment</p>
+<hr>
+<p>可以用 show create  table emp</p>
+<blockquote>
+<p> 设置完主键自增后，表中会维护一个 AUTO_INCREMENT 的值，这个值从<strong>1</strong>开始。如果插入的那一列没有给主键赋值。那就是从 AUTO_INCREMENT 获取值。用完后自加 1.<br>  所以查看具体的最下面有一个 auto_increment&#x3D; 多少；</p>
+</blockquote>
+<p>注意：</p>
+<blockquote>
+<p>auto_increment 会安照 <strong>最大</strong> 的去自增。</p>
+</blockquote>
+<h1 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h1><hr>
+<p>唯一，非空。一般和 auto_increment 一起用</p>
+<h1 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h1><hr>
+<p>非空，但是可以重复</p>
+<h1 id="唯一约束-–unique"><a href="#唯一约束-–unique" class="headerlink" title="唯一约束 –unique"></a>唯一约束 –unique</h1><hr>
+<p>不能重复，可以为 null</p>
+<h1 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h1><hr>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  <span class="keyword">from</span> emp,dept</span><br></pre></td></tr></table></figure>
+
+<p>以上有笛卡尔积。</p>
+<p>消除笛卡尔积 用<strong>inner join 内连接</strong>. 把逗号，改成 inner join where 改成 on</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">INNER</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">INNER</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>以上两种都可以。但是 null 值不会显示出来</p>
+<p>可以用左外连接和右外连接：</p>
+<blockquote>
+<p>左外连接。查询左边的所以值</p>
+<p>右外连接：查询右边所有的值</p>
+</blockquote>
+<p>显示所有部门对应的员工值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">left</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">right</span> <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>显示所有员工对应的部门值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> dept <span class="keyword">right</span> <span class="keyword">JOIN</span> emp <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br><span class="line"><span class="keyword">SELECT</span>  <span class="operator">*</span> <span class="keyword">from</span> emp <span class="keyword">LEFT</span>  <span class="keyword">JOIN</span> dept <span class="keyword">on</span> emp.dept_id<span class="operator">=</span>dept.id</span><br></pre></td></tr></table></figure>
+
+<p>这样不能查询所以的对应的 null 值</p>
+<p>而且 mysql 没有全外连接查询。</p>
+<p>可以通过 union 模拟这种查询</p>
+<h1 id="where-比-having-先执行"><a href="#where-比-having-先执行" class="headerlink" title="where 比 having 先执行"></a>where 比 having 先执行</h1><hr>
+<p>having 和 where 区别：</p>
+<blockquote>
+<ul>
+<li>where 放在 from 之后，group by 之前</li>
+<li>where 不能使用多行函数（聚集函数）, 列别名也不能用在 where 中</li>
+<li>where 是在分组之前之前。先过滤一些记录，再基于剩余的记录进行返祖。</li>
+<li>要先分组再过滤，基于剩下的记录进行分组，就用 having</li>
+</ul>
+</blockquote>
+<p>where 和 having 的区别：</p>
+<blockquote>
+<ul>
+<li><p>where 和 having 都是对于表记录中的记录进行过滤筛选</p>
+</li>
+<li><p>where 用于在分组之前对记录进行过滤筛选，而 having 是对分组之后的记录进行过滤筛选</p>
+</li>
+<li><p>where 子句中不能使用多行函数（聚集函数）, 和列别名。但是可以用表别名</p>
+<blockquote>
+<p>select name as 姓名，sal as 薪资 from emp e;</p>
+<p>– 其中上面的’姓名’,’薪资’都是列别名，而 e 是表别名</p>
+</blockquote>
+</li>
+<li><p>having 子句中可以使用多行函数（聚集函数）, 列别名，表别名</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘"><a href="#插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的-sql-一般会自带-‘" class="headerlink" title="插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘"></a>插入数据时，数值类型的数据可以用单引号括起来这样也会识别成数值，一般来说。没人这么闲。不过导出的 sql 一般会自带  ‘</h2><h1 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h2 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h2><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符"><a href="#好像有一个万能的转义字符" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mybatis-1"><a href="#Mybatis-1" class="headerlink" title="Mybatis"></a>Mybatis</h1><hr>
+<h1 id="写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1"><a href="#写-sql-片段时-小于号会被识别为-xml-的标签，大于不会，因为大于没开始的标志-1" class="headerlink" title="写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志"></a>写 sql 片段时 小于号会被识别为 xml 的标签，大于不会，因为大于没开始的标志</h1><hr>
+<p>大于：&gt;</p>
+<blockquote>
+<p>可以用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;gt;</span> // 记得加分号 great than</span><br></pre></td></tr></table></figure></blockquote>
+<p>小于：&lt;</p>
+<blockquote>
+<p> <strong>必须用</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="symbol">&amp;lt;</span> // 记得加分号 less than</span><br></pre></td></tr></table></figure></blockquote>
+<h1 id="好像有一个万能的转义字符-1"><a href="#好像有一个万能的转义字符-1" class="headerlink" title="好像有一个万能的转义字符"></a>好像有一个万能的转义字符</h1><hr>
+<![CDATA[hello]]>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;![CDATA『这里输入你要展示的仍何内容』]&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL 总结（二）</title>
+    <url>/2021/11/25/MySQL%E6%80%BB%E7%BB%932/</url>
+    <content><![CDATA[<h1 id="MySQL-注意的点："><a href="#MySQL-注意的点：" class="headerlink" title="MySQL 注意的点："></a>MySQL 注意的点：</h1><blockquote>
+<p>写代码的时候突然觉得自己 SQL 方面有点弱，于是有了这篇文章</p>
+</blockquote>
+<hr>
+<h2 id="为什么-where-不能用字段别名。因为-mysql-执行顺序："><a href="#为什么-where-不能用字段别名。因为-mysql-执行顺序：" class="headerlink" title="为什么 where 不能用字段别名。因为 mysql 执行顺序："></a>为什么 where 不能用<code>字段</code>别名。因为 mysql <strong>执行顺序</strong>：</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 错误：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">where</span> name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确：</span></span><br><span class="line"><span class="keyword">select</span> last_name <span class="keyword">as</span> name        <span class="comment">-- 最后再 select 生成字段</span></span><br><span class="line"><span class="keyword">from</span> employees                  <span class="comment">-- 先执行 from 哪个表</span></span><br><span class="line"><span class="keyword">where</span> last_name <span class="keyword">like</span> <span class="string">&#x27;%shit%&#x27;</span>;  <span class="comment">-- 再执行 where 条件</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="limit-使用方法"><a href="#limit-使用方法" class="headerlink" title="limit 使用方法"></a>limit 使用方法</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 这条语句意思是 从第 51 条数据（包括 51) 开始数，数 10 条数据出来</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">50</span>,<span class="number">10</span>;</span><br><span class="line"><span class="comment">-- 前端传第几页可以这样给：</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit (currentPage<span class="number">-1</span>)<span class="operator">*</span>pageSize,pageSize;</span><br><span class="line"><span class="comment">---------------------------------</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">0</span>,<span class="number">1</span>;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line">limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。"><a href="#从-sql-优化来说，多表查询的字段最好都指明表名。减少-sql-找字段的时间。当然如果有同样的字段那肯定得指定的。" class="headerlink" title="从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。"></a>从 sql 优化来说，多表查询的字段最好都指明表名。减少 sql 找字段的时间。当然如果有同样的字段那肯定得指定的。</h2><blockquote>
+<p>E-R 图<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/25/MySQL%E6%80%BB%E7%BB%932/Snipaste_2022-03-17_17-35-04.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确：</span><br><span class="line">select employees.department_id, departments.department_id, employees.employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br><span class="line"></span><br><span class="line">-- 正确（但是不高效）：</span><br><span class="line">select employees.department_id, departments.department_id, employee_id</span><br><span class="line">from employees,</span><br><span class="line">     departments</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名"><a href="#如果给表起了别名，在-select-或者-where-中使用表名的话，必须用别名，否则报错。因为-mysql-的执行顺序，表的别名会覆盖表名" class="headerlink" title="如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名"></a>如果给表起了别名，在 select 或者 where 中使用表名的话，必须用别名，否则报错。因为 mysql 的执行顺序，表的别名会覆盖表名</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 正确</span><br><span class="line">select employee_id, dept.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where emp.department_id = dept.department_id;</span><br><span class="line"></span><br><span class="line">-- 错误</span><br><span class="line">select employee_id, departments.department_id, employee_id</span><br><span class="line">from employees emp,</span><br><span class="line">     departments dept</span><br><span class="line">where employees.department_id = departments.department_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。"><a href="#UNION-操作会返回两个查询结果的并集，会去除相同的记录，而-UNION-ALL-不会去重，可以不去重就不去重的写法，去重是-mysql-去重的，所以-UNION-ALL-效率高。" class="headerlink" title="UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。"></a>UNION 操作会返回两个查询结果的并集，会去除相同的记录，而 UNION ALL 不会去重，可以不去重就不去重的写法，去重是 mysql 去重的，所以 UNION  ALL 效率高。</h2><hr>
+<h2 id="COUNT-是计算不包括-null-的个数"><a href="#COUNT-是计算不包括-null-的个数" class="headerlink" title="COUNT() 是计算不包括 null 的个数"></a>COUNT() 是计算不包括 null 的个数</h2><hr>
+<h2 id="酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？"><a href="#酷COUNT-COUNT-1-COUNT（字段）哪个效率更高？" class="headerlink" title="酷COUNT(*),COUNT(1),COUNT（字段）哪个效率更高？"></a>酷<code>COUNT(*)</code>,<code>COUNT(1)</code>,<code>COUNT（字段）</code>哪个效率更高？</h2><p>如果是 MyISAM 存储引擎，三者效率都一样，因为这个引擎有一个字段专门存多少行的。<br>如果是 InnoDB 存储引擎，则效率：<code>COUNT(1)</code>&#x3D;<code>COUNT(*)</code>&gt;<code>COUNT（字段）</code>, 因为这个引擎会自动找 len 最短的去 count, 指定了字段没法优化。</p>
+<hr>
+<h2 id="这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。"><a href="#这是结论：GROUP-BY-语句中，select-字段中只能存在除聚合函数的-GROUP-BY-字段。否则查出来的数据没有意义。" class="headerlink" title="这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。"></a>这是结论：GROUP BY 语句中，select 字段中只能存在除聚合函数的 GROUP BY 字段。否则查出来的数据没有意义。</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">正确</span><br><span class="line"><span class="keyword">select</span> job_id j,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> j;</span><br><span class="line"></span><br><span class="line">也正确</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br><span class="line"></span><br><span class="line">错误：</span><br><span class="line"><span class="keyword">select</span> employee_id,<span class="built_in">count</span>(<span class="operator">*</span>)</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY"><a href="#HAVING-必须在-GROUP-BY-的后面，使用-HAVING-的前提是有-GROUP-BY" class="headerlink" title="HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY"></a>HAVING 必须在 GROUP BY 的后面，使用 HAVING 的前提是有 GROUP BY</h2><hr>
+<h2 id="where-和-having-效率区别，以及使用区别"><a href="#where-和-having-效率区别，以及使用区别" class="headerlink" title="where 和 having 效率区别，以及使用区别"></a>where 和 having 效率区别，以及使用区别</h2><p>没有聚合函数的情况下最好用 where 先判断条件。然后再分组再用 having 去操作条件，不然会 把没用的数据也给分组，浪费性能。<br>where 后面不能跟聚合函数，因为你就一组你没分组聚合按照条件没有意义啊。但是 HAVING 可以因为你分了很多个组所以就可以筛选。</p>
+<hr>
+<h2 id="mysql-执行顺序"><a href="#mysql-执行顺序" class="headerlink" title="mysql 执行顺序"></a>mysql 执行顺序</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">FROM</span> 这里后执行</span><br><span class="line"><span class="comment">------------</span></span><br><span class="line"><span class="keyword">JOIN</span>        这里先执行，且按顺序执行</span><br><span class="line"><span class="keyword">ON</span></span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span>    很奇怪的是这里可以用 <span class="keyword">SELECT</span> 字段的别名</span><br><span class="line"><span class="keyword">HAVING</span>      <span class="keyword">HAVING</span> 也能用，按道理执行顺序是不可以的</span><br><span class="line">            这是 MYSQL 可以的，特例这是。</span><br><span class="line"><span class="comment">----------</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>    这里最后执行</span><br><span class="line">LIMIT</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。"><a href="#GROUP-BY-和-HAVING-可以使用-select-字段的别名，这是-MySQL-特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是-MySQL-为了偷懒，我认为。" class="headerlink" title="GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。"></a>GROUP BY 和 HAVING 可以使用 select 字段的别名，这是 MySQL 特殊的，按道理来说也就是执行顺序来说是不可以使用别名的。这是 MySQL 为了偷懒，我认为。</h2><hr>
+<h2 id="MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以"><a href="#MYSQL-中不能聚合套聚合，这是他的缺陷，但是-ORACLE-可以" class="headerlink" title="MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以"></a>MYSQL 中不能聚合套聚合，这是他的缺陷，但是 ORACLE 可以</h2><hr>
+<h2 id="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化"><a href="#子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分-DBMS-在自连接处理了优化" class="headerlink" title="子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化"></a>子查询和自连接相对来说，自连接好一些，因为子查询是通过未知表进行查询的条件判断，而自连接是通过已知的自身数据进行条件判断。因此大部分 DBMS 在自连接处理了优化</h2><hr>
+<h2 id="mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写"><a href="#mysql-创建表没指明-charset-就用数据库的charset。数据库是可以charset的哦-charset-是-character-set-的简写" class="headerlink" title="mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)"></a>mysql 创建表没指明 charset 就用数据库的charset。数据库是可以charset的哦(charset 是 character set 的简写)</h2><hr>
+<h2 id="mysql-创建表有两种方式"><a href="#mysql-创建表有两种方式" class="headerlink" title="mysql 创建表有两种方式"></a>mysql 创建表有两种方式</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 一个一个创建</span></span><br><span class="line"><span class="keyword">create table</span> t1</span><br><span class="line">(</span><br><span class="line">    id   <span class="type">int</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> t1</span><br><span class="line"><span class="keyword">values</span> (<span class="number">1</span>, <span class="string">&#x27;2&#x27;</span>),</span><br><span class="line">       (<span class="number">2</span>, <span class="string">&#x27;3&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create table</span> t2 <span class="keyword">as</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> t1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="DDL-DML-DCL-TCL"><a href="#DDL-DML-DCL-TCL" class="headerlink" title="DDL,DML,DCL,TCL"></a>DDL,DML,DCL,TCL</h2><ul>
+<li><p>DDL:Data Definition Language (DDL)数据库定义语句</p>
+<blockquote>
+<p>用来创建数据库中的表、索引、视图、存储过程、触发器等<br>CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME</p>
+</blockquote>
+</li>
+<li><p>DML:Data Manipulation Language (DML)数据操纵语句</p>
+<blockquote>
+<p>用来查询、添加、更新、删除等<br>SELECT,INSERT,UPDATE,DELETE,MERGE,CALL,EXPLAIN PLAN,LOCK TABLE</p>
+</blockquote>
+</li>
+<li><p>DCL:Data Control Language (DCL)数据控制语句</p>
+<blockquote>
+<p>用于授权&#x2F;撤销数据库及其字段的权限<br>GRANT,REVOKE。</p>
+</blockquote>
+</li>
+<li><p>TCL:Transaction Control Language (TCL)事务控制语句</p>
+<blockquote>
+<p>用于控制事务<br>COMMIT,ROLLBACK,SAVEPOINT,SET TRANSACTION</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="DROP-表结构和表数据都会删除，释放表空间"><a href="#DROP-表结构和表数据都会删除，释放表空间" class="headerlink" title="DROP 表结构和表数据都会删除，释放表空间"></a>DROP 表结构和表数据都会删除，释放表空间</h2><hr>
+<h2 id="TRUNCATE-只会清空表数据，但是保留表结构"><a href="#TRUNCATE-只会清空表数据，但是保留表结构" class="headerlink" title="TRUNCATE 只会清空表数据，但是保留表结构"></a>TRUNCATE 只会清空表数据，但是保留表结构</h2><hr>
+<h2 id="TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，"><a href="#TRANCATE-是DDL语句-DDL语句是没有ROLLBACK指令的，" class="headerlink" title="TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，"></a>TRANCATE 是DDL语句,DDL语句是没有ROLLBACK指令的，</h2><hr>
+<h2 id="ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"><a href="#ROLLBACK-只可以回滚到上一次的提交。仅仅是上一次次。DDL-没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。" class="headerlink" title="ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。"></a>ROLLBACK 只可以回滚到上一次的提交。仅仅是上一次次。DDL 没有ROLLBACK指令，你可以理解为DDL会自带一个commit，他执行完后会立刻马上会自动提交，所以你下面的ROLLBACK就到他下面的commit就打止了。</h2><hr>
+<h2 id="TRUNCATE-和-DELETE-FROM-异同点"><a href="#TRUNCATE-和-DELETE-FROM-异同点" class="headerlink" title="TRUNCATE 和 DELETE FROM 异同点"></a>TRUNCATE 和 DELETE FROM 异同点</h2><ul>
+<li>相同：<ul>
+<li>都可以实现对数据的删除，同时保留表结构</li>
+</ul>
+</li>
+<li>不同:<ul>
+<li>DELETE FROM 是DML，TRUNCATE是DDL</li>
+<li>TRUNCATE TABLE 不能回滚！！！</li>
+<li>注意：COMMIT 在DML中是默认开启的，即set autocommit&#x3D;true，这是默认开启的，所以delete默认也不能回滚，只能设置为false才能回滚。</li>
+<li>但是TRUNCATE不会触发TRIGGER（日志记录）所以是个危险操作尽量不用，虽然效率高。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="MySQL-8-0-有DDL的原子性，但是5-7没有。即："><a href="#MySQL-8-0-有DDL的原子性，但是5-7没有。即：" class="headerlink" title="MySQL 8.0 有DDL的原子性，但是5.7没有。即："></a>MySQL 8.0 有DDL的原子性，但是5.7没有。即：</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql8.0</span><br><span class="line">CREATE TABLE table1();</span><br><span class="line">DROP table1,table2;</span><br><span class="line">-- 因为table2不存在，所以不会成功。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="MyBatis-用-的情况，用到表名做参数的时候就用这个。"><a href="#MyBatis-用-的情况，用到表名做参数的时候就用这个。" class="headerlink" title="MyBatis 用${}的情况，用到表名做参数的时候就用这个。"></a>MyBatis 用${}的情况，用到表名做参数的时候就用这个。</h2><hr>
+<h2 id="INSERT-添加可以添加查询结果："><a href="#INSERT-添加可以添加查询结果：" class="headerlink" title="INSERT 添加可以添加查询结果："></a>INSERT 添加可以添加查询结果：</h2><ul>
+<li>但是要注意添加的字段要和查询的字段对应。</li>
+<li>字段的范围也要对应,对应或者大于。如果里面的数据没有那么长，那可以。但是最好还是大于等于。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT into emp(id,name)</span><br><span class="line">select id,name </span><br><span class="line">from emp2;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。"><a href="#UPDATE-要接条件，不然会更新整个表，DELETE-FROM-TABLE-也是，要注意了。" class="headerlink" title="UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。"></a>UPDATE 要接条件，不然会更新整个表，DELETE FROM TABLE 也是，要注意了。</h2><hr>
+<h2 id="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"><a href="#小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED" class="headerlink" title="小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED"></a>小数类型建议为DECIMAL，如果字段为非负数，建议为UNSIGNED</h2><hr>
+<h2 id="CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来"><a href="#CHAR-是固定长度的-VARCHAR-是可变长度的。超过varchar最大值，用TEXT，但是TEXT-很大，所以建议独立一张表出来" class="headerlink" title="CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来"></a>CHAR 是固定长度的,VARCHAR 是可变长度的。超过varchar最大值，用TEXT，但是TEXT 很大，所以建议独立一张表出来</h2><hr>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
+<li>not null</li>
+<li>unique</li>
+<li>check 5.7没有,8.0有，</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test01(</span><br><span class="line">id int,</span><br><span class="line">last_name varchar(15)，</span><br><span class="line">salary decimal(10,2) check(salary&gt;2000))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DEFAULT</li>
+</ul>
+<hr>
+<h2 id="行级约束，表级约束"><a href="#行级约束，表级约束" class="headerlink" title="行级约束，表级约束"></a>行级约束，表级约束</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table test1(</span><br><span class="line">id INT UNIQUE, -- 行级约束</span><br><span class="line">last_name VARCHAR(15),</span><br><span class="line">email VARCHAR(15),</span><br><span class="line">CONSTRAINT uk_test1_email UNIQUE(emial) -- 表级约束</span><br><span class="line">-- NOT NULL 没有表级约束</span><br><span class="line">)</span><br><span class="line">-- 这里给约束命名了，默认不给的话是和列名相同的</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="UNIQUE-可以有null，但是可以有多个null，"><a href="#UNIQUE-可以有null，但是可以有多个null，" class="headerlink" title="UNIQUE 可以有null，但是可以有多个null，"></a>UNIQUE 可以有null，但是可以有多个null，</h2><hr>
+<h2 id="mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"><a href="#mysql-可以对表指定不同的存储引擎，你可以在show-create-table-XXX-看到后面，engin-XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决" class="headerlink" title="mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决"></a>mysql 可以对表指定不同的存储引擎，你可以在show create table XXX 看到后面，engin&#x3D;XXX；外键约束不能跨引擎，btw，基本不用外键约束。在代码应用层解决</h2><hr>
+<h2 id="UTF8mb4和UTF8mb3"><a href="#UTF8mb4和UTF8mb3" class="headerlink" title="UTF8mb4和UTF8mb3"></a>UTF8mb4和UTF8mb3</h2><ul>
+<li>utf8mb3:1~3个字节表示字符</li>
+<li>utf8mb4:1~4个字节表示字符<br>mysql utf8 默认是utf8mb3。utf8mb4用于emoji表情一般；</li>
+</ul>
+<hr>
+<h2 id="SQL执行顺序"><a href="#SQL执行顺序" class="headerlink" title="SQL执行顺序"></a>SQL执行顺序</h2><ul>
+<li>SQL语句-&gt;查询缓存-&gt;解析器-&gt;优化器-&gt;执行器-&gt;找存储引擎API看用的哪个engine</li>
+</ul>
+<hr>
+<h2 id="InnoDB-的好处"><a href="#InnoDB-的好处" class="headerlink" title="InnoDB 的好处"></a>InnoDB 的好处</h2><ul>
+<li>你可以<code>show engines</code>看到，支持事物和分布式</li>
+</ul>
+<hr>
+<h2 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h2><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外键</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>事物</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>行表锁</td>
+<td>表锁，即使操作一条记录会锁住整个表，不适合高并发</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>只缓存索引，不缓存真实数据,增加查询很多优选选</td>
+<td>缓存和数据都是真实数据，都是 .idb 结尾的文件,使用的时候会更占据内存 ,</td>
+</tr>
+<tr>
+<td>关注点</td>
+<td>性能：节省资源，消耗少，简单业务</td>
+<td>事物：并发写，事物，更大资源</td>
+</tr>
+<tr>
+<td>默认安装</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>默认使用</td>
+<td>No(MySQL 5.5 之前 Yes)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>增加查询多用MyISAM</td>
+<td>更新删除多优选选InnoDB</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>Oracle 中 substr 和 instr 函数简单用法</title>
+    <url>/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<!-- vim-markdown-toc Marked -->
+
+<ul>
+<li><a href="#oracle-%E7%9A%84-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">Oracle 的 substr 和 instr 函数简单用法</a><ul>
+<li><a href="#substr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">substr 函数简单用法</a><ul>
+<li><a href="#substr-%E4%BB%8B%E7%BB%8D">substr 介绍</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
+</ul>
+</li>
+<li><a href="#instr-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95">instr 函数的简单用法</a><ul>
+<li><a href="#instr-%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D%EF%BC%9A">instr 函数介绍：</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81">测试代码</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E5%9B%BE%E7%89%87">测试图片</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a><ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%9B%BE%E7%89%87">实例图片</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- vim-markdown-toc -->
+
+<h1 id="Oracle-的-substr-和-instr-函数简单用法"><a href="#Oracle-的-substr-和-instr-函数简单用法" class="headerlink" title="Oracle 的 substr 和 instr 函数简单用法"></a>Oracle 的 substr 和 instr 函数简单用法</h1><h2 id="substr-函数简单用法"><a href="#substr-函数简单用法" class="headerlink" title="substr 函数简单用法"></a>substr 函数简单用法</h2><h3 id="substr-介绍"><a href="#substr-介绍" class="headerlink" title="substr 介绍"></a>substr 介绍</h3><blockquote>
+<p>/*</p>
+<p>* 截取字符串（字符串位置从 1 开始，而不是从 0 开始）</p>
+<p>* @param string 源字符串</p>
+<p>* @param position 检索位置，参数为正时，从左向右检索，参数为负时，从右向左检索</p>
+<p>* @param substring_length 要截取的长度，可省略（默认从 position 位开始截取全部）, 值小于 1 时返回空字符串</p>
+<p>* @return 返回截取的字符串</p>
+<p>*/</p>
+</blockquote>
+<p><strong><code>substr(string, position, substring_length);</code></strong></p>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">0</span>, <span class="number">1</span>)  c1<span class="comment">-- 返回结果为 &#x27;H&#x27;  * 从字符串第一个字符开始截取长度为 1 的字符串</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">1</span>, <span class="number">1</span>)  c2<span class="comment">-- 返回结果为 &#x27;H&#x27;  *0 和 1 都是表示截取的开始位置为第一个字符</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">2</span>, <span class="number">4</span>)  c3<span class="comment">-- 返回结果为 &#x27;ello&#x27;</span></span><br><span class="line">     , substr(<span class="string">&#x27;Hello World&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) c4<span class="comment">-- 返回结果为 &#x27;rld&#x27; * 负数 (-i) 表示截取的开始位置为字符串右端向左数第 i 个</span></span><br><span class="line"><span class="keyword">from</span> PRPDKIND;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h3><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_15-28-28.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+<hr>
+<h2 id="instr-函数的简单用法"><a href="#instr-函数的简单用法" class="headerlink" title="instr 函数的简单用法"></a>instr 函数的简单用法</h2><h3 id="instr-函数介绍："><a href="#instr-函数介绍：" class="headerlink" title="instr 函数介绍："></a>instr 函数介绍：</h3><blockquote>
+<p>/*</p>
+<p>* 返回子字符串在源字符串中的位置（字符串位置从 1 开始，而不是从 0 开始）</p>
+<p>* @param string 源字符串</p>
+<p>* @param substring 子字符串</p>
+<p>* @param position 检索位置，可省略（默认为 1), 参数为正时，从左向右检索，参数为负时，从右向左检索</p>
+<p>* @param occurrence 检索子字符串出现的次数，可省略（默认为 1), 值只能为正整数，否则会报错</p>
+<p>* @return 返回子字符串在源字符串中出现的位置（没找到返回 0）</p>
+<p>*/</p>
+</blockquote>
+<p><strong><code>instr(string, substring, position, occurrence)</code></strong></p>
+<h3 id="测试代码-1"><a href="#测试代码-1" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>) <span class="keyword">FROM</span> DUAL;           <span class="comment">-- 结果：3</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">5</span>) <span class="keyword">FROM</span> DUAL;        <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;       <span class="comment">-- 结果：10</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">2</span>, <span class="number">2</span>) <span class="keyword">FROM</span> DUAL;     <span class="comment">-- 结果：4</span></span><br><span class="line"><span class="keyword">SELECT</span> INSTR(<span class="string">&#x27;hello world&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="number">-3</span>, <span class="number">3</span>) <span class="keyword">FROM</span> DUAL;    <span class="comment">-- 结果：0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="测试图片-1"><a href="#测试图片-1" class="headerlink" title="测试图片"></a>测试图片</h3><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-16-28.jpg"
+                       
+                 ></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>可以将 SUBSTR 和 INSTR 结合使用来实现截取字符串中特定字符前后的字符串</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之前的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：hello</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world”字符串中“,”分隔符之后的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>)<span class="operator">+</span><span class="number">1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串</span></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>,<span class="number">1</span>)<span class="operator">+</span><span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>)<span class="number">-1</span>) <span class="keyword">FROM</span> DUAL;</span><br><span class="line"><span class="comment">-- 结果：world</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C1,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="number">0</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">-</span> <span class="number">1</span>) C2,<span class="comment">-- 结果：hello</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world&#x27;</span>, INSTR(<span class="string">&#x27;hello,world&#x27;</span>, <span class="string">&#x27;,&#x27;</span>) <span class="operator">+</span> <span class="number">1</span>)    C3,<span class="comment">-- 结果：world</span></span><br><span class="line">       SUBSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">1</span>) <span class="operator">+</span> <span class="number">1</span>, INSTR(<span class="string">&#x27;hello,world,HH&#x27;</span>, <span class="string">&#x27;,&#x27;</span>, <span class="number">2</span>) <span class="operator">-</span> <span class="number">1</span>) C4</span><br><span class="line">       <span class="comment">-- 截取“hello,world,HH”字符串中第 1 次出现的“,”字符和第 2 次出现的“,”字符之间的字符串 -- 结果：world</span></span><br><span class="line"><span class="keyword">FROM</span> DUAL;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例图片"><a href="#实例图片" class="headerlink" title="实例图片"></a>实例图片</h3><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/08/07/Oracle-%E4%B8%AD-substr-%E5%92%8C-instr-%E5%87%BD%E6%95%B0%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/Snipaste_2021-09-07_21-30-19.jpg"
+                       
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Spring 总结</title>
+    <url>/2025/03/16/Spring-%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>Spring 总结的代码<a href="https://github.com/notfornothing/SpringLearn"><strong>在这</strong></a></p>
+<h3 id="Spring-总结"><a href="#Spring-总结" class="headerlink" title="Spring 总结"></a><strong>Spring 总结</strong></h3><h4 id="一、Spring-概述"><a href="#一、Spring-概述" class="headerlink" title="一、Spring 概述"></a><strong>一、Spring 概述</strong></h4><p><strong>Spring 的核心思想</strong></p>
+<ul>
+<li><strong>IoC（Inversion of Control，控制反转）</strong>：将对象的创建和依赖关系交给 Spring 容器管理。</li>
+<li><strong>AOP（Aspect-Oriented Programming，面向切面编程）</strong>：通过切面实现横切关注点的模块化。</li>
+</ul>
+<h4 id="二、Spring-核心模块"><a href="#二、Spring-核心模块" class="headerlink" title="二、Spring 核心模块"></a><strong>二、Spring 核心模块</strong></h4><ol>
+<li><strong>Spring Core Container</strong><ul>
+<li><strong>IoC 容器</strong>：<code>BeanFactory</code> 和 <code>ApplicationContext</code>。</li>
+<li><strong>DI（Dependency Injection，依赖注入）</strong>：构造函数注入、Setter 注入、字段注入。</li>
+</ul>
+</li>
+<li><strong>Spring AOP</strong><ul>
+<li>切面（Aspect）、连接点（Join Point）、通知（Advice）、切入点（Pointcut）。</li>
+<li>动态代理（JDK 动态代理(默认，不是接口再用别的，原理是反射）、CGLIB 代理(用继承关系，asm写字节码做的)）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="三、Spring-数据访问"><a href="#三、Spring-数据访问" class="headerlink" title="三、Spring 数据访问"></a><strong>三、Spring 数据访问</strong></h4><ol>
+<li><strong>Spring JDBC</strong><ul>
+<li>简化 JDBC 操作，提供 <code>JdbcTemplate</code>。(statement那些)</li>
+</ul>
+</li>
+<li><strong>Spring Transactions</strong><ul>
+<li>声明式事务管理（<code>@Transactional</code>）。</li>
+<li>事务传播行为、隔离级别。</li>
+</ul>
+</li>
+</ol>
+<h4 id="四、Spring-Web-模块"><a href="#四、Spring-Web-模块" class="headerlink" title="四、Spring Web 模块"></a><strong>四、Spring Web 模块</strong></h4><ol>
+<li><strong>Spring MVC（Model-View-Controller）</strong><ul>
+<li>基于 MVC 模式的 Web 框架。</li>
+<li>控制器（Controller url那层）、视图（View JSP）、模型（Model dao层）。</li>
+</ul>
+</li>
+<li><strong>RESTful 支持</strong><ul>
+<li><code>@RestController</code>、<code>@RequestMapping</code>、<code>@RequestBody</code> 等注解。</li>
+</ul>
+</li>
+</ol>
+<h4 id="五、Spring-集成"><a href="#五、Spring-集成" class="headerlink" title="五、Spring 集成"></a><strong>五、Spring 集成</strong></h4><ol>
+<li><strong>Spring Boot</strong><ul>
+<li>快速构建 Spring 应用，提供自动配置和约定大于配置。</li>
+<li>内嵌服务器（Tomcat、Jetty 等）。</li>
+</ul>
+</li>
+<li><strong>Spring Cloud</strong><ul>
+<li>微服务架构支持，集成服务发现、配置中心、熔断器等。</li>
+</ul>
+</li>
+<li><strong>Spring Security</strong><ul>
+<li>认证与授权，支持 OAuth2、JWT 等。</li>
+</ul>
+</li>
+<li><strong>Spring Batch</strong><ul>
+<li>批处理框架，适用于大数据处理任务。</li>
+</ul>
+</li>
+</ol>
+<h4 id="六、Spring-高级特性"><a href="#六、Spring-高级特性" class="headerlink" title="六、Spring 高级特性"></a><strong>六、Spring 高级特性</strong></h4><ol>
+<li><strong>Spring Aware 接口</strong><ul>
+<li><code>ApplicationContextAware</code>、<code>BeanFactoryAware</code>、<code>BeanNameAware</code> 等。</li>
+</ul>
+</li>
+<li><strong>Spring 事件机制</strong><ul>
+<li>事件发布与监听（<code>ApplicationEvent</code>、<code>@EventListener</code>）。</li>
+</ul>
+</li>
+<li><strong>Spring 测试支持</strong><ul>
+<li>集成测试框架（<code>@SpringBootTest</code>、<code>@MockBean</code>）。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>lombok 注解，绝中绝，顶上顶！</title>
+    <url>/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/</url>
+    <content><![CDATA[<h1 id="lombok-注解，绝中绝，顶上顶！"><a href="#lombok-注解，绝中绝，顶上顶！" class="headerlink" title="lombok 注解，绝中绝，顶上顶！"></a>lombok 注解，绝中绝，顶上顶！</h1><blockquote>
+<p>可以在编译后的 class 文件来看出不同。不过有时候修改注解后，项目并不会自动编译，此时在 maven 手动编译即可看出效果。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-24-14.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+<ul>
+<li>本文主要记录 lombok 可能会遇到的一些坑和一些注解解释</li>
+</ul>
+</blockquote>
+<h2 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h2><p>@Data</p>
+<p> &#x3D; @Getter + @Setter + @ToString + @EqualsAndHashCode</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>@Data 里面没有构造函数。即如果没有写自定义的构造函数那就是 Java 自带的无参构造函数。如果有自定义的构造函数那就是只有写了的构造函数，没有无参的了</li>
+<li>由上一点，所以一般如果加了 @AllArgsConstructor, 那应该加个 @NoArgsConstructor.</li>
+</ul>
+<h2 id="EqualsAndHashCode"><a href="#EqualsAndHashCode" class="headerlink" title="@EqualsAndHashCode"></a>@EqualsAndHashCode</h2><p>@EqualsAndHashCode , 该注解是按照整个对象去重写 Equals 和 HashCode. 有时候业务场景是根据 ID 去判断是否重复，所以可以使用 @EqualsAndHashCode(of &#x3D; {“id”})</p>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<ul>
+<li>没加 @EqualsAndHashCode(of &#x3D; {“id”})<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-52-03.jpg"
+                        alt="PANGU_DISABLE"
+                 ></li>
+<li>加了 @EqualsAndHashCode(of &#x3D; {“id”})<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_10-50-59.jpg"
+                        alt="PANGU_DISABLE"
+                 ></li>
+</ul>
+</blockquote>
+<h2 id="Accessors"><a href="#Accessors" class="headerlink" title="@Accessors"></a>@Accessors</h2><blockquote>
+<p>@Accessors 有两个属性</p>
+</blockquote>
+<h3 id="Accessors-chain-true"><a href="#Accessors-chain-true" class="headerlink" title="@Accessors(chain &#x3D; true)"></a>@Accessors(chain &#x3D; true)</h3><ul>
+<li>chain : 链</li>
+</ul>
+<p>现在链式编程很酷也很方便，å<br> 上该注解后，所有的 set 命令返回的都是 this 即调用对象本身。不加 @Accessors 默认 setXxx() 返回是 void</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_11-00-45.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+<p>因此你可以像这样创建对象：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>().setId(<span class="number">1</span>).setName(<span class="string">&quot;lucy&quot;</span>).setAge(<span class="number">18</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Accessors-fluent-true"><a href="#Accessors-fluent-true" class="headerlink" title="@Accessors(fluent &#x3D; true)"></a>@Accessors(fluent &#x3D; true)</h3><ul>
+<li>fluent : 流利的</li>
+</ul>
+<p>这个命令更牛逼，set get 都给你整没了。直接就是首字母小写的变量名。有参数的就是 set，没参数的就是 get</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_11-12-55.jpg"
+                        alt="PANGU_DISABLE"
+                 ><br>因此你可以像这样使用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>().id(<span class="number">1</span>).name(<span class="string">&quot;lucy&quot;</span>).age(<span class="number">18</span>);</span><br><span class="line">System.out.println(student.id() + student.name() + student.age());</span><br></pre></td></tr></table></figure>
+
+<h2 id="Builder"><a href="#Builder" class="headerlink" title="@Builder"></a>@Builder</h2><blockquote>
+<p>一种设计模式：建造者模式</p>
+</blockquote>
+<h3 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>@Builder 会增加全参构造函数，那他就没有默认的无参构造了，得注意。所以得加上 @NoArgsConstructor，但是加上后 @Builder 默认的全参构造就没了，会报错，所以都得加上 @NoArgsConstructor,@AllArgsConstructor.</li>
+<li>并且内部类那个成员变量会覆盖掉他父类的成员变量的默认值，所以默认值会失效。<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/Snipaste_2021-12-20_15-11-14.jpg"
+                        alt="PANGU_DISABLE"
+                 ></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>之前在 <a class="link"   href="https://okhttps.ejlchina.com/v3/getstart.html#%E6%9E%84%E5%BB%BA-http" >OkHttps<i class="fas fa-external-link-alt"></i></a> 里面看到过 builder() 这玩意，现在知道了是一种设计模式。lombok 也有用到。但是 @Builder 会更消耗内存吧，静态内部类还没用就直接整上内存里了，好处应该是更直观一点。还是推荐如果喜欢流式的就用 <code>@Accessors(fluent = true)</code> , 喜欢链式编程 setXxx() 就用 <code>@Accessors(chain = true)</code></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Nginx 代理妙用</title>
+    <url>/2023/06/23/nginx-%E4%BB%A3%E7%90%86%E5%A6%99%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Nginx-代理妙用"><a href="#Nginx-代理妙用" class="headerlink" title="Nginx 代理妙用"></a>Nginx 代理妙用</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>工作时测试环境和本地环境不相通，得发布或者同步代码到本地启动服务才能调试。<br>我主要是为了调试表单接口，一些请求的数据的保存、查询。我可不想自己塞或者复制链接弄到API工具里去调试本地。</p>
+<p>于是有了这篇文章。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SSH 能秘钥登录，但是 Git 却不能</title>
+    <url>/2024/06/23/ssh%20%E8%83%BD%E7%A7%98%E9%92%A5%E7%99%BB%E5%BD%95%EF%BC%8C%E4%BD%86%E6%98%AF%20git%20%E5%8D%B4%E4%B8%8D%E8%83%BD/</url>
+    <content><![CDATA[<h1 id="SSH-能秘钥登录，但是-Git-却不能"><a href="#SSH-能秘钥登录，但是-Git-却不能" class="headerlink" title="SSH 能秘钥登录，但是 Git 却不能"></a>SSH 能秘钥登录，但是 Git 却不能</h1><p>SSH 配置了且能秘钥登录，但是git提交代码要密码</p>
+<h2 id="排查问题流程"><a href="#排查问题流程" class="headerlink" title="排查问题流程"></a>排查问题流程</h2><ol>
+<li>重新配置公钥私钥</li>
+<li>ssh-agent 管理</li>
+</ol>
+<p><code>1. 2.</code> 都试过了，有没有可能是命令本身的问题？</p>
+<p>找到这篇文章：<a class="link"   href="https://github.com/orgs/community/discussions/28961#discussioncomment-3363250" >https://github.com/orgs/community/discussions/28961#discussioncomment-3363250<i class="fas fa-external-link-alt"></i></a></p>
+<p>大致是说：git 命令可能不是用的 windows 的 ssh，git 命令需要指定 windows 的 ssh 才会去用里面的私钥</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global core.sshCommand C:/Windows/System32/OpenSSH/ssh.exe </span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>个人简历</title>
+    <url>/2025/02/26/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/</url>
+    <content><![CDATA[<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简历</title>
+</head>
+<body>
+<div class="markdown-body indigo square">
+<img   align="right" width="180" height="225"  
+                       lazyload
+                       alt="image"
+                       data-src="https://i.postimg.cc/dtn89yjN/20250101.jpg"
+                         class="medium-zoom-image" title="" style=""
+                 >
+    <h2 class="do_not_show_underline">联系方式</h2>
+    <ul>
+        <li>手机：19176966686</li>
+        <li>Email：<a class="link"   href="mailto:m18390923477@gmail.com" >m18390923477@gmail.com<i class="fas fa-external-link-alt"></i></a></li>
+        <li>QQ/ 微信号：798953052</li>
+    </ul>
+    <h2> 个人信息 </h2>
+    <ul>
+        <li><strong>于磊</strong> / 男 / 26 岁</li>
+        <li><strong>本科</strong> / 湖南理工学院</li>
+        <li>博客：<a class="link"   href="https://leijiba.cn" >https://leijiba.cn<i class="fas fa-external-link-alt"></i></a></li>
+        <li>期望职位：Java 后端工程师</li>
+        <li>工作经验： <strong>三年</strong>
+        <ul>
+            <li>万达信息股份有限公司   (2022 年 5 月 - 2024 年 6 月)</li>
+            <li>中科软科技股份有限公司 (2021 年 6 月 - 2022 年 4 月)</li>
+        </ul>
+        </li>
+    </ul>
+    <hr>
+    <h2>专业技能</h2>
+    <ul>
+        <li>掌握 Java 基础，集合，stream 流等</li>
+        <li>掌握 Vim、Git、IDEA 等工具使用</li>
+        <li>能够使用 Spring，SpringMVC，MyBatis-Plus 等开源框架进行开发</li>
+        <li>能够使用 SpringBoot + SpringCloud 进行微服务开发</li>
+        <li>熟悉主流关系型数据库 Mysql，oracle， 掌握 sql 语法</li>
+        <li>熟练 Linux 系统，熟悉项目的搭建和常用命令，熟悉 Nginx 反向代理、负载均衡配置</li>
+        <li>熟悉 Jenkins ，docker CI/CD 流程</li>
+        <li>熟悉微服务架构体系：Eureka，Nacos 服务注册，Feign API 不同模块间调用方式，以及项目设计模式</li>
+    </ul>
+    <hr>
+    <h2>项目经验</h2>
+    <h3>深圳数字人社 - 深圳公共就业项目 (2023 年 1 月 - 2024 年 6 月)</h3>
+    <strong>项目介绍：</strong>
+    <blockquote>
+           <p>项目提供平台来帮助深圳工作的人员或者单位，根据一些政府的激励政策满足一定要求可享受对应的补贴。</p>
+        <p>本项目是一个重构项目，原来是独立的项目，现需要迁移到一体化平台作为入口进行统一管理全称为深圳数字人社。采用新的架构设计，数据库等国产化。我主要负责深圳市的工作就业相关的补助。例如：家政企业备案、家政企业社保补贴、高校毕业生、困难人员求职创业补贴、港澳台实习青年补贴、吸纳脱贫人员、吸纳退役军人、等等一系列补贴</p>
+    </blockquote>
+    <p><strong>开发技术：</strong> SpringBoot + MyBatis-Plus + Nacos + Redis</p>
+    <p><strong>责任描述：</strong> 第三方接口统一对接(工商局、教育部、公安户籍、脱贫人员信息等等)，家政企业备案、家政企业社保补贴、困难人员求职创业补贴、港澳台实习青年补贴、吸纳脱贫人员等等一系列补贴、以及处理部分旧系统的工单。</p>
+    <ul>
+        <li>对接第三方接口，提供切面日志记录调用状态，配置秘钥以区分生产测试环境。</li>
+        <li>缓存调用频繁的接口，提高测试通过率。对接第三方接口经常性出现超时现象，设计兼容性强，可动态配置的注解，容错性强，方便不同环境下调试。</li>
+        <li>补贴续发功能：社保补贴续发要求是只需一次申请后续根据社保是否缴纳自动发放补贴。需求社保补贴一次性能申请 6 个月，后续由系统判断逻辑满足要求的情况下系统自动申报给与补贴。设计续发日志表，设置待续发，续发失败，续发终止标识区分不同业务数据办理情况。</li>
+        <li>枚举策略模式：因业务现由经办一体化平台办理，故由对方传入流水号以及类型编码至我方系统接口进行保存。设计类枚举，类中有对应业务编码以及接口类型。因此省去大量 if else 判断，只需遍历枚举，业务类型编码走不同业务的的保存、更新逻辑。增强代码健壮性，减少出错概率。</li>
+        <li>一些网络环境问题(本地环境不能和中台前端环境联调)，使用 nginx 代理处理，提高团队开发和效率。</li>
+    </ul>
+    <hr>
+    <h3>深圳社保 - 深圳待遇项目（失业养老工伤待遇）(2022 年 5 月- 2023 年 1 月)</h3>
+    <strong>项目介绍：</strong>
+    <blockquote>
+        <p>深圳社保项目分为征收缴纳社保和享受社保待遇。该项目属于后者又称为：深圳待遇项目。</p>
+        <p>留工培训补贴是疫情期间，为了留住工人降低企业压力而根据其为员工缴纳的社保记录给与每人 500 元的企业补助。该项目主要实现对每个企业社保缴纳人数计算补贴。其中调用到很多第三方接口：社保缴纳情况、公安、企业信用办、工商局企业信息等接口。该项目为内部项目也提供了对外查询接口，最开始为自动给符合要求的单位申报，后续对接经办平台接口供个人来办事大厅办理。具体可搜索深圳人社公众号，留工补贴查看公示发放信息。</p>
+    </blockquote>
+    <p><strong>开发技术：</strong> Spring + MyBatis + RabbitMQ + JSP</p>
+    <p><strong>责任描述：</strong> 为深圳市 80 万家中小微企业匹配条件，符合要求的进行自动申报，不符合要求的进行归档供下次继续申报。该项目执行期间每月社保归档后跑一次数据，并配合需求员导出数据进行抽样比对，最后进行公示，汇总，推送银行发放。配合业务员对比数据准确无误。</p>
+    <ul>
+        <li>根据项目设计进行数据库结构设计消息队列日志表，业务流程表，业务办结表，归档表，推送银行信息汇总表等；</li>
+        <li>代码实现方面把校验和入库操作做成一个消费接口，单位信息作为参数传入接口中。发送给消息队列，减少服务器压力。</li>
+        <li>使用 Nginx 反向代理并且实现负载均衡。</li>
+        <li>设计单例模式优化公共的校验逻辑。</li>
+    </ul>
+    <hr>
+</div>
+</body>
+</html>
+]]></content>
+  </entry>
+  <entry>
+    <title>五笔输入法学习</title>
+    <url>/2021/09/10/%E4%BA%94%E7%AC%94/</url>
+    <content><![CDATA[<h1 id="五笔输入法学习"><a href="#五笔输入法学习" class="headerlink" title="五笔输入法学习"></a>五笔输入法学习</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/09/10/%E4%BA%94%E7%AC%94/Snipaste_2021-09-10_09-43-31.jpg"
+                        alt="五笔键位图"
+                 ></p>
+<h2 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h2><h3 id="字根"><a href="#字根" class="headerlink" title="字根"></a>字根</h3><ul>
+<li>横区 <ul>
+<li>11(G) 王旁青头戋（兼）五一</li>
+<li>12(F) 土士二干十寸雨。二一还有革字底</li>
+<li>13(D) 大犬三羊古石厂</li>
+<li>14(S) 木丁西</li>
+<li>15(A) 工戈草头右框七（”右框”即”匚”）</li>
+</ul>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>五笔学习之路</title>
+    <url>/2021/09/01/%E4%BA%94%E7%AC%94%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<h1 id="五笔学习之路"><a href="#五笔学习之路" class="headerlink" title="五笔学习之路"></a>五笔学习之路</h1><h2 id="缘故"><a href="#缘故" class="headerlink" title="缘故"></a>缘故</h2><ul>
+<li><strong>起因</strong>：最开始由于全拼的击键次数过多，以后工作上经常会用到电脑，遂学习双拼（小鹤双拼）只由声母和韵母组成，任何一个字只需要击键两次，上手容易，熟悉后输入速度上有所提升。但是无法避免的拼音的重码率很高，还是要去候选框去选字。</li>
+<li><strong>本质</strong>：由于本人在拼音中 in ing 分不清，而且拼音重码率高，五笔基本上四个键确定一个字，选字的情况比较少，空格就完事，为提高 <del>聊天摸鱼</del> 工作效率，故克服重重困难学习五笔 86 版本。</li>
+<li><strong>情感升华</strong>：了解过五笔，对于中国汉字的结构以及五笔的渊源，其博大精深，被五笔输入的魅力所折服。<blockquote>
+<p>这篇文章是用双拼打的</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="五笔易错集合"><a href="#五笔易错集合" class="headerlink" title="五笔易错集合"></a>五笔易错集合</h2><ul>
+<li>女<br>vvvv 键名汉子</li>
+</ul>
+<p>最后一笔为 横</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>免费添加SSL证书</title>
+    <url>/2024/06/21/%E5%85%8D%E8%B4%B9%E6%B7%BB%E5%8A%A0SSL%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<p>好久没折腾博客，域名过期了，以前都是照着网上视频走步骤的，现在有了自己的理解</p>
+<hr>
+<h2 id="为什么要有ssl证书？"><a href="#为什么要有ssl证书？" class="headerlink" title="为什么要有ssl证书？"></a>为什么要有ssl证书？</h2><p>不妨说如果没有证书，浏览器会报不可信任，会弹出这是不安全链接让你是否继续访问。<br>因为你的数据不经过证书加密，会容易被篡改。<br>所以证书就是为了加密，保证发送消息和接收消息的安全。</p>
+<h2 id="谁有说服力去管理这么多网站对应的证书？"><a href="#谁有说服力去管理这么多网站对应的证书？" class="headerlink" title="谁有说服力去管理这么多网站对应的证书？"></a>谁有说服力去管理这么多网站对应的证书？</h2><blockquote>
+<p>我怎么知道你的证书就是属于你的网站的，得有一个有公信的机构盖章我才相信</p>
+</blockquote>
+<p>于是乎就有这种机构，好像是要交多少钱类似于保证金的东西，用钱证明实力。<br>这个机构来维护一个证书对应关系类似于 Java 的 Map，比如某某网站对应某个证书。<br>用户请求这个网站就拿这个证书去加密请求，对应的服务端也需要配置私钥去解密，于是加密请求就完成了。<br>用户信任机构的证书，服务端拿私钥也解密成功了，这个世界没有人受伤害。</p>
+<h2 id="道理懂了，那证书怎么申请？"><a href="#道理懂了，那证书怎么申请？" class="headerlink" title="道理懂了，那证书怎么申请？"></a>道理懂了，那证书怎么申请？</h2><p>拿钱买或者搞免费的，我的需求只是为了让用户信任我，当你访问 <a class="link"   href="https://leijiba.cn/" >leijiba.cn<i class="fas fa-external-link-alt"></i></a> 的时候,为了让浏览器不弹出这是一个不安全的链接。</p>
+<p>我用的是这家 <a class="link"   href="https://freessl.cn/" >freessl.cn<i class="fas fa-external-link-alt"></i></a> 免费的。</p>
+<p>流程是：</p>
+<ol>
+<li>freessl 给你一个特定的<code>主机记录</code>还有<code>记录值</code> ，让你放到域名提供商解析那里解析，需要点时间同步到dns去。</li>
+<li>域名提供商那里解析成功了，freessl这边也读到了，证明这就是属于你的域名。</li>
+<li>1.2. 这两步就是为了验证这是你的域名，然后 freessl 就会给你公钥私钥。</li>
+<li>公钥和私钥放服务器里配置就行了（有特定路径的，不用去死记没用）。客户端浏览器不需要做任何操作，因为别人请求你的域名的时候会从证书机构拿公钥。</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>学习&amp;延伸 用 Collections.unmodifiableList</title>
+    <url>/2022/02/08/%E5%AD%A6%E4%B9%A0&amp;%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/</url>
+    <content><![CDATA[<h1 id="用-final-修饰的变量，对象属性可以修改的"><a href="#用-final-修饰的变量，对象属性可以修改的" class="headerlink" title="用 final 修饰的变量，对象属性可以修改的"></a>用 final 修饰的变量，对象属性可以修改的</h1><p>我在想有什么方法可以限制修改吗？</p>
+<p>于是搜索后了解到有一个 <code>Collections</code> 里有一个内部类 <code>UnmodifiableCollection</code> ;</p>
+<ul>
+<li><p>UnmodifiableCollection 这个类重写了 Collection 的添加和修改方法，使其调用这个方法会抛 UnsupportedOperationException（不支持的操作异常）</p>
+</li>
+<li><p>可以用 Collections.unmodifiableList(yourList) 来让你的类不能用添加修改方法</p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当我们不想这个类调用某些方法时，可以重写这个类的方法。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>自己照抄思路实现了一下，哈哈，其是就是多态的体现。</li>
+<li>为什么不用继承做呢？我觉得效果是一样的.但是是继承只能继承一个，接口能实现多个。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 吃粑粑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TrainDog</span> <span class="keyword">implements</span> <span class="title class_">FeatureHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eatShit</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Dog 吃粑粑，Dog 喜欢吃粑粑，但是我是 TrainDog 就算我喜欢吃我也不吃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FeatureHaveMouth <span class="title function_">train</span><span class="params">(FeatureHaveMouth featureHaveMouth)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;====Training====&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TrainDog</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Test</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestFeatHaveMouth</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDog</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        dog.eatShit();</span><br><span class="line">        <span class="type">FeatureHaveMouth</span> <span class="variable">trainDog</span> <span class="operator">=</span> TrainDog.train(dog);</span><br><span class="line">        trainDog.eatShit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试结果</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2022/02/08/%E5%AD%A6%E4%B9%A0&%E5%BB%B6%E4%BC%B8-%E7%94%A8-Collections-unmodifiableList/Snipaste_2022-10-26_17-13-12.png"
+                       
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Java实现天气预报</title>
+    <url>/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/</url>
+    <content><![CDATA[<h1 id="用-Java-实现天气预报"><a href="#用-Java-实现天气预报" class="headerlink" title="用 Java 实现天气预报"></a>用 Java 实现天气预报</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><ul>
+<li>因每次去上班都不知道今天下不下雨。要是下雨鞋子就会湿的。</li>
+<li>然后逛 github 发现有一个 QQ 机器人。可以用 Java 调用。遂想到实时预报下雨的天气。</li>
+<li>所以设置每天早上 6 点发消息提醒今天的降水概率。</li>
+</ul>
+<h2 id="Step"><a href="#Step" class="headerlink" title="Step"></a>Step</h2><ol>
+<li>使用 <a class="link"   href="https://github.com/ForteScarlet/simpler-robot" >simbot QQ 机器人<i class="fas fa-external-link-alt"></i></a>  (github 开源的）</li>
+<li>使用和风天气和阿里云的易源数据作为天气 API</li>
+</ol>
+<h2 id="核心代码图片："><a href="#核心代码图片：" class="headerlink" title="核心代码图片："></a>核心代码图片：</h2><ul>
+<li><p>RestFul 风格调用，接口见名知意<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-29-11.jpg"
+                       
+                 ></p>
+</li>
+<li><p>OKHttps 访问 API 获取实时数据<br><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-32-31.jpg"
+                       
+                 ></p>
+</li>
+<li><p>QQ 机器人代码参考<br><a class="link"   href="https://github.com/ForteScarlet/simpler-robot" >github<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+<h2 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h2><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/10/%E5%AE%9E%E7%8E%B0%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5/Snipaste_2021-11-10_18-23-50.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>害怕用`rm -rf`? 不如试试这个</title>
+    <url>/2024/06/25/%E5%AE%B3%E6%80%95%E7%94%A8-rm-rf-%E4%B8%8D%E5%A6%82%E8%AF%95%E8%AF%95%E8%BF%99%E4%B8%AA/</url>
+    <content><![CDATA[<h1 id="害怕用-rm-rf？不如试试这个"><a href="#害怕用-rm-rf？不如试试这个" class="headerlink" title="害怕用 rm -rf？不如试试这个"></a>害怕用 rm -rf？不如试试这个</h1><p>Linux 中 <code>rm -rf /</code> 这个命令大家应该不陌生。</p>
+<h2 id="为了减少误操作，网上有很多方案"><a href="#为了减少误操作，网上有很多方案" class="headerlink" title="为了减少误操作，网上有很多方案"></a>为了减少误操作，网上有很多方案</h2><h3 id="方案-1-不推荐"><a href="#方案-1-不推荐" class="headerlink" title="方案 1 (不推荐)"></a>方案 1 (不推荐)</h3><ul>
+<li>起别名 <code>alias rm=&#39;rm -i&#39;</code> 删除都需要确认</li>
+</ul>
+<p>这种方式治标不治本，因为主动权还是在我手中。</p>
+<h3 id="方案-2-不推荐"><a href="#方案-2-不推荐" class="headerlink" title="方案 2 (不推荐)"></a>方案 2 (不推荐)</h3><ul>
+<li>用 <code>mv</code> 替换 <code>rm</code> 这个也行</li>
+</ul>
+<p>但是遇到目录或者相同文件没办法处理历史文件，且脚本太复杂，本人水平有限难以找到优雅处理方式。</p>
+<h3 id="方案-3-强烈推荐"><a href="#方案-3-强烈推荐" class="headerlink" title="方案 3 (强烈推荐)"></a>方案 3 (强烈推荐)</h3><p>使用 <code>trash-cli</code> 命令代替 <code>rm</code></p>
+<p><a class="link"   href="https://github.com/andreafrancia/trash-cli" >trash-cli<i class="fas fa-external-link-alt"></i></a> 的基本命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">trash-put           <span class="comment"># 把文件或目录移动到回收站</span></span><br><span class="line">trash-empty         <span class="comment"># 清空回收站</span></span><br><span class="line">trash-list          <span class="comment"># 列出回收站文件</span></span><br><span class="line">trash-restore       <span class="comment"># 恢复回收站文件</span></span><br><span class="line">trash-rm            <span class="comment"># 删除回收站文件</span></span><br></pre></td></tr></table></figure>
+
+<p>在你的 shell 添加 <code>alias rm=&quot;trash-put&quot;</code><br>删除东西别怕，正常 rm 就行。</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/test <span class="comment"># touch testFile                                                                         root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># rm testFile                                                                            root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">│   └── testFile</span><br><span class="line">└── info</span><br><span class="line">    └── testFile.trashinfo</span><br><span class="line"></span><br><span class="line">2 directories, 2 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-restore                                                                          root@Sparrow</span></span><br><span class="line">   0 2025-02-23 22:40:25 /opt/test/testFile</span><br><span class="line">What file to restore [0..0]: 0</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># trash-list                                                                             root@Sparrow</span></span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># tree ~/.local/share/Trash                                                              root@Sparrow</span></span><br><span class="line">/root/.local/share/Trash</span><br><span class="line">├── files</span><br><span class="line">└── info</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment"># ll                                                                                     root@Sparrow</span></span><br><span class="line">total 0</span><br><span class="line">-rw-r--r-- 1 root root 0 Feb 23 22:40 testFile</span><br><span class="line">----------------------------------------------------------------------------------------------------------------</span><br><span class="line">/opt/test <span class="comment">#                                                                                        root@Sparrow</span></span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>摸鱼神器 scrcpy</title>
+    <url>/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/</url>
+    <content><![CDATA[<h1 id="电脑操作手机的摸鱼神器-scrcpy"><a href="#电脑操作手机的摸鱼神器-scrcpy" class="headerlink" title="电脑操作手机的摸鱼神器 scrcpy"></a>电脑操作手机的摸鱼神器 <a class="link"   href="https://github.com/Genymobile/scrcpy" >scrcpy<i class="fas fa-external-link-alt"></i></a></h1><blockquote>
+<p>无线控制需要在同一局域网下，并获取手机静态 IP</p>
+</blockquote>
+<ol>
+<li>下载 <a class="link"   href="https://github.com/Genymobile/scrcpy/releases" >scrcpy<i class="fas fa-external-link-alt"></i></a>.</li>
+<li>多次点击版本号，把手机的 usb 调试打开。usb 连接上电脑。</li>
+<li>查看手机在当前 wifi 的 ip 地址。如果是 DHCP 模式，应当切换到静态模式</li>
+<li>电脑命令行输入<code>adb tcpip 6666</code></li>
+<li>电脑输入<code> adb connect IP:6666</code></li>
+<li>现在可以拔掉数据线，输入命令<code>scrcpy</code>即可进行连接</li>
+</ol>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><ul>
+<li>在手机熄屏下操作手机<ul>
+<li><code>scrcpy -S</code></li>
+<li><code>scrcpy --turn-screen-off</code></li>
+</ul>
+</li>
+<li>操作屏幕点击鼠标右键即可解锁，也可以执行返回操作</li>
+</ul>
+<h1 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2021/11/01/%E6%91%B8%E9%B1%BC%E7%A5%9E%E5%99%A8scrcpy/Snipaste_2021-11-01_15-55-45.jpg"
+                        alt="PANGU_DISABLE"
+                 ></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>连表查询时未指定表别名导致的查询错误</title>
+    <url>/2024/03/24/%E8%BF%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2%E6%97%B6%E6%9C%AA%E6%8C%87%E5%AE%9A%E8%A1%A8%E5%88%AB%E5%90%8D%E5%AF%BC%E8%87%B4%E7%9A%84%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/</url>
+    <content><![CDATA[<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在给数据库新增字段后，自己的的功能测试没问题，拍拍屁股走人了。然后就这么上了生产。<br>然后用户发现其他功能模块出问题，去看日志是sql报错：<code>Column &#39;name&#39; in field list is ambiguous。</code>。<br>奇怪：我的功能没问题，并且我都没改代码怎么其他地方会报这个错误呢？</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>比如我加入的是 table1 表的 name 字段。</p>
+<p><strong>因为出问题的地方是别人代码中使用了连表操作而且并没有给字段别名，<br>然后用正好 select 用到了这个字段，且现在两个表都有这个字段 MySQL 不知道取哪个表的 name 于是导致报错。</strong></p>
+<ul>
+<li>问题sql：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> table1,table2  <span class="keyword">where</span> table1.id<span class="operator">=</span>table2.id;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正例：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.name <span class="keyword">from</span> table1 <span class="keyword">as</span> t1 , table2 <span class="keyword">as</span> t2 <span class="keyword">where</span> t1.id<span class="operator">=</span>t2.id;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>为了避免这种问题。</p>
+<ul>
+<li>对于数据库中表记录的查询和变更，只要涉及多个表，都需要在列名前加表的别名（或 表名）进行限定。</li>
+<li>对多表进行查询记录、更新记录、删除记录时，如果对操作列没有限定表的别名（或表名），并且操作列在多个表中存在时，就会抛异常。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>通过反射获取泛型</title>
+    <url>/2022/11/21/%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[<p>这是怎么做到的？反射不是运行时吗？运行时不是没有泛型吗？</p>
+<p><a class="link"   href="https://www.zhihu.com/question/346911525" >网上看了一大堆<i class="fas fa-external-link-alt"></i></a> </p>
+<p>发现虽然泛型是被擦除了，存储的还是Object。</p>
+<p>但是当类(Class)作为某个对象的时候，成员变量、方法返回值等位置的具体泛型类型的时候，Javac 会编译进class字节码。</p>
+<p>JVM加载字节码的时候，JVM将解析到字节码的泛型信息保存下来的，所以反射可以获取。</p>
+<h2 id="通过反射获取泛型"><a href="#通过反射获取泛型" class="headerlink" title="通过反射获取泛型"></a>通过反射获取泛型</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    Map&lt;Character, Integer&gt; field;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">demoMethod</span><span class="params">(Map&lt;Character, Integer&gt; args)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 根据子类获取父类泛型</span></span><br><span class="line">        Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String, Integer&gt;() &#123;&#125;;</span><br><span class="line">        <span class="type">Type</span> <span class="variable">superClass</span> <span class="operator">=</span> map.getClass().getGenericSuperclass();</span><br><span class="line">        <span class="keyword">if</span> (superClass <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) superClass;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第一个泛型为:&quot;</span> + typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;变量第二个泛型为:&quot;</span> + typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 成员变量泛型获取</span></span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> Demo.class.getDeclaredField(<span class="string">&quot;field&quot;</span>);</span><br><span class="line">        <span class="type">Type</span> <span class="variable">genericType</span> <span class="operator">=</span> field.getGenericType();</span><br><span class="line">        <span class="keyword">if</span> (genericType <span class="keyword">instanceof</span> ParameterizedType) &#123;</span><br><span class="line">            <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) genericType;</span><br><span class="line">            Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">            System.out.println(<span class="string">&quot;成员变量第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 方法参数泛型</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> Demo.class.getMethod(<span class="string">&quot;demoMethod&quot;</span>,Map.class);</span><br><span class="line">        Type[] genericTypes = method.getGenericParameterTypes();</span><br><span class="line">        <span class="type">Type</span> <span class="variable">oneParam</span> <span class="operator">=</span> genericTypes[<span class="number">0</span>];</span><br><span class="line">        <span class="type">ParameterizedType</span> <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) oneParam;</span><br><span class="line">        Type[] typeArgs = pt.getActualTypeArguments();</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第1个，泛型为:&quot;</span>+typeArgs[<span class="number">0</span>].getTypeName());</span><br><span class="line">        System.out.println(<span class="string">&quot;方法第2个，泛型为:&quot;</span>+typeArgs[<span class="number">1</span>].getTypeName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
 </search>
