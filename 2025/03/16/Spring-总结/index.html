@@ -253,12 +253,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>373 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>508 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
             </span>
         
         
@@ -281,6 +281,33 @@
 
                     
                          <p>Spring 总结的代码<a target="_blank" rel="noopener" href="https://github.com/notfornothing/SpringLearn"><strong>在这</strong></a></p>
+<h1 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h1><ul>
+<li>bean的生命周期</li>
+<li><ul>
+<li>实例化前准备beanDefine map(单例&#x2F;多例、依赖情况、init-method 和 destroy-method、lazy、Primary注解、order 注解)</li>
+</ul>
+</li>
+<li><ul>
+<li>实例化 (就是通过反射创建出来)</li>
+</ul>
+</li>
+<li><ul>
+<li>属性注入 （也叫依赖注入，循环依赖涉及到2、3级缓存）</li>
+</ul>
+</li>
+<li><ul>
+<li>bean 初始化（主要是自定义bean，各种aware接口，然后@preConstruct，bean注解的init-method,beanPostProcessor 接口）</li>
+</ul>
+</li>
+<li><ul>
+<li>bean 缓存，放到一级缓存,从里面取就可以用了</li>
+</ul>
+</li>
+<li><ul>
+<li>bean 摧毁（@preDestroy、bean注解的destroy-method一些测试场景）</li>
+</ul>
+</li>
+</ul>
 <h3 id="Spring-总结"><a href="#Spring-总结" class="headerlink" title="Spring 总结"></a><strong>Spring 总结</strong></h3><h4 id="一、Spring-概述"><a href="#一、Spring-概述" class="headerlink" title="一、Spring 概述"></a><strong>一、Spring 概述</strong></h4><p><strong>Spring 的核心思想</strong></p>
 <ul>
 <li><strong>IoC（Inversion of Control，控制反转）</strong>：将对象的创建和依赖关系交给 Spring 容器管理。</li>
@@ -409,7 +436,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-%E6%80%BB%E7%BB%93"><span class="nav-text">Spring 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring-%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Spring 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Spring-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-text">二、Spring 核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81Spring-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="nav-text">三、Spring 数据访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Spring-Web-%E6%A8%A1%E5%9D%97"><span class="nav-text">四、Spring Web 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81Spring-%E9%9B%86%E6%88%90"><span class="nav-text">五、Spring 集成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81Spring-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-text">六、Spring 高级特性</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">常见面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-%E6%80%BB%E7%BB%93"><span class="nav-text">Spring 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring-%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Spring 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Spring-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-text">二、Spring 核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81Spring-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="nav-text">三、Spring 数据访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Spring-Web-%E6%A8%A1%E5%9D%97"><span class="nav-text">四、Spring Web 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81Spring-%E9%9B%86%E6%88%90"><span class="nav-text">五、Spring 集成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81Spring-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-text">六、Spring 高级特性</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
 
@@ -587,7 +614,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-%E6%80%BB%E7%BB%93"><span class="nav-text">Spring 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring-%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Spring 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Spring-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-text">二、Spring 核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81Spring-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="nav-text">三、Spring 数据访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Spring-Web-%E6%A8%A1%E5%9D%97"><span class="nav-text">四、Spring Web 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81Spring-%E9%9B%86%E6%88%90"><span class="nav-text">五、Spring 集成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81Spring-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-text">六、Spring 高级特性</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">常见面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-%E6%80%BB%E7%BB%93"><span class="nav-text">Spring 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81Spring-%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Spring 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Spring-%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-text">二、Spring 核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81Spring-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE"><span class="nav-text">三、Spring 数据访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Spring-Web-%E6%A8%A1%E5%9D%97"><span class="nav-text">四、Spring Web 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81Spring-%E9%9B%86%E6%88%90"><span class="nav-text">五、Spring 集成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81Spring-%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-text">六、Spring 高级特性</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
 
