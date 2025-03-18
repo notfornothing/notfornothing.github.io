@@ -253,12 +253,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>508 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>4 分钟</span>
             </span>
         
         
@@ -308,6 +308,158 @@
 </ul>
 </li>
 </ul>
+<hr>
+<ul>
+<li>常用设计模式</li>
+<li><ul>
+<li>枚举策略模式</li>
+</ul>
+</li>
+<li><ul>
+<li>单例模式</li>
+</ul>
+</li>
+<li><ul>
+<li>构建者模式</li>
+</ul>
+</li>
+<li><ul>
+<li>工厂模式</li>
+</ul>
+</li>
+<li><ul>
+<li>适配器模式</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>分布式事务 seata 的理解</li>
+<li><ul>
+<li>TC（Transaction Coordinator，事务协调器）</li>
+</ul>
+</li>
+<li><ul>
+<li>TM（Transaction Manager，事务管理器）:开启全局事务：向 TC 发起全局事务的开启请求，获取全局事务 ID（XID）。 提交或回滚全局事务：根据业务逻辑的执行结果，向 TC 发起全局事务的提交或回滚请求。</li>
+</ul>
+</li>
+<li><ul>
+<li>RM（Resource Manager，资源管理器）:管理 Undo Log：在事务提交时删除 Undo Log，在事务回滚时根据 Undo Log 恢复数据。</li>
+</ul>
+</li>
+</ul>
+<p><strong>AT示例流程</strong><br>假设一个分布式事务涉及两个服务：订单服务（Service A）和库存服务（Service B）。</p>
+<ol>
+<li><strong>开启全局事务</strong>：<ul>
+<li>TM 向 TC 发起请求，TC 生成 XID 并返回。</li>
+<li>TM 将 XID 传递给 Service A 和 Service B 的 RM。</li>
+</ul>
+</li>
+<li><strong>执行本地事务</strong>：<ul>
+<li>Service A 的 RM 执行本地事务（如创建订单），生成 undo log，提交本地事务。</li>
+<li>Service B 的 RM 执行本地事务（如扣减库存），生成 undo log，提交本地事务。</li>
+</ul>
+</li>
+<li><strong>提交全局事务</strong>：<ul>
+<li>TM 向 TC 发起提交请求。</li>
+<li>TC 通知 Service A 和 Service B 的 RM 删除 undo log。</li>
+</ul>
+</li>
+<li><strong>回滚全局事务</strong>：<ul>
+<li>如果某个 RM 执行失败，TM 向 TC 发起回滚请求。</li>
+<li>TC 通知 Service A 和 Service B 的 RM 根据 undo log 执行补偿操作。</li>
+</ul>
+</li>
+</ol>
+<details>
+<summary><strong> seata原理(点击展开) </strong></summary>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="/2025/03/16/Spring-%E6%80%BB%E7%BB%93/Snipaste_2025-03-19_00-50-54.png"
+                        alt="Snipaste_2025-03-19_00-50-54.png"
+                 > </p>
+</details>
+
+<hr>
+<ul>
+<li>seata 常用模式 </li>
+<li><ul>
+<li>AT</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>原理：主要是数据补偿机制：一阶tc创建提交,rm 生成 undo.log。二阶回滚就用undo.log进行事务的补偿</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>缺点：最终一致性，一阶状态可能出现某种意义上的赃读(因为一阶要提交)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>XA</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>原理：一阶 TM 通知所有 RM 准备提交事务。RM 执行本地事务，并返回准备结果（成功或失败）。二阶参与者有不同意就回滚</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>缺点：死锁:一阶段 参与者持有排他锁且不提交，如果多个参与者同时修改同一行数据，可能会导致死锁。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>TCC(Try confirm cancel)</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>原理：好像是数据库给你加字段，看了一下代码入侵比较严重</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>saga</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>原理：处理长事务用，好像得有个状态机各种流程，他一般用于处理第三方接口支付失败等，一致性方案是自定义方法进行补偿,要写很多方法.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>缺点：他没有隔离性可言</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>SpringBoot 自动装配流程</li>
+<li><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<hr>
 <h3 id="Spring-总结"><a href="#Spring-总结" class="headerlink" title="Spring 总结"></a><strong>Spring 总结</strong></h3><h4 id="一、Spring-概述"><a href="#一、Spring-概述" class="headerlink" title="一、Spring 概述"></a><strong>一、Spring 概述</strong></h4><p><strong>Spring 的核心思想</strong></p>
 <ul>
 <li><strong>IoC（Inversion of Control，控制反转）</strong>：将对象的创建和依赖关系交给 Spring 容器管理。</li>
