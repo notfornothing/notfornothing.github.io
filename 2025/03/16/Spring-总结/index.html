@@ -253,12 +253,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.1k 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>8 分钟</span>
             </span>
         
         
@@ -282,6 +282,76 @@
                     
                          <p>Spring 总结的代码<a target="_blank" rel="noopener" href="https://github.com/notfornothing/SpringLearn"><strong>在这</strong></a></p>
 <h1 id="常见面试题"><a href="#常见面试题" class="headerlink" title="常见面试题"></a>常见面试题</h1><ul>
+<li>Spring 核心是什么？<br><strong>Spring Core Container</strong><ul>
+<li><strong>IoC（Inversion of Control，控制反转）</strong>：创建对象交给spring去做，通过反射；创建Bean；</li>
+<li><strong>AOP（Aspect-Oriented Programming，面向切面编程）</strong>：通过切面实现横切关注点的模块化。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>创建bean的方式：<br>基于 XML (配置 指定路径。class.forName())<br>基于注解（@Component、@Service、@Repository、@Controller）<br>基于 Java 配置类(通过 @Configuration 和 @Bean 注解，在 Java 类中显式定义 Bean。<br>基于 FactoryBean(通过实现 FactoryBean 接口，自定义 Bean 的创建逻辑。也需要依赖xml&#x2F;注解)</p>
+</blockquote>
+<ul>
+<li><strong>DI（Dependency Injection，依赖注入）</strong> IOC 包括了DI，DI<blockquote>
+<p>构造函数注入<br>Setter 方法注入<br>字段注入<br>方法注入</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Spring AOP的理解<ul>
+<li>切面（Aspect）、连接点（Join Point）、通知（Advice）、切入点（Pointcut）。</li>
+<li>动态代理（JDK 动态代理(默认，不是接口再用别的，原理是反射）、CGLIB 代理(用继承关系，asm写字节码做的)）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Spring 事务的理解：</li>
+<li><ul>
+<li>开启事务得 @EnableTransactionManagement、配置bean：DataSource、TransactionManager</li>
+</ul>
+</li>
+</ul>
+<p>事务的传播行为（Propagation Behavior）:<br>传播行为定义了事务方法在调用其他事务方法时的行为。Spring 支持以下传播行为：</p>
+<table>
+<thead>
+<tr>
+<th>传播行为类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>REQUIRED</code>（默认）</td>
+<td>如果当前存在事务，则加入该事务；否则，创建一个新事务。</td>
+</tr>
+<tr>
+<td><code>REQUIRES_NEW</code></td>
+<td>总是创建一个新事务，如果当前存在事务，则挂起当前事务。</td>
+</tr>
+<tr>
+<td><code>SUPPORTS</code></td>
+<td>如果当前存在事务，则加入该事务；否则，以非事务方式执行。</td>
+</tr>
+<tr>
+<td><code>NOT_SUPPORTED</code></td>
+<td>以非事务方式执行，如果当前存在事务，则挂起当前事务。</td>
+</tr>
+<tr>
+<td><code>MANDATORY</code></td>
+<td>必须在一个已存在的事务中执行，否则抛出异常。</td>
+</tr>
+<tr>
+<td><code>NEVER</code></td>
+<td>必须在一个不存在的事务中执行，否则抛出异常。</td>
+</tr>
+<tr>
+<td><code>NESTED</code></td>
+<td>如果当前存在事务，则在嵌套事务中执行；否则，创建一个新事务。</td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
 <li>bean的生命周期</li>
 <li><ul>
 <li>实例化前准备beanDefine map(单例&#x2F;多例、依赖情况、init-method 和 destroy-method、lazy、Primary注解、order 注解)</li>
@@ -310,6 +380,40 @@
 </ul>
 <hr>
 <ul>
+<li>Spring MVC 的理解</li>
+</ul>
+<p>tomcat 是一个容器负责管理和运行Servlet，我们这边就要给具体的Servlet实现。<br>我们写Servlet 要写各种如实现HttpServlet的doGet、doPost方法。还有filter过滤器等,然后还要在web.xml里面配置路径方便tomcat寻找映射关系</p>
+<p>现在SpringWeb 有MVC框架，@Controller @ResponseBody @GetMapping @RequestParam 帮助我们减少这些配置。<br>具体的流程为：</p>
+<ol>
+<li>客户端发起请求</li>
+<li>DispatcherServlet（派遣Servlet 主要用来分发各种任务）</li>
+<li>HandlerMapping(处理器映射器，查找Handle方法即对应的Controller路径以及GetMapping这种路径、还有加上拦截器Intercept,作为HandlerExecutionChain(执行链路)返回给DispatcherServlet)</li>
+<li>HandlerAdapter(处理器适配器、解析@RequestParam @RequestBody这种执行请求参数)</li>
+<li>Handle（执行对应方法,返回ModeAndView对象给DispatcherServlet）<blockquote>
+<p>我们项目一般前后端分离很少用ModeAndView返回，都是自定义对象返回,框架会将对象自动序列化为 JSON 格式返回</p>
+</blockquote>
+</li>
+<li>ViewResolver (视图解析器、解析ModeAndView对象、并在模板引擎渲染 如JSP，Freemarker)</li>
+</ol>
+<p>tomcat 部署一个web应用的目录如下：<br><code>WEB-INF</code> 目录位于每个 Web 应用的根目录下，通常路径如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">webapps/your-web-app/</span><br><span class="line">├── WEB-INF/</span><br><span class="line">│   ├── web.xml</span><br><span class="line">│   ├── classes/</span><br><span class="line">│   └── lib/</span><br><span class="line">├── index.jsp</span><br><span class="line">└── ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>作用</strong></p>
+<ul>
+<li><strong><code>web.xml</code></strong>：Web 应用的配置文件，用于定义 Servlet、过滤器、监听器等。</li>
+<li><strong><code>classes/</code></strong>：存放 Web 应用的自定义类文件（如 Servlet、工具类等）。</li>
+<li><strong><code>lib/</code></strong>：存放 Web 应用的第三方依赖库（JAR 文件）。</li>
+</ul>
+<p><strong>安全性</strong></p>
+<ul>
+<li><strong><code>WEB-INF</code> 目录是受保护的</strong>，无法通过 URL 直接访问。<ul>
+<li>例如，<code>http://localhost:8080/your-web-app/WEB-INF/web.xml</code> 会返回 404 错误。</li>
+</ul>
+</li>
+<li>只有 Tomcat 服务器可以访问 <code>WEB-INF</code> 目录中的内容。<br>web.xml：Web 应用的配置文件，用于定义 Servlet、过滤器、监听器等。<br>classes&#x2F;：存放 Web 应用的自定义类文件（如 Servlet、工具类等）。<br>lib&#x2F;：存放 Web 应用的第三方依赖库（JAR 文件）。</li>
+</ul>
+<hr>
+<ul>
 <li>常用设计模式</li>
 <li><ul>
 <li>枚举策略模式</li>
@@ -329,6 +433,18 @@
 </li>
 <li><ul>
 <li>适配器模式</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>深拷贝、浅拷贝</li>
+<li><ul>
+<li>Java Object有克隆的方法，要实现CloneAble的接口，然后默认是浅克隆引用不会是新的（共用一个对象），基本数据类型就赋值。</li>
+</ul>
+</li>
+<li><ul>
+<li>深克隆可以重写方法，或者用第三方工具反序列化这样</li>
 </ul>
 </li>
 </ul>
@@ -455,9 +571,33 @@
 <ul>
 <li>SpringBoot 自动装配流程</li>
 <li><ul>
+<li>boot前要手动配置DataSource数据库连接池，现在他帮你配好了。</li>
+</ul>
+</li>
+<li><ul>
 <li></li>
 </ul>
 </li>
+</ul>
+<hr>
+<ul>
+<li>ThreadLocal 了解过没</li>
+<li><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Redis 线程锁</li>
+<li><ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>跨域怎么出现的，怎么解决</li>
 </ul>
 <hr>
 <h3 id="Spring-总结"><a href="#Spring-总结" class="headerlink" title="Spring 总结"></a><strong>Spring 总结</strong></h3><h4 id="一、Spring-概述"><a href="#一、Spring-概述" class="headerlink" title="一、Spring 概述"></a><strong>一、Spring 概述</strong></h4><p><strong>Spring 的核心思想</strong></p>
@@ -465,19 +605,7 @@
 <li><strong>IoC（Inversion of Control，控制反转）</strong>：将对象的创建和依赖关系交给 Spring 容器管理。</li>
 <li><strong>AOP（Aspect-Oriented Programming，面向切面编程）</strong>：通过切面实现横切关注点的模块化。</li>
 </ul>
-<h4 id="二、Spring-核心模块"><a href="#二、Spring-核心模块" class="headerlink" title="二、Spring 核心模块"></a><strong>二、Spring 核心模块</strong></h4><ol>
-<li><strong>Spring Core Container</strong><ul>
-<li><strong>IoC 容器</strong>：<code>BeanFactory</code> 和 <code>ApplicationContext</code>。</li>
-<li><strong>DI（Dependency Injection，依赖注入）</strong>：构造函数注入、Setter 注入、字段注入。</li>
-</ul>
-</li>
-<li><strong>Spring AOP</strong><ul>
-<li>切面（Aspect）、连接点（Join Point）、通知（Advice）、切入点（Pointcut）。</li>
-<li>动态代理（JDK 动态代理(默认，不是接口再用别的，原理是反射）、CGLIB 代理(用继承关系，asm写字节码做的)）。</li>
-</ul>
-</li>
-</ol>
-<h4 id="三、Spring-数据访问"><a href="#三、Spring-数据访问" class="headerlink" title="三、Spring 数据访问"></a><strong>三、Spring 数据访问</strong></h4><ol>
+<h4 id="二、Spring-核心模块"><a href="#二、Spring-核心模块" class="headerlink" title="二、Spring 核心模块"></a><strong>二、Spring 核心模块</strong></h4><h4 id="三、Spring-数据访问"><a href="#三、Spring-数据访问" class="headerlink" title="三、Spring 数据访问"></a><strong>三、Spring 数据访问</strong></h4><ol>
 <li><strong>Spring JDBC</strong><ul>
 <li>简化 JDBC 操作，提供 <code>JdbcTemplate</code>。(statement那些)</li>
 </ul>
