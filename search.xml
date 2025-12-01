@@ -9247,6 +9247,298 @@
 ]]></content>
   </entry>
   <entry>
+    <title>kafka_learn</title>
+    <url>/2025/12/01/kafka-learn/</url>
+    <content><![CDATA[<h1 id="Kafka-学习项目"><a href="#Kafka-学习项目" class="headerlink" title="Kafka 学习项目"></a>Kafka 学习项目</h1><p>这是一个用于学习 Apache Kafka 的 Spring Boot 项目，通过不同的 Topic 区分不同的学习场景。</p>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>Java 8</li>
+<li>Spring Boot 2.7.18</li>
+<li>Spring Kafka</li>
+</ul>
+<hr>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="1-启动-Kafka（Docker）"><a href="#1-启动-Kafka（Docker）" class="headerlink" title="1. 启动 Kafka（Docker）"></a>1. 启动 Kafka（Docker）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> dockerInneed</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-启动-Spring-Boot-应用"><a href="#2-启动-Spring-Boot-应用" class="headerlink" title="2. 启动 Spring Boot 应用"></a>2. 启动 Spring Boot 应用</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-测试接口"><a href="#3-测试接口" class="headerlink" title="3. 测试接口"></a>3. 测试接口</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串消息</td>
+<td><a class="link"   href="http://localhost:11111/string/test" >http://localhost:11111/string/test<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td>JSON 对象</td>
+<td><a class="link"   href="http://localhost:11111/json/test" >http://localhost:11111/json/test<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">src/main/java/com/example/kafkalearn/</span><br><span class="line">│</span><br><span class="line">├── KafkaLearnApplication.java      # 主启动类</span><br><span class="line">│</span><br><span class="line">├── entity/</span><br><span class="line">│   └── Order.java                  # 订单实体类（用于 JSON 场景）</span><br><span class="line">│</span><br><span class="line">├── config/</span><br><span class="line">│   └── KafkaJsonConfig.java        # Kafka 配置（字符串 + JSON）</span><br><span class="line">│</span><br><span class="line">├── controller/</span><br><span class="line">│   ├── HelloController.java        # 基础测试接口</span><br><span class="line">│   ├── StringKafkaController.java  # 字符串消息接口</span><br><span class="line">│   └── JsonKafkaController.java    # JSON 对象接口</span><br><span class="line">│</span><br><span class="line">└── kafka/</span><br><span class="line">    ├── KafkaProducerService.java   # 字符串生产者</span><br><span class="line">    ├── KafkaConsumerService.java   # 字符串消费者</span><br><span class="line">    │</span><br><span class="line">    └── json/</span><br><span class="line">        ├── JsonProducerService.java    # JSON 生产者</span><br><span class="line">        └── JsonConsumerService.java    # JSON 消费者</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="学习场景说明"><a href="#学习场景说明" class="headerlink" title="学习场景说明"></a>学习场景说明</h2><h3 id="场景1：字符串消息（learn-topic）"><a href="#场景1：字符串消息（learn-topic）" class="headerlink" title="场景1：字符串消息（learn-topic）"></a>场景1：字符串消息（learn-topic）</h3><p><strong>学习内容</strong>：Kafka 基础 - 发送和接收简单的字符串消息</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Producer</td>
+<td><code>KafkaProducerService.java</code></td>
+<td>发送字符串到 Kafka</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td><code>KafkaConsumerService.java</code></td>
+<td>从 Kafka 接收字符串</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>StringKafkaController.java</code></td>
+<td>HTTP 测试接口</td>
+</tr>
+</tbody></table>
+<p><strong>测试接口</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 快速测试</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/string/test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义消息</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/string/send?message=HelloKafka&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="场景2：JSON-对象（json-topic）"><a href="#场景2：JSON-对象（json-topic）" class="headerlink" title="场景2：JSON 对象（json-topic）"></a>场景2：JSON 对象（json-topic）</h3><p><strong>学习内容</strong>：进阶 - 发送和接收 Java 对象（自动序列化&#x2F;反序列化）</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Entity</td>
+<td><code>Order.java</code></td>
+<td>订单实体类</td>
+</tr>
+<tr>
+<td>Producer</td>
+<td><code>JsonProducerService.java</code></td>
+<td>发送 Order 对象到 Kafka</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td><code>JsonConsumerService.java</code></td>
+<td>从 Kafka 接收 Order 对象</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>JsonKafkaController.java</code></td>
+<td>HTTP 测试接口</td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>KafkaJsonConfig.java</code></td>
+<td>JSON 序列化配置</td>
+</tr>
+</tbody></table>
+<p><strong>测试接口</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 快速测试（自动生成订单）</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/json/test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义订单</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/json/order?orderId=ORD001&amp;productName=iPhone&amp;price=7999&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Topic-一览"><a href="#Topic-一览" class="headerlink" title="Topic 一览"></a>Topic 一览</h2><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Group</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>learn-topic</code></td>
+<td><code>learn-group</code></td>
+<td>字符串消息学习</td>
+</tr>
+<tr>
+<td><code>json-topic</code></td>
+<td><code>json-group</code></td>
+<td>JSON 对象学习</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Kafka-核心概念"><a href="#Kafka-核心概念" class="headerlink" title="Kafka 核心概念"></a>Kafka 核心概念</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Producer</strong></td>
+<td>生产者，发送消息到 Kafka</td>
+</tr>
+<tr>
+<td><strong>Consumer</strong></td>
+<td>消费者，从 Kafka 接收消息</td>
+</tr>
+<tr>
+<td><strong>Topic</strong></td>
+<td>主题，消息的分类（你发到哪个 Topic，消费者就从哪个 Topic 收）</td>
+</tr>
+<tr>
+<td><strong>Consumer Group</strong></td>
+<td>消费者组，同组内消息只被一个消费者处理</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="常见问题-FAQ"><a href="#常见问题-FAQ" class="headerlink" title="常见问题 FAQ"></a>常见问题 FAQ</h2><h3 id="Q1：Producer-会重复发送吗？"><a href="#Q1：Producer-会重复发送吗？" class="headerlink" title="Q1：Producer 会重复发送吗？"></a>Q1：Producer 会重复发送吗？</h3><p><strong>不用担心，Kafka 自动处理。</strong></p>
+<p>Spring Kafka 默认开启「幂等 Producer」，通过消息序号自动去重。</p>
+<hr>
+<h3 id="Q2：Consumer-会重复消费吗？"><a href="#Q2：Consumer-会重复消费吗？" class="headerlink" title="Q2：Consumer 会重复消费吗？"></a>Q2：Consumer 会重复消费吗？</h3><p><strong>会！但不是每条都重复，是偶尔发生。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">正常流程：</span><br><span class="line">消费消息 → 处理完 → 自动 commit → Kafka 记录&quot;已消费&quot;</span><br><span class="line"></span><br><span class="line">重复消费发生在：</span><br><span class="line">消费消息 → 处理完 → 还没 commit → 应用突然挂了/重启</span><br><span class="line">                                    ↓</span><br><span class="line">                        Kafka 不知道你处理完了</span><br><span class="line">                                    ↓</span><br><span class="line">                        重新投递这条消息 → 重复消费！</span><br></pre></td></tr></table></figure>
+
+<p><strong>需要你自己做幂等处理！</strong></p>
+<hr>
+<h3 id="Q3：Redis-幂等和数据库幂等有什么区别？"><a href="#Q3：Redis-幂等和数据库幂等有什么区别？" class="headerlink" title="Q3：Redis 幂等和数据库幂等有什么区别？"></a>Q3：Redis 幂等和数据库幂等有什么区别？</h3><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>Redis SETNX</th>
+<th>数据库查 ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>速度</strong></td>
+<td>快（内存）</td>
+<td>慢（磁盘）</td>
+</tr>
+<tr>
+<td><strong>并发安全</strong></td>
+<td>✅ 原子操作</td>
+<td>❌ 有并发漏洞</td>
+</tr>
+<tr>
+<td><strong>持久性</strong></td>
+<td>会过期</td>
+<td>永久保存</td>
+</tr>
+<tr>
+<td><strong>推荐用法</strong></td>
+<td>第一道防线（快速过滤）</td>
+<td>兜底（数据库唯一索引）</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Q4：消费失败后怎么重试？"><a href="#Q4：消费失败后怎么重试？" class="headerlink" title="Q4：消费失败后怎么重试？"></a>Q4：消费失败后怎么重试？</h3><p><strong>默认不会重试！</strong> 抛异常后消息直接丢了。</p>
+<p><strong>为什么？因为自动提交机制：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────────┐</span><br><span class="line">│                     Consumer 内部                        │</span><br><span class="line">│                                                         │</span><br><span class="line">│   ┌─────────────────┐          ┌─────────────────┐     │</span><br><span class="line">│   │    主线程        │          │    后台线程      │     │</span><br><span class="line">│   │    处理消息      │          │    定时提交      │     │</span><br><span class="line">│   └─────────────────┘          └────────┬────────┘     │</span><br><span class="line">│           │                             │              │</span><br><span class="line">│           │ 处理中...                   │ 每5秒执行    │</span><br><span class="line">│           │ 抛异常了！                  │              │</span><br><span class="line">│           │                             ▼              │</span><br><span class="line">│           │              &quot;我消费到第100条了&quot;           │</span><br><span class="line">│           │                             │              │</span><br><span class="line">│           │                             ▼              │</span><br><span class="line">│           │                    ┌─────────────┐         │</span><br><span class="line">│           │                    │    Kafka    │         │</span><br><span class="line">│           │                    │ 记录offset  │         │</span><br><span class="line">│           │                    └─────────────┘         │</span><br><span class="line">│                                                         │</span><br><span class="line">│   主线程处理失败了，但后台线程不管，5秒到了照样提交       │</span><br><span class="line">│   结果：Kafka 以为你处理完了，消息就&quot;丢&quot;了              │</span><br><span class="line">│                                                         │</span><br><span class="line">└─────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键理解</strong>：</p>
+<ul>
+<li>自动提交是 Consumer 的<strong>后台线程</strong>定时（每5秒）把 offset 发给 Kafka</li>
+<li>后台线程不管主线程处理成功没有，时间到了就提交</li>
+<li>所以抛异常也会被提交，消息就丢了</li>
+</ul>
+<p><strong>解决方案</strong>：自己写业务重试逻辑：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@KafkaListener(topics = &quot;order-topic&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">maxRetry</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= maxRetry; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            orderService.process(order);</span><br><span class="line">            <span class="keyword">return</span>;  <span class="comment">// 成功，退出</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;第&#123;&#125;次处理失败: &#123;&#125;&quot;</span>, i, e.getMessage());</span><br><span class="line">            <span class="keyword">if</span> (i == maxRetry) &#123;</span><br><span class="line">                <span class="comment">// 彻底失败，记录到失败表，后续人工处理</span></span><br><span class="line">                saveToFailedTable(order, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q5：完整的消费者最佳实践？"><a href="#Q5：完整的消费者最佳实践？" class="headerlink" title="Q5：完整的消费者最佳实践？"></a>Q5：完整的消费者最佳实践？</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@KafkaListener(topics = &quot;order-topic&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;processed:&quot;</span> + order.getOrderId();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1. 幂等检查（Redis 快速过滤）</span></span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">isNew</span> <span class="operator">=</span> redis.opsForValue().setIfAbsent(key, <span class="string">&quot;PROCESSING&quot;</span>, <span class="number">5</span>, TimeUnit.MINUTES);</span><br><span class="line">    <span class="keyword">if</span> (!isNew) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;订单已处理/处理中，跳过: &#123;&#125;&quot;</span>, order.getOrderId());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 业务重试</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">maxRetry</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= maxRetry; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            orderService.process(order);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 3. 成功：标记完成（长过期时间）</span></span><br><span class="line">            redis.opsForValue().set(key, <span class="string">&quot;SUCCESS&quot;</span>, <span class="number">24</span>, TimeUnit.HOURS);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;第&#123;&#125;次处理失败: &#123;&#125;&quot;</span>, i, e.getMessage());</span><br><span class="line">            <span class="keyword">if</span> (i == maxRetry) &#123;</span><br><span class="line">                <span class="comment">// 4. 彻底失败：删除标记，记录失败</span></span><br><span class="line">                redis.delete(key);</span><br><span class="line">                saveToFailedTable(order, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q6：acks-配置是什么？"><a href="#Q6：acks-配置是什么？" class="headerlink" title="Q6：acks 配置是什么？"></a>Q6：acks 配置是什么？</h3><p>Producer 发消息时，等 Kafka 确认的级别：</p>
+<table>
+<thead>
+<tr>
+<th>acks</th>
+<th>含义</th>
+<th>速度</th>
+<th>安全性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0</code></td>
+<td>发了不管，不等确认</td>
+<td>最快</td>
+<td>可能丢</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>等 Leader 确认</td>
+<td>中等</td>
+<td>较安全</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>等所有副本确认</td>
+<td>最慢</td>
+<td>最安全</td>
+</tr>
+</tbody></table>
+<p><strong>副本</strong>：Kafka 把数据复制到多台服务器，防止某台挂了数据丢失。</p>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Producer 重复发送？</td>
+<td>Kafka 自动处理，不用管</td>
+</tr>
+<tr>
+<td>Consumer 重复消费？</td>
+<td>会偶尔发生，需要你做幂等</td>
+</tr>
+<tr>
+<td>怎么做幂等？</td>
+<td>Redis SETNX + 数据库唯一索引</td>
+</tr>
+<tr>
+<td>消费失败怎么办？</td>
+<td>代码里 for 循环重试，失败记录到表</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Docker-服务"><a href="#Docker-服务" class="headerlink" title="Docker 服务"></a>Docker 服务</h2><table>
+<thead>
+<tr>
+<th>服务</th>
+<th>端口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kafka</td>
+<td>9092</td>
+<td>消息队列服务</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>2181</td>
+<td>Kafka 协调服务</td>
+</tr>
+<tr>
+<td>Kafka UI</td>
+<td>8080</td>
+<td>Web 管理界面</td>
+</tr>
+</tbody></table>
+<p>访问 <a class="link"   href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a> 可以查看 Kafka 集群状态、Topic、消息等。</p>
+<hr>
+<h2 id="后续学习计划"><a href="#后续学习计划" class="headerlink" title="后续学习计划"></a>后续学习计划</h2><ul>
+<li><input disabled="" type="checkbox"> 消息确认机制（ACK）</li>
+<li><input disabled="" type="checkbox"> 消费者组详解</li>
+<li><input disabled="" type="checkbox"> 分区与并行消费</li>
+<li><input disabled="" type="checkbox"> 消息重试与死信队列</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>lombok 注解，绝中绝，顶上顶！</title>
     <url>/2021/12/20/lombok-%E6%B3%A8%E8%A7%A3%EF%BC%8C%E7%BB%9D%E4%B8%AD%E7%BB%9D%EF%BC%8C%E9%A1%B6%E4%B8%8A%E9%A1%B6%EF%BC%81/</url>
     <content><![CDATA[<h1 id="lombok-注解，绝中绝，顶上顶！"><a href="#lombok-注解，绝中绝，顶上顶！" class="headerlink" title="lombok 注解，绝中绝，顶上顶！"></a>lombok 注解，绝中绝，顶上顶！</h1><blockquote>

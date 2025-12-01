@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="磊磊">
+    
+    <title>
+        
+            kafka_learn |
+        
+        磊磊的博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.png">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#FF0033","title":"磊磊的博客","author":"磊磊","avatar":"/images/avatar.png","logo":"/images/logo.png","favicon":"/images/logo.png"},"menu":{"主页":"/","历史时间线":"/archives","本人AI":"https://ai.leijiba.cn/#/","免费听周杰伦":"https://share.leijiba.cn/#/"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/notfornothing","weixin":798953052,"qq":798953052,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":true,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created"},"post":{"author_badge":{"enable":false,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"left"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":"uusoui6cQCYvyLH6xdT2qgrO-gzGzoHsz","appkey":"UgHn5ltJEnt4uqclo2p9OkUM","server_urls":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null},{"code":"湘 ICP 备 2022016732 号 - 1","link":"https://beian.miit.gov.cn"}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               磊磊的博客
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                主页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                历史时间线
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" target="_blank" rel="noopener" href="https://ai.leijiba.cn/#/">
+                                
+                                本人AI
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" target="_blank" rel="noopener" href="https://share.leijiba.cn/#/">
+                                
+                                免费听周杰伦
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            主页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            历史时间线
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" target="_blank" rel="noopener" href="https://ai.leijiba.cn/#/">
+                            
+                            本人AI
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" target="_blank" rel="noopener" href="https://share.leijiba.cn/#/">
+                            
+                            免费听周杰伦
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        kafka_learn
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">磊磊</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-12-01 19:02:18</span>
+            </span>
+
+            
+        
+
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.5k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>6 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h1 id="Kafka-学习项目"><a href="#Kafka-学习项目" class="headerlink" title="Kafka 学习项目"></a>Kafka 学习项目</h1><p>这是一个用于学习 Apache Kafka 的 Spring Boot 项目，通过不同的 Topic 区分不同的学习场景。</p>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>Java 8</li>
+<li>Spring Boot 2.7.18</li>
+<li>Spring Kafka</li>
+</ul>
+<hr>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="1-启动-Kafka（Docker）"><a href="#1-启动-Kafka（Docker）" class="headerlink" title="1. 启动 Kafka（Docker）"></a>1. 启动 Kafka（Docker）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> dockerInneed</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-启动-Spring-Boot-应用"><a href="#2-启动-Spring-Boot-应用" class="headerlink" title="2. 启动 Spring Boot 应用"></a>2. 启动 Spring Boot 应用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn spring-boot:run</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-测试接口"><a href="#3-测试接口" class="headerlink" title="3. 测试接口"></a>3. 测试接口</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串消息</td>
+<td><a class="link"   target="_blank" rel="noopener" href="http://localhost:11111/string/test" >http://localhost:11111/string/test<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+<tr>
+<td>JSON 对象</td>
+<td><a class="link"   target="_blank" rel="noopener" href="http://localhost:11111/json/test" >http://localhost:11111/json/test<i class="fas fa-external-link-alt"></i></a></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">src/main/java/com/example/kafkalearn/</span><br><span class="line">│</span><br><span class="line">├── KafkaLearnApplication.java      # 主启动类</span><br><span class="line">│</span><br><span class="line">├── entity/</span><br><span class="line">│   └── Order.java                  # 订单实体类（用于 JSON 场景）</span><br><span class="line">│</span><br><span class="line">├── config/</span><br><span class="line">│   └── KafkaJsonConfig.java        # Kafka 配置（字符串 + JSON）</span><br><span class="line">│</span><br><span class="line">├── controller/</span><br><span class="line">│   ├── HelloController.java        # 基础测试接口</span><br><span class="line">│   ├── StringKafkaController.java  # 字符串消息接口</span><br><span class="line">│   └── JsonKafkaController.java    # JSON 对象接口</span><br><span class="line">│</span><br><span class="line">└── kafka/</span><br><span class="line">    ├── KafkaProducerService.java   # 字符串生产者</span><br><span class="line">    ├── KafkaConsumerService.java   # 字符串消费者</span><br><span class="line">    │</span><br><span class="line">    └── json/</span><br><span class="line">        ├── JsonProducerService.java    # JSON 生产者</span><br><span class="line">        └── JsonConsumerService.java    # JSON 消费者</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="学习场景说明"><a href="#学习场景说明" class="headerlink" title="学习场景说明"></a>学习场景说明</h2><h3 id="场景1：字符串消息（learn-topic）"><a href="#场景1：字符串消息（learn-topic）" class="headerlink" title="场景1：字符串消息（learn-topic）"></a>场景1：字符串消息（learn-topic）</h3><p><strong>学习内容</strong>：Kafka 基础 - 发送和接收简单的字符串消息</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Producer</td>
+<td><code>KafkaProducerService.java</code></td>
+<td>发送字符串到 Kafka</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td><code>KafkaConsumerService.java</code></td>
+<td>从 Kafka 接收字符串</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>StringKafkaController.java</code></td>
+<td>HTTP 测试接口</td>
+</tr>
+</tbody></table>
+<p><strong>测试接口</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速测试</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/string/test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义消息</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/string/send?message=HelloKafka&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="场景2：JSON-对象（json-topic）"><a href="#场景2：JSON-对象（json-topic）" class="headerlink" title="场景2：JSON 对象（json-topic）"></a>场景2：JSON 对象（json-topic）</h3><p><strong>学习内容</strong>：进阶 - 发送和接收 Java 对象（自动序列化&#x2F;反序列化）</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Entity</td>
+<td><code>Order.java</code></td>
+<td>订单实体类</td>
+</tr>
+<tr>
+<td>Producer</td>
+<td><code>JsonProducerService.java</code></td>
+<td>发送 Order 对象到 Kafka</td>
+</tr>
+<tr>
+<td>Consumer</td>
+<td><code>JsonConsumerService.java</code></td>
+<td>从 Kafka 接收 Order 对象</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>JsonKafkaController.java</code></td>
+<td>HTTP 测试接口</td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>KafkaJsonConfig.java</code></td>
+<td>JSON 序列化配置</td>
+</tr>
+</tbody></table>
+<p><strong>测试接口</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速测试（自动生成订单）</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/json/test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义订单</span></span><br><span class="line">curl --noproxy <span class="string">&#x27;*&#x27;</span> <span class="string">&quot;http://localhost:11111/json/order?orderId=ORD001&amp;productName=iPhone&amp;price=7999&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Topic-一览"><a href="#Topic-一览" class="headerlink" title="Topic 一览"></a>Topic 一览</h2><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Group</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>learn-topic</code></td>
+<td><code>learn-group</code></td>
+<td>字符串消息学习</td>
+</tr>
+<tr>
+<td><code>json-topic</code></td>
+<td><code>json-group</code></td>
+<td>JSON 对象学习</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Kafka-核心概念"><a href="#Kafka-核心概念" class="headerlink" title="Kafka 核心概念"></a>Kafka 核心概念</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Producer</strong></td>
+<td>生产者，发送消息到 Kafka</td>
+</tr>
+<tr>
+<td><strong>Consumer</strong></td>
+<td>消费者，从 Kafka 接收消息</td>
+</tr>
+<tr>
+<td><strong>Topic</strong></td>
+<td>主题，消息的分类（你发到哪个 Topic，消费者就从哪个 Topic 收）</td>
+</tr>
+<tr>
+<td><strong>Consumer Group</strong></td>
+<td>消费者组，同组内消息只被一个消费者处理</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="常见问题-FAQ"><a href="#常见问题-FAQ" class="headerlink" title="常见问题 FAQ"></a>常见问题 FAQ</h2><h3 id="Q1：Producer-会重复发送吗？"><a href="#Q1：Producer-会重复发送吗？" class="headerlink" title="Q1：Producer 会重复发送吗？"></a>Q1：Producer 会重复发送吗？</h3><p><strong>不用担心，Kafka 自动处理。</strong></p>
+<p>Spring Kafka 默认开启「幂等 Producer」，通过消息序号自动去重。</p>
+<hr>
+<h3 id="Q2：Consumer-会重复消费吗？"><a href="#Q2：Consumer-会重复消费吗？" class="headerlink" title="Q2：Consumer 会重复消费吗？"></a>Q2：Consumer 会重复消费吗？</h3><p><strong>会！但不是每条都重复，是偶尔发生。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">正常流程：</span><br><span class="line">消费消息 → 处理完 → 自动 commit → Kafka 记录&quot;已消费&quot;</span><br><span class="line"></span><br><span class="line">重复消费发生在：</span><br><span class="line">消费消息 → 处理完 → 还没 commit → 应用突然挂了/重启</span><br><span class="line">                                    ↓</span><br><span class="line">                        Kafka 不知道你处理完了</span><br><span class="line">                                    ↓</span><br><span class="line">                        重新投递这条消息 → 重复消费！</span><br></pre></td></tr></table></figure>
+
+<p><strong>需要你自己做幂等处理！</strong></p>
+<hr>
+<h3 id="Q3：Redis-幂等和数据库幂等有什么区别？"><a href="#Q3：Redis-幂等和数据库幂等有什么区别？" class="headerlink" title="Q3：Redis 幂等和数据库幂等有什么区别？"></a>Q3：Redis 幂等和数据库幂等有什么区别？</h3><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>Redis SETNX</th>
+<th>数据库查 ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>速度</strong></td>
+<td>快（内存）</td>
+<td>慢（磁盘）</td>
+</tr>
+<tr>
+<td><strong>并发安全</strong></td>
+<td>✅ 原子操作</td>
+<td>❌ 有并发漏洞</td>
+</tr>
+<tr>
+<td><strong>持久性</strong></td>
+<td>会过期</td>
+<td>永久保存</td>
+</tr>
+<tr>
+<td><strong>推荐用法</strong></td>
+<td>第一道防线（快速过滤）</td>
+<td>兜底（数据库唯一索引）</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="Q4：消费失败后怎么重试？"><a href="#Q4：消费失败后怎么重试？" class="headerlink" title="Q4：消费失败后怎么重试？"></a>Q4：消费失败后怎么重试？</h3><p><strong>默认不会重试！</strong> 抛异常后消息直接丢了。</p>
+<p><strong>为什么？因为自动提交机制：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────────┐</span><br><span class="line">│                     Consumer 内部                        │</span><br><span class="line">│                                                         │</span><br><span class="line">│   ┌─────────────────┐          ┌─────────────────┐     │</span><br><span class="line">│   │    主线程        │          │    后台线程      │     │</span><br><span class="line">│   │    处理消息      │          │    定时提交      │     │</span><br><span class="line">│   └─────────────────┘          └────────┬────────┘     │</span><br><span class="line">│           │                             │              │</span><br><span class="line">│           │ 处理中...                   │ 每5秒执行    │</span><br><span class="line">│           │ 抛异常了！                  │              │</span><br><span class="line">│           │                             ▼              │</span><br><span class="line">│           │              &quot;我消费到第100条了&quot;           │</span><br><span class="line">│           │                             │              │</span><br><span class="line">│           │                             ▼              │</span><br><span class="line">│           │                    ┌─────────────┐         │</span><br><span class="line">│           │                    │    Kafka    │         │</span><br><span class="line">│           │                    │ 记录offset  │         │</span><br><span class="line">│           │                    └─────────────┘         │</span><br><span class="line">│                                                         │</span><br><span class="line">│   主线程处理失败了，但后台线程不管，5秒到了照样提交       │</span><br><span class="line">│   结果：Kafka 以为你处理完了，消息就&quot;丢&quot;了              │</span><br><span class="line">│                                                         │</span><br><span class="line">└─────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键理解</strong>：</p>
+<ul>
+<li>自动提交是 Consumer 的<strong>后台线程</strong>定时（每5秒）把 offset 发给 Kafka</li>
+<li>后台线程不管主线程处理成功没有，时间到了就提交</li>
+<li>所以抛异常也会被提交，消息就丢了</li>
+</ul>
+<p><strong>解决方案</strong>：自己写业务重试逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@KafkaListener(topics = &quot;order-topic&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">maxRetry</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= maxRetry; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            orderService.process(order);</span><br><span class="line">            <span class="keyword">return</span>;  <span class="comment">// 成功，退出</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;第&#123;&#125;次处理失败: &#123;&#125;&quot;</span>, i, e.getMessage());</span><br><span class="line">            <span class="keyword">if</span> (i == maxRetry) &#123;</span><br><span class="line">                <span class="comment">// 彻底失败，记录到失败表，后续人工处理</span></span><br><span class="line">                saveToFailedTable(order, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q5：完整的消费者最佳实践？"><a href="#Q5：完整的消费者最佳实践？" class="headerlink" title="Q5：完整的消费者最佳实践？"></a>Q5：完整的消费者最佳实践？</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@KafkaListener(topics = &quot;order-topic&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">(Order order)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;processed:&quot;</span> + order.getOrderId();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1. 幂等检查（Redis 快速过滤）</span></span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">isNew</span> <span class="operator">=</span> redis.opsForValue().setIfAbsent(key, <span class="string">&quot;PROCESSING&quot;</span>, <span class="number">5</span>, TimeUnit.MINUTES);</span><br><span class="line">    <span class="keyword">if</span> (!isNew) &#123;</span><br><span class="line">        log.info(<span class="string">&quot;订单已处理/处理中，跳过: &#123;&#125;&quot;</span>, order.getOrderId());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2. 业务重试</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">maxRetry</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= maxRetry; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            orderService.process(order);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 3. 成功：标记完成（长过期时间）</span></span><br><span class="line">            redis.opsForValue().set(key, <span class="string">&quot;SUCCESS&quot;</span>, <span class="number">24</span>, TimeUnit.HOURS);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.warn(<span class="string">&quot;第&#123;&#125;次处理失败: &#123;&#125;&quot;</span>, i, e.getMessage());</span><br><span class="line">            <span class="keyword">if</span> (i == maxRetry) &#123;</span><br><span class="line">                <span class="comment">// 4. 彻底失败：删除标记，记录失败</span></span><br><span class="line">                redis.delete(key);</span><br><span class="line">                saveToFailedTable(order, e.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q6：acks-配置是什么？"><a href="#Q6：acks-配置是什么？" class="headerlink" title="Q6：acks 配置是什么？"></a>Q6：acks 配置是什么？</h3><p>Producer 发消息时，等 Kafka 确认的级别：</p>
+<table>
+<thead>
+<tr>
+<th>acks</th>
+<th>含义</th>
+<th>速度</th>
+<th>安全性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0</code></td>
+<td>发了不管，不等确认</td>
+<td>最快</td>
+<td>可能丢</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>等 Leader 确认</td>
+<td>中等</td>
+<td>较安全</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>等所有副本确认</td>
+<td>最慢</td>
+<td>最安全</td>
+</tr>
+</tbody></table>
+<p><strong>副本</strong>：Kafka 把数据复制到多台服务器，防止某台挂了数据丢失。</p>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Producer 重复发送？</td>
+<td>Kafka 自动处理，不用管</td>
+</tr>
+<tr>
+<td>Consumer 重复消费？</td>
+<td>会偶尔发生，需要你做幂等</td>
+</tr>
+<tr>
+<td>怎么做幂等？</td>
+<td>Redis SETNX + 数据库唯一索引</td>
+</tr>
+<tr>
+<td>消费失败怎么办？</td>
+<td>代码里 for 循环重试，失败记录到表</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Docker-服务"><a href="#Docker-服务" class="headerlink" title="Docker 服务"></a>Docker 服务</h2><table>
+<thead>
+<tr>
+<th>服务</th>
+<th>端口</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kafka</td>
+<td>9092</td>
+<td>消息队列服务</td>
+</tr>
+<tr>
+<td>Zookeeper</td>
+<td>2181</td>
+<td>Kafka 协调服务</td>
+</tr>
+<tr>
+<td>Kafka UI</td>
+<td>8080</td>
+<td>Web 管理界面</td>
+</tr>
+</tbody></table>
+<p>访问 <a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a> 可以查看 Kafka 集群状态、Topic、消息等。</p>
+<hr>
+<h2 id="后续学习计划"><a href="#后续学习计划" class="headerlink" title="后续学习计划"></a>后续学习计划</h2><ul>
+<li><input disabled="" type="checkbox"> 消息确认机制（ACK）</li>
+<li><input disabled="" type="checkbox"> 消费者组详解</li>
+<li><input disabled="" type="checkbox"> 分区与并行消费</li>
+<li><input disabled="" type="checkbox"> 消息重试与死信队列</li>
+</ul>
+
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/03/16/Spring-%E6%80%BB%E7%BB%93/"
+                                   title="Spring 总结"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Spring 总结</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc left-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE"><span class="nav-text">Kafka 学习项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="nav-text">技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%90%AF%E5%8A%A8-Kafka%EF%BC%88Docker%EF%BC%89"><span class="nav-text">1. 启动 Kafka（Docker）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%90%AF%E5%8A%A8-Spring-Boot-%E5%BA%94%E7%94%A8"><span class="nav-text">2. 启动 Spring Boot 应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">3. 测试接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E5%9C%BA%E6%99%AF%E8%AF%B4%E6%98%8E"><span class="nav-text">学习场景说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF1%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B6%88%E6%81%AF%EF%BC%88learn-topic%EF%BC%89"><span class="nav-text">场景1：字符串消息（learn-topic）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF2%EF%BC%9AJSON-%E5%AF%B9%E8%B1%A1%EF%BC%88json-topic%EF%BC%89"><span class="nav-text">场景2：JSON 对象（json-topic）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topic-%E4%B8%80%E8%A7%88"><span class="nav-text">Topic 一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">Kafka 核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-FAQ"><span class="nav-text">常见问题 FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1%EF%BC%9AProducer-%E4%BC%9A%E9%87%8D%E5%A4%8D%E5%8F%91%E9%80%81%E5%90%97%EF%BC%9F"><span class="nav-text">Q1：Producer 会重复发送吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2%EF%BC%9AConsumer-%E4%BC%9A%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%E5%90%97%EF%BC%9F"><span class="nav-text">Q2：Consumer 会重复消费吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3%EF%BC%9ARedis-%E5%B9%82%E7%AD%89%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B9%82%E7%AD%89%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">Q3：Redis 幂等和数据库幂等有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4%EF%BC%9A%E6%B6%88%E8%B4%B9%E5%A4%B1%E8%B4%A5%E5%90%8E%E6%80%8E%E4%B9%88%E9%87%8D%E8%AF%95%EF%BC%9F"><span class="nav-text">Q4：消费失败后怎么重试？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5%EF%BC%9A%E5%AE%8C%E6%95%B4%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%9F"><span class="nav-text">Q5：完整的消费者最佳实践？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6%EF%BC%9Aacks-%E9%85%8D%E7%BD%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Q6：acks 配置是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-text">一句话总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E6%9C%8D%E5%8A%A1"><span class="nav-text">Docker 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92"><span class="nav-text">后续学习计划</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">磊磊</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools left-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-%E5%AD%A6%E4%B9%A0%E9%A1%B9%E7%9B%AE"><span class="nav-text">Kafka 学习项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88"><span class="nav-text">技术栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%90%AF%E5%8A%A8-Kafka%EF%BC%88Docker%EF%BC%89"><span class="nav-text">1. 启动 Kafka（Docker）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%90%AF%E5%8A%A8-Spring-Boot-%E5%BA%94%E7%94%A8"><span class="nav-text">2. 启动 Spring Boot 应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">3. 测试接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E5%9C%BA%E6%99%AF%E8%AF%B4%E6%98%8E"><span class="nav-text">学习场景说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF1%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B6%88%E6%81%AF%EF%BC%88learn-topic%EF%BC%89"><span class="nav-text">场景1：字符串消息（learn-topic）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF2%EF%BC%9AJSON-%E5%AF%B9%E8%B1%A1%EF%BC%88json-topic%EF%BC%89"><span class="nav-text">场景2：JSON 对象（json-topic）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Topic-%E4%B8%80%E8%A7%88"><span class="nav-text">Topic 一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">Kafka 核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98-FAQ"><span class="nav-text">常见问题 FAQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1%EF%BC%9AProducer-%E4%BC%9A%E9%87%8D%E5%A4%8D%E5%8F%91%E9%80%81%E5%90%97%EF%BC%9F"><span class="nav-text">Q1：Producer 会重复发送吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2%EF%BC%9AConsumer-%E4%BC%9A%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%E5%90%97%EF%BC%9F"><span class="nav-text">Q2：Consumer 会重复消费吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q3%EF%BC%9ARedis-%E5%B9%82%E7%AD%89%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B9%82%E7%AD%89%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-text">Q3：Redis 幂等和数据库幂等有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q4%EF%BC%9A%E6%B6%88%E8%B4%B9%E5%A4%B1%E8%B4%A5%E5%90%8E%E6%80%8E%E4%B9%88%E9%87%8D%E8%AF%95%EF%BC%9F"><span class="nav-text">Q4：消费失败后怎么重试？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q5%EF%BC%9A%E5%AE%8C%E6%95%B4%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%9F"><span class="nav-text">Q5：完整的消费者最佳实践？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q6%EF%BC%9Aacks-%E9%85%8D%E7%BD%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Q6：acks 配置是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-text">一句话总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-%E6%9C%8D%E5%8A%A1"><span class="nav-text">Docker 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92"><span class="nav-text">后续学习计划</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
